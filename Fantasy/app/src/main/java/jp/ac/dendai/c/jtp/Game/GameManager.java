@@ -8,6 +8,7 @@ import jp.ac.dendai.c.jtp.UIs.Screen.Screenable;
 import jp.ac.dendai.c.jtp.UIs.Transition.Transitionable;
 
 public class GameManager {
+	public static int fps = 60;
 	public static boolean debug = false;
 	public static Screenable nowScreen;
 	public static Screenable nextScreen;

@@ -7,5 +7,6 @@ public class Constant {
     private static float sens = 1.0f;
     public static void setSens(float n){ sens = n;}
     public static float getSens(){return sens;}
+    public static final String fontName = "custom_font.ttf";
 
 }

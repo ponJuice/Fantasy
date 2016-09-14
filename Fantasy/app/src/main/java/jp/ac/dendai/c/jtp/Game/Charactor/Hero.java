@@ -11,6 +11,6 @@ public class Hero {
         faces = fr.createFaces();
     }
     public Bitmap getFace(int n){
-        return faces[n];
+        return faces[n % faces.length];
     }
 }

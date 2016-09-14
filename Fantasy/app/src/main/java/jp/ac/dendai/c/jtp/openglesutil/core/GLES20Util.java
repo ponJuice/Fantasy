@@ -6,10 +6,13 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.FontMetrics;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.opengl.GLES20;
 import android.opengl.Matrix;
 import android.util.Log;
 
+import jp.ac.dendai.c.jtp.Game.GameManager;
+import jp.ac.dendai.c.jtp.UIs.UI.Text.StringBitmap;
 import jp.ac.dendai.c.jtp.openglesutil.graphic.Image;
 import jp.ac.dendai.c.jtp.openglesutil.graphic.blending_mode.GLES20COMPOSITIONMODE;
 
@@ -38,14 +41,16 @@ public class GLES20Util extends abstractGLES20Util {
 		return 0;
 	}
 	//文字列描画
-	public static Bitmap stringToBitmap(String text,float size,int r,int g,int b){
+	public static Bitmap stringToBitmap(String text,String fontName,float size,int r,int g,int b){
 		//描画するテキスト
 		paint = new Paint();
 
 		paint.setAntiAlias(true);
 		paint.setColor(Color.rgb(r, g, b));
-		paint.setTextSize(size*100);
+		paint.setTextSize(size);
 		paint.getTextBounds(text, 0, text.length(), new Rect());
+		Typeface type = Typeface.createFromAsset(GameManager.act.getAssets(), fontName);
+		paint.setTypeface(type);
 		FontMetrics fm = paint.getFontMetrics();
 		//テキストの表示範囲を設定
 
@@ -60,8 +65,60 @@ public class GLES20Util extends abstractGLES20Util {
 		return bitmap;
 	}
 
-	public static void DrawString(String string,int size,int r,int g,int b,float alpha,float x,float y,GLES20COMPOSITIONMODE mode){
-		Bitmap bitmap = stringToBitmap(string,size,r,g,b);
+	//文字列描画
+	public static StringBitmap stringToStringBitmap(String text,String fontName,float size, int r, int g, int b){
+		//描画するテキスト
+		paint = new Paint();
+
+		paint.setAntiAlias(true);
+		paint.setColor(Color.rgb(r, g, b));
+		paint.setTextSize(size);
+		paint.getTextBounds(text, 0, text.length(), new Rect());
+		Typeface type = Typeface.createFromAsset(GameManager.act.getAssets(),fontName);
+		paint.setTypeface(type);
+		FontMetrics fm = paint.getFontMetrics();
+		//テキストの表示範囲を設定
+
+		int textWidth = (int) paint.measureText(text);
+		int textHeight = (int) (Math.abs(fm.top) + fm.bottom);
+		Bitmap bitmap = Bitmap.createBitmap(textWidth, textHeight, Bitmap.Config.ARGB_8888);
+
+		//キャンバスからビットマップを取得
+		canvas = new Canvas(bitmap);
+		//canvas.drawColor(Color.BLUE);
+		canvas.drawText(text, 0, Math.abs(fm.top), paint);
+
+		return new StringBitmap(bitmap,paint.getFontMetrics(),textWidth);
+	}
+
+	//文字列描画
+	public static Bitmap stringToBitmap(String text,String fontName,float size,int r,int g,int b,int br,int bg,int bb){
+		//描画するテキスト
+		paint = new Paint();
+
+		paint.setAntiAlias(true);
+		paint.setColor(Color.rgb(r, g, b));
+		paint.setTextSize(size);
+		paint.getTextBounds(text, 0, text.length(), new Rect());
+		Typeface type = Typeface.createFromAsset(GameManager.act.getAssets(), fontName);
+		paint.setTypeface(type);
+		FontMetrics fm = paint.getFontMetrics();
+		//テキストの表示範囲を設定
+
+		int textWidth = (int) paint.measureText(text);
+		int textHeight = (int) (Math.abs(fm.top) + fm.bottom);
+		Bitmap bitmap = Bitmap.createBitmap(textWidth, textHeight, Bitmap.Config.ARGB_8888);
+
+		//キャンバスからビットマップを取得
+		canvas = new Canvas(bitmap);
+		canvas.drawColor(Color.argb(255,br,bg,bb));
+		canvas.drawText(text, 0, Math.abs(fm.top), paint);
+
+		return bitmap;
+	}
+
+	public static void DrawString(String string,String fontname,int size,int r,int g,int b,float alpha,float x,float y,GLES20COMPOSITIONMODE mode){
+		Bitmap bitmap = stringToBitmap(string,"メイリオ",size,r,g,b);
 		//Log.d("DrawString",String.valueOf(bitmap.getWidth()));
 		DrawGraph(x, y, bitmap.getWidth() / 1000f, bitmap.getHeight() / 1000f, bitmap, alpha, mode);
 	}

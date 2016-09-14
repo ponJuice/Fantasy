@@ -34,7 +34,7 @@ public class Text {
 		this.r = r;
 		this.g = g;
 		this.b = b;
-		bitmap = GLES20Util.stringToBitmap(text, 1, r, g, b);
+		bitmap = GLES20Util.stringToBitmap(text,CharactorsMap.def_fontName ,1, r, g, b);
 		alpha = 1f;
 	}
 	public float getScaleX() {

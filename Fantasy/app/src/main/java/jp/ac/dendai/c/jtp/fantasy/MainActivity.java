@@ -16,12 +16,14 @@ import jp.ac.dendai.c.jtp.TouchUtil.Input;
 import jp.ac.dendai.c.jtp.TouchUtil.Touch;
 import jp.ac.dendai.c.jtp.UIs.Screen.TownScreen;
 import jp.ac.dendai.c.jtp.openglesutil.Util.FileManager;
+import jp.ac.dendai.c.jtp.openglesutil.Util.FpsController;
 import jp.ac.dendai.c.jtp.openglesutil.Util.ImageReader;
 import jp.ac.dendai.c.jtp.openglesutil.core.GLES20Util;
 import jp.ac.dendai.c.jtp.openglesutil.graphic.blending_mode.GLES20COMPOSITIONMODE;
 
 public class MainActivity extends Activity implements GLSurfaceView.Renderer{
     protected Bitmap image;
+    protected boolean firstStart = true;
 
     @Override
     public boolean onTouchEvent(MotionEvent event)
@@ -96,6 +98,10 @@ public class MainActivity extends Activity implements GLSurfaceView.Renderer{
         Input.setMaxTouch(1);
         Input.setOrientation(getResources().getConfiguration().orientation);
 
+        FpsController.initFpsController((short) GameManager.fps);
+
+        GameManager.act = this;
+
         Log.d("onCreate", "onCreate finished");
     }
 
@@ -133,13 +139,16 @@ public class MainActivity extends Activity implements GLSurfaceView.Renderer{
     public void onSurfaceCreated(GL10 arg0, EGLConfig arg1) {
         String vertexShader = new String(FileManager.readShaderFile(this, "VSHADER.txt"));
         String fragmentShader = new String(FileManager.readShaderFile(this,"FSHADER.txt"));
-        GLES20Util.initGLES20Util(vertexShader,fragmentShader);
+        GLES20Util.initGLES20Util(vertexShader, fragmentShader);
         GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // 画面をクリアする色を設定する
-
-        GameManager.nowScreen = new TownScreen();
     }
 
     private void process(){
+        if(firstStart){
+            GameManager.nowScreen = new TownScreen();
+            firstStart = false;
+        }
+        FpsController.updateFps();
         if(GameManager.nowScreen != null)
             GameManager.nowScreen.Proc();
 
