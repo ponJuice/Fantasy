@@ -12,7 +12,9 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapRegionDecoder;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Rect;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
@@ -469,27 +471,64 @@ public abstract class abstractGLES20Util {
 	  }
 
 	  /**
-	   * 画像ファイルの読み込み、切り抜き
-	   * @return 作成したbitmapデータ
-	   */
-	  //画像ファイルの読み込み　切り抜き
-	  public static Bitmap loadBitmap(int startX,int startY,int endX,int endY,int id){
-		  Log.d("loadBitmap cutRect","start:("+startX+","+startY+") end:("+endX+","+endY+") id:"+id);
-		  //画像ファイルを切り抜いて読み込む
-		  //targetActivity.get
-		  BitmapRegionDecoder regionDecoder;
-		  Resources res = targetActivity.getResources();
-		  InputStream is = res.openRawResource(id);
+	 * 画像ファイルの読み込み、切り抜き
+	 * @return 作成したbitmapデータ
+	 */
+	//画像ファイルの読み込み　切り抜き
+	public static Bitmap loadBitmap(int startX,int startY,int endX,int endY,int id){
+		Log.d("loadBitmap cutRect","start:("+startX+","+startY+") end:("+endX+","+endY+") id:"+id);
+		//画像ファイルを切り抜いて読み込む
+		//targetActivity.get
+		BitmapRegionDecoder regionDecoder;
+		Resources res = targetActivity.getResources();
 		try{
-		  regionDecoder = BitmapRegionDecoder.newInstance(is, false);
-		  Rect rect = new Rect(startX,startY,endX,endY);	//切り抜く領域（矩形クラス）の用意
+			InputStream is = res.openRawResource(id);
+			regionDecoder = BitmapRegionDecoder.newInstance(is, false);
+			Rect rect = new Rect(startX,startY,endX,endY);	//切り抜く領域（矩形クラス）の用意
 			Bitmap b = regionDecoder.decodeRegion(rect,null);
-		  return b.copy(Bitmap.Config.ARGB_8888,true);	//RegionDecoderで読み込んだbitmapはイミュターブル（不変）なのでもコピーメソッドを使いコピーしてミュータブル（変更可）にする
-	  	} catch (IOException e) {
-		    e.printStackTrace();
+			is.close();
+			is = null;
+			return b.copy(Bitmap.Config.ARGB_8888,true);	//RegionDecoderで読み込んだbitmapはイミュターブル（不変）なのでもコピーメソッドを使いコピーしてミュータブル（変更可）にする
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-		  return null;
-	  }
+		return null;
+	}
+
+	/**
+	 * 画像ファイルを切り抜き
+	 * @param startX　ソースの左上
+	 * @param startY	ソースの左上
+	 * @param endX		ソースの右下
+	 * @param endY		ソースの右下
+	 * @param width	縁の太らせ具合（透明）
+     * @param id		リソースID
+     * @return
+     */
+	//画像ファイルの読み込み　切り抜き
+	public static Bitmap loadBitmap(int startX,int startY,int endX,int endY,int width,int id){
+		Log.d("loadBitmap cutRect","start:("+startX+","+startY+") end:("+endX+","+endY+") id:"+id);
+		//画像ファイルを切り抜いて読み込む
+		//targetActivity.get
+		BitmapRegionDecoder regionDecoder;
+		Resources res = targetActivity.getResources();
+		InputStream is = res.openRawResource(id);
+		try{
+			regionDecoder = BitmapRegionDecoder.newInstance(is, false);
+			Rect rect = new Rect(startX,startY,endX,endY);	//切り抜く領域（矩形クラス）の用意
+			Bitmap b = regionDecoder.decodeRegion(rect,null);
+			if(!b.isMutable())
+				b = b.copy(Bitmap.Config.ARGB_8888,true);
+			Bitmap result = Bitmap.createBitmap(endX-startX,endY-startY, Bitmap.Config.ARGB_8888);
+			Canvas c = new Canvas(result);
+			b = Bitmap.createScaledBitmap(b,endX-startX-width-width,endY-startY-width-width,false);
+			c.drawBitmap(b,width,width,(Paint)null);
+			return result;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	  /**
 	   * 単色塗りつぶしたビットマップを作成
@@ -515,7 +554,7 @@ public abstract class abstractGLES20Util {
 		height_gl = 1f;
 		width_gl = (float)width / (float) height;
 
-		Log.d("initDrawErea","Device Size:("+width+" , "+ height+") GL Size:("+width_gl+" , "+height_gl+")");
+		Log.d("initDrawErea","Device Size:("+width+" , "+ height+") GL Size:("+width_gl+" , "+height_gl+") aspect:"+aspect);
 
 		GLES20.glViewport(0,0,width,height);
 		if(Perspective){
@@ -526,7 +565,7 @@ public abstract class abstractGLES20Util {
 		}
 		else{
 			//Matrix.orthoM(u_ProjMatrix,0,0,width_gl,0,getHeight_gl(),mNear/100,mFar/100);
-			Matrix.orthoM(u_ProjMatrix,0,-aspect,aspect,-1.0f,1.0f,mNear/100,mFar/100);
+			Matrix.orthoM(u_ProjMatrix,0,0,aspect,0f,1f,mNear/100,mFar/100);
 			//Matrix.orthoM(u_ProjMatrix,0,0f,aspect,0f,1.0f,mNear/100,mFar/100);
 			viewProjMatrix = u_ProjMatrix;
 		}

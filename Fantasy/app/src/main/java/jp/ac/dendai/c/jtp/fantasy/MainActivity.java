@@ -11,8 +11,10 @@ import android.view.MotionEvent;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
+import jp.ac.dendai.c.jtp.Game.GameManager;
 import jp.ac.dendai.c.jtp.TouchUtil.Input;
 import jp.ac.dendai.c.jtp.TouchUtil.Touch;
+import jp.ac.dendai.c.jtp.UIs.Screen.TownScreen;
 import jp.ac.dendai.c.jtp.openglesutil.Util.FileManager;
 import jp.ac.dendai.c.jtp.openglesutil.Util.ImageReader;
 import jp.ac.dendai.c.jtp.openglesutil.core.GLES20Util;
@@ -100,11 +102,15 @@ public class MainActivity extends Activity implements GLSurfaceView.Renderer{
     @Override
     protected void onResume() {
         super.onResume();
+        if(GameManager.nowScreen != null)
+            GameManager.nowScreen.resume();
     }
 
     @Override
     public void onPause(){
         super.onPause();
+        if(GameManager.nowScreen != null)
+            GameManager.nowScreen.pause();
     }
 
     @Override
@@ -129,18 +135,21 @@ public class MainActivity extends Activity implements GLSurfaceView.Renderer{
         String fragmentShader = new String(FileManager.readShaderFile(this,"FSHADER.txt"));
         GLES20Util.initGLES20Util(vertexShader,fragmentShader);
         GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // 画面をクリアする色を設定する
+
+        GameManager.nowScreen = new TownScreen();
     }
 
     private void process(){
-
+        if(GameManager.nowScreen != null)
+            GameManager.nowScreen.Proc();
 
     }
 
     private void draw(){
         // 描画領域をクリアする
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
-
-        GLES20Util.DrawGraph(0.5f,0.5f,1f,1f,image,1, GLES20COMPOSITIONMODE.ALPHA);
+        if(GameManager.nowScreen != null)
+            GameManager.nowScreen.Draw(0,0);
     }
 
 }

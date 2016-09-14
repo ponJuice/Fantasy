@@ -79,7 +79,7 @@ public class GLES20Util extends abstractGLES20Util {
 
 		//float[] modelMatrix = new float[16];
 		Matrix.setIdentityM(modelMatrix, 0);
-		Matrix.translateM(modelMatrix, 0, startX - aspect, startY - 1.0f, 0.0f);
+		Matrix.translateM(modelMatrix, 0, startX, startY, 0.0f);
 		Matrix.scaleM(modelMatrix, 0, scaleX, scaleY, 1.0f);
 		Matrix.rotateM(modelMatrix, 0, degree, 0, 0, 1);
 		setShaderModelMatrix(modelMatrix);
