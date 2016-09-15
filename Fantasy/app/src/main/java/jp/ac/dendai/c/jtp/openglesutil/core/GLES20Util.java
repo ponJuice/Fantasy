@@ -41,7 +41,7 @@ public class GLES20Util extends abstractGLES20Util {
 		return 0;
 	}
 	//文字列描画
-	public static Bitmap stringToBitmap(String text,String fontName,float size,int r,int g,int b){
+	/*public static Bitmap stringToBitmap(String text,String fontName,float size,int r,int g,int b){
 		//描画するテキスト
 		paint = new Paint();
 
@@ -61,6 +61,41 @@ public class GLES20Util extends abstractGLES20Util {
 		//キャンバスからビットマップを取得
 		canvas = new Canvas(bitmap);
 		canvas.drawText(text, 0, Math.abs(fm.top), paint);
+
+		return bitmap;
+	}*/
+	public static Bitmap stringToBitmap(String text,String fontName,float size,int r,int g,int b){
+		String[] line = text.split("\n");
+
+		//描画するテキスト
+		paint = new Paint();
+
+		paint.setAntiAlias(true);
+		paint.setColor(Color.rgb(r, g, b));
+		paint.setTextSize(size);
+		int textWidth = 0;
+		int textHeight = 0;
+		for(int n = 0;n < line.length;n++){
+			paint.getTextBounds(line[n], 0, line[n].length(), new Rect());
+			//Typeface type = Typeface.createFromAsset(GameManager.act.getAssets(), fontName);
+			//paint.setTypeface(type);
+			FontMetrics fm = paint.getFontMetrics();
+			//テキストの表示範囲を設定
+
+			textWidth = Math.max((int) paint.measureText(line[n]),textWidth);
+			textHeight += (int) (Math.abs(fm.top) + fm.bottom);
+		}
+		Bitmap bitmap = Bitmap.createBitmap(textWidth, textHeight, Bitmap.Config.ARGB_8888);
+		canvas = new Canvas(bitmap);
+		canvas.drawARGB(255,0,0,0);
+		for(int n = 0;n < line.length;n++) {
+			paint.getTextBounds(line[n], 0, line[n].length(), new Rect());
+			//Typeface type = Typeface.createFromAsset(GameManager.act.getAssets(), fontName);
+			//paint.setTypeface(type);
+			FontMetrics fm = paint.getFontMetrics();
+			//キャンバスからビットマップを取得
+			canvas.drawText(line[n], 0, Math.abs(fm.top)+textHeight/line.length*n, paint);
+		}
 
 		return bitmap;
 	}
@@ -141,8 +176,11 @@ public class GLES20Util extends abstractGLES20Util {
 		Matrix.rotateM(modelMatrix, 0, degree, 0, 0, 1);
 		setShaderModelMatrix(modelMatrix);
 
+		GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_S, GLES20.GL_REPEAT);
+		GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_T, GLES20.GL_REPEAT);
+
 		setOnTexture(image,alpha);
-		setOnMask(GLES20Util.mask,0,0);
+		setOnMask(GLES20Util.mask,0,0,1,1);
 
 		GLES20.glUniform4f(u_texPos,uox,uoy,usx,usy);
 
@@ -150,7 +188,7 @@ public class GLES20Util extends abstractGLES20Util {
 		GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP,0,4);	//描画
 	}
 
-	public static void DrawString(float startX,float startY,float lengthX,float lengthY,float uox,float uoy,float usx,float usy,float mask_x,float mask_y,float degree,Bitmap image,Bitmap mask,float alpha,GLES20COMPOSITIONMODE mode){
+	public static void DrawString(float startX,float startY,float lengthX,float lengthY,float uox,float uoy,float usx,float usy,float mask_x,float mask_y,float line,float degree,Bitmap image,Bitmap mask,float alpha,GLES20COMPOSITIONMODE mode){
 		float scaleX = lengthX;
 		float scaleY = lengthY;
 
@@ -161,8 +199,10 @@ public class GLES20Util extends abstractGLES20Util {
 		Matrix.rotateM(modelMatrix, 0, degree, 0, 0, 1);
 		setShaderModelMatrix(modelMatrix);
 
+		GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_S, GLES20.GL_CLAMP_TO_EDGE);
+		GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_T, GLES20.GL_CLAMP_TO_EDGE);
 		setOnTexture(image,alpha);
-		setOnMask(mask,mask_x,mask_y);
+		setOnMask(mask,mask_x,mask_y,1,line);
 
 		GLES20.glUniform4f(u_texPos,uox,uoy,usx,usy);
 

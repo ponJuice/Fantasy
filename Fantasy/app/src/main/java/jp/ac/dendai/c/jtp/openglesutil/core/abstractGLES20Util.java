@@ -476,7 +476,7 @@ public abstract class abstractGLES20Util {
 		    GLES20.glUniform1i(u_Sampler,0);     // サンプラにテクスチャユニットを設定する
 	  }
 
-	protected static void setOnMask(Bitmap mask,float offset_x,float offset_y){
+	protected static void setOnMask(Bitmap mask,float offset_x,float offset_y,float scale_x,float scale_y){
 		GLES20.glActiveTexture(GLES20.GL_TEXTURE1);
 		GLES20.glBindTexture(GLES20.GL_TEXTURE_2D,textures[1]);
 
@@ -487,7 +487,7 @@ public abstract class abstractGLES20Util {
 		GLUtils.texImage2D(GLES20.GL_TEXTURE_2D,0,mask,0);
 		GLES20.glUniform1i(u_Sampler_mask,1);
 
-		GLES20.glUniform2f(u_mask_pos,offset_x,offset_y);
+		GLES20.glUniform4f(u_mask_pos,offset_x,offset_y,scale_x,scale_y);
 	}
 
 	  /**
