@@ -49,8 +49,8 @@ public class GLES20Util extends abstractGLES20Util {
 		paint.setColor(Color.rgb(r, g, b));
 		paint.setTextSize(size);
 		paint.getTextBounds(text, 0, text.length(), new Rect());
-		Typeface type = Typeface.createFromAsset(GameManager.act.getAssets(), fontName);
-		paint.setTypeface(type);
+		//Typeface type = Typeface.createFromAsset(GameManager.act.getAssets(), fontName);
+		//paint.setTypeface(type);
 		FontMetrics fm = paint.getFontMetrics();
 		//テキストの表示範囲を設定
 
@@ -74,8 +74,8 @@ public class GLES20Util extends abstractGLES20Util {
 		paint.setColor(Color.rgb(r, g, b));
 		paint.setTextSize(size);
 		paint.getTextBounds(text, 0, text.length(), new Rect());
-		Typeface type = Typeface.createFromAsset(GameManager.act.getAssets(),fontName);
-		paint.setTypeface(type);
+		//Typeface type = Typeface.createFromAsset(GameManager.act.getAssets(),fontName);
+		//paint.setTypeface(type);
 		FontMetrics fm = paint.getFontMetrics();
 		//テキストの表示範囲を設定
 
@@ -100,8 +100,8 @@ public class GLES20Util extends abstractGLES20Util {
 		paint.setColor(Color.rgb(r, g, b));
 		paint.setTextSize(size);
 		paint.getTextBounds(text, 0, text.length(), new Rect());
-		Typeface type = Typeface.createFromAsset(GameManager.act.getAssets(), fontName);
-		paint.setTypeface(type);
+		//Typeface type = Typeface.createFromAsset(GameManager.act.getAssets(), fontName);
+		//paint.setTypeface(type);
 		FontMetrics fm = paint.getFontMetrics();
 		//テキストの表示範囲を設定
 
@@ -142,6 +142,27 @@ public class GLES20Util extends abstractGLES20Util {
 		setShaderModelMatrix(modelMatrix);
 
 		setOnTexture(image,alpha);
+		setOnMask(GLES20Util.mask,0,0);
+
+		GLES20.glUniform4f(u_texPos,uox,uoy,usx,usy);
+
+		mode.setBlendMode();
+		GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP,0,4);	//描画
+	}
+
+	public static void DrawString(float startX,float startY,float lengthX,float lengthY,float uox,float uoy,float usx,float usy,float mask_x,float mask_y,float degree,Bitmap image,Bitmap mask,float alpha,GLES20COMPOSITIONMODE mode){
+		float scaleX = lengthX;
+		float scaleY = lengthY;
+
+		//float[] modelMatrix = new float[16];
+		Matrix.setIdentityM(modelMatrix, 0);
+		Matrix.translateM(modelMatrix, 0, startX, startY, 0.0f);
+		Matrix.scaleM(modelMatrix, 0, scaleX, scaleY, 1.0f);
+		Matrix.rotateM(modelMatrix, 0, degree, 0, 0, 1);
+		setShaderModelMatrix(modelMatrix);
+
+		setOnTexture(image,alpha);
+		setOnMask(mask,mask_x,mask_y);
 
 		GLES20.glUniform4f(u_texPos,uox,uoy,usx,usy);
 

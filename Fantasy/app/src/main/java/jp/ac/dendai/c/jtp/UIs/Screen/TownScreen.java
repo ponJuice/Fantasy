@@ -19,9 +19,9 @@ import jp.ac.dendai.c.jtp.openglesutil.graphic.blending_mode.GLES20COMPOSITIONMO
 public class TownScreen implements Screenable {
     private Bitmap image,serihu_waku,namae_waku;
     private Hero hero;
-    protected String text_string = "親譲の無鉄砲で小供の時から損ばかりしている。\n親譲の無鉄砲で小供の時から損ばかりしている。\n親譲の無鉄砲で小供の時から損ばかりしている。";
+    protected String text_string = "親譲の無鉄砲で小供の時から損ばかりしている。";
     protected NumberText nt;
-    protected Bitmap text_bitmap;
+    protected Bitmap text_bitmap,mask;
     protected DynamicText d_text;
 
     public TownScreen(){
@@ -40,6 +40,7 @@ public class TownScreen implements Screenable {
         nt.y = GLES20Util.getHeight_gl()/2f;
         nt.textSize = 0.5f;
         text_bitmap = GLES20Util.stringToBitmap(text_string, "custom_font.ttf",100,255,255,255);
+        mask = GLES20Util.loadBitmap(R.mipmap.text_mask);
 
         d_text = new DynamicText();
         d_text.setTextSize(0.068f);
@@ -61,6 +62,12 @@ public class TownScreen implements Screenable {
         GLES20Util.DrawGraph(GLES20Util.getWidth_gl()/2f-0.7f,GLES20Util.getHeight_gl()/2-0.04f,0.4f,0.1046f,namae_waku,1,GLES20COMPOSITIONMODE.ALPHA);
 
         GLES20Util.DrawGraph(0.28f, a / 2f, a - 0.1f, a - 0.1f, hero.getFace(8), 1f, GLES20COMPOSITIONMODE.ALPHA);
+        //GLES20Util.DrawGraph(0.5f,0.33f,0.5f,0.5f,mask,1,GLES20COMPOSITIONMODE.ALPHA);
+        //GLES20Util.DrawGraph(0.4f,0.23f,1f,0.4f,text_bitmap,1,GLES20COMPOSITIONMODE.ALPHA);
+        float tes_a = (float)text_bitmap.getHeight()/(float)text_bitmap.getWidth();
+        float pos_x = (float)text_bitmap.getWidth()/(float)22/(float)text_bitmap.getWidth() * 2f;
+        GLES20Util.DrawString(0.5f,0.33f,0.5f,0.1f,0,0,1,1,pos_x,(float)text_bitmap.getHeight()/2f,0,text_bitmap,mask,1,GLES20COMPOSITIONMODE.ALPHA);
+        //GLES20Util.DrawGraph(0.5f,0.33f,1f,0.4f,text_bitmap,1,GLES20COMPOSITIONMODE.ALPHA);
         d_text.draw();
         nt.draw();
         //GLES20Util.DrawGraph((float)text_bitmap.getWidth(), GLES20Util.getHeight_gl() / 2f, 0.5f, 0.1f, text_bitmap, 1, GLES20COMPOSITIONMODE.ALPHA);

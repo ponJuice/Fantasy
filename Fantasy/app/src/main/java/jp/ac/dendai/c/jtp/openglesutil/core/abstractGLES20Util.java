@@ -89,6 +89,9 @@ public abstract class abstractGLES20Util {
 	 */
 	private static  int u_Sampler;				//サンプラーの場所
 	protected static int u_texPos;
+	protected static int u_Sampler_mask;
+	protected static int u_mask_pos;
+	protected static Bitmap mask;
 	/**
 	 * アルファ値
 	 */
@@ -106,6 +109,7 @@ public abstract class abstractGLES20Util {
 	 * 画面のアスペクト比
 	 */
 	protected static float aspect;					//画面のアスペクト比
+	protected static int[] textures;
 	/**
 	 * 投影行列
 	 */
@@ -208,6 +212,9 @@ public abstract class abstractGLES20Util {
 		GLES20.glEnable(GLES20.GL_BLEND);
 		//ブレンディングメソッドの有効化
 		GLES20.glBlendFunc(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
+
+		//マスク画像の作成
+		mask = createBitmap(255,255,255,255);
 	}
 
 	/**
@@ -340,6 +347,24 @@ public abstract class abstractGLES20Util {
 		if (ma_texCoord == -1) {
 			throw new RuntimeException("a_texCoordの格納場所の取得に失敗");
 		}
+		u_mask_pos = GLES20.glGetUniformLocation(program,"u_mask_pos");
+		if (u_mask_pos == -1) {
+			throw new RuntimeException("u_mask_posの格納場所の取得に失敗");
+		}
+		// u_Samplerの格納場所を取得する
+		u_Sampler = GLES20.glGetUniformLocation(program, "u_Sampler");
+		if (u_Sampler == -1) {
+			throw new RuntimeException("u_Samplerの格納場所の取得に失敗");
+		}
+		// u_Samplerの格納場所を取得する
+		u_Sampler_mask = GLES20.glGetUniformLocation(program, "u_Sampler_mask");
+		if (u_Sampler_mask == -1) {
+			throw new RuntimeException("u_Sampler_maskの格納場所の取得に失敗");
+		}
+		u_alpha = GLES20.glGetUniformLocation(program, "u_alpha");
+		if(u_alpha == -1){
+			throw new RuntimeException("u_alphaの格納場所の取得に失敗");
+		}
 	}
 
 	/**
@@ -414,11 +439,8 @@ public abstract class abstractGLES20Util {
 	   		GLES20.glEnableVertexAttribArray(ma_texCoord);  // バッファオブジェクトの割り当ての有効化
 
 		    // テクスチャオブジェクトを作成する
-		    int[] textures = new int[1];
-		    GLES20.glGenTextures(1, textures, 0);
-
-		    // テクスチャを読み込み、サンプラに設定する
-		    loadTexture(textures[0], "u_Sampler");
+		    textures = new int[2];
+		    GLES20.glGenTextures(2, textures, 0);
 	  }
 
 	  /**
@@ -426,22 +448,14 @@ public abstract class abstractGLES20Util {
 	   */
 	  //サンプラーの場所取得とテクスチャパラメータなどを設定
 	  private static void loadTexture(int texture, String sampler) {
-	    // u_Samplerの格納場所を取得する
-	    u_Sampler = GLES20.glGetUniformLocation(program, sampler);
-	    if (u_Sampler == -1) {
-	      throw new RuntimeException("u_Samplerの格納場所の取得に失敗");
-	    }
-	    u_alpha = GLES20.glGetUniformLocation(program, "u_alpha");
-	    if(u_alpha == -1){
-	    	throw new RuntimeException("u_alphaの格納場所の取得に失敗");
-	    }
+
 
 	    GLES20.glActiveTexture(GLES20.GL_TEXTURE0);   // テクスチャユニット0を有効にする
 
 	    GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, texture); // テクスチャオブジェクトをバインドする
 
-	    // テクスチャパラメータを設定する
-	    GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_LINEAR);
+		  // テクスチャパラメータを設定する
+		  GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_LINEAR);
 	  }
 
 	  /**
@@ -449,12 +463,32 @@ public abstract class abstractGLES20Util {
 	   */
 	  //テクスチャ画像を設定する
 	  protected static void setOnTexture(Bitmap image,float alpha){
+		  GLES20.glActiveTexture(GLES20.GL_TEXTURE0);   // テクスチャユニット0を有効にする
+
+		  GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textures[0]); // テクスチャオブジェクトをバインドする
+		  // テクスチャパラメータを設定する
+		  GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_NEAREST);
+		  GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_NEAREST);
 		    // テクスチャ画像を設定する
 		    GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0,image, 0);
 
 		    GLES20.glUniform1f(u_alpha, alpha);		//サンプラにアルファを設定する
 		    GLES20.glUniform1i(u_Sampler,0);     // サンプラにテクスチャユニットを設定する
 	  }
+
+	protected static void setOnMask(Bitmap mask,float offset_x,float offset_y){
+		GLES20.glActiveTexture(GLES20.GL_TEXTURE1);
+		GLES20.glBindTexture(GLES20.GL_TEXTURE_2D,textures[1]);
+
+		// テクスチャパラメータを設定する
+		GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_NEAREST);
+		GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_NEAREST);
+
+		GLUtils.texImage2D(GLES20.GL_TEXTURE_2D,0,mask,0);
+		GLES20.glUniform1i(u_Sampler_mask,1);
+
+		GLES20.glUniform2f(u_mask_pos,offset_x,offset_y);
+	}
 
 	  /**
 	   * 画像ファイルを読み込み、全体が対象
