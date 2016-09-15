@@ -42,6 +42,7 @@ public class LoadingThread extends Thread{
             e.printStackTrace();
         }finally {
             synchronized (lock) {
+                nextScreenInstance.freeze();
                 isEnd = true;
             }
         }

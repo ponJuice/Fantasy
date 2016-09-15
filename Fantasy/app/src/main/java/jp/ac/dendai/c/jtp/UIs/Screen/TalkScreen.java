@@ -26,6 +26,7 @@ public class TalkScreen implements Screenable {
     protected Bitmap text_bitmap,mask;
     protected DynamicText d_text;
     protected StreamText s_text;
+    protected boolean freeze;
 
     public TalkScreen(){
         image = GLES20Util.loadBitmap(R.mipmap.town_01);
@@ -61,6 +62,8 @@ public class TalkScreen implements Screenable {
     protected int count = 0;
     @Override
     public void Proc() {
+        if(freeze)
+            return;
         nt.setNumber(FpsController.getFps());
         if(count % 10 == 0) {
             s_text.nextCharX();
@@ -91,8 +94,9 @@ public class TalkScreen implements Screenable {
     }
 
     @Override
-    public void Touch(MotionEvent event) {
-
+    public void Touch() {
+        if(freeze)
+            return;
     }
 
     @Override
@@ -112,11 +116,11 @@ public class TalkScreen implements Screenable {
 
     @Override
     public void freeze() {
-
+        freeze = true;
     }
 
     @Override
     public void unFreeze() {
-
+        freeze = false;
     }
 }

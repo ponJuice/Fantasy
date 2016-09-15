@@ -149,16 +149,14 @@ public class MainActivity extends Activity implements GLSurfaceView.Renderer{
             firstStart = false;
         }
         FpsController.updateFps();
-        if(GameManager.nowScreen != null)
-            GameManager.nowScreen.Proc();
-
+        GameManager.touch();
+        GameManager.proc();
     }
 
     private void draw(){
         // 描画領域をクリアする
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
-        if(GameManager.nowScreen != null)
-            GameManager.nowScreen.Draw(0,0);
+        GameManager.draw();
     }
 
 }

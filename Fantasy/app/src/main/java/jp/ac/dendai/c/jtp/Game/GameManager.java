@@ -21,7 +21,7 @@ public class GameManager {
 		if(isTransition && transition != null){
 			isTransition = transition.Transition();
 		}
-		else{
+		else {
 			nowScreen.Draw(0, 0);
 		}
 	}
@@ -30,9 +30,9 @@ public class GameManager {
 			nextScreen.Proc();
 		nowScreen.Proc();
 	}
-	public static void touch(MotionEvent touch){
+	public static void touch(){
 		if(!isTransition){
-			nowScreen.Touch(touch);
+			nowScreen.Touch();
 		}
 	}
 

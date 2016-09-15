@@ -6,14 +6,12 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.FontMetrics;
 import android.graphics.Rect;
-import android.graphics.Typeface;
 import android.opengl.GLES20;
 import android.opengl.Matrix;
 import android.util.Log;
 
-import jp.ac.dendai.c.jtp.Game.GameManager;
+import jp.ac.dendai.c.jtp.UIs.UI.Image.Image;
 import jp.ac.dendai.c.jtp.UIs.UI.Text.StringBitmap;
-import jp.ac.dendai.c.jtp.openglesutil.graphic.Image;
 import jp.ac.dendai.c.jtp.openglesutil.graphic.blending_mode.GLES20COMPOSITIONMODE;
 
 
@@ -87,7 +85,6 @@ public class GLES20Util extends abstractGLES20Util {
 		}
 		Bitmap bitmap = Bitmap.createBitmap(textWidth, textHeight, Bitmap.Config.ARGB_8888);
 		canvas = new Canvas(bitmap);
-		canvas.drawARGB(255,0,0,0);
 		for(int n = 0;n < line.length;n++) {
 			paint.getTextBounds(line[n], 0, line[n].length(), new Rect());
 			//Typeface type = Typeface.createFromAsset(GameManager.act.getAssets(), fontName);
@@ -178,9 +175,30 @@ public class GLES20Util extends abstractGLES20Util {
 
 		GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_S, GLES20.GL_REPEAT);
 		GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_T, GLES20.GL_REPEAT);
+		setOnTexture(image,alpha,GLES20.GL_LINEAR);
+		setOnMask(GLES20Util.mask,0,0,1,1,GLES20.GL_LINEAR);
 
-		setOnTexture(image,alpha);
-		setOnMask(GLES20Util.mask,0,0,1,1);
+		GLES20.glUniform4f(u_texPos,uox,uoy,usx,usy);
+
+		mode.setBlendMode();
+		GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP,0,4);	//描画
+	}
+
+	public static void DrawGraph(float startX,float startY,float lengthX,float lengthY,float uox,float uoy,float usx,float usy,float mask_x,float mask_y,float degree,Bitmap image,Bitmap mask,float alpha,GLES20COMPOSITIONMODE mode){
+		float scaleX = lengthX;
+		float scaleY = lengthY;
+
+		//float[] modelMatrix = new float[16];
+		Matrix.setIdentityM(modelMatrix, 0);
+		Matrix.translateM(modelMatrix, 0, startX, startY, 0.0f);
+		Matrix.scaleM(modelMatrix, 0, scaleX, scaleY, 1.0f);
+		Matrix.rotateM(modelMatrix, 0, degree, 0, 0, 1);
+		setShaderModelMatrix(modelMatrix);
+
+		GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_S, GLES20.GL_CLAMP_TO_EDGE);
+		GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_T, GLES20.GL_CLAMP_TO_EDGE);
+		setOnTexture(image, alpha, GLES20.GL_LINEAR);
+		setOnMask(mask,mask_x,mask_y,1,1,GLES20.GL_LINEAR);
 
 		GLES20.glUniform4f(u_texPos,uox,uoy,usx,usy);
 
@@ -201,8 +219,8 @@ public class GLES20Util extends abstractGLES20Util {
 
 		GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_S, GLES20.GL_CLAMP_TO_EDGE);
 		GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_T, GLES20.GL_CLAMP_TO_EDGE);
-		setOnTexture(image,alpha);
-		setOnMask(mask,mask_x,mask_y,1,line);
+		setOnTexture(image,alpha,GLES20.GL_NEAREST);
+		setOnMask(mask,mask_x,mask_y,1,line,GLES20.GL_NEAREST);
 
 		GLES20.glUniform4f(u_texPos,uox,uoy,usx,usy);
 
@@ -274,6 +292,12 @@ public class GLES20Util extends abstractGLES20Util {
 				count++;
 			}
 		}
+	}
+	public static float convertTouchPosToGLPosX(float dispPosX){
+		return dispPosX / GLES20Util.getHight();
+	}
+	public static float convertTouchPosToGLPosY(float dispPosY){
+		return GLES20Util.getHeight_gl() - dispPosY / GLES20Util.getHight();
 	}
 }
 

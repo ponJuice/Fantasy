@@ -5,7 +5,7 @@ import android.view.MotionEvent;
 public interface Screenable {
 	public void Proc();
 	public void Draw(float offsetX,float offsetY);
-	public void Touch(MotionEvent event);
+	public void Touch();
 	public void death();
 	public void pause();
 	public void resume();

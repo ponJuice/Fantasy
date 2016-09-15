@@ -399,11 +399,11 @@ public abstract class abstractGLES20Util {
 		setShaderModelMatrix(modelMatrix);
 
 		//単色塗りつぶし(単色ビットマップ作成メソッドを引数で呼び出し)
-		setOnTexture(createBitmap(r,g,b,a),1.0f);
+		setOnTexture(createBitmap(r,g,b,a),1.0f,GLES20.GL_LINEAR);
 
 		GLES20.glBlendFunc(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
 
-		GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP,0,4);	//描画
+		GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 0, 4);	//描画
 	}
 
 	/**
@@ -462,32 +462,41 @@ public abstract class abstractGLES20Util {
 	   * テクスチャ画像を設定する
 	   */
 	  //テクスチャ画像を設定する
-	  protected static void setOnTexture(Bitmap image,float alpha){
+	  protected static void setOnTexture(Bitmap image,float alpha,int mode){
 		  GLES20.glActiveTexture(GLES20.GL_TEXTURE0);   // テクスチャユニット0を有効にする
 
 		  GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textures[0]); // テクスチャオブジェクトをバインドする
-		  // テクスチャパラメータを設定する
-		  GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_NEAREST);
-		  GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_NEAREST);
-		    // テクスチャ画像を設定する
-		    GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0,image, 0);
+		  GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, mode);
+		  GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, mode);
+		  // テクスチャ画像を設定する
+		  GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, image, 0);
 
-		    GLES20.glUniform1f(u_alpha, alpha);		//サンプラにアルファを設定する
-		    GLES20.glUniform1i(u_Sampler,0);     // サンプラにテクスチャユニットを設定する
+		  GLES20.glUniform1f(u_alpha, alpha);		//サンプラにアルファを設定する
+		  GLES20.glUniform1i(u_Sampler, 0);     // サンプラにテクスチャユニットを設定する
 	  }
 
-	protected static void setOnMask(Bitmap mask,float offset_x,float offset_y,float scale_x,float scale_y){
+	protected static void setOnMask(Bitmap mask,float offset_x,float offset_y,float scale_x,float scale_y,int mode){
 		GLES20.glActiveTexture(GLES20.GL_TEXTURE1);
-		GLES20.glBindTexture(GLES20.GL_TEXTURE_2D,textures[1]);
+		GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textures[1]);
 
+		GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, mode);
+		GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, mode);
+
+		GLUtils.texImage2D(GLES20.GL_TEXTURE_2D,0,mask,0);
+		GLES20.glUniform1i(u_Sampler_mask, 1);
+
+		GLES20.glUniform4f(u_mask_pos, offset_x, offset_y, scale_x, scale_y);
+	}
+
+	protected static void setFilterNearest(int num){
 		// テクスチャパラメータを設定する
 		GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_NEAREST);
 		GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_NEAREST);
+	}
 
-		GLUtils.texImage2D(GLES20.GL_TEXTURE_2D,0,mask,0);
-		GLES20.glUniform1i(u_Sampler_mask,1);
-
-		GLES20.glUniform4f(u_mask_pos,offset_x,offset_y,scale_x,scale_y);
+	protected static void setFilterLinear(int num){
+		GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_LINEAR);
+		GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR);
 	}
 
 	  /**

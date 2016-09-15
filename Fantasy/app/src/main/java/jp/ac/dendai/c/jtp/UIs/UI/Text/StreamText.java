@@ -20,12 +20,12 @@ public class StreamText implements UI{
     protected String[] string;
     protected Bitmap text;
     protected Bitmap mask;
-    protected int max_x_length;
+    protected int max_x_length,offset;
     protected int char_x = 0,char_y = 0;
     protected float aspect; //縦：横 = 1 : aspect
     protected float length_x = 0,length_y = 0;
     protected float x = 0,y = 0;
-    public StreamText(String[] string,Bitmap text,Bitmap mask,int max_x_length){
+    public StreamText(String[] string,Bitmap text,Bitmap mask,int max_x_length,int offset){
         this.string = string;
         this.text = text;
         this.max_x_length = max_x_length;
@@ -33,6 +33,7 @@ public class StreamText implements UI{
         aspect = (float)text.getWidth() / (float)text.getHeight();
         length_y = 1;
         length_x = aspect;
+        this.offset = offset;
     }
 
     public void setHeight(float n){
@@ -82,7 +83,8 @@ public class StreamText implements UI{
         float mojisuu = (float)max_x_length/2f - char_x;
         float pos_x = (float)text.getWidth()/(float)max_x_length * mojisuu /(float)text.getWidth();
         GLES20Util.DrawString(x + UIAlign.convertAlign(length_x,holizontal),y + UIAlign.convertAlign(length_y,vertical)
-                ,length_x,length_y,0,0,1,1,pos_x,-char_y,string.length,0,text,mask,1, GLES20COMPOSITIONMODE.ALPHA);
+                ,length_x,length_y,0,0,1,1
+                ,pos_x,-(float)char_y + ((float)(offset*(char_y)) / (float)text.getHeight()),string.length,0,text,mask,1, GLES20COMPOSITIONMODE.ALPHA);
     }
 
     public static StreamText createStreamText(String text,Bitmap mask,int size,int r,int g,int b){
@@ -118,7 +120,7 @@ public class StreamText implements UI{
             canvas.drawText(line[n], 0, Math.abs(fm.top)+textHeight/line.length*n + height_offset*n, paint);
         }
 
-        return new StreamText(line,bitmap,mask,maxTextLength);
+        return new StreamText(line,bitmap,mask,maxTextLength,height_offset);
     }
 
     public float getX() {
