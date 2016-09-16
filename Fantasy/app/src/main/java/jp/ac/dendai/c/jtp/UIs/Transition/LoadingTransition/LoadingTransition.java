@@ -2,6 +2,7 @@ package jp.ac.dendai.c.jtp.UIs.Transition.LoadingTransition;
 
 import android.graphics.Bitmap;
 
+import jp.ac.dendai.c.jtp.Game.Constant;
 import jp.ac.dendai.c.jtp.Game.GameManager;
 import jp.ac.dendai.c.jtp.Math.Util.Clamp;
 import jp.ac.dendai.c.jtp.UIs.Screen.Screenable;
@@ -37,8 +38,7 @@ public class LoadingTransition implements Transitionable {
 	private LoadingTransition(){
 		bitmap = GLES20Util.createBitmap(r,g,b,255);
 		lock = new Object();
-		thread = new LoadingThread(lock);
-		loading = new StaticText("Loading...");
+		loading = new StaticText("Loading...", Constant.getBitmap(Constant.BITMAP.bilinear));
 		loading.setWidth(0.5f);
 		loading.setHolizontal(UIAlign.Align.RIGHT);
 		loading.setVertical(UIAlign.Align.BOTTOM);
@@ -46,6 +46,7 @@ public class LoadingTransition implements Transitionable {
 		loading.setY(0);
 	}
 	public void initTransition(Class<?> nextScreenClass){
+		thread = new LoadingThread(lock);
 		thread.initThread(nextScreenClass);
 		count = 0;
 		loading.init();
@@ -82,11 +83,12 @@ public class LoadingTransition implements Transitionable {
 					GLES20Util.getWidth_gl(), GLES20Util.getHeight_gl(),
 					bitmap, 1f, GLES20COMPOSITIONMODE.ALPHA);
 			loading.draw();
-			if(count > 180) {
+			if(count > 120) {
 				//ロード中
 				if (thread.isEnd()) {
 					GameManager.nowScreen = thread.getScreen();
 					GameManager.nowScreen.freeze();
+					thread = null;
 					state = LOAD_STATE.END;
 					count = 0;
 				}

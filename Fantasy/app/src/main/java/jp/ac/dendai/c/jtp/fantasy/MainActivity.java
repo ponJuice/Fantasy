@@ -99,8 +99,7 @@ public class MainActivity extends Activity implements GLSurfaceView.Renderer{
         Input.setOrientation(getResources().getConfiguration().orientation);
 
         FpsController.initFpsController((short) GameManager.fps);
-
-        GameManager.act = this;
+        GameManager.init(this);
 
         Log.d("onCreate", "onCreate finished");
     }

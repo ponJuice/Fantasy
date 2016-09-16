@@ -3,6 +3,7 @@ package jp.ac.dendai.c.jtp.UIs.UI.Text;
 import android.graphics.Bitmap;
 import android.widget.AlphabetIndexer;
 
+import jp.ac.dendai.c.jtp.Game.Constant;
 import jp.ac.dendai.c.jtp.TouchUtil.Touch;
 import jp.ac.dendai.c.jtp.UIs.UI.Image.Image;
 import jp.ac.dendai.c.jtp.UIs.UI.UI;
@@ -14,13 +15,15 @@ import jp.ac.dendai.c.jtp.openglesutil.core.GLES20Util;
  * Created by wark on 2016/09/16.
  */
 public class StaticText extends Image {
-    protected static Bitmap effect_mask;
+    protected Bitmap effect_mask;
     protected float delta_u = 0.066666f,delta_v = 0;
     protected float counter = 0;
-    public StaticText(String text){
+    public StaticText(String text,Bitmap effect_mask){
         super(GLES20Util.stringToBitmap(text,"メイリオ",25,255,255,255));
         if(effect_mask == null)
-            effect_mask = GLES20Util.loadBitmap(R.mipmap.text_effect_mask);
+            this.effect_mask = Constant.getBitmap(Constant.BITMAP.white);
+        else
+            this.effect_mask = effect_mask;
     }
     public void setDelta_u(float u){
         delta_u = u;

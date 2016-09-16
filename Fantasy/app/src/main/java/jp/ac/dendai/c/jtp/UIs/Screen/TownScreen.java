@@ -1,24 +1,19 @@
 package jp.ac.dendai.c.jtp.UIs.Screen;
 
 import android.graphics.Bitmap;
-import android.view.MotionEvent;
 
-import jp.ac.dendai.c.jtp.Game.Charactor.FaceReader;
-import jp.ac.dendai.c.jtp.Game.Charactor.Hero;
+import jp.ac.dendai.c.jtp.Game.Constant;
 import jp.ac.dendai.c.jtp.Game.GameManager;
 import jp.ac.dendai.c.jtp.TouchUtil.Input;
+import jp.ac.dendai.c.jtp.UIs.Effects.Bitmap.AnimationBitmap;
+import jp.ac.dendai.c.jtp.UIs.Effects.Bitmap.Animator;
 import jp.ac.dendai.c.jtp.UIs.Transition.LoadingTransition.LoadingTransition;
 import jp.ac.dendai.c.jtp.UIs.UI.Button.Button;
 import jp.ac.dendai.c.jtp.UIs.UI.Button.ButtonListener;
 import jp.ac.dendai.c.jtp.UIs.UI.Image.Image;
-import jp.ac.dendai.c.jtp.UIs.UI.Text.CharactorsMap;
-import jp.ac.dendai.c.jtp.UIs.UI.Text.DynamicText;
-import jp.ac.dendai.c.jtp.UIs.UI.Text.NumberText;
 import jp.ac.dendai.c.jtp.UIs.UI.Text.StaticText;
-import jp.ac.dendai.c.jtp.UIs.UI.Text.StreamText;
 import jp.ac.dendai.c.jtp.UIs.UI.UIAlign;
 import jp.ac.dendai.c.jtp.fantasy.R;
-import jp.ac.dendai.c.jtp.openglesutil.Util.FpsController;
 import jp.ac.dendai.c.jtp.openglesutil.core.GLES20Util;
 import jp.ac.dendai.c.jtp.openglesutil.graphic.blending_mode.GLES20COMPOSITIONMODE;
 
@@ -27,13 +22,31 @@ import jp.ac.dendai.c.jtp.openglesutil.graphic.blending_mode.GLES20COMPOSITIONMO
  */
 public class TownScreen implements Screenable {
     protected Bitmap background;
-    protected Button button;
+    protected Button button,itemShop,toDungeon;
     protected Image image;
     protected boolean freeze;
     protected StaticText loading;
+    protected Animator anim;
+    protected int counter = 1;
     public TownScreen(){
         background = GLES20Util.loadBitmap(R.mipmap.town_01);
-        button = new Button(0,0.3f,0.3f,0);
+
+        loading = new StaticText("Loading...", Constant.getBitmap(Constant.BITMAP.white));
+        loading.setWidth(0.5f);
+        loading.setHolizontal(UIAlign.Align.RIGHT);
+        loading.setVertical(UIAlign.Align.BOTTOM);
+        loading.setX(GLES20Util.getWidth_gl());
+        loading.setY(0);
+        loading.init();
+
+        itemShop = new Button(0.05f,0.6f,0.8f,0.4f,"武器屋");
+        itemShop.setPadding(0.08f);
+        itemShop.setCriteria(Button.CRITERIA.HEIGHT);
+        itemShop.setBackground(Constant.getBitmap(Constant.BITMAP.system_button));
+
+        anim = new Animator(AnimationBitmap.createAnimation(R.mipmap.effect_attack_01,368,147,5,2,6));
+
+        button = new Button(0,0.3f,0.3f,0,"Hello...");
         button.setBackground(background);
         button.setButtonListener(new ButtonListener() {
             @Override
@@ -54,20 +67,52 @@ public class TownScreen implements Screenable {
                 GameManager.isTransition = true;
             }
         });
-        loading = new StaticText("Loading...");
-        loading.setWidth(0.5f);
-        loading.setHolizontal(UIAlign.Align.RIGHT);
-        loading.setVertical(UIAlign.Align.BOTTOM);
-        loading.setX(GLES20Util.getWidth_gl());
-        loading.setY(0);
-        loading.init();
+
+        toDungeon = new Button(0,0.9f,0.8f,0.7f,"ダンジョンへ");
+        toDungeon.setPadding(0.08f);
+        toDungeon.setCriteria(Button.CRITERIA.HEIGHT);
+        toDungeon.setBackground(Constant.getBitmap(Constant.BITMAP.system_button));
+        toDungeon.setButtonListener(new ButtonListener() {
+            @Override
+            public void touchDown(Button button) {
+
+            }
+
+            @Override
+            public void touchHover(Button button) {
+
+            }
+
+            @Override
+            public void touchUp(Button button) {
+                LoadingTransition lt = LoadingTransition.getInstance();
+                lt.initTransition(BattleScreen.class);
+                GameManager.transition = lt;
+                GameManager.isTransition = true;
+            }
+        });
+
+        image = new Image(anim.getBitmap());
+        image.setMode(GLES20COMPOSITIONMODE.ADD);
+        image.setHolizontal(UIAlign.Align.LEFT);
+        image.setVertical(UIAlign.Align.TOP);
+        image.setX(0);
+        image.setY(GLES20Util.getHeight_gl());
+        image.setHeight(0.3f);
     }
     @Override
     public void Proc() {
         if(freeze)
             return;
+        if(counter % 5 == 0) {
+            anim.next();
+            image.setImage(anim.getBitmap());
+        }
         button.proc();
+        itemShop.proc();
         loading.proc();
+        toDungeon.proc();
+        counter++;
     }
 
     @Override
@@ -76,6 +121,9 @@ public class TownScreen implements Screenable {
                 , GLES20Util.getWidth_gl(), GLES20Util.getHeight_gl()
                 , background, 1f, GLES20COMPOSITIONMODE.ALPHA);
         button.draw();
+        itemShop.draw();
+        image.draw();
+        toDungeon.draw();
         //loading.draw();
     }
 
@@ -85,6 +133,8 @@ public class TownScreen implements Screenable {
             return;
         for(int n = 0;n < Input.getMaxTouch();n++){
             button.touch(Input.getTouchArray()[n]);
+            itemShop.touch(Input.getTouchArray()[n]);
+            toDungeon.touch(Input.getTouchArray()[n]);
         }
     }
 

@@ -17,6 +17,10 @@ public class GameManager {
 	public static Activity act;
 	public static SoundPool sp;
 	public static int button;
+	public static void init(Activity _act){
+		act = _act;
+		Constant.init();
+	}
 	public static void draw(){
 		if(isTransition && transition != null){
 			isTransition = transition.Transition();

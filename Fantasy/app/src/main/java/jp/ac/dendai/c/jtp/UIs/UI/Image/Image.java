@@ -23,6 +23,19 @@ public class Image implements UI {
         image = bitmap;
         aspect = (float)image.getWidth()/(float)image.getHeight();
     }
+    public Image(Image image){
+        this.image = image.getImage();
+        aspect =image.aspect;
+
+        holizontal = image.holizontal;
+        vertical = image.vertical;
+        width = image.width;
+        height = image.height;
+        alpha = image.alpha;
+        x = image.x;
+        y = image.y;
+        mode = image.mode;
+    }
     public void setWidth(float width){
         this.width = width;
         this.height = width/aspect;

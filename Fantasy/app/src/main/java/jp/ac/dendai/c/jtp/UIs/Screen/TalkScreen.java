@@ -5,6 +5,13 @@ import android.view.MotionEvent;
 
 import jp.ac.dendai.c.jtp.Game.Charactor.FaceReader;
 import jp.ac.dendai.c.jtp.Game.Charactor.Hero;
+import jp.ac.dendai.c.jtp.Game.GameManager;
+import jp.ac.dendai.c.jtp.TouchUtil.Input;
+import jp.ac.dendai.c.jtp.UIs.Transition.LoadingTransition.LoadingThread;
+import jp.ac.dendai.c.jtp.UIs.Transition.LoadingTransition.LoadingTransition;
+import jp.ac.dendai.c.jtp.UIs.UI.Button.Button;
+import jp.ac.dendai.c.jtp.UIs.UI.Button.ButtonListener;
+import jp.ac.dendai.c.jtp.UIs.UI.Image.Image;
 import jp.ac.dendai.c.jtp.UIs.UI.Text.CharactorsMap;
 import jp.ac.dendai.c.jtp.UIs.UI.Text.DynamicText;
 import jp.ac.dendai.c.jtp.UIs.UI.Text.NumberText;
@@ -24,9 +31,9 @@ public class TalkScreen implements Screenable {
     protected String text_string = "禅智内供の鼻と云えば、池の尾で知らない者はない。\n禅智内供の鼻と云えば、池の尾で知らない者はない。\n形は元も先も同じように太い。";
     protected NumberText nt;
     protected Bitmap text_bitmap,mask;
-    protected DynamicText d_text;
     protected StreamText s_text;
     protected boolean freeze;
+    protected Button backButton;
 
     public TalkScreen(){
         image = GLES20Util.loadBitmap(R.mipmap.town_01);
@@ -46,18 +53,35 @@ public class TalkScreen implements Screenable {
         text_bitmap = GLES20Util.stringToBitmap(text_string, "custom_font.ttf",100,255,255,255);
         mask = GLES20Util.loadBitmap(R.mipmap.text_mask);
 
-        d_text = new DynamicText();
-        d_text.setTextSize(0.068f);
-        d_text.setText(CharactorsMap.loadText(text_string));
-        d_text.setX(0.5f);
-        d_text.setY(0.33f);
-
         s_text = StreamText.createStreamText(text_string,mask,25,255,255,255);
         s_text.setHeight(0.25f);
         s_text.setX(0.47f);
         s_text.setY(0.32f);
         s_text.setHolizontal(UIAlign.Align.LEFT);
         s_text.setVertical(UIAlign.Align.TOP);
+
+        backButton = new Button(0,0.5f,0.3f,0.4f,"BACK");
+        backButton.setCriteria(Button.CRITERIA.HEIGHT);
+        backButton.setPadding(0.01f);
+        backButton.setButtonListener(new ButtonListener() {
+            @Override
+            public void touchDown(Button button) {
+
+            }
+
+            @Override
+            public void touchHover(Button button) {
+
+            }
+
+            @Override
+            public void touchUp(Button button) {
+                LoadingTransition lt = LoadingTransition.getInstance();
+                lt.initTransition(TownScreen.class);
+                GameManager.transition  = lt;
+                GameManager.isTransition = true;
+            }
+        });
     }
     protected int count = 0;
     @Override
@@ -68,6 +92,7 @@ public class TalkScreen implements Screenable {
         if(count % 10 == 0) {
             s_text.nextCharX();
         }
+        backButton.proc();
         count++;
     }
 
@@ -85,6 +110,7 @@ public class TalkScreen implements Screenable {
         //GLES20Util.DrawGraph(0.5f,0.33f,1f,0.4f,text_bitmap,1,GLES20COMPOSITIONMODE.ALPHA);
         //d_text.draw();
         s_text.draw();
+        backButton.draw();
         //nt.draw();
         //GLES20Util.DrawGraph((float)text_bitmap.getWidth(), GLES20Util.getHeight_gl() / 2f, 0.5f, 0.1f, text_bitmap, 1, GLES20COMPOSITIONMODE.ALPHA);
         //nt.draw(FpsController.getFps(), 3, GLES20Util.getWidth_gl() / 2f - 0.3f, GLES20Util.getHeight_gl() / 2f,1,1,GLES20COMPOSITIONMODE.ALPHA);
@@ -97,6 +123,9 @@ public class TalkScreen implements Screenable {
     public void Touch() {
         if(freeze)
             return;
+        for(int n = 0;n < Input.getMaxTouch();n++){
+            backButton.touch(Input.getTouchArray()[n]);
+        }
     }
 
     @Override
