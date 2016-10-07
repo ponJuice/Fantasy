@@ -1,0 +1,20 @@
+○Event
+　イベントを管理するクラス。内部にコンポーネントを複数持つ。イベントが終わるとnextメソッドにはnullを、そうでない場合は自分自身を返す。
+
+○Conditions
+　IConditionインターフェースを内部に持つラッパークラス。if文に相当。
+　mode属性によって処理が異なる。
+　and : 内部のIConditionインターフェースの評価がすべてTrueの時のみ、Trueを返し、それ以外の場合はFalseを返す
+　or : 内部のIConditionインターフェースの評価が一つでもTrueならばTrueを、全てがFalseならばFalseを返す。
+
+○
+　IConditionインターフェースを実装する実態クラス。if文の一つの式に相当。
+　type属性によって、後のvalueの意味が異なる。
+　　system : system_flagの事。valueはフラグの配列番号を示す。
+　　global : global_flagの事。valueはフラグの配列番号を示す。
+　　local  : local_flagの事。valueはフラグの配列番号を示す。
+　　const  : 定数の事。valueはそのまま数値として扱われる。
+　なおvalueに文字列を入れた場合、system、globalに至っていは
+　FlagDefによって解釈時に数値に変換される。
+　もしFlagDefに無い文字列が与えられた場合は例外を投げる。
+　local、constで使われた際も同じである。

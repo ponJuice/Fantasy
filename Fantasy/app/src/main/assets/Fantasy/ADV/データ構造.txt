@@ -1,0 +1,79 @@
+アイテム
+・種類
+　・回復形アイテム
+　・売るアイテム
+
+アイテムのデータ
+・アイテムID
+・名前
+・説明
+・種類（回復、防具、その他）
+・効果（種類によって記述子が異なる）
+
+<!-- 広域及びシステムフラグの名前変換テーブル -->
+<FlagDef>
+	<Define type="system" value="1" name="rank"/>
+	<Define type="global" value="0" name="prologue"/>
+</FlagDef>
+
+<Event name="boy_meets_girl">
+	<!-- イベントの開始条件 -->
+	<EventCondition>
+		<!-- ConditionsがTrueを返せば開始 -->
+		<Conditions mode="and">
+			<Condition type1="system" value1="rank" mnemonic= ">=" type2="const" value2="3"/>
+			<Condition type1="global" value1="prologue" mnemonic="!=" type2="const"value2="0"/>
+		</Conditions>
+	</EventCondition>
+	
+	<!-- イベントの中身 -->
+	<Contents>
+		<Trans mode="fade" type="out" time="1" color="#000000"/>
+		<Back id="town_01"/>
+		<Bgm id="prologue_bgm" l_volume="1" r_volume"1" roop="-1" />
+		<Trans mode="fade" type="it"  time="1" color="#000000"/>
+		<Scene face="hero" type="normal" text="e1_0"/>
+		<Scene face="hero" type="normal" text="eq_1"/>
+		<UserBranch>
+			<Scene face="hero" type="normal" text="br_01"/>
+			<Select text="select_01">
+				<Flag type="local" mode="set" flag="0" value="2"/>
+				<Se id="prologue_se_01" l_volume="1" r_volume="1" roop="0" rate="1.0" wait="true"/>
+				<Scene face="hero" type="normal" text="select_text_01"/>
+				<Scene face="hero" type="normal" text="select_text_02"/>
+			<Select/>
+			<Select text="select_02">
+				<Flag type="local" mode="set" flag="0" value="1"/>
+				<Se id="prologue_se_01" l_volume="1" r_volume="1" roop="0" rate="1.0" wait="true"/>
+				<Scene face="hero" type="normal" text="select_text_03"/>
+			<Select/>
+		</UserBranch>
+		<FlagBranch>
+			<Select>
+				<Conditions mode="and">
+					<Condition  type1="local" value1="0" mnemonic="==" type2="const" value2="1"/>
+				</Conditions>
+				<Scenes>
+					<Message text="msg_0"/>
+					<Item mode="add" item="0" num="1"/>
+				</Scenes>
+			</Select>
+			<Select>
+				<Conditions mode="and">
+					<Condition type1="local" value1="0" mnemonic="==" type2="const" value2="2"/>
+				</Conditions>
+				<Scenes>
+					<Message text="msg_1"/>
+					<Item mode="add" item="1" num="100/>
+				</Scenes>
+			</Select>
+			<Select mode="defult">
+				<Scene face="hero" type="normal" text="s_0"/>
+			</Select>
+		</FlagBranch>
+		<Scene face="hero" type="normal" text="eq_2"/>
+		<Trans mode="fade" type="out" time="1" color="#000000"/>
+		<Back id="dungeon_01"/>
+		<Trans mode="fade" type="it"  time="1" color="#000000"/>
+	</Contents>
+</Event>

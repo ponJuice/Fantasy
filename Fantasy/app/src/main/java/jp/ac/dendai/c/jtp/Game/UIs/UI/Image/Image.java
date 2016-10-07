@@ -19,6 +19,7 @@ public class Image implements UI {
     protected float alpha = 1;
     protected float x = 0,y = 0;
     protected GLES20COMPOSITIONMODE mode = GLES20COMPOSITIONMODE.ALPHA;
+    public Image(){}
     public Image(Bitmap bitmap){
         image = bitmap;
         aspect = (float)image.getWidth()/(float)image.getHeight();
@@ -59,7 +60,8 @@ public class Image implements UI {
 
     @Override
     public void draw() {
-        GLES20Util.DrawGraph(x + UIAlign.convertAlign(width,holizontal),y + UIAlign.convertAlign(height,vertical),width,height,image,alpha, mode);
+        if(image != null)
+            GLES20Util.DrawGraph(x + UIAlign.convertAlign(width,holizontal),y + UIAlign.convertAlign(height,vertical),width,height,image,alpha, mode);
     }
 
     public float getAlpha() {
@@ -100,6 +102,7 @@ public class Image implements UI {
 
     public void setImage(Bitmap image) {
         this.image = image;
+        aspect = (float)image.getWidth()/(float)image.getHeight();
     }
 
     public float getX() {

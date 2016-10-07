@@ -1,7 +1,7 @@
 package jp.ac.dendai.c.jtp.Game.ADVSystem.Component.Branch.Select;
 
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Condition.Conditions;
-import jp.ac.dendai.c.jtp.Game.ADVSystem.Event;
+import jp.ac.dendai.c.jtp.Game.ADVSystem.Event.Event;
 
 /**
  * Created by テツヤ on 2016/10/07.

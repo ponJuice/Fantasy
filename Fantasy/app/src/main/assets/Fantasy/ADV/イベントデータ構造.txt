@@ -1,0 +1,18 @@
+<!-- イベントファイル(プロローグ) -->
+<root>
+	<!-- イベントで使う画像データ -->
+	<Images>
+		<Image id="prologue_01">house.png</Image>
+	</Images>
+	
+	<!-- イベントで使うサウンドデータ -->
+	<Sounds>
+		<Sound id="prologue_bgm">house.wav</Sound>
+		<Sound id="prologue_se_01">surprise.wav</Sound>
+	</Sounds>
+	
+	<!-- イベントで使うテキストデータ -->
+	<Strings>
+		<String id="prologue_1">あいうえお</String>
+	</Strings>
+</root>

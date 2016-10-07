@@ -1,4 +1,4 @@
-package jp.ac.dendai.c.jtp.Game.UIs.UI.Text;
+package jp.ac.dendai.c.jtp.Game.UIs.UI.Text.StreamText;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;

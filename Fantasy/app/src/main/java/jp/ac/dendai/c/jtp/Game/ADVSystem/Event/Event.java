@@ -1,10 +1,14 @@
-package jp.ac.dendai.c.jtp.Game.ADVSystem;
+package jp.ac.dendai.c.jtp.Game.ADVSystem.Event;
 
+import jp.ac.dendai.c.jtp.Game.ADVSystem.ADVManager;
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Component.ADVComponent;
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Condition.Conditions;
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Flag.FlagManager;
+import jp.ac.dendai.c.jtp.Game.Constant;
+import jp.ac.dendai.c.jtp.Game.UIs.UI.TextBox.TalkBox;
 import jp.ac.dendai.c.jtp.TouchUtil.Input;
 import jp.ac.dendai.c.jtp.TouchUtil.Touch;
+import jp.ac.dendai.c.jtp.openglesutil.core.GLES20Util;
 
 /**
  * Created by テツヤ on 2016/10/06.
@@ -13,16 +17,29 @@ public class Event {
     protected Conditions conditions;
     protected ADVComponent component;
     protected ADVComponent drawTarget;
+    protected TalkBox talkBox;
     protected int[] local_flags;
     protected Touch touch;
+    public TalkBox getTalkBox(){
+        return talkBox;
+    }
+    public void preparation(){
+        talkBox = new TalkBox(Constant.talk_textbox_x,Constant.talk_textbox_y, GLES20Util.getWidth_gl(),0.3f);
+        component.init(this);
+    }
     public void draw(){
         drawTarget.draw();
     }
     public void proc(ADVManager manager){
-        component.proc(this);
+        ADVComponent temp = component.proc(this);
+        if(temp != component){
+            //シーンが進んだ
+            temp.init(this);
+        }
+        component = temp;
     }
     public void touch(){
-        if(touch.getTouchID() == -1)
+        if(touch != null && touch.getTouchID() == -1)
             touch = null;
         for(int n = 0;n < Input.getTouchArray().length;n++){
             if(Input.getTouchArray()[n].getTouchID() != -1){

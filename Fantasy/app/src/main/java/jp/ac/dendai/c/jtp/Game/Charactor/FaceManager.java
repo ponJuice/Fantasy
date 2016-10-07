@@ -7,7 +7,7 @@ import java.util.HashMap;
  */
 
 public class FaceManager {
-    public static HashMap<String,Face> list;
+    public static HashMap<String,Face> list = new HashMap<>();
     public static Face getFace(String name){
         if(list.containsKey(name))
             return list.get(name);

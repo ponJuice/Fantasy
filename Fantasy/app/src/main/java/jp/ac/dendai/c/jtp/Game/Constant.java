@@ -27,8 +27,14 @@ public class Constant {
     protected static PlayerData playerData;
     public final static int talk_text_size = 25;
     public final static int talk_text_color = 0xFFFFFFFF;  //a,r,g,b
-    public final static float talk_text_x = 0;
-    public final static float talk_text_y = 0;
+    public final static float talk_textbox_x = 0;
+    public final static float talk_textbox_y = 0;
+    public final static int talk_text_max_length_x = 20;
+    public final static int talk_text_max_length_y = 3;
+    public final static String talk_text_font_name = "メイリオ";
+    public final static int talk_text_height_offset = 0;
+    public final static float talk_text_width = 1.1f;
+    public final static float talk_text_height = 0.25f;
     //public final static float
 
 

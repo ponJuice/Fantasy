@@ -1,0 +1,28 @@
+<root>
+	<Texts>
+		<Text id="0">‚ ‚¢‚¤‚¦‚¨</Text>
+		<Text id="msg_1">‚©‚«‚­‚¯‚±</Text>
+	</Texts>
+
+	<Faces>
+		<Face name="hero"/>
+		<Face name="heroine"/>
+	</Faces>
+
+	<Images>
+		<Image id="0" name="mati.png"/>
+		<Image id="1" name="doukutu.png"/>
+	</Inages>
+
+	<Structur>
+		<Scene id="0" face="0" text="0">
+			<Message text="msg_1"/>
+			<Next id="1"/>
+		</Scene>
+		<Scene id="1" image="0" face="0" text="0">
+			<Message text="msg_1"/>
+			<Proc 
+			<Next id="1"/>
+		</Scene>
+	</Structur>
+</root>

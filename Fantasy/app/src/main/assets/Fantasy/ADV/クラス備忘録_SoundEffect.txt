@@ -1,0 +1,14 @@
+○SoundEffectインターフェース(Abstract Factory?)
+　SEを鳴らすインターフェース。内部の音声データの実態を隠すために存在する。
+
+・メソッド
+　・void play()   : 音を鳴らす。内部のループや速度などの設定によって動作が異なる。必ず先頭から再生する。
+　・void stop()   : 音が鳴っている場合、その音を止めて先頭へシークする。
+　・void pause()  : 音がなっている場合、その音をその場で止める。resumeメソッドを使用するとその場から再び再生する。
+　・void resume() : pauseメソッドで一時停止した場合にその場から再生する。それ以外ではplayメソッドと同じ動作をする。
+　・boolean isEnd() : 再生が終了したかどうかを返します。無限ループ設定の場合は常にfalseを返します。
+　・void setVolume(float l_volume,float r_volume) : 左右の音量を設定します。
+　・void setLoop(int num) : ループ回数を設定します。-1は無限ループです。
+　・int getLoop() : 設定されているループ回数を返します。
+　・SoundEffect create(int res_id) : SoundEffectのインスタンスを作成します。
+

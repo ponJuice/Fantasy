@@ -2,6 +2,8 @@ package jp.ac.dendai.c.jtp.Game.Charactor;
 
 import android.graphics.Bitmap;
 
+import javax.microedition.khronos.opengles.GL;
+
 import jp.ac.dendai.c.jtp.openglesutil.core.GLES20Util;
 
 /**
@@ -11,7 +13,8 @@ public class FaceReader {
     public int x_count_max,y_count_max;
     public int length_x,length_y;
     public int id;
-    public Bitmap[] createFaces(){
+    public String name;
+    public Face createFaces(){
         Bitmap[] faces = new Bitmap[x_count_max*y_count_max];
         int _x = 0,_y = 0;
         int delta_x = length_x / x_count_max;
@@ -24,6 +27,10 @@ public class FaceReader {
                 faces[y*y_count_max + x] = GLES20Util.loadBitmap(_x,_y,_x+delta_x,_y+delta_y,1,id);
             }
         }
-        return faces;
+        Face f = new Face();
+        f.face = faces;
+        f.name = name;
+        f.name_image = GLES20Util.stringToBitmap(name,"メイリオ",25,255,255,255);
+        return f;
     }
 }

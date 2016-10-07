@@ -1,6 +1,6 @@
 package jp.ac.dendai.c.jtp.Game.ADVSystem.Component;
 
-import jp.ac.dendai.c.jtp.Game.ADVSystem.Event;
+import jp.ac.dendai.c.jtp.Game.ADVSystem.Event.Event;
 
 /**
  * Created by テツヤ on 2016/10/06.

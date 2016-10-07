@@ -1,0 +1,73 @@
+class SEPack{
+	private int res_id;
+	private int id;
+	private SoundPool sp;
+	public SEPack(int res_id,int id,SoundPool sp){
+		this.res_id = res_id;
+		this.id = id;
+		this.sp = sp;
+	}
+	public void load(){
+		if(id == -1)
+			id = sp.load(GameManager.getAct(),res_id,1);
+	}
+	public void release(){
+		sp.release();
+		id = -1;
+	}
+}
+
+class SoundPoolMediator{
+	private int limit;
+	private int regist_num;
+	private ArrayList<SoundPool> soundPools;
+	public SoundPoolMediator(int limit){
+		soundPools = new ArrayList<>();
+		regist_num = 0;
+		this.limit = limit;
+	}
+	public SoundPool getSoundPool(){
+		if(regist_num <= 0 || regist_num >= limit){
+			SoundPool sp = new SoundPool();
+			soundPools.add(sp);
+			regist_num = 1;
+			return sp;
+		}else{
+			return soundPools.get(soundPools.size()-1);
+		}
+	}
+}
+
+class SoundPoolManager{
+	private SoundPoolMediator spm;
+	public SEPack createSEPack(int res_id){
+		SoundPool sp = spm.getSoundPool();
+		int id = sp.load(GameManager.getAct(),res_id,1);
+		return new SEPack(res_id,id,sp);
+	}
+}
+
+class Event{
+	protected component:AdvComponent;
+	protected drawTarget:AdvComponent;
+	protected int[] local_flags;
+	protected AdvBack background;
+	public void setDrawTarget(AdvComponent target){
+		drawTarget = target;
+	}
+	public void proc(AdvManager manager){
+		component = component.next();
+		component.proc(this);
+	}
+	public void drwa(){
+		drawTarget.draw();
+	}
+}
+
+conponent.proc(Event event){
+	//描画を必要とするコンポーネントの場合
+	event.setDrawTarget(this);
+	//必要としないならここから処理を始める
+	...
+}
+
