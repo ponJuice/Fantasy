@@ -2,10 +2,9 @@ package jp.ac.dendai.c.jtp.Game;
 
 import android.app.Activity;
 import android.media.SoundPool;
-import android.view.MotionEvent;
 
-import jp.ac.dendai.c.jtp.UIs.Screen.Screenable;
-import jp.ac.dendai.c.jtp.UIs.Transition.Transitionable;
+import jp.ac.dendai.c.jtp.Game.UIs.Screen.Screenable;
+import jp.ac.dendai.c.jtp.Game.UIs.Transition.Transitionable;
 
 public class GameManager {
 	public static int fps = 60;

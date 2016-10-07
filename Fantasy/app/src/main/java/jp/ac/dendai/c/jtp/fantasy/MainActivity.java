@@ -14,12 +14,11 @@ import javax.microedition.khronos.opengles.GL10;
 import jp.ac.dendai.c.jtp.Game.GameManager;
 import jp.ac.dendai.c.jtp.TouchUtil.Input;
 import jp.ac.dendai.c.jtp.TouchUtil.Touch;
-import jp.ac.dendai.c.jtp.UIs.Screen.TownScreen;
+import jp.ac.dendai.c.jtp.Game.UIs.Screen.TownScreen;
 import jp.ac.dendai.c.jtp.openglesutil.Util.FileManager;
 import jp.ac.dendai.c.jtp.openglesutil.Util.FpsController;
 import jp.ac.dendai.c.jtp.openglesutil.Util.ImageReader;
 import jp.ac.dendai.c.jtp.openglesutil.core.GLES20Util;
-import jp.ac.dendai.c.jtp.openglesutil.graphic.blending_mode.GLES20COMPOSITIONMODE;
 
 public class MainActivity extends Activity implements GLSurfaceView.Renderer{
     protected Bitmap image;

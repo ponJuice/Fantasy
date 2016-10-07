@@ -10,8 +10,8 @@ import android.opengl.GLES20;
 import android.opengl.Matrix;
 import android.util.Log;
 
-import jp.ac.dendai.c.jtp.UIs.UI.Image.Image;
-import jp.ac.dendai.c.jtp.UIs.UI.Text.StringBitmap;
+import jp.ac.dendai.c.jtp.Game.UIs.UI.Image.Image;
+import jp.ac.dendai.c.jtp.Game.UIs.UI.Text.StringBitmap;
 import jp.ac.dendai.c.jtp.openglesutil.graphic.blending_mode.GLES20COMPOSITIONMODE;
 
 

@@ -5,13 +5,7 @@ import jp.ac.dendai.c.jtp.Game.Battle.Enemy.Enemy;
 import jp.ac.dendai.c.jtp.Game.Battle.Enemy.EnemyTemplate;
 import jp.ac.dendai.c.jtp.Game.Battle.Player.Player;
 import jp.ac.dendai.c.jtp.Game.Battle.Player.PlayerData;
-import jp.ac.dendai.c.jtp.Game.Constant;
-import jp.ac.dendai.c.jtp.Game.GameManager;
-import jp.ac.dendai.c.jtp.UIs.Screen.BattleScreen;
-import jp.ac.dendai.c.jtp.UIs.Transition.LoadingTransition.LoadingTransition;
-import jp.ac.dendai.c.jtp.UIs.UI.Button.Button;
-import jp.ac.dendai.c.jtp.UIs.UI.Button.ButtonListener;
-import jp.ac.dendai.c.jtp.UIs.UI.Image.Image;
+import jp.ac.dendai.c.jtp.Game.UIs.UI.Image.Image;
 import jp.ac.dendai.c.jtp.fantasy.R;
 import jp.ac.dendai.c.jtp.openglesutil.core.GLES20Util;
 

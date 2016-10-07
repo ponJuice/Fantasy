@@ -1,6 +1,6 @@
 package jp.ac.dendai.c.jtp.Game.Battle.BattleState;
 
-import jp.ac.dendai.c.jtp.UIs.UI.Image.Image;
+import jp.ac.dendai.c.jtp.Game.UIs.UI.Image.Image;
 
 /**
  * Created by Goto on 2016/09/16.
