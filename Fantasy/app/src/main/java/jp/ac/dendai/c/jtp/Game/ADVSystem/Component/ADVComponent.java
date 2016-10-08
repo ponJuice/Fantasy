@@ -24,4 +24,8 @@ public abstract class ADVComponent {
      * 初期化
      */
     public abstract void init(Event event);
+
+    public void setNext(ADVComponent comp){
+        next = comp;
+    }
 }

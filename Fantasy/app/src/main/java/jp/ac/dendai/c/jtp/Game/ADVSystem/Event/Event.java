@@ -4,6 +4,7 @@ import jp.ac.dendai.c.jtp.Game.ADVSystem.ADVManager;
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Component.ADVComponent;
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Condition.Conditions;
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Flag.FlagManager;
+import jp.ac.dendai.c.jtp.Game.ADVSystem.Parser.AssetManager;
 import jp.ac.dendai.c.jtp.Game.Constant;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.TextBox.TalkBox;
 import jp.ac.dendai.c.jtp.TouchUtil.Input;
@@ -17,6 +18,7 @@ public class Event {
     protected Conditions conditions;
     protected ADVComponent component;
     protected ADVComponent drawTarget;
+    protected AssetManager assetManager;
     protected TalkBox talkBox;
     protected int[] local_flags;
     protected Touch touch;
@@ -68,5 +70,11 @@ public class Event {
     }
     public ADVComponent getDrawTarget(){
         return drawTarget;
+    }
+    public void setComponent(ADVComponent component){
+        this.component = component;
+    }
+    public void setAssetManager(AssetManager am){
+        assetManager = am;
     }
 }

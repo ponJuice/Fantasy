@@ -6,8 +6,8 @@
 	</EventCondition>
 
     <Face>
-        <face name="hero" file="hero.png"/>
-        <face name="heroine" file="heroine.png"/>
+        <face id="hero" file="hero.png" name="ヒーロー"/>
+        <face id="heroine" file="heroine.png" name="ヒロイン"/>
     </Face>
 
     <Text>
@@ -21,13 +21,13 @@
     </Image>
 
     <Sound>
-        <soune name="angly" file="angly.wav"/>
+        <sound name="angly" file="angly.wav"/>
     </Sound>
 
 	<Contents>
 		<Back id="town_01"/>
 		<Scene face="hero" type="normal" text="s1"/>
-		<Scene face="heroin" type="normal" text="s2"/>
+		<Scene face="heroine" type="normal" text="s2"/>
 		<Scene face="hero" type="normal" text="s3"/>
 	</Contents>
 </Event>

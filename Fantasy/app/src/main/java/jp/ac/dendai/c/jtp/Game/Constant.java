@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import javax.microedition.khronos.opengles.GL;
 
 import jp.ac.dendai.c.jtp.Game.Battle.Player.PlayerData;
+import jp.ac.dendai.c.jtp.Game.UIs.UI.Text.StreamText.StreamText;
 import jp.ac.dendai.c.jtp.fantasy.R;
 import jp.ac.dendai.c.jtp.openglesutil.core.GLES20Util;
 
@@ -35,6 +36,22 @@ public class Constant {
     public final static int talk_text_height_offset = 0;
     public final static float talk_text_width = 1.1f;
     public final static float talk_text_height = 0.25f;
+    public final static int face_image_length_x = 384;
+    public final static int face_image_length_y = 192;
+    public final static int face_image_x_count_max = 4;
+    public final static int face_image_y_count_max = 2;
+    public final static String EVENT_DIRECTORY = "Event/";
+    public final static String face_id = "id";
+    public final static String face_fileName = "file";
+    public final static String face_name = "name";
+    public final static String face_directory = "Face/";
+    public final static String text_id = "id";
+    public final static String image_id = "id";
+    public final static String image_fileName = "file";
+    public final static String image_file_directory = "Image/";
+    public final static String sound_id = "name";
+    public final static String sound_fileName = "file";
+    public final static String sound_file_directory = "Sound/";
     //public final static float
 
 

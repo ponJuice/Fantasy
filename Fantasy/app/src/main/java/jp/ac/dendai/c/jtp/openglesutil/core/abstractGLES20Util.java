@@ -1,6 +1,7 @@
 package jp.ac.dendai.c.jtp.openglesutil.core;
 
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
@@ -20,7 +21,10 @@ import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.GLUtils;
 import android.opengl.Matrix;
+import android.os.Environment;
 import android.util.Log;
+import android.widget.ImageView;
+
 /**
  * 2次元用画像描画クラス（なんで抽象クラスにしたのか本気で悩んでるwww）
  * @author

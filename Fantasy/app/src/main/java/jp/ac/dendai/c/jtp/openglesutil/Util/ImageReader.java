@@ -42,6 +42,16 @@ public class ImageReader {
             }
         }
     }
+    public static InputStream getInputStream(String fileName){
+        final AssetManager assetManager = _act.getAssets();
+        InputStream is = null;
+        try {
+            is = assetManager.open(fileName);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        return is;
+    }
     public static Bitmap getImage(String fileName){
         if(images.containsKey(fileName))
             return images.get(fileName);
