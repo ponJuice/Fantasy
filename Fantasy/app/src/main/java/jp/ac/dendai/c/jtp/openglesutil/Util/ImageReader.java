@@ -52,6 +52,13 @@ public class ImageReader {
         }
         return is;
     }
+
+    /**
+     * 登録された画像を返します
+     * @param fileName　ファイル名
+     * @return　指定されたファイル名が登録されている場合はその画像を、登録されていない場合はNullを返します。
+     * 画像を読み込ませるにはreadImageToAssetsメソッドを使用してください。
+     */
     public static Bitmap getImage(String fileName){
         if(images.containsKey(fileName))
             return images.get(fileName);

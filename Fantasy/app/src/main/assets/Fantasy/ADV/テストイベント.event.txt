@@ -14,6 +14,14 @@
         <text id="s1">やあ</text>
         <text id="s2">こんにちは</text>
         <text id="s3">らりるれろ</text>
+        <text id="b0">する</text>
+        <text id="b1">しない</text>
+        <text id="bs00">するを選択した</text>
+        <text id="bs01">分岐終了</text>
+        <text id="bs10">しないを選択した</text>
+        <text id="bs11">分岐終了<text>
+        <text id="s4">あいうえお</text>
+        <text id="s5">かきくけこ</text>
     </Text>
 
     <Image>
@@ -25,9 +33,20 @@
     </Sound>
 
 	<Contents>
-		<Back id="town_01"/>
 		<Scene face="hero" type="normal" text="s1"/>
 		<Scene face="heroin" type="normal" text="s2"/>
 		<Scene face="hero" type="normal" text="s3"/>
+		<UserBranch>
+		    <Select text="b0">
+                <Scene face="hero" type="normal" text = "bs00"/>
+                <Scene face="hero" type="normal" text = "bs01"/>
+		    </Select>
+		    <Select text="b1">
+		        <Scene face="heroine" type="normal" text = "bs10"/>
+		        <Scene face="heroine" type="normal" text = "bs11"/>
+		    </Select>
+		</UserBranch
+		<Scene face="hero" type="normal" text = "s4"/>
+		<Scene face="heroine" type="normal" text="s5"/>
 	</Contents>
 </Event>

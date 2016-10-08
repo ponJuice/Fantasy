@@ -1,7 +1,10 @@
 package jp.ac.dendai.c.jtp.Game.ADVSystem.Event;
 
+import android.util.Log;
+
 import jp.ac.dendai.c.jtp.Game.ADVSystem.ADVManager;
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Component.ADVComponent;
+import jp.ac.dendai.c.jtp.Game.ADVSystem.Component.Background;
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Condition.Conditions;
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Flag.FlagManager;
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Parser.AssetManager;
@@ -22,6 +25,7 @@ public class Event {
     protected TalkBox talkBox;
     protected int[] local_flags;
     protected Touch touch;
+    protected Background back;
     public TalkBox getTalkBox(){
         return talkBox;
     }
@@ -30,25 +34,29 @@ public class Event {
         component.init(this);
     }
     public void draw(){
+        if(back != null)
+            back.draw();
         drawTarget.draw();
     }
     public void proc(ADVManager manager){
-        ADVComponent temp = component.proc(this);
-        if(temp != component){
-            //シーンが進んだ
-            temp.init(this);
+        if(component == null){
+            Log.d("Event","event end");
+        }else {
+            component = component.proc(this);
         }
-        component = temp;
     }
     public void touch(){
-        if(touch != null && touch.getTouchID() == -1)
-            touch = null;
+        /*if(touch != null && touch.getTouchID() == -1)
+            touch = null;*/
         for(int n = 0;n < Input.getTouchArray().length;n++){
             if(Input.getTouchArray()[n].getTouchID() != -1){
                 touch = Input.getTouchArray()[n];
                 break;
             }
         }
+    }
+    public void setBackGround(Background b){
+        back = b;
     }
     public Touch getTouch(){
         return touch;

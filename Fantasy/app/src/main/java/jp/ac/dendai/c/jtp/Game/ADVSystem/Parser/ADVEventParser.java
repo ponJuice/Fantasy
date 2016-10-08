@@ -1,6 +1,7 @@
 package jp.ac.dendai.c.jtp.Game.ADVSystem.Parser;
 
 import android.graphics.Bitmap;
+import android.text.method.BaseKeyListener;
 import android.util.Log;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -8,10 +9,13 @@ import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.*;
+import java.util.logging.XMLFormatter;
 
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Component.ADVComponent;
+import jp.ac.dendai.c.jtp.Game.ADVSystem.Component.Background;
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Component.Branch.UserBranch;
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Component.Scene;
+import jp.ac.dendai.c.jtp.Game.ADVSystem.Component.Transition;
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Event.Event;
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Parser.AssetManager;
 import jp.ac.dendai.c.jtp.Game.Charactor.Face;
@@ -56,6 +60,8 @@ public class ADVEventParser {
         //サウンドの読み込み
         loadSound(assetManager,xpp);
         //コンテンツの読み込み
+        debugOutputString("");
+        debugOutputString("Content Load");
         ADVComponent first = loadContent(assetManager,xpp);
 
         Event e = new Event();
@@ -81,16 +87,30 @@ public class ADVEventParser {
             e.printStackTrace();
         }
 
-        while(eventType != XmlPullParser.END_TAG && !xpp.getName().equals(endTag)){
+        while(eventType != XmlPullParser.END_DOCUMENT){
+            debugOutputString(xpp.getPositionDescription());
+            if(eventType == XmlPullParser.END_TAG && xpp.getName().equals(endTag)){
+                debugOutputString("Break Loop");
+                break;
+            }
             if(eventType == XmlPullParser.START_TAG){
-                if(xpp.getName().equals(Scene.tagName)){
+                String str = xpp.getName();
+                if(str.equals(Scene.tagName)){
                     Scene s = new Scene();
                     s.parseCreate(am,xpp);
                     pack.setComponent(s);
-                }else if(xpp.getName().equals(UserBranch.tagName)){
+                }else if(str.equals(UserBranch.tagName)){
                     UserBranch ub = new UserBranch();
                     ub.parseCreate(am,xpp);
                     pack.setComponent(ub);
+                }else if(str.equals(Background.tagName)){
+                    Background b = new Background();
+                    b.parseCreate(am,xpp);
+                    pack.setComponent(b);
+                }else if(str.equals(Transition.tagName)){
+                    Transition t= new Transition();
+                    t.parseCreate(am,xpp);
+                    pack.setComponent(t);
                 }
             }
 
@@ -102,17 +122,8 @@ public class ADVEventParser {
                 e.printStackTrace();
             }
         }
-
+        return pack.getFirst();
     }
-
-    /*public static ADVComponent _parser(AssetManager am,XmlPullParser xpp){
-        if(xpp.getName().equals(Scene.tagName)){
-            Scene s = new Scene();
-            s.parseCreate(am,xpp);
-            return s;
-        }
-        return null;
-    }*/
 
     private static ADVComponent loadContent(AssetManager am,XmlPullParser xpp){
         ADVComponentPack pack = new ADVComponentPack();
@@ -123,31 +134,10 @@ public class ADVEventParser {
         }catch (XmlPullParserException e){
             e.printStackTrace();
         }
-        while(eventType != XmlPullParser.END_DOCUMENT){
-            debugOutputString("line : "+xpp.getLineNumber()+" eventType : "+eventType);
-            if(eventType == XmlPullParser.START_TAG) {
-                debugOutputString("[START TAG] " + xpp.getName());
-                //タグの種類により分岐
-                if(xpp.getName().equals(Scene.tagName)){
-                    debugOutputString(Scene.tagName + " parse start");
-                    //Sceneタグ
-                    Scene s = new Scene();
-                    s.parseCreate(am,xpp);
-                    pack.setComponent(s);
-                }
-            }
 
-            //次の行へ
-            try {
-                eventType = xpp.next();
-            }catch (XmlPullParserException e){
-                e.printStackTrace();
-            }catch (IOException e){
-                e.printStackTrace();
-            }
-        }
+        ADVComponent first = _parser(am,xpp,"Content");
 
-        return pack.getFirst();
+        return first;
     }
 
     private static void loadFace(AssetManager am,XmlPullParser xpp){
@@ -298,7 +288,7 @@ public class ADVEventParser {
                     if (eventType == XmlPullParser.START_TAG && xpp.getName().equals(IMAGE_TAG.toLowerCase())) {
                         String id = xpp.getAttributeValue(null,Constant.image_id);
                         String fileName = xpp.getAttributeValue(null,Constant.image_fileName);
-                        Bitmap image = ImageReader.getImage(Constant.image_file_directory + fileName);
+                        Bitmap image = ImageReader.readImageToAssets(Constant.image_file_directory + fileName);
                         debugOutputString("[HIT] id : "+id + "  fileName : "+fileName);
                         am.setImage(id,image);
                     }

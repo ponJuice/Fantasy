@@ -12,6 +12,7 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 import jp.ac.dendai.c.jtp.Game.GameManager;
+import jp.ac.dendai.c.jtp.Game.UIs.UI.Util.Time;
 import jp.ac.dendai.c.jtp.TouchUtil.Input;
 import jp.ac.dendai.c.jtp.TouchUtil.Touch;
 import jp.ac.dendai.c.jtp.Game.UIs.Screen.TownScreen;
@@ -146,6 +147,7 @@ public class MainActivity extends Activity implements GLSurfaceView.Renderer{
             GameManager.nowScreen = new TownScreen();
             firstStart = false;
         }
+        Time.tick();
         FpsController.updateFps();
         GameManager.touch();
         GameManager.proc();

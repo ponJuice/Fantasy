@@ -1,5 +1,7 @@
 package jp.ac.dendai.c.jtp.Game.ADVSystem.Component.Branch.Select;
 
+import android.util.Log;
+
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -18,7 +20,7 @@ import jp.ac.dendai.c.jtp.openglesutil.core.GLES20Util;
  */
 public class UserSelect extends Select {
     /*------------ Parseable関連 -------------*/
-    public final static String tagName = "UserSelect";
+    public final static String tagName = "Select";
     public final static String select_text = "text";
     private final static float button_width = 0.3f;
     private final static float button_height = 0.1f;
@@ -26,17 +28,32 @@ public class UserSelect extends Select {
     /*------------ UserSelect関連 ------------*/
     protected String text;
     protected Button button;
-    public void draw(int index,int max){
+    public void draw(){
+        button.draw();
+    }
+
+    public void init(int index,int max){
+        if(isInit)
+            return;
+
         if(max == 1) {
             button.setX(GLES20Util.getWidth_gl() / 2f);
             button.setY(GLES20Util.getHeight_gl() / 2f);
         }else if(max == 2){
-            button.setX(GLES20Util.getWidth_gl() / 4f * (float)index);
-            button.setY(GLES20Util.getHight() / 2f);
+            if(index == 0) {
+                button.setX(GLES20Util.getWidth_gl() / 4f);
+                button.setY(GLES20Util.getHeight_gl() / 2f);
+            }else if(index == 1){
+                button.setX(GLES20Util.getWidth_gl() / 4f * 3f);
+                button.setY(GLES20Util.getHeight_gl() / 2f);
+            }
         }else if(max == 3){
-            if(index < 3) {
-                button.setX(GLES20Util.getWidth_gl() / 4f * (float) index);
-                button.setY(GLES20Util.getHight() / 4f);
+            if(index == 0) {
+                button.setX(GLES20Util.getWidth_gl() / 4f);
+                button.setY(GLES20Util.getHeight_gl() / 2f);
+            }else if(index == 1){
+                button.setX(GLES20Util.getWidth_gl() / 4f * 3f);
+                button.setY(GLES20Util.getHeight_gl() / 2f);
             }else{
                 button.setX(GLES20Util.getWidth_gl() /2f);
                 button.setY(GLES20Util.getHeight_gl() / 4f * 3f);
@@ -56,6 +73,8 @@ public class UserSelect extends Select {
                 button.setY(GLES20Util.getHeight_gl() / 4f * 3f);
             }
         }
+
+        isInit = true;
     }
 
     public void proc(){
@@ -72,6 +91,7 @@ public class UserSelect extends Select {
 
     @Override
     public void parseCreate(AssetManager am, XmlPullParser xpp) {
+        Log.d(tagName+" Parse","");
         String text = xpp.getAttributeValue(null,select_text);
         button = new Button(0,0,button_width,-button_height,am.getText(text));
         button.setBackground(Constant.getBitmap(Constant.BITMAP.system_button));
@@ -84,21 +104,7 @@ public class UserSelect extends Select {
         }catch (XmlPullParserException e){
             e.printStackTrace();
         }
-
-        while(eventType != XmlPullParser.END_TAG && !xpp.getName().equals(tagName)){
-            if(eventType == XmlPullParser.START_TAG){
-                next = ADVEventParser._parser(am,xpp);
-            }
-
-            try{
-                eventType = xpp.next();
-            }catch (IOException e){
-                e.printStackTrace();
-            }catch (XmlPullParserException e){
-                e.printStackTrace();
-            }
-        }
-
+        next = ADVEventParser._parser(am,xpp,tagName);
     }
 
     @Override

@@ -12,11 +12,13 @@ import jp.ac.dendai.c.jtp.openglesutil.graphic.blending_mode.GLES20COMPOSITIONMO
  * Created by wark on 2016/09/16.
  */
 public class Image implements UI {
+    protected Criteria criteria;
     protected Bitmap image;
     protected float aspect;
     protected UIAlign.Align holizontal = UIAlign.Align.CENTOR,vertical = UIAlign.Align.CENTOR;
     protected float width,height;
     protected float alpha = 1;
+    protected boolean useAspect = true;
     protected float x = 0,y = 0;
     protected GLES20COMPOSITIONMODE mode = GLES20COMPOSITIONMODE.ALPHA;
     public Image(){}
@@ -39,14 +41,27 @@ public class Image implements UI {
     }
     public void setWidth(float width){
         this.width = width;
-        this.height = width/aspect;
+        if(useAspect)
+            this.height = width/aspect;
     }
     public void setHeight(float height){
         this.height = height;
-        this.width = height*aspect;
+        if(useAspect)
+            this.width = height*aspect;
     }
     public void setAlpha(float a){
         alpha = a;
+    }
+
+    public void useAspect(boolean flag){
+        useAspect = flag;
+        if(useAspect){
+            if(criteria == Criteria.Height){
+                width = height*aspect;
+            }else{
+                height = width/aspect;
+            }
+        }
     }
     @Override
     public void touch(Touch touch) {

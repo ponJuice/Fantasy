@@ -7,6 +7,7 @@ import jp.ac.dendai.c.jtp.Game.ADVSystem.Event.Event;
  */
 public abstract class ADVComponent {
     protected ADVComponent next;
+    protected boolean isInit = false;
 
     /**
      * 描画を行う

@@ -1,6 +1,8 @@
 package jp.ac.dendai.c.jtp.Game.ADVSystem.Component.Branch;
 
 
+import android.util.Log;
+
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -35,35 +37,42 @@ public class UserBranch extends Branch implements Parseable{
         drawBack.draw();
         //分岐の表示
         for(int n = 0;n < selects.size();n++){
-            selects.get(n).draw(n,selects.size());
+            selects.get(n).draw();
         }
     }
 
     @Override
     public ADVComponent proc(Event event) {
+        init(event);
         if(target != null) {
+            target.init(event);
             target = target.proc(event);
+            if(target == null)
+                return next;
             return this;
-        }else if(target == null){
-            return next;
         }
         for(int n = 0;n < selects.size();n++){
             selects.get(n).proc();
-            selects.get(n).touch(event.getTouch());
+            if(event.getTouch() != null)
+                selects.get(n).touch(event.getTouch());
 
         }
-
-        return next;
+        return this;
+        //return next;
     }
 
     @Override
     public void init(Event event) {
-        drawBack = event.getDrawTarget();
-        event.setDrawTarget(this);
+        if(!isInit) {
+            drawBack = event.getDrawTarget();
+            event.setDrawTarget(this);
+            isInit = true;
+        }
     }
 
     @Override
     public void parseCreate(AssetManager am, XmlPullParser xpp) {
+        Log.d(tagName+" Parse","");
         selects = new ArrayList<>();
         int eventType = XmlPullParser.END_DOCUMENT;
         try{
@@ -71,7 +80,10 @@ public class UserBranch extends Branch implements Parseable{
         } catch (XmlPullParserException e){
             e.printStackTrace();
         }
-        while(eventType != XmlPullParser.END_TAG && !xpp.getName().equals(tagName)){
+        while(eventType != XmlPullParser.END_DOCUMENT){
+            if(eventType == XmlPullParser.END_TAG && xpp.getName().equals(tagName)){
+                break;
+            }
             if(eventType == XmlPullParser.START_TAG){
                 if(xpp.getName().equals(UserSelect.tagName)){
                     //Selectタグ
@@ -89,6 +101,9 @@ public class UserBranch extends Branch implements Parseable{
             }catch (IOException e){
                 e.printStackTrace();
             }
+        }
+        for(int n = 0;n < selects.size();n++){
+            selects.get(n).init(n,selects.size());
         }
     }
 

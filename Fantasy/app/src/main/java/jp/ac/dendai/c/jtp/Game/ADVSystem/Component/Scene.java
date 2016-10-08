@@ -1,6 +1,7 @@
 package jp.ac.dendai.c.jtp.Game.ADVSystem.Component;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 
 import org.xmlpull.v1.XmlPullParser;
 
@@ -15,6 +16,7 @@ import jp.ac.dendai.c.jtp.Game.Constant;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Text.StreamText.OneSentenceStreamText;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.TextBox.TalkBox;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Util.Time;
+import jp.ac.dendai.c.jtp.TouchUtil.Touch;
 import jp.ac.dendai.c.jtp.fantasy.R;
 import jp.ac.dendai.c.jtp.openglesutil.core.GLES20Util;
 
@@ -37,6 +39,9 @@ public class Scene extends ADVComponent implements Parseable{
     protected OneSentenceStreamText streamText;
     protected float timeBuffer;
     protected TalkBox talkBox;
+    protected Touch touch;
+    protected boolean isTouch = false;
+    protected boolean isInit = false;
 
     @Override
     public void draw() {
@@ -45,10 +50,15 @@ public class Scene extends ADVComponent implements Parseable{
 
     @Override
     public ADVComponent proc(Event event) {
+        init(event);
         talkBox.proc();
-        if(talkBox.isTextEnd() && event.getTouch() != null){
-            //テキストが全て表示されていて、入力がある場合次へ
-            return next;
+        if(talkBox.isTextEnd()){
+            if(isTouch &&  (event.getTouch() == null || event.getTouch().getTouchID() == -1))
+                //テキストが全て表示されていて、入力がある場合次へ
+                return next;
+        }
+        if(event.getTouch() != null && event.getTouch().getTouchID() != -1){
+            isTouch = true;
         }
         timeBuffer += Time.getDeltaTime();
         return this;
@@ -56,12 +66,15 @@ public class Scene extends ADVComponent implements Parseable{
 
     @Override
     public void init(Event event) {
-        event.setDrawTarget(this);
-        talkBox = event.getTalkBox();
-        talkBox.setFace(face);
-        talkBox.setFaceType(faceType);
-        talkBox.setBackground(textbox_background);
-        talkBox.setText(streamText);
+        if(!isInit) {
+            event.setDrawTarget(this);
+            talkBox = event.getTalkBox();
+            talkBox.setFace(face);
+            talkBox.setFaceType(faceType);
+            talkBox.setBackground(textbox_background);
+            talkBox.setText(streamText);
+            isInit = true;
+        }
     }
     public static Scene create(Face face,FaceType faceType,String text){
         Scene s = new Scene();
@@ -87,6 +100,7 @@ public class Scene extends ADVComponent implements Parseable{
 
     @Override
     public void parseCreate(AssetManager am,XmlPullParser xpp) {
+        Log.d(tagName+" Parse","");
         //顔の所得
         String face = xpp.getAttributeValue(null,attrib_face);
         //表情の所得

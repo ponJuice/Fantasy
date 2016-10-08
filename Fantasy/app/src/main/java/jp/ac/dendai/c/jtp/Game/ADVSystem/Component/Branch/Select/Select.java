@@ -8,6 +8,7 @@ import jp.ac.dendai.c.jtp.Game.ADVSystem.Parser.Parseable;
  */
 public abstract class Select implements Parseable{
     protected ADVComponent next;
+    protected boolean isInit = false;
     public ADVComponent getNext(){
         return next;
     }
