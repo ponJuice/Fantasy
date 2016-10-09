@@ -31,6 +31,7 @@ public class Scene extends ADVComponent implements Parseable{
     public final  static String attrib_text = "text";
     public final  static String attrib_file = "file";
     public final  static String attrib_name = "name";
+    public final  static String attrib_scroll = "autoscroll";
 
     /*------- ADVComponent関連 ---------*/
     protected Face face;
@@ -42,6 +43,7 @@ public class Scene extends ADVComponent implements Parseable{
     protected Touch touch;
     protected boolean isTouch = false;
     protected boolean isInit = false;
+    protected boolean autoScroll = false;
 
     @Override
     public void draw() {
@@ -53,7 +55,7 @@ public class Scene extends ADVComponent implements Parseable{
         init(event);
         talkBox.proc();
         if(talkBox.isTextEnd()){
-            if(isTouch &&  (event.getTouch() == null || event.getTouch().getTouchID() == -1))
+            if((isTouch || autoScroll) &&  (event.getTouch() == null || event.getTouch().getTouchID() == -1))
                 //テキストが全て表示されていて、入力がある場合次へ
                 return next;
         }
@@ -108,6 +110,11 @@ public class Scene extends ADVComponent implements Parseable{
         FaceType faceType = FaceType.valueOf(value);
         //テキストの取得
         String text_id = xpp.getAttributeValue(null,attrib_text);
+        //スクロール
+        String scroll = xpp.getAttributeValue(null,attrib_scroll);
+        if(scroll != null)
+            autoScroll = Boolean.parseBoolean(scroll);
+
         create(this,am.getFace(face),faceType,am.getText(text_id));
     }
 

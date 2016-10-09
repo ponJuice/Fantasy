@@ -18,12 +18,13 @@ import jp.ac.dendai.c.jtp.openglesutil.core.GLES20Util;
  * Created by テツヤ on 2016/10/06.
  */
 public class Event {
+    private final static int local_flag_max = 32;
     protected Conditions conditions;
     protected ADVComponent component;
     protected ADVComponent drawTarget;
     protected AssetManager assetManager;
     protected TalkBox talkBox;
-    protected int[] local_flags;
+    protected int[] local_flags = new int[local_flag_max];
     protected Touch touch;
     protected Background back;
     public TalkBox getTalkBox(){
@@ -72,7 +73,22 @@ public class Event {
             return FlagManager.getFlagValue(type,value);
         }
     }
-
+    public void setFlagValue(String type,int index,int value){
+        if(type.equals("local"))
+            local_flags[index] = value;
+        else{
+            FlagManager.setFlagValue(type,index,value);
+        }
+    }
+    public void outputDebugInfo(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("Local Flag = ");
+        for(int n = 0;n < local_flags.length;n++){
+            sb.append("["+n+" : "+local_flags[n]+"]");
+        }
+        Log.d("Event Info",sb.toString());
+        FlagManager.outputDebugInfo();
+    }
     public void setDrawTarget(ADVComponent comp){
         drawTarget = comp;
     }

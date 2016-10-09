@@ -27,6 +27,8 @@ public class Background extends ADVComponent implements Parseable {
     public ADVComponent proc(Event event) {
         init(event);
         event.setBackGround(this);
+        if(next == null)
+            return next;
         return next.proc(event);
     }
 

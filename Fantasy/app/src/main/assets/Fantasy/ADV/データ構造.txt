@@ -37,7 +37,8 @@
 		<UserBranch>
 			<Scene face="hero" type="normal" text="br_01"/>
 			<Select text="select_01">
-				<Flag type="local" mode="set" flag="0" value="2"/>
+			    <Proc type1="local" value1="1" operator="+" type2="local" value2="2" type3="local" value3="3"/>
+				<Flag type1="local" mode1="const" value1="1" type2="global" mode2="local" value2="1"/>
 				<Se id="prologue_se_01" l_volume="1" r_volume="1" roop="0" rate="1.0" wait="true"/>
 				<Scene face="hero" type="normal" text="select_text_01"/>
 				<Scene face="hero" type="normal" text="select_text_02"/>
@@ -48,7 +49,7 @@
 				<Scene face="hero" type="normal" text="select_text_03"/>
 			<Select/>
 		</UserBranch>
-		<FlagBranch>
+		<FlagBranch default="true">
 			<Select>
 				<Conditions mode="and">
 					<Condition  type1="local" value1="0" mnemonic="==" type2="const" value2="1"/>
@@ -67,7 +68,7 @@
 					<Item mode="add" item="1" num="100/>
 				</Scenes>
 			</Select>
-			<Select mode="defult">
+			<Select>
 				<Scene face="hero" type="normal" text="s_0"/>
 			</Select>
 		</FlagBranch>

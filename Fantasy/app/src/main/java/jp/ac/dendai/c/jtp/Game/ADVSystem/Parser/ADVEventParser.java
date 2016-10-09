@@ -13,7 +13,9 @@ import java.util.logging.XMLFormatter;
 
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Component.ADVComponent;
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Component.Background;
+import jp.ac.dendai.c.jtp.Game.ADVSystem.Component.Branch.FlagBranch;
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Component.Branch.UserBranch;
+import jp.ac.dendai.c.jtp.Game.ADVSystem.Component.Flag;
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Component.Scene;
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Component.Transition;
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Event.Event;
@@ -67,6 +69,7 @@ public class ADVEventParser {
         Event e = new Event();
         e.setComponent(first);
         e.preparation();
+        e.setAssetManager(assetManager);
 
         return e;
     }
@@ -111,6 +114,14 @@ public class ADVEventParser {
                     Transition t= new Transition();
                     t.parseCreate(am,xpp);
                     pack.setComponent(t);
+                }else if(str.equals(FlagBranch.tagName)){
+                    FlagBranch fb = new FlagBranch();
+                    fb.parseCreate(am,xpp);
+                    pack.setComponent(fb);
+                }else if(str.equals(Flag.tagName)){
+                    Flag g = new Flag();
+                    g.parseCreate(am,xpp);
+                    pack.setComponent(g);
                 }
             }
 
