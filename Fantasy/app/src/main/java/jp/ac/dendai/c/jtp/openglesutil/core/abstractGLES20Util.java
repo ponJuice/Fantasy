@@ -191,6 +191,8 @@ public abstract class abstractGLES20Util {
 		GLSurfaceView glSurfaceView = new GLSurfaceView(activity); // 描画領域の作成
 		// OpenGL ES 2.0を使用する
 		glSurfaceView.setEGLContextClientVersion(2);
+		//使用するバッファをカラーRGBA、深度、ステンシルにする
+		glSurfaceView.setEGLConfigChooser(8, 8, 8, 8, 16, 8);
 		// 作成したGLSurfaceViewにこのアプリケーションから描画する
 		glSurfaceView.setRenderer(renderer);
 

@@ -12,6 +12,7 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 import jp.ac.dendai.c.jtp.Game.GameManager;
+import jp.ac.dendai.c.jtp.Game.UIs.Screen.DebugEventSelectScreen;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Util.Time;
 import jp.ac.dendai.c.jtp.TouchUtil.Input;
 import jp.ac.dendai.c.jtp.TouchUtil.Touch;
@@ -139,12 +140,11 @@ public class MainActivity extends Activity implements GLSurfaceView.Renderer{
         String vertexShader = new String(FileManager.readShaderFile(this, "VSHADER.txt"));
         String fragmentShader = new String(FileManager.readShaderFile(this,"FSHADER.txt"));
         GLES20Util.initGLES20Util(vertexShader, fragmentShader);
-        GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // 画面をクリアする色を設定する
     }
 
     private void process(){
         if(firstStart){
-            GameManager.nowScreen = new TownScreen();
+            GameManager.nowScreen = new DebugEventSelectScreen();//TownScreen();
             firstStart = false;
         }
         Time.tick();
@@ -156,6 +156,7 @@ public class MainActivity extends Activity implements GLSurfaceView.Renderer{
     private void draw(){
         // 描画領域をクリアする
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
+        GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // 画面をクリアする色を設定する
         GameManager.draw();
     }
 

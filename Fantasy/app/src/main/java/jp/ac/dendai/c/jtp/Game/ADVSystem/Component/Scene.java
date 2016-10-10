@@ -97,7 +97,7 @@ public class Scene extends ADVComponent implements Parseable{
                 ,Constant.talk_text_color);
         s.streamText.setHeight(Constant.talk_text_height);
         s.streamText.setWidth(Constant.talk_text_width);
-        s.textbox_background = GLES20Util.loadBitmap(R.mipmap.serihu_waku);
+        s.textbox_background = Constant.getBitmap(Constant.BITMAP.system_talk_back);
     }
 
     @Override

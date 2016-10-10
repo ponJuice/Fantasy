@@ -18,13 +18,15 @@ public class Constant {
         black,
         bilinear,
         stream_text,
-        system_button
+        system_button,
+        system_talk_back,
+        system_message_box
     }
     private static float sens = 1.0f;
     public static void setSens(float n){ sens = n;}
     public static float getSens(){return sens;}
     public static final String fontName = "custom_font.ttf";
-    protected static Bitmap text_effect_white,text_effect_mask,system_button,black,stream_text;
+    protected static Bitmap text_effect_white,text_effect_mask,system_button,black,stream_text,system_talk_back,system_message_box;
     protected static PlayerData playerData;
     public final static int talk_text_size = 25;
     public final static int talk_text_color = 0xFFFFFFFF;  //a,r,g,b
@@ -40,6 +42,8 @@ public class Constant {
     public final static int face_image_length_y = 192;
     public final static int face_image_x_count_max = 4;
     public final static int face_image_y_count_max = 2;
+    public final static float message_box_line_height = 0.05f;
+    public final static int message_box_max_length_x = 10;
     public final static String EVENT_DIRECTORY = "Event/";
     public final static String face_id = "id";
     public final static String face_fileName = "file";
@@ -66,6 +70,11 @@ public class Constant {
             black = GLES20Util.createBitmap(255,0,0,0);
         if(stream_text == null)
             stream_text = GLES20Util.loadBitmap(R.mipmap.text_mask);
+        if(system_talk_back == null)
+            system_talk_back = GLES20Util.loadBitmap(R.mipmap.serihu_waku);
+        if(system_message_box == null)
+            system_message_box = GLES20Util.loadBitmap(R.mipmap.massagebox);
+
     }
     public static Bitmap getBitmap(BITMAP f){
         if(f == BITMAP.white)
@@ -78,6 +87,10 @@ public class Constant {
             return black;
         }else if(f == BITMAP.stream_text){
             return stream_text;
+        }else if(f == BITMAP.system_talk_back){
+            return system_talk_back;
+        }else if(f == BITMAP.system_message_box){
+            return system_message_box;
         }
         return text_effect_white;
     }

@@ -16,6 +16,7 @@ import jp.ac.dendai.c.jtp.Game.ADVSystem.Component.Background;
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Component.Branch.FlagBranch;
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Component.Branch.UserBranch;
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Component.Flag;
+import jp.ac.dendai.c.jtp.Game.ADVSystem.Component.MessageBox;
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Component.Scene;
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Component.Transition;
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Event.Event;
@@ -122,6 +123,10 @@ public class ADVEventParser {
                     Flag g = new Flag();
                     g.parseCreate(am,xpp);
                     pack.setComponent(g);
+                }else if(str.equals(MessageBox.tagName)){
+                    MessageBox m = new MessageBox();
+                    m.parseCreate(am,xpp);
+                    pack.setComponent(m);
                 }
             }
 

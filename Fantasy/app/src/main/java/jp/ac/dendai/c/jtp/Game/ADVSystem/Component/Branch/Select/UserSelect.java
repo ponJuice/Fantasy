@@ -22,8 +22,8 @@ public class UserSelect extends Select {
     /*------------ Parseable関連 -------------*/
     public final static String tagName = "Select";
     public final static String select_text = "text";
-    private final static float button_width = 0.3f;
-    private final static float button_height = 0.1f;
+    private final static float button_width = 0.4f;
+    private final static float button_height = 0.15f;
 
     /*------------ UserSelect関連 ------------*/
     protected String text;
