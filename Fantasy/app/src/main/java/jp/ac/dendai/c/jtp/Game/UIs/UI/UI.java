@@ -8,6 +8,8 @@ import jp.ac.dendai.c.jtp.TouchUtil.Touch;
 public interface UI {
     public enum Criteria{
         Height,
+        Width,
+        NON
 
     }
     public final static int UI_LEFT     = 0;
@@ -15,7 +17,7 @@ public interface UI {
     public final static int UI_RIGHT    = 2;
     public final static int UI_TOP      = 3;
     public final static int UI_BOTTOM   = 4;
-    void touch(Touch touch);
+    boolean touch(Touch touch);
     void proc();
-    void draw();
+    void draw(float offset_x,float offset_y);
 }

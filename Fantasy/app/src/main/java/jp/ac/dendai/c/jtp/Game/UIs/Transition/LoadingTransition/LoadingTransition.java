@@ -63,7 +63,7 @@ public class LoadingTransition implements Transitionable {
 					GLES20Util.getWidth_gl(),GLES20Util.getHeight_gl(),
 					bitmap, a ,GLES20COMPOSITIONMODE.ALPHA);
 			loading.setAlpha(a);
-			loading.draw();
+			loading.draw(0,0);
 			if(count > 60) {
 				state = LOAD_STATE.LOAD_START;
 				count = 0;
@@ -73,14 +73,14 @@ public class LoadingTransition implements Transitionable {
 					GLES20Util.getWidth_gl(), GLES20Util.getHeight_gl(),
 					bitmap, 1f, GLES20COMPOSITIONMODE.ALPHA);
 			loading.setAlpha(1);
-			loading.draw();
+			loading.draw(0,0);
 			thread.start();
 			state = LOAD_STATE.LOAD_STAY;
 		}else if(state == LOAD_STATE.LOAD_STAY){
 			GLES20Util.DrawGraph(GLES20Util.getWidth_gl() / 2f, GLES20Util.getHeight_gl() / 2f,
 					GLES20Util.getWidth_gl(), GLES20Util.getHeight_gl(),
 					bitmap, 1f, GLES20COMPOSITIONMODE.ALPHA);
-			loading.draw();
+			loading.draw(0,0);
 			if(count > 120) {
 				//ロード中
 				if (thread.isEnd()) {

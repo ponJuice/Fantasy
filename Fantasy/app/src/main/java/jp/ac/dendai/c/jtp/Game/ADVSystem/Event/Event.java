@@ -34,10 +34,10 @@ public class Event {
         talkBox = new TalkBox(Constant.talk_textbox_x,Constant.talk_textbox_y, GLES20Util.getWidth_gl(),0.3f);
         component.init(this);
     }
-    public void draw(){
+    public void draw(float offset_x,float offset_y){
         if(back != null)
-            back.draw();
-        drawTarget.draw();
+            back.draw(offset_x,offset_y);
+        drawTarget.draw(offset_x,offset_y);
     }
     public void proc(ADVManager manager){
         if(component == null){

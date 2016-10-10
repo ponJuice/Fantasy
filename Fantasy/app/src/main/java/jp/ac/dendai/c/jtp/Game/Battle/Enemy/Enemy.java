@@ -16,7 +16,7 @@ public class Enemy extends BattleState{
     public Image getImage(){
         return image;
     }
-    public void draw(){
-        image.draw();
+    public void draw(float offset_x,float offset_y){
+        image.draw(offset_x,offset_y);
     }
 }

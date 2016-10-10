@@ -32,6 +32,11 @@ public class Touch{
 		tl.remove(l);
 	}
 
+	public void resetDelta(){
+		deltaX = 0;
+		deltaY = 0;
+	}
+
 	public void setTouch(float x,float y,int touchID){
 		this.x = x;
 		this.y = y;

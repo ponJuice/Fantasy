@@ -32,7 +32,7 @@ public class Process extends ADVComponent implements Parseable {
     protected Operator op;
 
     @Override
-    public void draw() {
+    public void draw(float offset_x,float offset_y) {
 
     }
 

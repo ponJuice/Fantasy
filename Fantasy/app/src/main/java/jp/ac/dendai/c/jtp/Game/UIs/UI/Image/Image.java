@@ -64,8 +64,8 @@ public class Image implements UI {
         }
     }
     @Override
-    public void touch(Touch touch) {
-
+    public boolean touch(Touch touch) {
+        return false;
     }
 
     @Override
@@ -74,9 +74,9 @@ public class Image implements UI {
     }
 
     @Override
-    public void draw() {
+    public void draw(float offset_x,float offset_y) {
         if(image != null)
-            GLES20Util.DrawGraph(x + UIAlign.convertAlign(width,holizontal),y + UIAlign.convertAlign(height,vertical),width,height,image,alpha, mode);
+            GLES20Util.DrawGraph(x + UIAlign.convertAlign(width,holizontal)+offset_x,y + UIAlign.convertAlign(height,vertical)+offset_y,width,height,image,alpha, mode);
     }
 
     public float getAlpha() {

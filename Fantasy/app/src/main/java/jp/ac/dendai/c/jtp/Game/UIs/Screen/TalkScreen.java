@@ -13,6 +13,8 @@ import jp.ac.dendai.c.jtp.Game.Charactor.FaceReader;
 import jp.ac.dendai.c.jtp.Game.GameManager;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Text.StreamText.OneSentenceStreamText;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.TextBox.TalkBox;
+import jp.ac.dendai.c.jtp.Game.UIs.UI.UI;
+import jp.ac.dendai.c.jtp.Game.UIs.UI.UIAlign;
 import jp.ac.dendai.c.jtp.TouchUtil.Input;
 import jp.ac.dendai.c.jtp.Game.UIs.Transition.LoadingTransition.LoadingTransition;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Button.Button;
@@ -33,8 +35,10 @@ public class TalkScreen implements Screenable {
 
     public TalkScreen(){
 
-        backButton = new Button(0,0.5f,0.3f,0.4f,"BACK");
-        backButton.setCriteria(Button.CRITERIA.HEIGHT);
+        backButton = new Button(0,0.5f,0.2f,0.1f,"BACK");
+        backButton.setHorizontal(UIAlign.Align.LEFT);
+        backButton.setVertical(UIAlign.Align.BOTTOM);
+        backButton.setCriteria(UI.Criteria.Height);
         backButton.setPadding(0.01f);
         backButton.setButtonListener(new ButtonListener() {
             @Override
@@ -50,15 +54,23 @@ public class TalkScreen implements Screenable {
             @Override
             public void touchUp(Button button) {
                 LoadingTransition lt = LoadingTransition.getInstance();
-                lt.initTransition(TownScreen.class);
+                lt.initTransition(DebugEventSelectScreen.class);
                 GameManager.transition  = lt;
                 GameManager.isTransition = true;
             }
         });
+    }
 
-        event = ADVEventParser.createEvent("event_text.event");
+    @Override
+    public void constract(Object[] args) {
+        if(args == null)
+            return;
+        if(args.length != 1)
+            return;
+        event = ADVEventParser.createEvent((String)args[0]);
         event.preparation();
     }
+
     @Override
     public void Proc() {
         if(freeze)
@@ -69,8 +81,8 @@ public class TalkScreen implements Screenable {
 
     @Override
     public void Draw(float offsetX, float offsetY) {
-        event.draw();
-        backButton.draw();
+        event.draw(offsetX,offsetY);
+        backButton.draw(offsetX,offsetY);
     }
 
     @Override

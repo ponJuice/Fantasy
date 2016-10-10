@@ -28,7 +28,7 @@ public class Flag extends ADVComponent implements Parseable {
     protected int value2;
 
     @Override
-    public void draw() {
+    public void draw(float offset_x,float offset_y) {
 
     }
 

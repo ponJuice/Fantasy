@@ -126,8 +126,8 @@ public class TalkBox implements UI{
     }
 
     @Override
-    public void touch(Touch touch) {
-
+    public boolean touch(Touch touch) {
+        return false;
     }
 
     @Override
@@ -136,14 +136,14 @@ public class TalkBox implements UI{
     }
 
     @Override
-    public void draw() {
+    public void draw(float offset_x,float offset_y) {
         if(backgroundEnabled)
-            background.draw();
+            background.draw(offset_x,offset_y);
         if(faceEnabled)
-            faceImage.draw();
+            faceImage.draw(offset_x,offset_y);
         if(nameEnabled)
-            nameImage.draw();
+            nameImage.draw(offset_x,offset_y);
         if(streamText != null && textEnabled)
-            streamText.draw();
+            streamText.draw(offset_x,offset_y);
     }
 }

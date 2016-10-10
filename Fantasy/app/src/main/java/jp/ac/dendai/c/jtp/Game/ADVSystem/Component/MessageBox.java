@@ -34,10 +34,10 @@ public class MessageBox extends ADVComponent implements Parseable {
     protected ADVComponent drawTarget;
     protected boolean isInit = false;
     @Override
-    public void draw() {
+    public void draw(float offset_x,float offset_y) {
         if(drawTarget != null)
-            drawTarget.draw();
-        textBox.draw();
+            drawTarget.draw(offset_x,offset_y);
+        textBox.draw(offset_x,offset_y);
     }
 
     @Override

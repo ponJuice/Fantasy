@@ -9,7 +9,8 @@ import jp.ac.dendai.c.jtp.TouchUtil.Touch;
 
 public class TextBox implements UI {
     @Override
-    public void touch(Touch touch) {
+    public boolean touch(Touch touch) {
+        return false;
     }
 
     @Override
@@ -18,7 +19,7 @@ public class TextBox implements UI {
     }
 
     @Override
-    public void draw() {
+    public void draw(float offset_x,float offset_y) {
 
     }
 }

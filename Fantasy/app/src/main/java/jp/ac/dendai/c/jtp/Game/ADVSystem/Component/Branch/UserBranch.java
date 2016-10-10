@@ -33,11 +33,11 @@ public class UserBranch extends Branch implements Parseable{
     protected ADVComponent drawBack;
 
     @Override
-    public void draw() {
-        drawBack.draw();
+    public void draw(float offset_x,float offset_y) {
+        drawBack.draw(offset_x,offset_y);
         //分岐の表示
         for(int n = 0;n < selects.size();n++){
-            selects.get(n).draw();
+            selects.get(n).draw(offset_x,offset_y);
         }
     }
 

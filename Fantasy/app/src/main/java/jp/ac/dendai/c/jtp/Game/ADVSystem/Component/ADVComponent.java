@@ -12,7 +12,7 @@ public abstract class ADVComponent {
     /**
      * 描画を行う
      */
-    public abstract void draw();
+    public abstract void draw(float offset_x,float offset_y);
 
     /**
      * 処理を行う

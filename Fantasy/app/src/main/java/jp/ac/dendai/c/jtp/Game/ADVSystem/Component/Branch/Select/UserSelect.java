@@ -12,6 +12,7 @@ import jp.ac.dendai.c.jtp.Game.ADVSystem.Parser.AssetManager;
 import jp.ac.dendai.c.jtp.Game.Constant;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Button.Button;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Button.ButtonListener;
+import jp.ac.dendai.c.jtp.Game.UIs.UI.UI;
 import jp.ac.dendai.c.jtp.TouchUtil.Touch;
 import jp.ac.dendai.c.jtp.openglesutil.core.GLES20Util;
 
@@ -28,8 +29,8 @@ public class UserSelect extends Select {
     /*------------ UserSelect関連 ------------*/
     protected String text;
     protected Button button;
-    public void draw(){
-        button.draw();
+    public void draw(float offset_x,float offset_y){
+        button.draw(offset_x,offset_y);
     }
 
     public void init(int index,int max){
@@ -94,9 +95,11 @@ public class UserSelect extends Select {
         Log.d(tagName+" Parse","");
         String text = xpp.getAttributeValue(null,select_text);
         button = new Button(0,0,button_width,-button_height,am.getText(text));
-        button.setBackground(Constant.getBitmap(Constant.BITMAP.system_button));
-        button.setCriteria(Button.CRITERIA.HEIGHT);
+        button.useAspect(true);
+        button.setBitmap(Constant.getBitmap(Constant.BITMAP.system_button));
         button.setPadding(0.05f);
+        button.setBackImageCriteria(UI.Criteria.Height);
+        button.setCriteria(UI.Criteria.Height);
 
         int eventType = XmlPullParser.END_DOCUMENT;
         try {

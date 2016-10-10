@@ -34,10 +34,10 @@ public class Transition extends ADVComponent implements Parseable{
     protected Image image;
     protected ADVComponent drawBack;
     @Override
-    public void draw() {
-        drawBack.draw();
+    public void draw(float offset_x,float offset_y) {
+        drawBack.draw(offset_x,offset_y);
         //トランジョンの表示
-        image.draw();
+        image.draw(offset_x,offset_y);
     }
 
     @Override

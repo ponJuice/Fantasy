@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 
 import jp.ac.dendai.c.jtp.Game.Constant;
 import jp.ac.dendai.c.jtp.Game.GameManager;
+import jp.ac.dendai.c.jtp.Game.UIs.UI.UI;
 import jp.ac.dendai.c.jtp.TouchUtil.Input;
 import jp.ac.dendai.c.jtp.Game.UIs.Effects.Bitmap.AnimationBitmap;
 import jp.ac.dendai.c.jtp.Game.UIs.Effects.Bitmap.Animator;
@@ -32,6 +33,7 @@ public class TownScreen implements Screenable {
         background = GLES20Util.loadBitmap(R.mipmap.town_01);
 
         loading = new StaticText("Loading...", Constant.getBitmap(Constant.BITMAP.white));
+        loading.useAspect(true);
         loading.setWidth(0.5f);
         loading.setHolizontal(UIAlign.Align.RIGHT);
         loading.setVertical(UIAlign.Align.BOTTOM);
@@ -39,15 +41,23 @@ public class TownScreen implements Screenable {
         loading.setY(0);
         loading.init();
 
-        itemShop = new Button(0.05f,0.6f,0.8f,0.4f,"武器屋");
+        itemShop = new Button(0f,0.3f,0.8f,0.4f,"武器屋");
+        itemShop.useAspect(true);
+        itemShop.setBitmap(Constant.getBitmap(Constant.BITMAP.system_button));
+        itemShop.setHorizontal(UIAlign.Align.LEFT);
+        itemShop.setVertical(UIAlign.Align.BOTTOM);
         itemShop.setPadding(0.08f);
-        itemShop.setCriteria(Button.CRITERIA.HEIGHT);
-        itemShop.setBackground(Constant.getBitmap(Constant.BITMAP.system_button));
+        itemShop.setBackImageCriteria(UI.Criteria.Height);
+        itemShop.setHeight(0.2f);
+        itemShop.setCriteria(UI.Criteria.Height);
 
         anim = new Animator(AnimationBitmap.createAnimation(R.mipmap.effect_attack_01,368,147,5,2,6));
 
-        button = new Button(0,0.3f,0.3f,0,"Hello...");
-        button.setBackground(background);
+        button = new Button(0,0,0.3f,0.3f,"Hello...");
+        button.setBitmap(background);
+        button.setHorizontal(UIAlign.Align.LEFT);
+        button.setVertical(UIAlign.Align.BOTTOM);
+        button.setCriteria(UI.Criteria.Width);
         button.setButtonListener(new ButtonListener() {
             @Override
             public void touchDown(Button button) {
@@ -61,17 +71,21 @@ public class TownScreen implements Screenable {
 
             @Override
             public void touchUp(Button button) {
-                LoadingTransition lt = LoadingTransition.getInstance();
+                /*LoadingTransition lt = LoadingTransition.getInstance();
                 lt.initTransition(TalkScreen.class);
                 GameManager.transition = lt;
-                GameManager.isTransition = true;
+                GameManager.isTransition = true;*/
             }
         });
 
-        toDungeon = new Button(0,0.9f,0.8f,0.7f,"ダンジョンへ");
+        toDungeon = new Button(0,GLES20Util.getHeight_gl(),0.4f,0.8f,"ダンジョンへ");
+        toDungeon.setBitmap(Constant.getBitmap(Constant.BITMAP.system_button));
+        toDungeon.useAspect(true);
         toDungeon.setPadding(0.08f);
-        toDungeon.setCriteria(Button.CRITERIA.HEIGHT);
-        toDungeon.setBackground(Constant.getBitmap(Constant.BITMAP.system_button));
+        toDungeon.setCriteria(UI.Criteria.Width);
+        toDungeon.setHorizontal(UIAlign.Align.LEFT);
+        toDungeon.setVertical(UIAlign.Align.TOP);
+        toDungeon.setBackImageCriteria(UI.Criteria.Height);
         toDungeon.setButtonListener(new ButtonListener() {
             @Override
             public void touchDown(Button button) {
@@ -100,6 +114,12 @@ public class TownScreen implements Screenable {
         image.setY(GLES20Util.getHeight_gl());
         image.setHeight(0.3f);
     }
+
+    @Override
+    public void constract(Object[] args) {
+
+    }
+
     @Override
     public void Proc() {
         if(freeze)
@@ -120,10 +140,10 @@ public class TownScreen implements Screenable {
         GLES20Util.DrawGraph(GLES20Util.getWidth_gl() / 2f, GLES20Util.getHeight_gl() / 2f
                 , GLES20Util.getWidth_gl(), GLES20Util.getHeight_gl()
                 , background, 1f, GLES20COMPOSITIONMODE.ALPHA);
-        button.draw();
-        itemShop.draw();
-        image.draw();
-        toDungeon.draw();
+        button.draw(offsetX,offsetY);
+        itemShop.draw(offsetX,offsetY);
+        image.draw(offsetX,offsetY);
+        toDungeon.draw(offsetX,offsetY);
         //loading.draw();
     }
 

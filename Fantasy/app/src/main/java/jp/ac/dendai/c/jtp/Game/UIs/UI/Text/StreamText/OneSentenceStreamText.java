@@ -90,8 +90,8 @@ public class OneSentenceStreamText implements UI {
     }
 
     @Override
-    public void touch(Touch touch) {
-
+    public boolean touch(Touch touch) {
+        return false;
     }
 
     @Override
@@ -100,10 +100,10 @@ public class OneSentenceStreamText implements UI {
     }
 
     @Override
-    public void draw() {
+    public void draw(float offset_x,float offset_y) {
         float mojisuu = (float)max_x_length/2f - char_x;
         float pos_x = (float)text.getWidth()/(float)max_x_length * mojisuu /(float)text.getWidth();
-        GLES20Util.DrawString(x + UIAlign.convertAlign(length_x,holizontal),y + UIAlign.convertAlign(length_y,vertical)
+        GLES20Util.DrawString(x + UIAlign.convertAlign(length_x,holizontal)+offset_x,y + UIAlign.convertAlign(length_y,vertical)+offset_y
                 ,length_x,length_y
                 ,0,0,1,1
                 ,pos_x , ((float)(offset * char_y) / (float)text.getHeight()) - (float)char_y

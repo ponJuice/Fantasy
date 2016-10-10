@@ -1,19 +1,27 @@
 package jp.ac.dendai.c.jtp.Game.UIs.Screen;
 
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.opengl.GLES20;
+import android.util.Log;
+
+import java.io.IOException;
 
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Event.Event;
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Parser.ADVEventParser;
+import jp.ac.dendai.c.jtp.Game.Constant;
 import jp.ac.dendai.c.jtp.Game.GameManager;
 import jp.ac.dendai.c.jtp.Game.UIs.Transition.LoadingTransition.LoadingTransition;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Button.Button;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Button.ButtonListener;
+import jp.ac.dendai.c.jtp.Game.UIs.UI.List.List;
 import jp.ac.dendai.c.jtp.TouchUtil.Input;
 import jp.ac.dendai.c.jtp.fantasy.R;
 import jp.ac.dendai.c.jtp.openglesutil.Util.ImageReader;
 import jp.ac.dendai.c.jtp.openglesutil.core.GLES20Util;
 import jp.ac.dendai.c.jtp.openglesutil.graphic.blending_mode.GLES20COMPOSITIONMODE;
+
+import static jp.ac.dendai.c.jtp.Game.GameManager.args;
 
 /**
  * Created by テツヤ on 2016/10/10.
@@ -23,6 +31,8 @@ public class DebugEventSelectScreen implements Screenable{
     protected boolean freeze;
     protected Bitmap image,black,red,green;
     protected Event event;
+    protected List list;
+
     protected float black_x = 0f,black_y = 0f;
     protected float black_lx = 0.4f,black_ly = 0.4f;
     protected float red_x = 0.0f,red_y = 0.0f;
@@ -37,50 +47,50 @@ public class DebugEventSelectScreen implements Screenable{
         black = GLES20Util.createBitmap(0,0,0,255);
         red = GLES20Util.createBitmap(255,0,0,255);
         green = GLES20Util.createBitmap(0,255,0,255);
+
+        list = new List(GLES20Util.getWidth_gl()/2f,0);
+        AssetManager assetMgr = GameManager.act.getResources().getAssets();
+        try {
+            String files[] = assetMgr.list("Event");
+            for(int i = 0; i < files.length; i++) {
+                Button bt = new Button(0,0,0.5f,0.25f,files[i]);
+                bt.setBitmap(Constant.getBitmap(Constant.BITMAP.system_button));
+                bt.setButtonListener(new SelectEventButtonListener(files[i]));
+                list.addItem(bt);
+            }
+        } catch (IOException e) {
+        }
+
     }
+
+    @Override
+    public void constract(Object[] args) {
+
+    }
+
     @Override
     public void Proc() {
         if(freeze)
             return;
         //event.proc(null);
+        list.proc();
     }
 
     @Override
     public void Draw(float offsetX, float offsetY) {
         //event.draw();
         GLES20Util.DrawGraph(GLES20Util.getWidth_gl()/2f,GLES20Util.getHeight_gl()/2f,GLES20Util.getWidth_gl(),GLES20Util.getHeight_gl(), image,1, GLES20COMPOSITIONMODE.ALPHA);
-        /*if(!GLES20.glIsEnabled(GLES20.GL_STENCIL_TEST)){
 
-        }*/
-        //int a = 1+1;
-        GLES20.glEnable(GLES20.GL_STENCIL_TEST);
-        GLES20.glStencilMask(~0);
-        GLES20.glClear(GLES20.GL_STENCIL_BUFFER_BIT);
 
-        GLES20.glClearStencil(0);
-
-        GLES20.glColorMask(false,false,false,false);
-        GLES20.glStencilOp(GLES20.GL_KEEP,GLES20.GL_REPLACE,GLES20.GL_REPLACE);
-        GLES20.glStencilFunc(GLES20.GL_ALWAYS,1,~0);
-        GLES20Util.DrawGraph(black_x + black_lx , black_y + black_lx,black_lx,black_ly,black , 1f, GLES20COMPOSITIONMODE.ALPHA);
-
-        GLES20.glColorMask(true, true, true, true);
-        GLES20.glStencilOp(GLES20.GL_KEEP, GLES20.GL_KEEP, GLES20.GL_KEEP);
-        GLES20.glStencilFunc(GLES20.GL_EQUAL,1, ~0);
-        GLES20Util.DrawGraph(red_x + red_lx , red_y + red_lx,red_lx,red_ly,red , 1f, GLES20COMPOSITIONMODE.ALPHA);
-
-        GLES20.glColorMask(true, true, true, true);
-        GLES20.glStencilOp(GLES20.GL_KEEP, GLES20.GL_KEEP, GLES20.GL_KEEP);
-        GLES20.glStencilFunc(GLES20.GL_EQUAL,1, ~0);
-        GLES20Util.DrawGraph(green_x + green_lx , green_y + green_lx,red_lx,green_ly,green , 1f, GLES20COMPOSITIONMODE.ALPHA);
-
-        GLES20.glDisable(GLES20.GL_STENCIL_TEST);
+        list.draw(offsetX,offsetY);
     }
 
     @Override
     public void Touch() {
         if(freeze)
             return;
+        list.touch(Input.getTouchArray()[0]);
+        //Input.getTouchArray()[0].resetDelta();
         //event.touch();
     }
 
@@ -107,5 +117,31 @@ public class DebugEventSelectScreen implements Screenable{
     @Override
     public void unFreeze() {
         freeze = false;
+    }
+
+    protected class SelectEventButtonListener implements ButtonListener{
+        String fileName;
+        public SelectEventButtonListener(String file){
+            fileName = file;
+        }
+        @Override
+        public void touchDown(Button button) {
+
+        }
+
+        @Override
+        public void touchHover(Button button) {
+
+        }
+
+        @Override
+        public void touchUp(Button button) {
+            LoadingTransition lt = LoadingTransition.getInstance();
+            lt.initTransition(TalkScreen.class);
+            GameManager.args = new Object[1];
+            GameManager.args[0] = fileName;
+            GameManager.transition = lt;
+            GameManager.isTransition = true;
+        }
     }
 }

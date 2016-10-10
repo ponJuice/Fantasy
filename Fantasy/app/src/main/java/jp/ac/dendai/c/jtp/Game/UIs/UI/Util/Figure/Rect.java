@@ -3,7 +3,7 @@ package jp.ac.dendai.c.jtp.Game.UIs.UI.Util.Figure;
 /**
  * Created by Goto on 2016/09/06.
  */
-public class Rect implements Figure{
+public class Rect{
     protected float cx,cy;
     protected float top,left,bottom,right;
     public Rect(float left,float top,float right,float bottom){
@@ -46,6 +46,14 @@ public class Rect implements Figure{
     }
 
     public float getWidth(){return right - left;}
+    public void setWidth(float width){
+        left = cx - width/2f;
+        right= cx + width/2f;
+    }
+    public void setHeight(float height){
+        top = cy + height/2f;
+        bottom = cy - height/2f;
+    }
 
     public float getHeight(){return top - bottom;}
 
@@ -99,7 +107,6 @@ public class Rect implements Figure{
         bottom = _bottom;
         calcCenter();
     }
-    @Override
     public boolean contains(float x,float y){
         return left <= x && x <= right && bottom <= y && y <= top;
     }

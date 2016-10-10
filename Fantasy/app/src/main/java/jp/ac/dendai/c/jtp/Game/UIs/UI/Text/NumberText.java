@@ -43,8 +43,8 @@ public class NumberText implements UI {
     }
 
     @Override
-    public void touch(Touch touch) {
-
+    public boolean touch(Touch touch) {
+        return false;
     }
 
     @Override
@@ -53,7 +53,7 @@ public class NumberText implements UI {
     }
 
     @Override
-    public void draw() {
+    public void draw(float offset_x,float offset_y) {
         float _lx = lx * textSize,_ly = ly * textSize;
         int line = (int)Math.log10(num) + 1;
         float x_offset = getHolizon(line,number[0].getBitmap().getHeight(),number[0].getBitmap().getWidth());
@@ -62,7 +62,7 @@ public class NumberText implements UI {
             int digit = getDigit(num,n);
             float bottom = number[digit].fm.bottom / (float)number[digit].bitmap.getHeight();
             float scaleX = (float)number[digit].getBitmap().getWidth() / (float)number[digit].getBitmap().getHeight();
-            GLES20Util.DrawGraph(scaleX*_lx * (float)m + x,y-(bottom*_ly),scaleX*_lx,_ly,number[digit].getBitmap(),1,GLES20COMPOSITIONMODE.ALPHA);
+            GLES20Util.DrawGraph(scaleX*_lx * (float)m + x + offset_x,y-(bottom*_ly) + offset_y,scaleX*_lx,_ly,number[digit].getBitmap(),1,GLES20COMPOSITIONMODE.ALPHA);
             m++;
         }
     }

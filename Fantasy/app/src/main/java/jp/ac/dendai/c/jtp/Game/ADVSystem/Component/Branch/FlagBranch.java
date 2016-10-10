@@ -27,8 +27,8 @@ public class FlagBranch extends Branch implements Parseable{
     protected List<FlagSelect> selects;
     protected ADVComponent component;
     @Override
-    public void draw() {
-        component.draw();
+    public void draw(float offset_x,float offset_y) {
+        component.draw(offset_x,offset_y);
     }
 
     @Override

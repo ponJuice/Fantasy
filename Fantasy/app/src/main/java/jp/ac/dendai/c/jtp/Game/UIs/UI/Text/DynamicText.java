@@ -35,8 +35,8 @@ public class DynamicText implements UI {
         return y;
     }
     @Override
-    public void touch(Touch touch) {
-
+    public boolean touch(Touch touch) {
+        return false;
     }
 
     @Override
@@ -45,7 +45,7 @@ public class DynamicText implements UI {
     }
 
     @Override
-    public void draw() {
+    public void draw(float offset_x,float offset_y) {
         n = 0;
         m = 0;
         aspect = 0;
@@ -57,7 +57,7 @@ public class DynamicText implements UI {
             }
             Bitmap chara = CharactorsMap.getChara(text[n]);
             aspect = (float)chara.getWidth() / (float)chara.getHeight();
-            GLES20Util.DrawGraph(x + n * aspect * textSize, y - m * textSize, aspect*textSize, textSize, chara, 1, GLES20COMPOSITIONMODE.ALPHA);
+            GLES20Util.DrawGraph(x + n * aspect * textSize+offset_x, y - m * textSize+offset_y, aspect*textSize, textSize, chara, 1, GLES20COMPOSITIONMODE.ALPHA);
             n++;
         }
     }

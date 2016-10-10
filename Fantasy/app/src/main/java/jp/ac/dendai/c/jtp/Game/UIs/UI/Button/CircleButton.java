@@ -9,7 +9,8 @@ import jp.ac.dendai.c.jtp.Game.UIs.UI.UI;
 public class CircleButton implements UI {
     protected float radius;
     @Override
-    public void touch(Touch touch) {
+    public boolean touch(Touch touch) {
+        return false;
     }
 
     @Override
@@ -18,7 +19,7 @@ public class CircleButton implements UI {
     }
 
     @Override
-    public void draw() {
+    public void draw(float offset_x,float offset_y) {
 
     }
 }

@@ -13,7 +13,7 @@ public class BattleState {
     protected TYPE type;
     protected int hp,atk,def;
     protected Image image;
-    public void draw(float x,float y){
-        image.draw();
+    public void draw(float offset_x,float offset_y){
+        image.draw(offset_x,offset_y);
     }
 }

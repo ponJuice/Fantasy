@@ -46,8 +46,8 @@ public class Scene extends ADVComponent implements Parseable{
     protected boolean autoScroll = false;
 
     @Override
-    public void draw() {
-        talkBox.draw();
+    public void draw(float offset_x,float offset_y) {
+        talkBox.draw(offset_x,offset_y);
     }
 
     @Override

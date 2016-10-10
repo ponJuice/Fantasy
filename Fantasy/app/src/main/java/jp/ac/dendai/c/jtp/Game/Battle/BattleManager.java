@@ -40,9 +40,9 @@ public class BattleManager {
     public void proc(){
     }
 
-    public void draw(){
+    public void draw(float offset_x,float offset_y){
         for(int n = 0;n < enemys.length;n++){
-            enemys[n].getImage().draw();
+            enemys[n].getImage().draw(offset_x,offset_y);
         }
 
     }

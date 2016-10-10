@@ -19,8 +19,8 @@ public class Background extends ADVComponent implements Parseable {
     protected final static String id = "id";
 
     @Override
-    public void draw() {
-        background.draw();
+    public void draw(float offset_x,float offset_y) {
+        background.draw(offset_x,offset_y);
     }
 
     @Override

@@ -4,6 +4,7 @@ import jp.ac.dendai.c.jtp.Game.Battle.BattleManager;
 import jp.ac.dendai.c.jtp.Game.Battle.Enemy.Enemy;
 import jp.ac.dendai.c.jtp.Game.Constant;
 import jp.ac.dendai.c.jtp.Game.GameManager;
+import jp.ac.dendai.c.jtp.Game.UIs.UI.UI;
 import jp.ac.dendai.c.jtp.TouchUtil.Input;
 import jp.ac.dendai.c.jtp.Game.UIs.Transition.LoadingTransition.LoadingTransition;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Button.Button;
@@ -30,8 +31,8 @@ public class BattleScreen implements Screenable {
 
         toDungeon = new Button(0,0.9f,0.8f,0.7f,"町へ");
         toDungeon.setPadding(0.08f);
-        toDungeon.setCriteria(Button.CRITERIA.HEIGHT);
-        toDungeon.setBackground(Constant.getBitmap(Constant.BITMAP.system_button));
+        toDungeon.setCriteria(UI.Criteria.Height);
+        toDungeon.setBitmap(Constant.getBitmap(Constant.BITMAP.system_button));
         toDungeon.setButtonListener(new ButtonListener() {
             @Override
             public void touchDown(Button button) {
@@ -52,6 +53,12 @@ public class BattleScreen implements Screenable {
             }
         });
     }
+
+    @Override
+    public void constract(Object[] args) {
+
+    }
+
     @Override
     public void Proc() {
         if(freeze)
@@ -62,9 +69,9 @@ public class BattleScreen implements Screenable {
 
     @Override
     public void Draw(float offsetX, float offsetY) {
-        background.draw();
-        battleManager.draw();
-        toDungeon.draw();
+        background.draw(offsetX,offsetY);
+        battleManager.draw(offsetX,offsetY);
+        toDungeon.draw(offsetX,offsetY);
     }
 
     @Override

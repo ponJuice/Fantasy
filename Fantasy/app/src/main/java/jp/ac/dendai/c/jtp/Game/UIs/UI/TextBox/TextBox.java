@@ -118,8 +118,8 @@ public class TextBox implements UI {
     }
 
     @Override
-    public void touch(Touch touch) {
-
+    public boolean touch(Touch touch) {
+        return false;
     }
 
     @Override
@@ -127,10 +127,10 @@ public class TextBox implements UI {
     }
 
     @Override
-    public void draw() {
+    public void draw(float offset_x,float offset_y) {
         if(backgroundEnabled)
-            background.draw();
+            background.draw(offset_x,offset_y);
         if(staticText != null && textEnabled)
-            staticText.draw();
+            staticText.draw(offset_x,offset_y);
     }
 }

@@ -2,6 +2,7 @@ package jp.ac.dendai.c.jtp.Game.UIs.Transition.LoadingTransition;
 
 import android.util.Log;
 
+import jp.ac.dendai.c.jtp.Game.GameManager;
 import jp.ac.dendai.c.jtp.Game.UIs.Screen.Screenable;
 
 /**
@@ -32,6 +33,8 @@ public class LoadingThread extends Thread{
     public void run() {
         try {
             nextScreenInstance = (Screenable)nextScreenClass.newInstance();
+            nextScreenInstance.constract(GameManager.args);
+            GameManager.args = null;
         } catch (InstantiationException e) {
             Log.d("LoadingThread",nextScreenClass.getName()+"のインスタンス化に失敗しました。");
             e.printStackTrace();
