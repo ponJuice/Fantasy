@@ -12,9 +12,12 @@ import jp.ac.dendai.c.jtp.Game.ADVSystem.Parser.ADVEventParser;
 import jp.ac.dendai.c.jtp.Game.Constant;
 import jp.ac.dendai.c.jtp.Game.GameManager;
 import jp.ac.dendai.c.jtp.Game.UIs.Transition.LoadingTransition.LoadingTransition;
+import jp.ac.dendai.c.jtp.Game.UIs.Transition.StackTransition;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Button.Button;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Button.ButtonListener;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.List.List;
+import jp.ac.dendai.c.jtp.Game.UIs.UI.UI;
+import jp.ac.dendai.c.jtp.Game.UIs.UI.UIAlign;
 import jp.ac.dendai.c.jtp.TouchUtil.Input;
 import jp.ac.dendai.c.jtp.fantasy.R;
 import jp.ac.dendai.c.jtp.openglesutil.Util.ImageReader;
@@ -29,9 +32,9 @@ import static jp.ac.dendai.c.jtp.Game.GameManager.args;
 
 public class DebugEventSelectScreen implements Screenable{
     protected boolean freeze;
-    protected Bitmap image,black,red,green;
     protected Event event;
     protected List list;
+    protected Button toBattle;
 
     protected float black_x = 0f,black_y = 0f;
     protected float black_lx = 0.4f,black_ly = 0.4f;
@@ -41,12 +44,6 @@ public class DebugEventSelectScreen implements Screenable{
     protected float green_lx = 0.2f,green_ly = 0.2f;
 
     public DebugEventSelectScreen(){
-        //event = ADVEventParser.createEvent("event_text.event");
-        //event.preparation();
-        image = GLES20Util.loadBitmap(R.mipmap.town_01);
-        black = GLES20Util.createBitmap(0,0,0,255);
-        red = GLES20Util.createBitmap(255,0,0,255);
-        green = GLES20Util.createBitmap(0,255,0,255);
 
         list = new List(GLES20Util.getWidth_gl()/2f,0);
         AssetManager assetMgr = GameManager.act.getResources().getAssets();
@@ -60,7 +57,34 @@ public class DebugEventSelectScreen implements Screenable{
             }
         } catch (IOException e) {
         }
+        toBattle = new Button(0,0,0.1f,0.1f,"戦闘テスト");
+        toBattle.useAspect(true);
+        toBattle.setBitmap(Constant.getBitmap(Constant.BITMAP.system_button));
+        toBattle.setBackImageCriteria(UI.Criteria.Height);
+        toBattle.setHeight(0.1f);
+        toBattle.setCriteria(UI.Criteria.Height);
+        toBattle.setPadding(0.05f);
+        toBattle.setHorizontal(UIAlign.Align.LEFT);
+        toBattle.setVertical(UIAlign.Align.BOTTOM);
+        toBattle.setButtonListener(new ButtonListener() {
+            @Override
+            public void touchDown(Button button) {
 
+            }
+
+            @Override
+            public void touchHover(Button button) {
+
+            }
+
+            @Override
+            public void touchUp(Button button) {
+                LoadingTransition lt = LoadingTransition.getInstance();
+                lt.initTransition(BattleScreen.class);
+                GameManager.transition = lt;
+                GameManager.isTransition = true;
+            }
+        });
     }
 
     @Override
@@ -72,15 +96,13 @@ public class DebugEventSelectScreen implements Screenable{
     public void Proc() {
         if(freeze)
             return;
-        //event.proc(null);
         list.proc();
+        toBattle.proc();
     }
 
     @Override
     public void Draw(float offsetX, float offsetY) {
-        //event.draw();
-        GLES20Util.DrawGraph(GLES20Util.getWidth_gl()/2f,GLES20Util.getHeight_gl()/2f,GLES20Util.getWidth_gl(),GLES20Util.getHeight_gl(), image,1, GLES20COMPOSITIONMODE.ALPHA);
-
+        toBattle.draw(offsetX,offsetY);
 
         list.draw(offsetX,offsetY);
     }
@@ -90,8 +112,7 @@ public class DebugEventSelectScreen implements Screenable{
         if(freeze)
             return;
         list.touch(Input.getTouchArray()[0]);
-        //Input.getTouchArray()[0].resetDelta();
-        //event.touch();
+        toBattle.touch(Input.getTouchArray()[0]);
     }
 
     @Override
@@ -136,6 +157,7 @@ public class DebugEventSelectScreen implements Screenable{
 
         @Override
         public void touchUp(Button button) {
+            GameManager.stack.push(GameManager.nowScreen);
             LoadingTransition lt = LoadingTransition.getInstance();
             lt.initTransition(TalkScreen.class);
             GameManager.args = new Object[1];

@@ -2,10 +2,7 @@ package jp.ac.dendai.c.jtp.Game;
 
 import android.graphics.Bitmap;
 
-import javax.microedition.khronos.opengles.GL;
-
-import jp.ac.dendai.c.jtp.Game.Battle.Player.PlayerData;
-import jp.ac.dendai.c.jtp.Game.UIs.UI.Text.StreamText.StreamText;
+import jp.ac.dendai.c.jtp.Game.BattleSystem.Player.PlayerData;
 import jp.ac.dendai.c.jtp.fantasy.R;
 import jp.ac.dendai.c.jtp.openglesutil.core.GLES20Util;
 

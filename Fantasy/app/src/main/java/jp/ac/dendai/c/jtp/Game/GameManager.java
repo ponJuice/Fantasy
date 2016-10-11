@@ -3,6 +3,8 @@ package jp.ac.dendai.c.jtp.Game;
 import android.app.Activity;
 import android.media.SoundPool;
 
+import java.util.ArrayDeque;
+
 import jp.ac.dendai.c.jtp.Game.UIs.Screen.Screenable;
 import jp.ac.dendai.c.jtp.Game.UIs.Transition.Transitionable;
 
@@ -17,6 +19,7 @@ public class GameManager {
 	public static SoundPool sp;
 	public static int button;
 	public static Object[] args;
+	public static ArrayDeque<Screenable> stack = new ArrayDeque<>();
 	public static void init(Activity _act){
 		act = _act;
 		Constant.init();
@@ -27,6 +30,12 @@ public class GameManager {
 		}
 		else {
 			nowScreen.Draw(0, 0);
+		}
+	}
+	public static void returnScreen(){
+		if(stack.size() != 0) {
+			nowScreen = stack.pop();
+			nowScreen.unFreeze();
 		}
 	}
 	public static void proc(){

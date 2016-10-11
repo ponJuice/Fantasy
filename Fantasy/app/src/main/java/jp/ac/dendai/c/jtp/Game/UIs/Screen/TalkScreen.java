@@ -75,7 +75,10 @@ public class TalkScreen implements Screenable {
     public void Proc() {
         if(freeze)
             return;
-        event.proc(null);
+        if(!event.proc(null)){
+            //シーン終了
+            GameManager.returnScreen();
+        }
         backButton.proc();
     }
 

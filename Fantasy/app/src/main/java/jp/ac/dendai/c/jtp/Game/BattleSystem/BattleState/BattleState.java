@@ -1,4 +1,4 @@
-package jp.ac.dendai.c.jtp.Game.Battle.BattleState;
+package jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState;
 
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Image.Image;
 

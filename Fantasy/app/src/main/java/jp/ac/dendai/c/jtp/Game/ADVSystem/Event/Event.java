@@ -39,11 +39,13 @@ public class Event {
             back.draw(offset_x,offset_y);
         drawTarget.draw(offset_x,offset_y);
     }
-    public void proc(ADVManager manager){
+    public boolean proc(ADVManager manager){
         if(component == null){
             Log.d("Event","event end");
+            return false;
         }else {
             component = component.proc(this);
+            return true;
         }
     }
     public void touch(){

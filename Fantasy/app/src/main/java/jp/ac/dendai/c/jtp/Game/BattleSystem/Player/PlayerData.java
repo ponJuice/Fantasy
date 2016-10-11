@@ -1,4 +1,4 @@
-package jp.ac.dendai.c.jtp.Game.Battle.Player;
+package jp.ac.dendai.c.jtp.Game.BattleSystem.Player;
 
 import java.util.LinkedList;
 

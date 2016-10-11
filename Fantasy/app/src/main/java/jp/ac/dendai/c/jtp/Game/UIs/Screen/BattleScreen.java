@@ -1,10 +1,11 @@
 package jp.ac.dendai.c.jtp.Game.UIs.Screen;
 
-import jp.ac.dendai.c.jtp.Game.Battle.BattleManager;
-import jp.ac.dendai.c.jtp.Game.Battle.Enemy.Enemy;
+import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleManager;
+import jp.ac.dendai.c.jtp.Game.BattleSystem.Enemy.Enemy;
 import jp.ac.dendai.c.jtp.Game.Constant;
 import jp.ac.dendai.c.jtp.Game.GameManager;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.UI;
+import jp.ac.dendai.c.jtp.Game.UIs.UI.UIAlign;
 import jp.ac.dendai.c.jtp.TouchUtil.Input;
 import jp.ac.dendai.c.jtp.Game.UIs.Transition.LoadingTransition.LoadingTransition;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Button.Button;
@@ -30,9 +31,16 @@ public class BattleScreen implements Screenable {
         battleManager = new BattleManager();
 
         toDungeon = new Button(0,0.9f,0.8f,0.7f,"町へ");
+        toDungeon.setBitmap(Constant.getBitmap(Constant.BITMAP.system_button));
+        toDungeon.useAspect(true);
+        toDungeon.setBackImageCriteria(UI.Criteria.Height);
+        toDungeon.setHeight(0.2f);
         toDungeon.setPadding(0.08f);
         toDungeon.setCriteria(UI.Criteria.Height);
-        toDungeon.setBitmap(Constant.getBitmap(Constant.BITMAP.system_button));
+        toDungeon.setHorizontal(UIAlign.Align.LEFT);
+        toDungeon.setX(0);
+        toDungeon.setY(GLES20Util.getHeight_gl());
+        toDungeon.setVertical(UIAlign.Align.TOP);
         toDungeon.setButtonListener(new ButtonListener() {
             @Override
             public void touchDown(Button button) {
@@ -47,7 +55,7 @@ public class BattleScreen implements Screenable {
             @Override
             public void touchUp(Button button) {
                 LoadingTransition lt = LoadingTransition.getInstance();
-                lt.initTransition(TownScreen.class);
+                lt.initTransition(BattleScreen.class);
                 GameManager.transition = lt;
                 GameManager.isTransition = true;
             }

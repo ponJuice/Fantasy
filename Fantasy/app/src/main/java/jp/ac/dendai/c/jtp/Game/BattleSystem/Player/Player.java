@@ -1,6 +1,6 @@
-package jp.ac.dendai.c.jtp.Game.Battle.Player;
+package jp.ac.dendai.c.jtp.Game.BattleSystem.Player;
 
-import jp.ac.dendai.c.jtp.Game.Battle.BattleState.BattleState;
+import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.BattleState;
 
 /**
  * Created by Goto on 2016/09/16.

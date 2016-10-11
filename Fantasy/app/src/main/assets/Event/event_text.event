@@ -26,6 +26,7 @@
         <text id="fbs12">しないを選択した場合に表示されます</text>
         <text id="msg01">するを選択しました。</text>
         <text id="msg02">しないを選択しました。</text>
+        <text id="jump">ジャンプします</text>
     </Text>
 
     <Image>
@@ -55,6 +56,8 @@
 		        <Message text="msg02" time="0.5"/>
 		        <Scene face="heroine" type="normal" text = "bs10"/>
 		        <Scene face="heroine" type="normal" text = "bs11"/>
+		        <Scene face="heroine" type="normal" text = "jump"/>
+		        <Battle/>
 		        <!-- localフラグのインデックス1番に定数1を代入 -->
                 <Flag type1="local" mode1="const" value1="1" type2="const" mode2="const" value2="2"/>
 		    </Select>

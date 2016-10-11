@@ -1,6 +1,6 @@
-package jp.ac.dendai.c.jtp.Game.Battle.Enemy;
+package jp.ac.dendai.c.jtp.Game.BattleSystem.Enemy;
 
-import jp.ac.dendai.c.jtp.Game.Battle.BattleState.BattleState;
+import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.BattleState;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Image.Image;
 
 /**
