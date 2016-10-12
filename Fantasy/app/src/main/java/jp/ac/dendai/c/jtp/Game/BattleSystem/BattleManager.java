@@ -1,49 +1,55 @@
 package jp.ac.dendai.c.jtp.Game.BattleSystem;
 
-import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.BattleState;
+import java.util.Arrays;
+
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Enemy.Enemy;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Enemy.EnemyTemplate;
+import jp.ac.dendai.c.jtp.Game.BattleSystem.Enum.BattleStateEnum;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Player.Player;
-import jp.ac.dendai.c.jtp.Game.BattleSystem.Player.PlayerData;
-import jp.ac.dendai.c.jtp.Game.UIs.UI.Image.Image;
-import jp.ac.dendai.c.jtp.fantasy.R;
+import jp.ac.dendai.c.jtp.Game.GameManager;
 import jp.ac.dendai.c.jtp.openglesutil.core.GLES20Util;
 
 /**
  * Created by Goto on 2016/09/16.
  */
 public class BattleManager {
-    protected BattleState[] battleState;
-    protected Enemy[] enemys;
-    protected Player player;
-    public BattleManager(){
-        EnemyTemplate e = new EnemyTemplate();
-        e.image = new Image(GLES20Util.loadBitmap(R.mipmap.monst_test));
-        e.image.setHeight(0.4f);
-        battleState = new BattleState[4];
-        enemys = new Enemy[3];
-        for(int n = 0;n < enemys.length;n++){
-            enemys[n] = new Enemy(e);
-            battleState[n] = enemys[n];
-        }
-        PlayerData pd = new PlayerData();
-        player = new Player(pd);
-        battleState[battleState.length-1] = player;
-        for(int n = 0;n < enemys.length;n++){
-            int m = 2*n + 1;
-            float a = GLES20Util.getWidth_gl() / (float)(enemys.length*2);
-            enemys[n].getImage().setX(a*(float)m);
-            enemys[n].getImage().setY(GLES20Util.getHeight_gl()/2f+0.1f);
-        }
+    protected Attackable[] list;
+    protected Attackable[] enemyList;
+    protected BattleStateEnum battleStateEnum = BattleStateEnum.All_Start;
+    protected int turnIndex = 0;
+    protected BattleAction battleAction;
 
+    public BattleManager(EnemyTemplate[] enemys){
+        //敵及びプレイヤーを含むリストと、敵のみのリストを初期化
+        enemyList = new Attackable[enemys.length];
+        list = new Attackable[enemys.length+1];
+        for(int n = 0;n < enemyList.length;n++){
+            float ox = GLES20Util.getWidth_gl()/(float)(enemyList.length+1) * (float)(n+1);
+            float oy = GLES20Util.getHeight_gl()/3f*2f;
+            enemyList[n] = new Enemy(enemys[n],ox,oy);
+            list[n] = enemyList[n];
+        }
+        //リストの一番最後にプレイヤーを挿入
+        list[list.length-1] = new Player(GameManager.getPlayerData());
+        battleAction = new BattleAction();
     }
+
+    public Attackable[] getEnemyList(){
+        return enemyList;
+    }
+
     public void proc(){
-    }
+        if(battleStateEnum == BattleStateEnum.All_Start){
+            //俊敏性でソート
+            Arrays.sort(list);
+            battleStateEnum = BattleStateEnum.Turn_Start;
+        }else if(battleStateEnum == BattleStateEnum.Turn_Start){
+            //ターンの開始
+            //if(list[turnIndex].action(battleAction,this)){
+               // battleStateEnum = BattleStateEnum.Turn_End;
+            //}
+        }else if(battleStateEnum == BattleStateEnum.Turn_End){
 
-    public void draw(float offset_x,float offset_y){
-        for(int n = 0;n < enemys.length;n++){
-            enemys[n].getImage().draw(offset_x,offset_y);
         }
-
     }
 }

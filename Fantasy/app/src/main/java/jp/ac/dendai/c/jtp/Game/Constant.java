@@ -53,6 +53,15 @@ public class Constant {
     public final static String sound_id = "name";
     public final static String sound_fileName = "file";
     public final static String sound_file_directory = "Sound/";
+
+    public final static int player_init_hp = 100;
+    public final static int player_init_atk = 100;
+    public final static int player_init_def = 100;
+
+    /*------------BattleScreen関連--------------*/
+    public final static float enemy_size_x = 0.4f;  //敵グラフィックスの横長さ
+    public final static float enemy_size_y = 0.4f;  //敵グラフィックスの縦長さ
+    public final static float damage_lowest = 1f;   //ダメージの最小限度
     //public final static float
 
 

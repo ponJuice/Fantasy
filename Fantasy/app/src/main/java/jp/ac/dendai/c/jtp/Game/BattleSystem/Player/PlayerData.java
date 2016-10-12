@@ -13,4 +13,9 @@ public class PlayerData {
     protected int equipment;
     protected LinkedList<Item> items;
     protected Image image;
+    public PlayerData(int hp,int atk,int def){
+        this.hp = hp;
+        this.atk = atk;
+        this.def = def;
+    }
 }

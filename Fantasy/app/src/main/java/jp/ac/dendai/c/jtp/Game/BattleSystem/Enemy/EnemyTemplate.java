@@ -1,5 +1,7 @@
 package jp.ac.dendai.c.jtp.Game.BattleSystem.Enemy;
 
+import android.graphics.Bitmap;
+
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Image.Image;
 
 /**
@@ -8,6 +10,14 @@ import jp.ac.dendai.c.jtp.Game.UIs.UI.Image.Image;
 public class EnemyTemplate {
     public String name;
     public int hp,atk,def;
-    public Image image;
+    public Bitmap image;
     public Magic[] magics;
+    public EnemyTemplate(String name,int hp,int atk,int def,Bitmap image,Magic[] magics){
+        this.name = name;
+        this.hp = hp;
+        this.atk = atk;
+        this.def = def;
+        this.image = image;
+        this.magics = magics;
+    }
 }

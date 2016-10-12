@@ -1,7 +1,11 @@
 package jp.ac.dendai.c.jtp.Game.UIs.Screen;
 
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleManager;
+import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.BattleStateMachine;
+import jp.ac.dendai.c.jtp.Game.BattleSystem.DrawMachine.DefaultDrawMachine;
+import jp.ac.dendai.c.jtp.Game.BattleSystem.DrawMachine.DrawMachine;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Enemy.Enemy;
+import jp.ac.dendai.c.jtp.Game.BattleSystem.Enemy.EnemyTemplate;
 import jp.ac.dendai.c.jtp.Game.Constant;
 import jp.ac.dendai.c.jtp.Game.GameManager;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.UI;
@@ -12,6 +16,7 @@ import jp.ac.dendai.c.jtp.Game.UIs.UI.Button.Button;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Button.ButtonListener;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Image.Image;
 import jp.ac.dendai.c.jtp.fantasy.R;
+import jp.ac.dendai.c.jtp.openglesutil.Util.ImageReader;
 import jp.ac.dendai.c.jtp.openglesutil.core.GLES20Util;
 
 /**
@@ -21,14 +26,22 @@ public class BattleScreen implements Screenable {
     protected BattleManager battleManager;
     protected boolean freeze = true;
     protected Image background;
-    protected Enemy[] enemys;
     protected Button toDungeon;
+    protected DrawMachine defaultMachine;
+    public BattleStateMachine bsm;
+
     public BattleScreen(){
+        EnemyTemplate[] et = new EnemyTemplate[2];
+        et[0] = new EnemyTemplate("スライム",100,100,100, ImageReader.readImageToAssets("Enemy/monst_test.png"),null);
+        et[1] = new EnemyTemplate("スライム",100,100,100, ImageReader.readImageToAssets("Enemy/monst_test_2.png"),null);
+
         background = new Image(GLES20Util.loadBitmap(R.mipmap.dungeon_01));
         background.setX(GLES20Util.getWidth_gl()/2f);
         background.setY(GLES20Util.getHeight_gl()/2f);
         background.setHeight(GLES20Util.getHeight_gl());
-        battleManager = new BattleManager();
+        battleManager = new BattleManager(et);
+
+        defaultMachine = new DefaultDrawMachine();
 
         toDungeon = new Button(0,0.9f,0.8f,0.7f,"町へ");
         toDungeon.setBitmap(Constant.getBitmap(Constant.BITMAP.system_button));
@@ -55,11 +68,13 @@ public class BattleScreen implements Screenable {
             @Override
             public void touchUp(Button button) {
                 LoadingTransition lt = LoadingTransition.getInstance();
-                lt.initTransition(BattleScreen.class);
+                lt.initTransition(DebugEventSelectScreen.class);
                 GameManager.transition = lt;
                 GameManager.isTransition = true;
             }
         });
+
+        bsm = new BattleStateMachine(battleManager);
     }
 
     @Override
@@ -71,15 +86,16 @@ public class BattleScreen implements Screenable {
     public void Proc() {
         if(freeze)
             return;
-        battleManager.proc();
         toDungeon.proc();
+        bsm.proc();
     }
 
     @Override
     public void Draw(float offsetX, float offsetY) {
         background.draw(offsetX,offsetY);
-        battleManager.draw(offsetX,offsetY);
         toDungeon.draw(offsetX,offsetY);
+        defaultMachine.draw(battleManager);
+        bsm.draw(offsetX,offsetY);
     }
 
     @Override

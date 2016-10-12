@@ -5,6 +5,8 @@ import android.media.SoundPool;
 
 import java.util.ArrayDeque;
 
+import jp.ac.dendai.c.jtp.Game.BattleSystem.Player.Player;
+import jp.ac.dendai.c.jtp.Game.BattleSystem.Player.PlayerData;
 import jp.ac.dendai.c.jtp.Game.UIs.Screen.Screenable;
 import jp.ac.dendai.c.jtp.Game.UIs.Transition.Transitionable;
 
@@ -20,8 +22,10 @@ public class GameManager {
 	public static int button;
 	public static Object[] args;
 	public static ArrayDeque<Screenable> stack = new ArrayDeque<>();
+	protected static PlayerData playerData;
 	public static void init(Activity _act){
 		act = _act;
+		playerData = new PlayerData(Constant.player_init_hp,Constant.player_init_atk,Constant.player_init_def);
 		Constant.init();
 	}
 	public static void draw(){
@@ -32,6 +36,11 @@ public class GameManager {
 			nowScreen.Draw(0, 0);
 		}
 	}
+
+	public static PlayerData getPlayerData(){
+		return playerData;
+	}
+
 	public static void returnScreen(){
 		if(stack.size() != 0) {
 			nowScreen = stack.pop();
