@@ -4,10 +4,7 @@ import jp.ac.dendai.c.jtp.Game.BattleSystem.Attackable;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleAction;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleManager;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.State.BattleState;
-import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.State.EnemyDrawState;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.DrawMachine.DefaultDrawMachine;
-import jp.ac.dendai.c.jtp.Game.BattleSystem.DrawMachine.EnemyAttackDrawMachine;
-import jp.ac.dendai.c.jtp.Game.UIs.UI.Image.Image;
 
 /**
  * Created by Goto on 2016/09/16.

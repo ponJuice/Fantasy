@@ -61,7 +61,12 @@ public class Constant {
     /*------------BattleScreen関連--------------*/
     public final static float enemy_size_x = 0.4f;  //敵グラフィックスの横長さ
     public final static float enemy_size_y = 0.4f;  //敵グラフィックスの縦長さ
+    public final static float enemy_damage_size_x = 0.3f;
+    public final static float enemy_damage_size_y = 0.3f;
+    public final static float friend_damage_size_x = 0.6f;
+    public final static float friend_damage_size_y = 0.6f;
     public final static float damage_lowest = 1f;   //ダメージの最小限度
+    public final static float skill_effect_time = 0.5f;    //ダメージエフェクト時間
     //public final static float
 
 

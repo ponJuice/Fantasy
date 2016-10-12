@@ -4,8 +4,6 @@ import jp.ac.dendai.c.jtp.Game.BattleSystem.Attackable;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleAction;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleManager;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.BattleStateMachine;
-import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.State.BattleState;
-import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.State.PlayerActionState;
 
 /**
  * Created by Goto on 2016/09/16.

@@ -1,0 +1,182 @@
+class BattleManager{
+enum BATTLE_STATE{
+        complete,		//一巡した
+        effect,			//エフェクト描画中
+        turn_end,		//行動、エフェクト描画終了
+    }
+
+    protected Attackable[] list;
+    protected Attackable[] enemyList;
+    protected BattleStateEnum battleStateEnum = BattleStateEnum.All_Start;
+    protected int turnIndex = 0;
+    protected BattleAction battleAction;
+    protected Attackable actor;
+
+    BATTLE_STATE state; //ゲーム側の状態
+
+    public BattleManager(EnemyTemplate[] enemys){
+        //敵及びプレイヤーを含むリストと、敵のみのリストを初期化
+        enemyList = new Attackable[enemys.length];
+        list = new Attackable[enemys.length+1];
+        for(int n = 0;n < enemyList.length;n++){
+            float ox = GLES20Util.getWidth_gl()/(float)(enemyList.length+1) * (float)(n+1);
+            float oy = GLES20Util.getHeight_gl()/3f*2f;
+            enemyList[n] = new Enemy(enemys[n],ox,oy);
+            list[n] = enemyList[n];
+        }
+        //リストの一番最後にプレイヤーを挿入
+        list[list.length-1] = new Player(GameManager.getPlayerData());
+        battleAction = new BattleAction();
+    }
+
+	public BattleAction getBattleAction(){
+		return battleAction;
+	}
+
+    public Attackable[] getEnemyList(){
+        return enemyList;
+    }
+
+    public void proc(){
+        if(turnIndex >= list.length){
+            //もしインデックスがリストを超えた場合は一巡したとみなす
+            turnIndex = 0;
+            state = BATTLE_STATE.complete;
+        }
+
+        if(state == BATTLE_STATE.complete){
+            //敵のリストをソート
+            Arrays.sort(list);
+            actor = list[0];
+            state = BATTLE_STATE.turn_end;
+        }else if(state == BATTLE_STATE.turn_end){	//新たなターン開始
+            //行動すべきキャラクターを選ぶ
+            actor = list[turnIndex];
+        	
+			//行動選択
+        	actor.action(battleAction);
+        	
+			if(!battleAction.isEnd()){	//選択中ならtrueが返る
+	            //選択終了
+	            state = BATTLE_STATE.effect;	//状態をエフェクト表示状態に
+	            //effectDrawer.init();			//エフェクトの表示を初期化
+	            turnIndex++;	//次のキャラクターが行動できるようにインデックスをインクリメント
+	            return;
+        	}
+	    }else if(state == BATTLE_STATE.effect){
+	        //エフェクト描画中は操作を受け付けない
+	    }
+    }
+
+	public void draw(float offset_x,float offset_y){
+		if(state == BATTLE_STATE.effect){
+			//エフェクトの表示
+			float ox = battleAction.target.getX();
+			float oy = battleAction.target.getY();
+			float sx = Constant.enemy_damage_size_x;
+			float sy = Constant.enemy_damage_size_y;
+			if(battleAction.target.getAttacerType() == Attackable.AttackerType.Friend){
+				//行動対象がプレイヤーなら位置を中心、サイズを二倍
+				ox = GLES20Util.getWidth_gl / 2f;
+				oy = GLES20Util.getHeight_gl / 2f;
+				sx = Constant.friend_damage_size_x;
+				sy = Constant.friend_damage_size_y;
+			}
+
+			if(battleAction.drawEffect(ox,oy,sx,sy,0)){
+				state == BATTLE_STATE.turn_end;
+			}
+		}
+	}
+}
+
+abstract class Attackable{
+	public enum AttackerType{
+		Enemy,
+		Friend
+	}
+	protected int hp;
+	protected int atk;
+	protected int def;
+	protected int agl;
+	protected int mp;
+	
+	public int getHp();
+	public int getAtk();
+	public int getDef();
+	public int getAgl();
+	public int getMp();
+	public void action(BattleManager bm);
+
+
+}
+
+class Enemy extends Attackable{
+	protected Skill[] skills;
+	public Enemy(EnemyTemplate et){
+		hp = et.hp;
+		atk = et.atk;
+		def = et.def;
+		agl = et.agl;
+		mp = et.mp;
+		skills = et.skills;
+	}
+
+	public void action(BattleManager bm){
+		BattleAction action = bm.getBattleAction();
+	}
+
+	
+}
+
+class BattleAction{
+	public Attackable owner;
+    public Attackable target;
+	public ActionType type;
+    public Skill skill;
+    public int id;
+    protected int damage;
+    protected boolean isEnd = false;
+
+    public boolean isEnd(){
+        return isEnd;
+    }
+
+    public void resetInfo(){
+        isEnd = false;
+    }
+	public boolean drawEffect(float ox,float oy,float sx,float sy,float deg){
+		if(type == AttackType.Skill){
+			return skill.draw(ox,oy,sx,sy,deg);
+		}else if(type == AttackType.Normal){
+			return //通常攻撃の表示
+		}else{
+			return //アイテムの表示
+		}
+	}
+}
+
+abstract class Skill{
+	protected String skillName;
+	protected Animator animator;
+	protected float timeBuffer;
+
+	public void effectInit(){
+		animator.init();
+		timeBuffer = 0;
+	}
+	public boolean draw(float ox,float oy,float sx,float sy,float deg{
+		if(timeBuffer >= Constant.skill_effect_time){
+			return true;	//終わったらtrue
+		}
+
+		int temp = (int)((float)animator.getAnimationNum() / Constant.skill_effect_time * timeBuffer);
+		Bitmap bitmap = animator.getBitmap(temp)
+
+		GLES20Util.DrawGraph(ox,oy,sx,sy,bitmap,ALPHA);
+
+		timeBuffer += Time.getDeltaTime();
+		return false
+	}
+
+}
