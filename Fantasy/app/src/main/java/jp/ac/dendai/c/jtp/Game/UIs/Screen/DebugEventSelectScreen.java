@@ -1,30 +1,21 @@
 package jp.ac.dendai.c.jtp.Game.UIs.Screen;
 
 import android.content.res.AssetManager;
-import android.graphics.Bitmap;
-import android.opengl.GLES20;
-import android.util.Log;
 
 import java.io.IOException;
 
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Event.Event;
-import jp.ac.dendai.c.jtp.Game.ADVSystem.Parser.ADVEventParser;
 import jp.ac.dendai.c.jtp.Game.Constant;
 import jp.ac.dendai.c.jtp.Game.GameManager;
+import jp.ac.dendai.c.jtp.Game.UIs.Screen.BattleScreen.BattleScreen;
 import jp.ac.dendai.c.jtp.Game.UIs.Transition.LoadingTransition.LoadingTransition;
-import jp.ac.dendai.c.jtp.Game.UIs.Transition.StackTransition;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Button.Button;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Button.ButtonListener;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.List.List;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.UI;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.UIAlign;
 import jp.ac.dendai.c.jtp.TouchUtil.Input;
-import jp.ac.dendai.c.jtp.fantasy.R;
-import jp.ac.dendai.c.jtp.openglesutil.Util.ImageReader;
 import jp.ac.dendai.c.jtp.openglesutil.core.GLES20Util;
-import jp.ac.dendai.c.jtp.openglesutil.graphic.blending_mode.GLES20COMPOSITIONMODE;
-
-import static jp.ac.dendai.c.jtp.Game.GameManager.args;
 
 /**
  * Created by テツヤ on 2016/10/10.

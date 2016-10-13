@@ -38,7 +38,7 @@ public class LoadingTransition implements Transitionable {
 		lock = new Object();
 		loading = new StaticText("Loading...", Constant.getBitmap(Constant.BITMAP.bilinear));
 		loading.setWidth(0.5f);
-		loading.setHolizontal(UIAlign.Align.RIGHT);
+		loading.setHorizontal(UIAlign.Align.RIGHT);
 		loading.setVertical(UIAlign.Align.BOTTOM);
 		loading.setX(GLES20Util.getWidth_gl());
 		loading.setY(0);

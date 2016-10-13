@@ -4,10 +4,7 @@ import jp.ac.dendai.c.jtp.Game.BattleSystem.Attackable;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleAction;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleManager;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.State.BattleState;
-import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.State.EnemyDrawState;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.DrawMachine.DefaultDrawMachine;
-import jp.ac.dendai.c.jtp.Game.BattleSystem.DrawMachine.EnemyAttackDrawMachine;
-import jp.ac.dendai.c.jtp.Game.UIs.UI.Image.Image;
 
 /**
  * Created by Goto on 2016/09/16.
@@ -20,7 +17,6 @@ public class BattleStateMachine {
     protected BattleAction battleAction;
     protected BattleManager battleManager;
     protected DefaultDrawMachine defaultDrawMachine;
-    protected EnemyDrawState eds;
     protected Attackable[] list;
     protected BattleState now;
     protected int turnIndex = 0;
@@ -28,7 +24,6 @@ public class BattleStateMachine {
     public BattleStateMachine(BattleManager battleManager){
         this.battleManager = battleManager;
         battleAction = new BattleAction();
-        eds = new EnemyDrawState();
     }
 
     public BattleAction getBattleAction(){
@@ -45,10 +40,6 @@ public class BattleStateMachine {
     }
 
     public void setDrawState(DrawState ds){
-        if(ds == DrawState.Enemy)
-            now = eds;
-        else
-            now = eds;
     }
 
     public void draw(float offset_x,float offset_y){

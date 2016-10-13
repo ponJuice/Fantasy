@@ -1,7 +1,15 @@
 package jp.ac.dendai.c.jtp.Game.UIs.Effects.Bitmap;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapRegionDecoder;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Rect;
 
+import java.io.IOException;
+
+import jp.ac.dendai.c.jtp.Game.Constant;
+import jp.ac.dendai.c.jtp.openglesutil.Util.ImageReader;
 import jp.ac.dendai.c.jtp.openglesutil.core.GLES20Util;
 
 /**
@@ -41,6 +49,47 @@ public class AnimationBitmap {
             }
         }
         return new AnimationBitmap(faces);
+    }
+
+    public static AnimationBitmap createAnimation(String fileName,int length_x,int length_y,int x_count_max,int y_count_max,int animCount){
+//画像ファイルを切り抜いて読み込む
+        //targetActivity.get
+        Bitmap[] array = new Bitmap[animCount];
+        int _x = 0,_y = 0,count = 0;
+        int delta_x = length_x / x_count_max;
+        int delta_y = length_y / y_count_max;
+        int width = 1;
+        try {
+            BitmapRegionDecoder regionDecoder;
+            regionDecoder = BitmapRegionDecoder.newInstance(ImageReader.getInputStream(fileName),false);
+
+            for (int y = 0; y < y_count_max; y++) {
+                _y = y * delta_y;
+                _x = 0;
+                for (int x = 0; x < x_count_max; x++) {
+                    if(count >= animCount)
+                        break;
+                    _x = x * delta_x;
+                    int endX = _x+delta_x;
+                    int endY = _y+delta_y;
+
+                    Rect rect = new Rect(_x, _y,endX,endY);    //切り抜く領域（矩形クラス）の用意
+                    Bitmap b = regionDecoder.decodeRegion(rect, null);
+                    if (!b.isMutable())
+                        b = b.copy(Bitmap.Config.ARGB_8888, true);
+                    Bitmap result = Bitmap.createBitmap(endX - _x, endY - _y, Bitmap.Config.ARGB_8888);
+                    Canvas c = new Canvas(result);
+                    b = Bitmap.createScaledBitmap(b, endX - _x - width - width, endY - _y - width - width, false);
+                    c.drawBitmap(b, width, width, (Paint) null);
+
+                    array[count] = result;
+                    count++;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new AnimationBitmap(array);
     }
 
     public static AnimationBitmap createAnimation(int res_id,int max_x,int max_y,int count_x,int count_y){

@@ -1,0 +1,60 @@
+EnemyActionState	//敵の行動
+↓
+EnemyEffectState	//敵の行動に対する描画
+
+PlayerActionState	//プレイヤーの行動
+↓
+PlayerEffectState	//プレイヤーの行動に対する描画
+
+int turnIndex;	//行動すべきキャラクターのインデックス
+Actor actor;	//行動すべきキャラクター
+ActionInfo info;	//行動の詳細
+BATTLE_STATE state; //ゲーム側の状態
+enum BATTLE_STATE{
+	complete,		//一巡した
+	effect,			//エフェクト描画中
+	turn_end,		//行動、エフェクト描画終了
+}
+
+void proc(){
+	if(turnIndex >= list.length){
+		//もしインデックスがリストを超えた場合は一巡したとみなす
+		turnIndex = 0;
+		state = BATTLE_STATE.complete;
+	}
+
+	if(一巡した){
+		//敵のリストをソート
+		actor = リストの一番最初
+		state = BATTLE_STATE.turn_end;
+	}else if(state == BATTLE_STATE.turn_end){	//新たなターン開始
+		//行動すべきキャラクターを選ぶ
+		actor = list[turnIndex}
+		//行動選択
+		actor.action(info);
+		if(!info.isProcess()){	//選択中ならtrueが返る
+			//選択終了
+			state = BATTLE_STATE.effect;	//状態をエフェクト表示状態に
+			effectDrawer.init();			//エフェクトの表示を初期化
+			turnIndex++;	//次のキャラクターが行動できるようにインデックスをインクリメント
+			return;
+		}
+	}else if(state == BATTLE_STATE.effect){
+		//エフェクト描画中は操作を受け付けない
+	}
+}
+
+EffectDrawMachine edm;
+void draw(){
+	//背景画像の表示
+	//敵の表示（死んだ敵は表示しない）
+
+	//プレイヤー用UIの表示
+
+	if(info == BATTLE_STATE.effect){
+		edm.drawEffect(info);
+		if(edm.isEnd())
+			info == BATTLE_STATE.turn_end;
+	}
+}
+

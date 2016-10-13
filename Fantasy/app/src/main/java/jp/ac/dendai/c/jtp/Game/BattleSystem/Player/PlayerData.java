@@ -14,8 +14,8 @@ public class PlayerData {
     protected LinkedList<Item> items;
     protected Image image;
     public PlayerData(int hp,int atk,int def){
-        this.hp = hp;
+        this.hp = hp = 100;
         this.atk = atk;
-        this.def = def;
+        this.def = def = 80;
     }
 }

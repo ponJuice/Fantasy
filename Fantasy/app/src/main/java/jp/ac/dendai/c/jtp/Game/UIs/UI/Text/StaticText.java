@@ -47,7 +47,7 @@ public class StaticText extends Image {
 
     @Override
     public void draw(float offset_x,float offset_y) {
-        GLES20Util.DrawGraph(x + UIAlign.convertAlign(width, holizontal) + offset_x, y + UIAlign.convertAlign(height, vertical) + offset_y, width, height, 0, 0, 1, 1, delta_u * counter, delta_v, 0, image,effect_mask, alpha, mode);
-        //GLES20Util.DrawGraph(x + UIAlign.convertAlign(width, holizontal), y + UIAlign.convertAlign(height, vertical), width, height,delta_u*counter,delta_v,1,1,0,image, alpha, mode);
+        GLES20Util.DrawGraph(x + UIAlign.convertAlign(width, horizontal) + offset_x, y + UIAlign.convertAlign(height, vertical) + offset_y, width, height, 0, 0, 1, 1, delta_u * counter, delta_v, 0, image,effect_mask, alpha, mode);
+        //GLES20Util.DrawGraph(x + UIAlign.convertAlign(width, horizontal), y + UIAlign.convertAlign(height, vertical), width, height,delta_u*counter,delta_v,1,1,0,image, alpha, mode);
     }
 }

@@ -23,6 +23,18 @@ public class Animator {
         clampIndex();
     }
 
+    public int getAnimationNum(){
+        return ab.animation.length;
+    }
+
+    public int getIndex(){
+        return index;
+    }
+
+    public void resetAnimation(){
+        index = 0;
+    }
+
     private void clampIndex(){
         if(index < 0)
             index = ab.animation.length + index;

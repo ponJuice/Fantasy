@@ -15,7 +15,7 @@ public class Image implements UI {
     protected Criteria criteria;
     protected Bitmap image;
     protected float aspect;
-    protected UIAlign.Align holizontal = UIAlign.Align.CENTOR,vertical = UIAlign.Align.CENTOR;
+    protected UIAlign.Align horizontal = UIAlign.Align.CENTOR,vertical = UIAlign.Align.CENTOR;
     protected float width,height;
     protected float alpha = 1;
     protected boolean useAspect = true;
@@ -30,7 +30,7 @@ public class Image implements UI {
         this.image = image.getImage();
         aspect =image.aspect;
 
-        holizontal = image.holizontal;
+        horizontal = image.horizontal;
         vertical = image.vertical;
         width = image.width;
         height = image.height;
@@ -76,7 +76,7 @@ public class Image implements UI {
     @Override
     public void draw(float offset_x,float offset_y) {
         if(image != null)
-            GLES20Util.DrawGraph(x + UIAlign.convertAlign(width,holizontal)+offset_x,y + UIAlign.convertAlign(height,vertical)+offset_y,width,height,image,alpha, mode);
+            GLES20Util.DrawGraph(x + UIAlign.convertAlign(width, horizontal)+offset_x,y + UIAlign.convertAlign(height,vertical)+offset_y,width,height,image,alpha, mode);
     }
 
     public float getAlpha() {
@@ -107,12 +107,12 @@ public class Image implements UI {
         this.vertical = vertical;
     }
 
-    public UIAlign.Align getHolizontal() {
-        return holizontal;
+    public UIAlign.Align getHorizontal() {
+        return horizontal;
     }
 
-    public void setHolizontal(UIAlign.Align holizontal) {
-        this.holizontal = holizontal;
+    public void setHorizontal(UIAlign.Align horizontal) {
+        this.horizontal = horizontal;
     }
 
     public void setImage(Bitmap image) {
@@ -138,5 +138,9 @@ public class Image implements UI {
 
     public Bitmap getImage(){
         return image;
+    }
+
+    protected static float calcAspect(Bitmap image){
+        return (float)image.getWidth()/(float)image.getHeight();
     }
 }
