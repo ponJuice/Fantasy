@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 
 import jp.ac.dendai.c.jtp.Game.Constant;
 import jp.ac.dendai.c.jtp.Game.GameManager;
+import jp.ac.dendai.c.jtp.Game.UIs.Screen.BattleScreen.BattleScreen;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.UI;
 import jp.ac.dendai.c.jtp.TouchUtil.Input;
 import jp.ac.dendai.c.jtp.Game.UIs.Effects.Bitmap.AnimationBitmap;
@@ -35,7 +36,7 @@ public class TownScreen implements Screenable {
         loading = new StaticText("Loading...", Constant.getBitmap(Constant.BITMAP.white));
         loading.useAspect(true);
         loading.setWidth(0.5f);
-        loading.setHolizontal(UIAlign.Align.RIGHT);
+        loading.setHorizontal(UIAlign.Align.RIGHT);
         loading.setVertical(UIAlign.Align.BOTTOM);
         loading.setX(GLES20Util.getWidth_gl());
         loading.setY(0);
@@ -108,7 +109,7 @@ public class TownScreen implements Screenable {
 
         image = new Image(anim.getBitmap());
         image.setMode(GLES20COMPOSITIONMODE.ADD);
-        image.setHolizontal(UIAlign.Align.LEFT);
+        image.setHorizontal(UIAlign.Align.LEFT);
         image.setVertical(UIAlign.Align.TOP);
         image.setX(0);
         image.setY(GLES20Util.getHeight_gl());

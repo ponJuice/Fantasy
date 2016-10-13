@@ -7,7 +7,6 @@ import jp.ac.dendai.c.jtp.Game.Charactor.Face;
 import jp.ac.dendai.c.jtp.Game.Constant;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Image.Image;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Text.StaticText;
-import jp.ac.dendai.c.jtp.Game.UIs.UI.Text.StreamText.OneSentenceStreamText;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.UI;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.UIAlign;
 import jp.ac.dendai.c.jtp.TouchUtil.Touch;
@@ -31,7 +30,7 @@ public class TextBox implements UI {
         this.width = width;
         this.height = height;
         background = new Image();
-        background.setHolizontal(UIAlign.Align.CENTOR);
+        background.setHorizontal(UIAlign.Align.CENTOR);
         background.setVertical(UIAlign.Align.CENTOR);
         background.setWidth(width);
         setX(x);
@@ -110,7 +109,7 @@ public class TextBox implements UI {
     public void setText(StaticText text){
         textEnabled = true;
         staticText = text;
-        staticText.setHolizontal(UIAlign.Align.CENTOR);
+        staticText.setHorizontal(UIAlign.Align.CENTOR);
         staticText.setVertical(UIAlign.Align.CENTOR);
         staticText.setX(background.getY());
         staticText.setY(background.getX());

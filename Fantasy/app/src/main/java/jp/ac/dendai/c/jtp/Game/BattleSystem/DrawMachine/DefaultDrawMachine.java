@@ -3,7 +3,9 @@ package jp.ac.dendai.c.jtp.Game.BattleSystem.DrawMachine;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Attackable;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleManager;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.BattleStateMachine;
+import jp.ac.dendai.c.jtp.Game.Constant;
 import jp.ac.dendai.c.jtp.openglesutil.core.GLES20Util;
+import jp.ac.dendai.c.jtp.openglesutil.graphic.blending_mode.GLES20COMPOSITIONMODE;
 
 /**
  * Created by Goto on 2016/10/12.
@@ -18,7 +20,8 @@ public class DefaultDrawMachine implements DrawMachine {
             if(list[n].isDead())
                 continue;
             //敵の表示
-            list[n].draw(0, 0);	//draw(オフセット、オフセット、サイズ、サイズ、回転角度（度）)
+            GLES20Util.DrawGraph(list[n].getX(),list[n].getY(), Constant.enemy_size_x,Constant.enemy_size_y,list[n].getImage(),1, GLES20COMPOSITIONMODE.ALPHA);
+            	//draw(オフセット、オフセット、サイズ、サイズ、回転角度（度）)
         }
     }
 

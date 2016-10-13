@@ -1,8 +1,6 @@
 package jp.ac.dendai.c.jtp.Game.UIs.UI.Button;
 
 import android.graphics.Bitmap;
-import android.opengl.GLES20;
-import android.util.Log;
 
 import jp.ac.dendai.c.jtp.Game.Constant;
 import jp.ac.dendai.c.jtp.TouchUtil.Touch;
@@ -57,7 +55,7 @@ public class Button implements UI{
         if(string != null) {
             this.text = new StaticText(string,Constant.getBitmap(Constant.BITMAP.white));
             this.text.setVertical(UIAlign.Align.CENTOR);
-            this.text.setHolizontal(UIAlign.Align.CENTOR);
+            this.text.setHorizontal(UIAlign.Align.CENTOR);
             updateTextPos();
         }
         updateBackimage();

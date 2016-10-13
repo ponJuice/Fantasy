@@ -1,4 +1,4 @@
-package jp.ac.dendai.c.jtp.Game.UIs.Screen;
+package jp.ac.dendai.c.jtp.Game.UIs.Screen.BattleScreen;
 
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleManager;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.BattleStateMachine;
@@ -8,6 +8,8 @@ import jp.ac.dendai.c.jtp.Game.BattleSystem.Enemy.Enemy;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Enemy.EnemyTemplate;
 import jp.ac.dendai.c.jtp.Game.Constant;
 import jp.ac.dendai.c.jtp.Game.GameManager;
+import jp.ac.dendai.c.jtp.Game.UIs.Screen.DebugEventSelectScreen;
+import jp.ac.dendai.c.jtp.Game.UIs.Screen.Screenable;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.UI;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.UIAlign;
 import jp.ac.dendai.c.jtp.TouchUtil.Input;
@@ -87,7 +89,7 @@ public class BattleScreen implements Screenable {
         if(freeze)
             return;
         toDungeon.proc();
-        bsm.proc();
+        battleManager.proc();
     }
 
     @Override
@@ -95,7 +97,7 @@ public class BattleScreen implements Screenable {
         background.draw(offsetX,offsetY);
         toDungeon.draw(offsetX,offsetY);
         defaultMachine.draw(battleManager);
-        bsm.draw(offsetX,offsetY);
+        battleManager.draw(offsetX,offsetY);
     }
 
     @Override
