@@ -2,6 +2,8 @@ package jp.ac.dendai.c.jtp.Game.BattleSystem;
 
 import java.util.Arrays;
 
+import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.BattleStatePattern;
+import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.State.PiplineState.State.APipelineState;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Enemy.Enemy;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Enemy.EnemyTemplate;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Enum.BattleStateEnum;
@@ -36,6 +38,8 @@ public class BattleManager {
     protected PlayerUI p_ui;
     protected DamageEffect de;
 
+    protected BattleStatePattern bsp;
+
     BATTLE_STATE state; //ゲーム側の状態
 
     public BattleManager(EnemyTemplate[] enemys){
@@ -56,17 +60,21 @@ public class BattleManager {
 
 
         p_ui = new PlayerUI(player);
-        Arrays.sort(list);
+        //Arrays.sort(list);
         state = BATTLE_STATE.turn_end;
         battleAction = new BattleAction();
-        actor = list[turnIndex];
+        actor =list[turnIndex];
 
         de = new DamageEffect();
+
+        bsp = new BattleStatePattern(this);
     }
 
     public BattleAction getBattleAction(){
         return battleAction;
     }
+
+    public Attackable[] getActorList(){return list;}
 
     public Attackable[] getEnemyList(){
         return enemyList;
@@ -77,7 +85,12 @@ public class BattleManager {
     }
 
     public void proc(){
-        if(turnIndex >= list.length){
+        bsp.proc();
+        //プレイヤーの行動選択
+        //行動開始
+
+
+        /*if(turnIndex >= list.length){
             //もしインデックスがリストを超えた場合は一巡したとみなす
             turnIndex = 0;
             state = BATTLE_STATE.complete;
@@ -110,12 +123,13 @@ public class BattleManager {
         }else if(state == BATTLE_STATE.effect_end){
             //エフェクトの描画が終わったら、ダメージなどを反映する
         }
-        p_ui.proc();
+        p_ui.proc();*/
     }
 
     public void draw(float offset_x,float offset_y){
         p_ui.draw(offset_x,offset_y);
-        actor.draw(offset_x,offset_y);
+        bsp.drwa(offset_x,offset_y);
+        /*actor.draw(offset_x,offset_y);
         if(state == BATTLE_STATE.effect_start){
             //エフェクトの表示
             float ox = battleAction.target.getX();
@@ -140,6 +154,6 @@ public class BattleManager {
                 //終了するとtrueが帰る
                 state = BATTLE_STATE.turn_end;
             }
-        }
+        }*/
     }
 }

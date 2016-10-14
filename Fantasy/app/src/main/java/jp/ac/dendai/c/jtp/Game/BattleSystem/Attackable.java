@@ -2,8 +2,6 @@ package jp.ac.dendai.c.jtp.Game.BattleSystem;
 
 import android.graphics.Bitmap;
 
-import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.State.BattleState;
-
 /**
  * Created by Goto on 2016/10/12.
  */

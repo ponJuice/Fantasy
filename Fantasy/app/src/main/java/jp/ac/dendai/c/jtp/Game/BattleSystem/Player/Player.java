@@ -1,18 +1,15 @@
 package jp.ac.dendai.c.jtp.Game.BattleSystem.Player;
 
 import android.graphics.Bitmap;
-import android.util.Log;
 
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Attackable;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleAction;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleManager;
-import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.BattleStateMachine;
 import jp.ac.dendai.c.jtp.Game.Constant;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Button.Button;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Button.ButtonListener;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.UI;
 import jp.ac.dendai.c.jtp.TouchUtil.Input;
-import jp.ac.dendai.c.jtp.TouchUtil.Touch;
 import jp.ac.dendai.c.jtp.openglesutil.core.GLES20Util;
 
 /**

@@ -2,7 +2,7 @@ package jp.ac.dendai.c.jtp.Game.BattleSystem.DrawMachine;
 
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Attackable;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleManager;
-import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.BattleStateMachine;
+import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.BattleStatePattern;
 import jp.ac.dendai.c.jtp.Game.Constant;
 import jp.ac.dendai.c.jtp.openglesutil.core.GLES20Util;
 import jp.ac.dendai.c.jtp.openglesutil.graphic.blending_mode.GLES20COMPOSITIONMODE;
@@ -26,7 +26,7 @@ public class DefaultDrawMachine implements DrawMachine {
     }
 
     @Override
-    public void draw(BattleStateMachine bsm) {
+    public void draw(BattleStatePattern bsm) {
 
     }
 }

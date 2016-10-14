@@ -1,10 +1,9 @@
 package jp.ac.dendai.c.jtp.Game.UIs.Screen.BattleScreen;
 
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleManager;
-import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.BattleStateMachine;
+import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.BattleStatePattern;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.DrawMachine.DefaultDrawMachine;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.DrawMachine.DrawMachine;
-import jp.ac.dendai.c.jtp.Game.BattleSystem.Enemy.Enemy;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Enemy.EnemyTemplate;
 import jp.ac.dendai.c.jtp.Game.Constant;
 import jp.ac.dendai.c.jtp.Game.GameManager;
@@ -30,7 +29,6 @@ public class BattleScreen implements Screenable {
     protected Image background;
     protected Button toDungeon;
     protected DrawMachine defaultMachine;
-    public BattleStateMachine bsm;
 
     public BattleScreen(){
         EnemyTemplate[] et = new EnemyTemplate[2];
@@ -75,8 +73,6 @@ public class BattleScreen implements Screenable {
                 GameManager.isTransition = true;
             }
         });
-
-        bsm = new BattleStateMachine(battleManager);
     }
 
     @Override
@@ -89,6 +85,7 @@ public class BattleScreen implements Screenable {
         if(freeze)
             return;
         toDungeon.proc();
+
         battleManager.proc();
     }
 

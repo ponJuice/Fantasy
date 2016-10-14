@@ -5,13 +5,9 @@ import android.graphics.Bitmap;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Attackable;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleAction;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleManager;
-import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.BattleStateMachine;
-import jp.ac.dendai.c.jtp.Game.BattleSystem.Enum.ActionType;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Skill.NormalAttack;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Skill.Skill;
 import jp.ac.dendai.c.jtp.Game.Constant;
-import jp.ac.dendai.c.jtp.openglesutil.core.GLES20Util;
-import jp.ac.dendai.c.jtp.openglesutil.graphic.blending_mode.GLES20COMPOSITIONMODE;
 
 /**
  * Created by Goto on 2016/09/16.
@@ -144,7 +140,7 @@ public class Enemy extends Attackable{
     }
 
     /*@Override
-    public void proc(BattleStateMachine bsm) {
+    public void proc(BattleStatePattern bsm) {
         BattleAction ba = bsm.getBattleAction();
         ba.actionType = ActionType.Normal;
         ba.owner = this;

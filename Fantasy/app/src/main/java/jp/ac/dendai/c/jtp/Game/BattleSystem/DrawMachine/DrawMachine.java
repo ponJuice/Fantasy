@@ -1,7 +1,7 @@
 package jp.ac.dendai.c.jtp.Game.BattleSystem.DrawMachine;
 
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleManager;
-import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.BattleStateMachine;
+import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.BattleStatePattern;
 
 /**
  * Created by Goto on 2016/10/12.
@@ -9,5 +9,5 @@ import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.BattleStateMachine;
 
 public interface DrawMachine {
     public void draw(BattleManager manager);
-    public void draw(BattleStateMachine bsm);
+    public void draw(BattleStatePattern bsm);
 }

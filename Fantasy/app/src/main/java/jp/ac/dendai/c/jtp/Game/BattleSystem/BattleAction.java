@@ -29,9 +29,9 @@ public class BattleAction {
     }
     public boolean drawEffect(float ox,float oy,float sx,float sy,float deg){
         if(type == ActionType.Skill){
-            return skill.draw(ox,oy,sx,sy,deg);
+            return skill.draw(target.getX() + ox,target.getY() + oy,sx,sy,deg);
         }else if(type == ActionType.Normal){
-            return skill.draw(ox,oy,sx,sy,deg);
+            return skill.draw(target.getX() + ox,target.getY() + oy,sx,sy,deg);
         }else{
             return true;//アイテムの表示
         }

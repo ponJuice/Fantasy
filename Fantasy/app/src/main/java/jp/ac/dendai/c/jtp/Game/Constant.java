@@ -71,6 +71,7 @@ public class Constant {
     public final static float damage_number_height_enemy = 0.2f;
     public final static float damage_number_height_player = 0.5f;
     public final static float hp_decrease_time = 0.5f;
+    public final static float dead_effect_time = 0.5f;
     //public final static float
 
 
