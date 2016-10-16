@@ -1,6 +1,10 @@
-package jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.State;
+package jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.State.PlayerState;
+
+import android.util.Log;
 
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.BattleStatePattern;
+import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.State.PlayerState.State.PlayerStatePattern;
+import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.State.State;
 import jp.ac.dendai.c.jtp.Game.Constant;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Button.Button;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Button.ButtonListener;
@@ -12,6 +16,7 @@ import jp.ac.dendai.c.jtp.openglesutil.core.GLES20Util;
  * Created by Goto on 2016/10/14.
  */
 public class PlayerState extends State {
+    protected PlayerStatePattern psp;
     protected Button btn;
     public PlayerState(final BattleStatePattern battleState) {
         super(battleState);
@@ -38,21 +43,30 @@ public class PlayerState extends State {
                 battleState.changeState(battleState.getPipelineState());
             }
         });
+
+        psp = new PlayerStatePattern(this);
+    }
+
+    public void nextState(){
+        battleState.changeState(battleState.getPipelineState());
     }
 
     @Override
     public void actionProcess() {
-        btn.touch(Input.getTouchArray()[0]);
-        btn.proc();
+        //btn.touch(Input.getTouchArray()[0]);
+        //btn.proc();
+        psp.proc();
     }
 
     @Override
     public void init() {
+        Log.d("PlayerState","init");
 
     }
 
     @Override
     public void draw(float offsetX, float offsetY) {
-        btn.draw(offsetX,offsetY);
+        //btn.draw(offsetX,offsetY);
+        psp.draw(offsetX,offsetY);
     }
 }

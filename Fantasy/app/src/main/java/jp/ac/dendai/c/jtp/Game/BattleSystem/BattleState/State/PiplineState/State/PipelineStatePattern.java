@@ -1,5 +1,7 @@
 package jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.State.PiplineState.State;
 
+import android.util.Log;
+
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Attackable;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.BattleStatePattern;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.State.PiplineState.PipelineState;
@@ -67,6 +69,10 @@ public class PipelineStatePattern {
     public boolean proc(){
         if(br == BATTLE_RESULT.turnend)
             return true;
+        if(br == BATTLE_RESULT.clear){
+            Log.d("PipelineEndState","GameClear");
+            return false;
+        }
         state.proc();
         return false;
     }

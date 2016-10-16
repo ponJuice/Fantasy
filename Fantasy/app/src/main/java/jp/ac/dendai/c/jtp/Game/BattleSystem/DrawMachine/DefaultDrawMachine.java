@@ -13,15 +13,16 @@ import jp.ac.dendai.c.jtp.openglesutil.graphic.blending_mode.GLES20COMPOSITIONMO
 
 public class DefaultDrawMachine implements DrawMachine {
     @Override
-    public void draw(BattleManager manager) {
+    public void draw(BattleManager manager,float offsetX,float offsetY) {
         Attackable[] list = manager.getEnemyList();
         for(int n = 0;n < list.length;n++){
             //敵が死んでいる場合は表示しない
-            if(list[n].isDead())
-                continue;
+            //if(list[n].isDead())
+                //continue;
             //敵の表示
-            GLES20Util.DrawGraph(list[n].getX(),list[n].getY(), Constant.enemy_size_x,Constant.enemy_size_y,list[n].getImage(),1, GLES20COMPOSITIONMODE.ALPHA);
-            	//draw(オフセット、オフセット、サイズ、サイズ、回転角度（度）)
+            //GLES20Util.DrawGraph(list[n].getX(),list[n].getY(), Constant.enemy_size_x,Constant.enemy_size_y,list[n].getImage(),list[n].getAlpha(), GLES20COMPOSITIONMODE.ALPHA);
+            list[n].draw(offsetX,offsetY);
+            //draw(オフセット、オフセット、サイズ、サイズ、回転角度（度）)
         }
     }
 

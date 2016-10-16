@@ -1,5 +1,7 @@
 package jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.State.PiplineState;
 
+import android.util.Log;
+
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Attackable;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleAction;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.BattleStatePattern;
@@ -32,12 +34,14 @@ public class PipelineState extends State {
     @Override
     public void actionProcess() {
         if(psp.proc()){
-            index--;
-            if(index < 0){
-                //一巡したらプレイヤーの行動選択へ戻る
-                battleState.changeState(battleState.getPlayerState());
-                return;
-            }
+            do{
+                index--;
+                if(index < 0){
+                    //一巡したらプレイヤーの行動選択へ戻る
+                    battleState.changeState(battleState.getActorSortState());
+                    return;
+                }
+            }while(battleState.getActorList()[index].isDead());
             actor = battleState.getActorList()[index];
             psp.init();
             //psp.proc();
@@ -50,8 +54,12 @@ public class PipelineState extends State {
 
     @Override
     public void init() {
-        index = battleState.getActorList().length-1;
-        actor = battleState.getActorList()[index];
+        Log.d("PipelineState","init");
+        index = battleState.getActorList().length;
+        do{
+            index--;
+            actor = battleState.getActorList()[index];
+        }while(actor.isDead());
         battleAction = battleState.getBattleManager().getBattleAction();
         psp.init();
     }

@@ -1,5 +1,7 @@
 package jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.State.PiplineState.State;
 
+import android.util.Log;
+
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Attackable;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleAction;
 import jp.ac.dendai.c.jtp.Game.GameManager;
@@ -27,6 +29,7 @@ public class PipelineEndState extends APipelineState {
         if(ba.target.getAttackerType() == Attackable.AttackerType.Friend){
             //プレイヤー ゲームオーバー画面の表示→タイトルへ
             //デバッグ　タイトルの代わりのDebugEventSelectScreenへ
+            Log.d("PipelineEndState","GameOver!!");
             psp.changeBattleResult(PipelineStatePattern.BATTLE_RESULT.gameover);
             LoadingTransition lt = LoadingTransition.getInstance();
             lt.initTransition(DebugEventSelectScreen.class);
@@ -44,7 +47,8 @@ public class PipelineEndState extends APipelineState {
                 }
             }
             //全員死んでいたらクリアとなる
-            psp.changeBattleResult(PipelineStatePattern.BATTLE_RESULT.clear);
+            psp.getPipelineState().getBattleState().changeState(psp.getPipelineState().getBattleState().getBattleResultState());
+            //psp.changeBattleResult(PipelineStatePattern.BATTLE_RESULT.clear);
         }
     }
 

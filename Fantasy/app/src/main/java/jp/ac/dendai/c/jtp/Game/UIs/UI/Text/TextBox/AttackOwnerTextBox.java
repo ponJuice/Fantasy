@@ -72,7 +72,6 @@ public class AttackOwnerTextBox{
     public void setOwner(Bitmap bitmap){
         ownerName = bitmap;
         owner_aspect = (float)ownerName.getWidth() / (float)ownerName.getHeight();
-        owner_height = height;
         owner_width = owner_height * owner_aspect;
     }
 

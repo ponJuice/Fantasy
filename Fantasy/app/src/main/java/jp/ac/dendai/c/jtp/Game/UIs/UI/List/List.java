@@ -52,8 +52,6 @@ public class List implements UI {
         bt.setHeight(content_height);
         bt.setHorizontal(UIAlign.Align.LEFT);
         bt.setVertical(UIAlign.Align.BOTTOM);
-        bt.setCriteria(Criteria.Width);
-        bt.setPadding(text_padding);
         bt.setY(calcPosY(num)+offset_y);
         bt.setX(x+offset_x);
     }

@@ -77,6 +77,8 @@ public class EnemyTemplate {
         et.agl = ParserUtil.convertInt(xpp,attrib_enemy_agl);
         et.mp = ParserUtil.convertInt(xpp,attrib_enemy_mp);
 
+        et.name_bitmap = GLES20Util.stringToBitmap(name,Constant.fontName,25,255,255,255);
+
         et.image = ImageReader.readImageToAssets(Constant.enemy_image_file_directory + xpp.getAttributeValue(null,attrib_enemy_file));
 
         int eventType = XmlPullParser.END_DOCUMENT;

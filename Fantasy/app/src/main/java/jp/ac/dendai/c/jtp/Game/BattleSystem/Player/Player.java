@@ -10,17 +10,21 @@ import jp.ac.dendai.c.jtp.Game.BattleSystem.Skill.NormalAttack;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Skill.Skill;
 import jp.ac.dendai.c.jtp.Game.Constant;
 import jp.ac.dendai.c.jtp.Game.GameManager;
+import jp.ac.dendai.c.jtp.Game.GameUI.Gage;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Button.Button;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Button.ButtonListener;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.UI;
 import jp.ac.dendai.c.jtp.TouchUtil.Input;
 import jp.ac.dendai.c.jtp.openglesutil.core.GLES20Util;
+import jp.ac.dendai.c.jtp.Game.UIs.Screen.BattleScreen.UserInterface.PlayerUI;
 
 /**
  * Created by Goto on 2016/09/16.
  */
 public class Player extends Attackable{
     protected Button btn;
+    protected Gage hpGage;
+    protected Gage mpGage;
     protected boolean actionEnd = false;
     public Player(PlayerData pd){
         baseHp = pd.hp;
@@ -68,6 +72,11 @@ public class Player extends Attackable{
         Log.d("Player","Player Info"+str);
     }
 
+    public void setHpGage(Gage hp){
+        hpGage = hp;
+        hpGage.setValue(getHp());
+    }
+
     public void setX(float x){
         this.x = x;
     }
@@ -92,10 +101,12 @@ public class Player extends Attackable{
         btn.touch(Input.getTouchArray()[0]);
         btn.proc();
         ba.owner = this;
-        ba.target = bm.getEnemyList()[0];
+        for(int n = 0;n < bm.getEnemyList().length;n++){
+            if(!bm.getEnemyList()[n].isDead())
+                ba.target = bm.getEnemyList()[n];
+        }
         ba.skill = skills[0];
         ba.type = BattleAction.ActionType.Normal;
-        ba.resetInfo(actionEnd);
         actionEnd = false;
     }
 
@@ -116,7 +127,7 @@ public class Player extends Attackable{
 
     @Override
     public float getBaseAtk() {
-        return agl;
+        return atk;
     }
 
     @Override
@@ -198,5 +209,15 @@ public class Player extends Attackable{
     public void influenceDamage(float value) {
         hp -= value;
         hp = Math.max(hp,0);
+    }
+
+    @Override
+    public boolean deadAnimation(float time) {
+        return true;
+    }
+
+    @Override
+    public boolean damageAnimation(float time,BattleAction ba) {
+        return hpGage.animation(time,Constant.damage_gage_time,ba.getDamage());
     }
 }

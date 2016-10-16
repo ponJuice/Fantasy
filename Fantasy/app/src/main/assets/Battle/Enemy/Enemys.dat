@@ -2,8 +2,8 @@
     <Enemy id="blue_slime" name="スライム【青】" file="slime_blue.png" rank="1" hp="100" atk="20" def="10" agl="10" mp="100">
         <Skill name="突き"/>
     </Enemy>
-    <Enemy id="orange_slime" name="スライム【橙】" file="slime_orange.png" rank="1" hp="100" atk="20" def="10" agl="10" mp="100">
+    <Enemy id="orange_slime" name="スライム【橙】" file="slime_orange.png" rank="1" hp="100" atk="20" def="10" agl="30" mp="100">
         <Skill name="突き"/>
-        <Skill name="二段突き"/>
+        <Skill name="三段突き"/>
     </Enemy>
 </Enemys>

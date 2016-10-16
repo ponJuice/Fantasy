@@ -47,7 +47,7 @@ public class SkillAnimation {
     //戻り値：false まだ再生中 true もう終わった
     public boolean draw(float time,float ox,float oy,float sx,float sy,float deg){
         String str = String.format("[time : %.3f] [start : %.3f] [length : %.3f]",time,start,length);
-        Log.d("SkillAnimation",str);
+        //Log.d("SkillAnimation",str);
         if(time < start) {
             return false;
         }

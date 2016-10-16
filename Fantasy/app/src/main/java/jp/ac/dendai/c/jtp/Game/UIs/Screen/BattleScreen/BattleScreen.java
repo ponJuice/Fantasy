@@ -94,7 +94,7 @@ public class BattleScreen implements Screenable {
     public void Draw(float offsetX, float offsetY) {
         background.draw(offsetX,offsetY);
         toDungeon.draw(offsetX,offsetY);
-        defaultMachine.draw(battleManager);
+        defaultMachine.draw(battleManager,offsetX,offsetY);
         battleManager.draw(offsetX,offsetY);
     }
 

@@ -48,6 +48,8 @@ public class DebugEventSelectScreen implements Screenable{
                 Button bt = new Button(0,0,0.5f,0.25f,files[i]);
                 bt.setBitmap(Constant.getBitmap(Constant.BITMAP.system_button));
                 bt.setButtonListener(new SelectEventButtonListener(files[i]));
+                bt.setCriteria(UI.Criteria.Width);
+                bt.setPadding(0.05f);
                 list.addItem(bt);
             }
         } catch (IOException e) {

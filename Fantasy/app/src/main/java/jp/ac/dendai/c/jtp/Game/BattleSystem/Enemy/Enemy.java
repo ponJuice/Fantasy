@@ -8,15 +8,21 @@ import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleManager;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Skill.NormalAttack;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Skill.Skill;
 import jp.ac.dendai.c.jtp.Game.Constant;
+import jp.ac.dendai.c.jtp.openglesutil.core.GLES20Util;
+import jp.ac.dendai.c.jtp.openglesutil.graphic.blending_mode.GLES20COMPOSITIONMODE;
+
+import static jp.ac.dendai.c.jtp.Game.Charactor.FaceManager.list;
 
 /**
  * Created by Goto on 2016/09/16.
  */
 public class Enemy extends Attackable{
     protected Bitmap image;
+    protected float alpha = 1;
 
     public Enemy(EnemyTemplate et,float x,float y){
         name = et.name;
+        baseHp = et.hp;
         hp = et.hp;
         atk = et.atk;
         def = et.def;
@@ -38,7 +44,7 @@ public class Enemy extends Attackable{
 
     @Override
     public boolean isDead() {
-        return hp <= 0;
+        return getHp() <= 0;
     }
 
     public boolean isDead(int damage){
@@ -47,13 +53,31 @@ public class Enemy extends Attackable{
 
     @Override
     public void draw(float offsetX, float offsetY) {
-
+        GLES20Util.DrawGraph(getX(),getY(), Constant.enemy_size_x,Constant.enemy_size_y,image,alpha, GLES20COMPOSITIONMODE.ALPHA);
     }
 
     @Override
     public void influenceDamage(float value) {
         hp -= value;
         hp = Math.max(hp,0);
+    }
+
+    @Override
+    public boolean deadAnimation(float time) {
+        if(time >= Constant.dead_effect_time) {
+            alpha = 0;
+            return true;
+        }
+        alpha = 1f - 1f / Constant.dead_effect_time * time;
+        alpha = Math.min(alpha,1);
+        return false;
+    }
+
+    @Override
+    public boolean damageAnimation(float time, BattleAction ba) {
+        if(time >= Constant.damage_gage_time)
+            return true;
+        return false;
     }
 
     @Override
@@ -65,7 +89,6 @@ public class Enemy extends Attackable{
     public void action(BattleManager bm){
         //ダメージ計算などを行う
         BattleAction action = bm.getBattleAction();
-        action.resetInfo(true);
         //敵を選ぶ
         //デバッグ、プレイヤーを選ぶ
         action.owner = this;
@@ -82,7 +105,7 @@ public class Enemy extends Attackable{
 
     @Override
     public float getBaseHp() {
-        return hp;
+        return baseHp;
     }
 
     @Override

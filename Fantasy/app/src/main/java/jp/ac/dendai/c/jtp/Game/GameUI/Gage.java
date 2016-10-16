@@ -12,6 +12,8 @@ import jp.ac.dendai.c.jtp.openglesutil.core.GLES20Util;
 
 public class Gage {
     protected Image back,front;
+    protected float valueBuffer;
+    protected boolean first = true;
     protected float max,min;
     protected float width,height;
     protected float value;
@@ -52,12 +54,36 @@ public class Gage {
         front.setY(y);
     }
     public void setValue(float value){
-        this.value = value;        float _width = value / (max - min);
+        this.value = value;
+        float _width = value / (max - min);
         _width = Math.min(Math.max(_width,0),1);    //0～1に制限
         front.setWidth(_width * width);
     }
     public void draw(float offsetX,float offsetY){
         back.draw(offsetX,offsetY);
         front.draw(offsetX,offsetY);
+    }
+    public float getMax(){
+        return max;
+    }
+    public float getMin(){
+        return min;
+    }
+    public float getValue(){
+        return value;
+    }
+    public boolean animation(float time,float effectTime,float damage){
+        if(first) {
+            valueBuffer = getValue();
+            first = false;
+        }
+        if(time >= effectTime){
+            setValue(valueBuffer - damage);
+            first = true;
+            return true;
+        }
+        float norm = 1f / effectTime * time;
+        setValue(valueBuffer - damage * norm);
+        return false;
     }
 }

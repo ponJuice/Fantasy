@@ -20,6 +20,7 @@ public class PipelineDeadState extends APipelineState {
     @Override
     public void proc() {
         if(state == PipelineState.STATE.end){
+            timeBuffer = 0;
             psp.changeState(psp.getPipelineEndState());
         }
     }
@@ -30,7 +31,7 @@ public class PipelineDeadState extends APipelineState {
             return;
         if(ba.target.isDead()){
             //死亡エフェクトの表示
-            if(timeBuffer >= Constant.dead_effect_time){
+            if(ba.target.deadAnimation(timeBuffer)){
                 state = PipelineState.STATE.end;
             }
             timeBuffer += Time.getDeltaTime();

@@ -11,5 +11,10 @@
 		<Animation anim_id="normal_attack" start="0" length="0.5" ox="-0.1" oy ="0" sx="1" sy="1" rot="0"/>
 		<Animation anim_id="normal_attack" start="0.1" length="0.5" ox="0.1" oy="0" sx="1" sy="1" rot="0"/>
 	</Skill>
+	<Skill name="三段突き" damage="4">
+    	<Animation anim_id="normal_attack" start="0" length="0.5" ox="-0.2" oy ="0" sx="1" sy="1" rot="0"/>
+    	<Animation anim_id="normal_attack" start="0.2" length="0.5" ox="0.0" oy="0" sx="1" sy="1" rot="0"/>
+    	<Animation anim_id="normal_attack" start="0.4" length="0.5" ox="0.2" oy="0" sx="1" sy="1" rot="0"/>
+    </Skill>
 
 </Skills>

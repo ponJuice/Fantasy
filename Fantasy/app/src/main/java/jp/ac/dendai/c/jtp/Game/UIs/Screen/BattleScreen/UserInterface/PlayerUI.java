@@ -31,7 +31,6 @@ public class PlayerUI {
     protected final static float name_x = 0.33f;
     protected final static float name_y = 0.28f;
     protected final static float name_height = 0.1f;
-    protected Player player;
     protected Image waku,name;
     protected Gage hp_gage;
     protected Face face;
@@ -40,6 +39,7 @@ public class PlayerUI {
     protected float damage;
     protected boolean isDamage = false;
     protected float timeBuffer = 0;
+    protected Player player;
 
     public PlayerUI(Player player){
         this.player = player;
@@ -90,7 +90,7 @@ public class PlayerUI {
     }
 
     public void proc(){
-        if(isDamage && timeBuffer <= Constant.hp_decrease_time){
+        /*if(isDamage && timeBuffer <= Constant.hp_decrease_time){
             float c = (Constant.hp_decrease_time - timeBuffer) / Constant.hp_decrease_time;
             hp_gage.setValue(player.getHp() + damage*c);
             timeBuffer += Time.getDeltaTime();
@@ -99,7 +99,11 @@ public class PlayerUI {
             isDamage = false;
             timeBuffer = 0;
             return;
-        }
+        }*/
+    }
+
+    public Gage getHpGage(){
+        return hp_gage;
     }
 
     public void draw(float offsetX,float offsetY){

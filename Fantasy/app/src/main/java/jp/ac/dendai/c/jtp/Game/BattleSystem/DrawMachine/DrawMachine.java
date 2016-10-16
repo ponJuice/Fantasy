@@ -8,6 +8,6 @@ import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.BattleStatePattern;
  */
 
 public interface DrawMachine {
-    public void draw(BattleManager manager);
+    public void draw(BattleManager manager,float offsetX,float offsetY);
     public void draw(BattleStatePattern bsm);
 }
