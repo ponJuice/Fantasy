@@ -1,8 +1,8 @@
 class BattleManager{
 enum BATTLE_STATE{
-        complete,		//ˆê„‚µ‚½
-        effect,			//ƒGƒtƒFƒNƒg•`‰æ’†
-        turn_end,		//s“®AƒGƒtƒFƒNƒg•`‰æI—¹
+        complete,		//ï¿½ê„ï¿½ï¿½ï¿½ï¿½
+        effect,			//ï¿½Gï¿½tï¿½Fï¿½Nï¿½gï¿½`ï¿½æ’†
+        turn_end,		//ï¿½sï¿½ï¿½ï¿½Aï¿½Gï¿½tï¿½Fï¿½Nï¿½gï¿½`ï¿½ï¿½Iï¿½ï¿½
     }
 
     protected Attackable[] list;
@@ -12,19 +12,19 @@ enum BATTLE_STATE{
     protected BattleAction battleAction;
     protected Attackable actor;
 
-    BATTLE_STATE state; //ƒQ[ƒ€‘¤‚Ìó‘Ô
+    BATTLE_STATE state; //ï¿½Qï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½Ìï¿½ï¿½
 
     public BattleManager(EnemyTemplate[] enemys){
-        //“G‹y‚ÑƒvƒŒƒCƒ„[‚ğŠÜ‚ŞƒŠƒXƒg‚ÆA“G‚Ì‚İ‚ÌƒŠƒXƒg‚ğ‰Šú‰»
+        //ï¿½Gï¿½yï¿½Ñƒvï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Ü‚Şƒï¿½ï¿½Xï¿½gï¿½ÆAï¿½Gï¿½Ì‚İ‚Ìƒï¿½ï¿½Xï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         enemyList = new Attackable[enemys.length];
         list = new Attackable[enemys.length+1];
         for(int n = 0;n < enemyList.length;n++){
             float ox = GLES20Util.getWidth_gl()/(float)(enemyList.length+1) * (float)(n+1);
             float oy = GLES20Util.getHeight_gl()/3f*2f;
-            enemyList[n] = new Enemy(enemys[n],ox,oy);
+            enemyList[n] = new Battle.Enemy(enemys[n],ox,oy);
             list[n] = enemyList[n];
         }
-        //ƒŠƒXƒg‚Ìˆê”ÔÅŒã‚ÉƒvƒŒƒCƒ„[‚ğ‘}“ü
+        //ï¿½ï¿½ï¿½Xï¿½gï¿½Ìˆï¿½ÔÅŒï¿½Éƒvï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½}ï¿½ï¿½
         list[list.length-1] = new Player(GameManager.getPlayerData());
         battleAction = new BattleAction();
     }
@@ -39,44 +39,44 @@ enum BATTLE_STATE{
 
     public void proc(){
         if(turnIndex >= list.length){
-            //‚à‚µƒCƒ“ƒfƒbƒNƒX‚ªƒŠƒXƒg‚ğ’´‚¦‚½ê‡‚Íˆê„‚µ‚½‚Æ‚İ‚È‚·
+            //ï¿½ï¿½ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½fï¿½bï¿½Nï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½Xï¿½gï¿½ğ’´‚ï¿½ï¿½ï¿½ï¿½ê‡ï¿½Íˆê„ï¿½ï¿½ï¿½ï¿½ï¿½Æ‚İ‚È‚ï¿½
             turnIndex = 0;
             state = BATTLE_STATE.complete;
         }
 
         if(state == BATTLE_STATE.complete){
-            //“G‚ÌƒŠƒXƒg‚ğƒ\[ƒg
+            //ï¿½Gï¿½Ìƒï¿½ï¿½Xï¿½gï¿½ï¿½ï¿½\ï¿½[ï¿½g
             Arrays.sort(list);
             actor = list[0];
             state = BATTLE_STATE.turn_end;
-        }else if(state == BATTLE_STATE.turn_end){	//V‚½‚Èƒ^[ƒ“ŠJn
-            //s“®‚·‚×‚«ƒLƒƒƒ‰ƒNƒ^[‚ğ‘I‚Ô
+        }else if(state == BATTLE_STATE.turn_end){	//ï¿½Vï¿½ï¿½ï¿½Èƒ^ï¿½[ï¿½ï¿½ï¿½Jï¿½n
+            //ï¿½sï¿½ï¿½ï¿½ï¿½ï¿½×‚ï¿½ï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½Nï¿½^ï¿½[ï¿½ï¿½Iï¿½ï¿½
             actor = list[turnIndex];
         	
-			//s“®‘I‘ğ
+			//ï¿½sï¿½ï¿½ï¿½Iï¿½ï¿½
         	actor.action(battleAction);
         	
-			if(!battleAction.isEnd()){	//‘I‘ğ’†‚È‚çtrue‚ª•Ô‚é
-	            //‘I‘ğI—¹
-	            state = BATTLE_STATE.effect;	//ó‘Ô‚ğƒGƒtƒFƒNƒg•\¦ó‘Ô‚É
-	            //effectDrawer.init();			//ƒGƒtƒFƒNƒg‚Ì•\¦‚ğ‰Šú‰»
-	            turnIndex++;	//Ÿ‚ÌƒLƒƒƒ‰ƒNƒ^[‚ªs“®‚Å‚«‚é‚æ‚¤‚ÉƒCƒ“ƒfƒbƒNƒX‚ğƒCƒ“ƒNƒŠƒƒ“ƒg
+			if(!battleAction.isEnd()){	//ï¿½Iï¿½ğ’†‚È‚ï¿½trueï¿½ï¿½ï¿½Ô‚ï¿½
+	            //ï¿½Iï¿½ï¿½ï¿½Iï¿½ï¿½
+	            state = BATTLE_STATE.effect;	//ï¿½ï¿½Ô‚ï¿½ï¿½Gï¿½tï¿½Fï¿½Nï¿½gï¿½\ï¿½ï¿½ï¿½ï¿½Ô‚ï¿½
+	            //effectDrawer.init();			//ï¿½Gï¿½tï¿½Fï¿½Nï¿½gï¿½Ì•\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	            turnIndex++;	//ï¿½ï¿½ï¿½ÌƒLï¿½ï¿½ï¿½ï¿½ï¿½Nï¿½^ï¿½[ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½Å‚ï¿½ï¿½ï¿½æ‚¤ï¿½ÉƒCï¿½ï¿½ï¿½fï¿½bï¿½Nï¿½Xï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½g
 	            return;
         	}
 	    }else if(state == BATTLE_STATE.effect){
-	        //ƒGƒtƒFƒNƒg•`‰æ’†‚Í‘€ì‚ğó‚¯•t‚¯‚È‚¢
+	        //ï¿½Gï¿½tï¿½Fï¿½Nï¿½gï¿½`ï¿½æ’†ï¿½Í‘ï¿½ï¿½ï¿½ï¿½ï¿½ó‚¯•tï¿½ï¿½ï¿½È‚ï¿½
 	    }
     }
 
 	public void draw(float offset_x,float offset_y){
 		if(state == BATTLE_STATE.effect){
-			//ƒGƒtƒFƒNƒg‚Ì•\¦
+			//ï¿½Gï¿½tï¿½Fï¿½Nï¿½gï¿½Ì•\ï¿½ï¿½
 			float ox = battleAction.target.getX();
 			float oy = battleAction.target.getY();
 			float sx = Constant.enemy_damage_size_x;
 			float sy = Constant.enemy_damage_size_y;
 			if(battleAction.target.getAttacerType() == Attackable.AttackerType.Friend){
-				//s“®‘ÎÛ‚ªƒvƒŒƒCƒ„[‚È‚çˆÊ’u‚ğ’†SAƒTƒCƒY‚ğ“ñ”{
+				//ï¿½sï¿½ï¿½ï¿½ÎÛ‚ï¿½ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½È‚ï¿½Ê’uï¿½ğ’†Sï¿½Aï¿½Tï¿½Cï¿½Yï¿½ï¿½ï¿½{
 				ox = GLES20Util.getWidth_gl / 2f;
 				oy = GLES20Util.getHeight_gl / 2f;
 				sx = Constant.friend_damage_size_x;
@@ -92,7 +92,7 @@ enum BATTLE_STATE{
 
 abstract class Attackable{
 	public enum AttackerType{
-		Enemy,
+		Battle.Enemy,
 		Friend
 	}
 	protected int hp;
@@ -111,9 +111,9 @@ abstract class Attackable{
 
 }
 
-class Enemy extends Attackable{
+class Battle.Enemy extends Attackable{
 	protected Skill[] skills;
-	public Enemy(EnemyTemplate et){
+	public Battle.Enemy(EnemyTemplate et){
 		hp = et.hp;
 		atk = et.atk;
 		def = et.def;
@@ -149,9 +149,9 @@ class BattleAction{
 		if(type == AttackType.Skill){
 			return skill.draw(ox,oy,sx,sy,deg);
 		}else if(type == AttackType.Normal){
-			return //’ÊíUŒ‚‚Ì•\¦
+			return //ï¿½Êï¿½Uï¿½ï¿½ï¿½Ì•\ï¿½ï¿½
 		}else{
-			return //ƒAƒCƒeƒ€‚Ì•\¦
+			return //ï¿½Aï¿½Cï¿½eï¿½ï¿½ï¿½Ì•\ï¿½ï¿½
 		}
 	}
 }
@@ -167,7 +167,7 @@ abstract class Skill{
 	}
 	public boolean draw(float ox,float oy,float sx,float sy,float deg{
 		if(timeBuffer >= Constant.skill_effect_time){
-			return true;	//I‚í‚Á‚½‚çtrue
+			return true;	//ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½true
 		}
 
 		int temp = (int)((float)animator.getAnimationNum() / Constant.skill_effect_time * timeBuffer);

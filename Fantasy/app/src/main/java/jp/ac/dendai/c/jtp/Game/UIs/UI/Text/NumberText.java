@@ -114,6 +114,7 @@ public class NumberText extends Image {
                 height = this.width / aspect * numDigit;
             }
         }
+        updatePosition();
     }
 
     @Override
@@ -138,6 +139,7 @@ public class NumberText extends Image {
                 width = this.height * aspect * numDigit;
             }
         }
+        updatePosition();
     }
 
     @Override

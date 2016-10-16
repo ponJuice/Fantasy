@@ -23,11 +23,18 @@ public class GameManager {
 	public static Object[] args;
 	public static ArrayDeque<Screenable> stack = new ArrayDeque<>();
 	protected static PlayerData playerData;
+	protected static DataBase db;
 	public static void init(Activity _act){
 		act = _act;
-		playerData = new PlayerData(Constant.player_init_hp,Constant.player_init_atk,Constant.player_init_def);
+		playerData = new PlayerData(Constant.player_init_hp,Constant.player_init_atk,Constant.player_init_def,25);
 		Constant.init();
+		db = new DataBase();
 	}
+
+	public static DataBase getDataBase(){
+		return db;
+	}
+
 	public static void draw(){
 		if(isTransition && transition != null){
 			isTransition = transition.Transition();

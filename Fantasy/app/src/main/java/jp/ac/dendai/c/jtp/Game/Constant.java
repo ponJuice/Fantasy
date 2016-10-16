@@ -53,6 +53,12 @@ public class Constant {
     public final static String sound_id = "name";
     public final static String sound_fileName = "file";
     public final static String sound_file_directory = "Sound/";
+    public final static String enemy_image_file_directory = "Battle/Enemy/Images/";
+    public final static String skill_image_file_directory = "Battle/Skills/Images/";
+    protected final static String skillFile = "Battle/Skills/Skills.dat";
+    protected final static String enemyFile = "Battle/Enemy/Enemys.dat";
+    protected final static String itemFile = "Battle/Items.dat";
+
 
     public final static int player_init_hp = 100;
     public final static int player_init_atk = 100;
@@ -71,6 +77,7 @@ public class Constant {
     public final static float damage_number_height_enemy = 0.2f;
     public final static float damage_number_height_player = 0.5f;
     public final static float hp_decrease_time = 0.5f;
+    public final static float dead_effect_time = 0.5f;
     //public final static float
 
 

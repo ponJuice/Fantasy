@@ -5,6 +5,7 @@ import android.graphics.BitmapRegionDecoder;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.util.Log;
 
 import java.io.IOException;
 
@@ -52,7 +53,8 @@ public class AnimationBitmap {
     }
 
     public static AnimationBitmap createAnimation(String fileName,int length_x,int length_y,int x_count_max,int y_count_max,int animCount){
-//画像ファイルを切り抜いて読み込む
+        Log.d("AnimationBitmap","create file : "+fileName);
+        //画像ファイルを切り抜いて読み込む
         //targetActivity.get
         Bitmap[] array = new Bitmap[animCount];
         int _x = 0,_y = 0,count = 0;

@@ -12,6 +12,7 @@ import jp.ac.dendai.c.jtp.Game.UIs.Transition.LoadingTransition.LoadingTransitio
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Button.Button;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Button.ButtonListener;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.List.List;
+import jp.ac.dendai.c.jtp.Game.UIs.UI.Text.TextBox.AttackOwnerTextBox;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.UI;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.UIAlign;
 import jp.ac.dendai.c.jtp.TouchUtil.Input;
@@ -26,6 +27,9 @@ public class DebugEventSelectScreen implements Screenable{
     protected Event event;
     protected List list;
     protected Button toBattle;
+
+    //debug
+    protected AttackOwnerTextBox aotb;
 
     protected float black_x = 0f,black_y = 0f;
     protected float black_lx = 0.4f,black_ly = 0.4f;
@@ -76,6 +80,13 @@ public class DebugEventSelectScreen implements Screenable{
                 GameManager.isTransition = true;
             }
         });
+
+        aotb = new AttackOwnerTextBox(Constant.getBitmap(Constant.BITMAP.system_message_box));
+        aotb.setOwner(GLES20Util.stringToBitmap("クシャルダオラ",Constant.fontName,25,255,255,255));
+        aotb.setX(GLES20Util.getWidth_gl()/2f);
+        aotb.setY(GLES20Util.getHeight_gl()/2f);
+        aotb.setHeight(0.2f);
+        aotb.setPadding(0.15f);
     }
 
     @Override
@@ -96,6 +107,8 @@ public class DebugEventSelectScreen implements Screenable{
         toBattle.draw(offsetX,offsetY);
 
         list.draw(offsetX,offsetY);
+
+        aotb.draw(offsetX,offsetY);
     }
 
     @Override

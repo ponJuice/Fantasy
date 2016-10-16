@@ -10,9 +10,9 @@ import jp.ac.dendai.c.jtp.Game.UIs.Effects.Bitmap.Animator;
  */
 
 public class NormalAttack extends Skill {
-    protected final static String imageName = "Battle/Effect/normal_attack.png";
+    /*protected final static String imageName = "Battle/Effect/normal_attack.png";
     public NormalAttack(){
         AnimationBitmap ab = AnimationBitmap.createAnimation(imageName,368,147,5,2,6);
         animator = new Animator(ab);
-    }
+    }*/
 }

@@ -37,7 +37,7 @@ class EffectDrawMachine(){
 			y = GLES20Util.getHeight_gl() / 2f;
 			sx = 2;
 			sy = 2;
-		}else if(info.target instanceof Enemy){
+		}else if(info.target instanceof Battle.Enemy){
 			//“G‚É‘Î‚µ‚Ä‚Ìs“®
 			x = info.target.getX();
 			y = info.target.getY();

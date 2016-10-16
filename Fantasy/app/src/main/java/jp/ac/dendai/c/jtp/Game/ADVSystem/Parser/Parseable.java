@@ -1,5 +1,7 @@
 package jp.ac.dendai.c.jtp.Game.ADVSystem.Parser;
 
+import android.util.Log;
+
 import org.xmlpull.v1.XmlPullParser;
 
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Component.ADVComponent;

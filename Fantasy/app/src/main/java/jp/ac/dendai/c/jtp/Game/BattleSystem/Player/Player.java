@@ -6,13 +6,14 @@ import android.util.Log;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Attackable;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleAction;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleManager;
-import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.BattleStateMachine;
+import jp.ac.dendai.c.jtp.Game.BattleSystem.Skill.NormalAttack;
+import jp.ac.dendai.c.jtp.Game.BattleSystem.Skill.Skill;
 import jp.ac.dendai.c.jtp.Game.Constant;
+import jp.ac.dendai.c.jtp.Game.GameManager;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Button.Button;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Button.ButtonListener;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.UI;
 import jp.ac.dendai.c.jtp.TouchUtil.Input;
-import jp.ac.dendai.c.jtp.TouchUtil.Touch;
 import jp.ac.dendai.c.jtp.openglesutil.core.GLES20Util;
 
 /**
@@ -20,15 +21,24 @@ import jp.ac.dendai.c.jtp.openglesutil.core.GLES20Util;
  */
 public class Player extends Attackable{
     protected Button btn;
-    protected float x,y;
     protected boolean actionEnd = false;
     public Player(PlayerData pd){
         baseHp = pd.hp;
         hp = pd.hp;
         atk = pd.atk;
         def = pd.def;
-        //でバグ
+        agl = pd.agl;
+
+        this.sx = 2f;
+        this.sy = 2f;
+
+        this.name_bitmap = pd.name_bitmap;
+
+        /* ------- Debug --------*/
         name = "アラン";
+        skills = new Skill[1];
+        skills[0] = GameManager.getDataBase().getSkill("通常攻撃");
+        /* --------------------- */
 
         btn = new Button(GLES20Util.getWidth_gl()/2f,GLES20Util.getHeight_gl()/2f,0.5f,0.5f,"攻撃");
         btn.setBitmap(Constant.getBitmap(Constant.BITMAP.system_button));
@@ -53,6 +63,9 @@ public class Player extends Attackable{
                 actionEnd = true;
             }
         });
+
+        String str = String.format("[name : %s] [hp : %d] [atk : %d] [def : %d] [agl : %d] [mp : %d]",name,hp,atk,def,agl,mp);
+        Log.d("Player","Player Info"+str);
     }
 
     public void setX(float x){
@@ -80,8 +93,15 @@ public class Player extends Attackable{
         btn.proc();
         ba.owner = this;
         ba.target = bm.getEnemyList()[0];
+        ba.skill = skills[0];
+        ba.type = BattleAction.ActionType.Normal;
         ba.resetInfo(actionEnd);
         actionEnd = false;
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 
     @Override
@@ -96,42 +116,42 @@ public class Player extends Attackable{
 
     @Override
     public float getBaseAtk() {
-        return 0;
+        return agl;
     }
 
     @Override
     public float getAtk() {
-        return 0;
+        return atk;
     }
 
     @Override
     public float getBaseDef() {
-        return 0;
+        return def;
     }
 
     @Override
     public float getDef() {
-        return 0;
+        return def;
     }
 
     @Override
     public float getBaseAgl() {
-        return 0;
+        return agl;
     }
 
     @Override
     public float getAgl() {
-        return 0;
+        return agl;
     }
 
     @Override
     public int getMp() {
-        return 0;
+        return mp;
     }
 
     @Override
     public int getBaseMp() {
-        return 0;
+        return mp;
     }
 
     @Override
@@ -142,6 +162,16 @@ public class Player extends Attackable{
     @Override
     public float getY() {
         return y;
+    }
+
+    @Override
+    public float getSX() {
+        return sx;
+    }
+
+    @Override
+    public float getSY() {
+        return sy;
     }
 
     @Override

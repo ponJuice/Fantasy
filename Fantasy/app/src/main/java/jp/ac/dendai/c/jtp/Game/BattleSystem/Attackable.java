@@ -2,7 +2,7 @@ package jp.ac.dendai.c.jtp.Game.BattleSystem;
 
 import android.graphics.Bitmap;
 
-import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.State.BattleState;
+import jp.ac.dendai.c.jtp.Game.BattleSystem.Skill.Skill;
 
 /**
  * Created by Goto on 2016/10/12.
@@ -20,10 +20,14 @@ public abstract class Attackable implements Comparable<Attackable>{
     protected int agl;
     protected int mp;
     protected String name;
+    protected float x,y,sx,sy;
+    protected Skill[] skills;   //一番最後が通常攻撃
+    protected Bitmap name_bitmap;
     public abstract boolean isDead();
     //public abstract void draw(float ox,float oy,float sx,float sy,float deg);
     public abstract float damageValue(float attack);
     public abstract void action(BattleManager bm);
+    public abstract String getName();
     public abstract float getBaseHp();
     public abstract float getHp();
     public abstract float getBaseAtk();
@@ -36,11 +40,27 @@ public abstract class Attackable implements Comparable<Attackable>{
     public abstract int getBaseMp();
     public abstract float getX();
     public abstract float getY();
+    public abstract float getSX();
+    public abstract float getSY();
     public abstract AttackerType getAttackerType();
     public abstract Bitmap getImage();
     public abstract boolean isDead(int damage);
     public abstract void draw(float offsetX,float offsetY);
     public abstract void influenceDamage(float value);
+
+    @Override
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("type : " + getAttackerType() + "\n");
+        sb.append("name : " + name + "\n");
+        sb.append("hp / baseHp : " + getHp() + "/" + getBaseHp() + "\n");
+        sb.append("atk / baseAtk : " + getAtk() + "/" + getBaseAtk() + "\n");
+        sb.append("def / baseDef : " + getDef() + "/" + getBaseDef() + "\n");
+        sb.append("agl / baseAgl : " + getAgl() + "/" + getBaseAgl() + "\n");
+        sb.append("mp / baseMp : " + getMp() + "/" + getBaseMp() + "\n");
+
+        return sb.toString();
+    }
 
     @Override
     public int compareTo(Attackable obj){

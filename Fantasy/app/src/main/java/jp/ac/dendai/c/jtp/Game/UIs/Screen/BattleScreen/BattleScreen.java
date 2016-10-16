@@ -1,12 +1,11 @@
 package jp.ac.dendai.c.jtp.Game.UIs.Screen.BattleScreen;
 
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleManager;
-import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.BattleStateMachine;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.DrawMachine.DefaultDrawMachine;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.DrawMachine.DrawMachine;
-import jp.ac.dendai.c.jtp.Game.BattleSystem.Enemy.Enemy;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Enemy.EnemyTemplate;
 import jp.ac.dendai.c.jtp.Game.Constant;
+import jp.ac.dendai.c.jtp.Game.DataBase;
 import jp.ac.dendai.c.jtp.Game.GameManager;
 import jp.ac.dendai.c.jtp.Game.UIs.Screen.DebugEventSelectScreen;
 import jp.ac.dendai.c.jtp.Game.UIs.Screen.Screenable;
@@ -30,12 +29,12 @@ public class BattleScreen implements Screenable {
     protected Image background;
     protected Button toDungeon;
     protected DrawMachine defaultMachine;
-    public BattleStateMachine bsm;
 
     public BattleScreen(){
         EnemyTemplate[] et = new EnemyTemplate[2];
-        et[0] = new EnemyTemplate("スライム",100,100,100, ImageReader.readImageToAssets("Enemy/monst_test.png"),null);
-        et[1] = new EnemyTemplate("スライム",100,100,100, ImageReader.readImageToAssets("Enemy/monst_test_2.png"),null);
+        DataBase db = GameManager.getDataBase();
+        et[0] = GameManager.getDataBase().getEnemy("blue_slime");
+        et[1] = GameManager.getDataBase().getEnemy("orange_slime");
 
         background = new Image(GLES20Util.loadBitmap(R.mipmap.dungeon_01));
         background.setX(GLES20Util.getWidth_gl()/2f);
@@ -75,8 +74,6 @@ public class BattleScreen implements Screenable {
                 GameManager.isTransition = true;
             }
         });
-
-        bsm = new BattleStateMachine(battleManager);
     }
 
     @Override
@@ -89,6 +86,7 @@ public class BattleScreen implements Screenable {
         if(freeze)
             return;
         toDungeon.proc();
+
         battleManager.proc();
     }
 
