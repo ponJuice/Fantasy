@@ -95,6 +95,7 @@ public abstract class abstractGLES20Util {
 	protected static int u_texPos;
 	protected static int u_Sampler_mask;
 	protected static int u_mask_pos;
+	protected static int u_color;	//合成色
 	protected static Bitmap mask;
 	/**
 	 * アルファ値
@@ -370,6 +371,10 @@ public abstract class abstractGLES20Util {
 		u_alpha = GLES20.glGetUniformLocation(program, "u_alpha");
 		if(u_alpha == -1){
 			throw new RuntimeException("u_alphaの格納場所の取得に失敗");
+		}
+		u_color = GLES20.glGetUniformLocation(program,"u_color");
+		if(u_color == -1){
+			throw new RuntimeException("u_colorの格納場所の取得に失敗");
 		}
 	}
 

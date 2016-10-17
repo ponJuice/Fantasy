@@ -31,7 +31,7 @@ public class BattleManager {
     }
 
     protected Attackable[] list;
-    protected Attackable[] enemyList;
+    protected Enemy[] enemyList;
     protected Player player;
     protected int turnIndex = 0;
     protected BattleAction battleAction;
@@ -47,7 +47,7 @@ public class BattleManager {
     public BattleManager(EnemyTemplate[] enemys){
 
         //敵及びプレイヤーを含むリストと、敵のみのリストを初期化
-        enemyList = new Attackable[enemys.length];
+        enemyList = new Enemy[enemys.length];
         list = new Attackable[enemys.length+1];
         for(int n = 0;n < enemyList.length;n++){
             float ox = GLES20Util.getWidth_gl()/(float)(enemyList.length+1) * (float)(n+1);
@@ -57,6 +57,7 @@ public class BattleManager {
         }
         //リストの一番最後にプレイヤーを挿入
         player = new Player(GameManager.getPlayerData());
+        player.setBattleAction(new BattleAction(this));
         player.setX(GLES20Util.getWidth_gl()/2f);
         player.setY(GLES20Util.getHeight_gl()/2f);
         list[list.length-1] = player;
@@ -84,7 +85,7 @@ public class BattleManager {
 
     public Attackable[] getActorList(){return list;}
 
-    public Attackable[] getEnemyList(){
+    public Enemy[] getEnemyList(){
         return enemyList;
     }
 

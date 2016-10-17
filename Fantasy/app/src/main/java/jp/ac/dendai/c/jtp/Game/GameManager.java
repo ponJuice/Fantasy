@@ -26,9 +26,9 @@ public class GameManager {
 	protected static DataBase db;
 	public static void init(Activity _act){
 		act = _act;
-		playerData = new PlayerData(Constant.player_init_hp,Constant.player_init_atk,Constant.player_init_def,25);
 		Constant.init();
 		db = new DataBase();
+		playerData = new PlayerData(Constant.player_init_hp,Constant.player_init_atk,Constant.player_init_def,25);
 	}
 
 	public static DataBase getDataBase(){

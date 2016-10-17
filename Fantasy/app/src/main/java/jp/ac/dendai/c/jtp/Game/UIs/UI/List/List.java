@@ -20,6 +20,8 @@ import jp.ac.dendai.c.jtp.openglesutil.graphic.blending_mode.GLES20COMPOSITIONMO
 
 public class List implements UI {
     protected ArrayList<Button> listItem;
+    protected UIAlign.Align horizontal = UIAlign.Align.LEFT;
+    protected UIAlign.Align vertical = UIAlign.Align.BOTTOM;
     protected float width,height;
     protected float content_width = 0.5f,content_height = 0.2f;
     protected float text_padding = 0.08f;
@@ -27,33 +29,84 @@ public class List implements UI {
     protected float offset_y = 0;
     protected float inertia = 0,decline = 0.01f,decline_buffer = 0,inertia_sensitivity = 0.001f;
     protected float x,y;
+    protected boolean scrollable = true;
+    protected boolean touchable = true;
     protected boolean isTouch = false;
 
     protected float sensitivity = 0.001f;
-    public List(float x,float y){
+    public List(float x,float y,float width,float height){
         listItem = new ArrayList<>();
-        this.x = x;
-        this.y = y;
-        this.width = 0.5f;
-        this.height = GLES20Util.getHeight_gl();
+        setX(x);
+        setY(y);
+        setWidth(width);
+        setHeight(height);
     }
     public void addItem(Button bt){
         itemInit(bt,listItem.size(),0,0);
         listItem.add(bt);
     }
 
+    public void setTouchable(boolean flag){
+        touchable = flag;
+    }
+
+    public void setX(float x){
+        this.x = x + UIAlign.convertAlign(width,horizontal) - width/2f;
+        initItem();
+    }
+    public void setY(float y){
+        this.y = y + UIAlign.convertAlign(height,vertical) + height / 2f;
+        initItem();
+    }
+    public void setWidth(float width){
+        this.width = width;
+        initItem();
+    }
+    public void setHeight(float height){
+        this.height = height;
+        initItem();
+    }
+    public void setHorizontal(UIAlign.Align horizontal){
+        this.horizontal = horizontal;
+        setX(x);
+    }
+    public void setVertical(UIAlign.Align vertical){
+        this.vertical = vertical;
+        setY(y);
+    }
+    public void setItemPadding(float padding){
+        item_padding = padding;
+    }
+    public void setContentWidth(float width){
+        content_width = width;
+    }
+    public void setContentHeight(float height){
+        content_height = height;
+    }
+    public void setTextPaddint(float padding){
+        text_padding = padding;
+        initItem();
+    }
+
     protected float calcPosY(int num){
-        return num*content_height + item_padding * num;
+        return height - (num*content_height + item_padding * num);
     }
 
     protected void itemInit(Button bt,int num,float offset_x,float offset_y){
         bt.useAspect(false);
+        bt.setPadding(text_padding);
         bt.setWidth(content_width);
         bt.setHeight(content_height);
         bt.setHorizontal(UIAlign.Align.LEFT);
-        bt.setVertical(UIAlign.Align.BOTTOM);
-        bt.setY(calcPosY(num)+offset_y);
+        bt.setVertical(UIAlign.Align.TOP);
+        bt.setY(calcPosY(num)+offset_y+y);
         bt.setX(x+offset_x);
+    }
+
+    protected void initItem(){
+        for(int n = 0;n < listItem.size();n++){
+            itemInit(listItem.get(n),n,0,0);
+        }
     }
 
     public void removeItem(Button bt){
@@ -62,52 +115,60 @@ public class List implements UI {
             itemInit(listItem.get(n),n,0,offset_y);
         }
     }
+
+    public void setScrollable(boolean flag){
+        scrollable = flag;
+    }
     @Override
     public boolean touch(Touch touch) {
-        if(inertia != 0){
-            decline_buffer += decline * Time.getDeltaTime();
-            Log.d("List","Inertia : " + inertia + " decline_buffer : "+decline_buffer);
-            if(inertia > 0) {
-                inertia -= decline_buffer;
-                if(inertia <= 0)
-                    inertia = 0;
-            }else{
-                //inertia < 0
-                inertia += decline_buffer;
-                if(inertia >= 0)
-                    inertia = 0;
-            }
-            offset_y += inertia;
-        }
-
-        if(touch == null)
+        if(!touchable)
             return false;
         float _x = GLES20Util.convertTouchPosToGLPosX(touch.getPosition(Touch.Pos_Flag.X));
         float _y = GLES20Util.convertTouchPosToGLPosY(touch.getPosition(Touch.Pos_Flag.Y));
 
-        if(_x < x || _x >= (x + width) || _y < y || _y >= (y + height)){
-            for(int n = 0;n < listItem.size();n++){
+        if (_x < x || _x >= (x + width) || _y < y || _y >= (y + height)) {
+            for (int n = 0; n < listItem.size(); n++) {
                 listItem.get(n).touchReset();
             }
             return false;
         }
-        float _delta_x = touch.getDelta(Touch.Pos_Flag.Y) * sensitivity;
-        if(touch.getTouchID() != -1 && Math.abs(_delta_x) >= 0.001f){
-            offset_y += _delta_x;
-            for(int n = 0;n < listItem.size();n++){
-                listItem.get(n).touchReset();
+
+        if(scrollable) {
+            if (inertia != 0) {
+                decline_buffer += decline * Time.getDeltaTime();
+                Log.d("List", "Inertia : " + inertia + " decline_buffer : " + decline_buffer);
+                if (inertia > 0) {
+                    inertia -= decline_buffer;
+                    if (inertia <= 0)
+                        inertia = 0;
+                } else {
+                    //inertia < 0
+                    inertia += decline_buffer;
+                    if (inertia >= 0)
+                        inertia = 0;
+                }
+                offset_y += inertia;
             }
-            isTouch = true;
-            return false;
-        }
 
-        if(isTouch && touch.getTouchID() == -1){
-            //慣性を求める
-            inertia = touch.getDelta(Touch.Pos_Flag.Y) * inertia_sensitivity;
-            decline_buffer = 0;
-            isTouch = false;
-        }
+            if (touch == null)
+                return false;
+            float _delta_x = touch.getDelta(Touch.Pos_Flag.Y) * sensitivity;
+            if (touch.getTouchID() != -1 && Math.abs(_delta_x) >= 0.001f) {
+                offset_y += _delta_x;
+                for (int n = 0; n < listItem.size(); n++) {
+                    listItem.get(n).touchReset();
+                }
+                isTouch = true;
+                return false;
+            }
 
+            if (isTouch && touch.getTouchID() == -1) {
+                //慣性を求める
+                inertia = touch.getDelta(Touch.Pos_Flag.Y) * inertia_sensitivity;
+                decline_buffer = 0;
+                isTouch = false;
+            }
+        }
         boolean flag = true;
         for(int n = 0;n < listItem.size();n++){
             if(!isTouch)
@@ -119,18 +180,22 @@ public class List implements UI {
 
     @Override
     public void proc() {
-        float length_y = (float)(listItem.size()-1) * content_height + (float)(listItem.size() - 1) * item_padding;
-
-        if(offset_y >= (height - content_height)){
-            offset_y = y + height - (item_padding + content_height);
-        }else if(offset_y <= -length_y){
-            offset_y = y - (float)(listItem.size() -1)*content_height - (float)(listItem.size()-1)*item_padding;
-        }
+        clampItemPos();
         for(int n = 0;n < listItem.size();n++) {
             if(isTouch || inertia != 0) {
                 itemInit(listItem.get(n), n, 0, offset_y);
             }
             listItem.get(n).proc();
+        }
+    }
+
+    public void clampItemPos(){
+        float length_y = (float)(listItem.size()) * content_height + (float)(listItem.size()) * item_padding;
+
+        if((height -(length_y - offset_y)) <= 0){
+            offset_y = length_y - height;
+        }else if(offset_y >= 0){
+            offset_y =0;// y - (float)(listItem.size() -1)*content_height - (float)(listItem.size()-1)*item_padding;
         }
     }
 
@@ -153,7 +218,8 @@ public class List implements UI {
         GLES20.glStencilOp(GLES20.GL_KEEP, GLES20.GL_KEEP, GLES20.GL_KEEP);
         GLES20.glStencilFunc(GLES20.GL_EQUAL,1, ~0);
         for(int n = 0;n < listItem.size();n++){
-            listItem.get(n).draw(offset_x,offset_y);
+            if(listItem.get(n).getY() <= y + height && listItem.get(n).getY() >= y)
+                listItem.get(n).draw(offset_x,offset_y);
         }
 
         GLES20.glDisable(GLES20.GL_STENCIL_TEST);

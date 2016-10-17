@@ -162,7 +162,14 @@ public class GLES20Util extends abstractGLES20Util {
 	public static void DrawGraph(float startX,float startY,float lengthX,float lengthY,Bitmap image,float alpha,GLES20COMPOSITIONMODE mode){
 		DrawGraph(startX,startY,lengthX,lengthY,0,0,1,1,0f,image,alpha,mode);
 	}
+	public static void DrawGraph(float startX,float startY,float lengthX,float lengthY,float r,float g,float b,Bitmap image,float alpha,GLES20COMPOSITIONMODE mode){
+		DrawGraph(startX,startY,lengthX,lengthY,0,0,1,1,0,0,1,1,0,r,g,b,image,GLES20Util.mask,alpha,mode);
+	}
 	public static void DrawGraph(float startX,float startY,float lengthX,float lengthY,float uox,float uoy,float usx,float usy,float degree,Bitmap image,float alpha,GLES20COMPOSITIONMODE mode){
+		DrawGraph(startX,startY,lengthX,lengthY,uox,uoy,usx,usy,0,0,1,1,degree,0.5f,0.5f,0.5f,image,GLES20Util.mask,alpha,mode);
+	}
+
+	public static void DrawGraph(float startX,float startY,float lengthX,float lengthY,float uox,float uoy,float usx,float usy,float mask_x,float mask_y,float mask_sx,float mask_sy,float degree,float r,float g,float b,Bitmap image,Bitmap mask,float alpha,GLES20COMPOSITIONMODE mode){
 		float scaleX = lengthX;
 		float scaleY = lengthY;
 
@@ -173,10 +180,13 @@ public class GLES20Util extends abstractGLES20Util {
 		Matrix.rotateM(modelMatrix, 0, degree, 0, 0, 1);
 		setShaderModelMatrix(modelMatrix);
 
-		GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_S, GLES20.GL_REPEAT);
-		GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_T, GLES20.GL_REPEAT);
+		//GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_S, GLES20.GL_REPEAT);
+		//GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_T, GLES20.GL_REPEAT);
+		GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_S, GLES20.GL_CLAMP_TO_EDGE);
+		GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_T, GLES20.GL_CLAMP_TO_EDGE);
 		setOnTexture(image,alpha,GLES20.GL_LINEAR);
-		setOnMask(GLES20Util.mask,0,0,1,1,GLES20.GL_LINEAR);
+		GLES20.glUniform3f(u_color,r,g,b);
+		setOnMask(mask,mask_x,mask_y,mask_sx,mask_sy,GLES20.GL_LINEAR);
 
 		GLES20.glUniform4f(u_texPos,uox,uoy,usx,usy);
 
@@ -185,25 +195,7 @@ public class GLES20Util extends abstractGLES20Util {
 	}
 
 	public static void DrawGraph(float startX,float startY,float lengthX,float lengthY,float uox,float uoy,float usx,float usy,float mask_x,float mask_y,float degree,Bitmap image,Bitmap mask,float alpha,GLES20COMPOSITIONMODE mode){
-		float scaleX = lengthX;
-		float scaleY = lengthY;
-
-		//float[] modelMatrix = new float[16];
-		Matrix.setIdentityM(modelMatrix, 0);
-		Matrix.translateM(modelMatrix, 0, startX, startY, 0.0f);
-		Matrix.scaleM(modelMatrix, 0, scaleX, scaleY, 1.0f);
-		Matrix.rotateM(modelMatrix, 0, degree, 0, 0, 1);
-		setShaderModelMatrix(modelMatrix);
-
-		GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_S, GLES20.GL_CLAMP_TO_EDGE);
-		GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_T, GLES20.GL_CLAMP_TO_EDGE);
-		setOnTexture(image, alpha, GLES20.GL_LINEAR);
-		setOnMask(mask,mask_x,mask_y,1,1,GLES20.GL_LINEAR);
-
-		GLES20.glUniform4f(u_texPos,uox,uoy,usx,usy);
-
-		mode.setBlendMode();
-		GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP,0,4);	//描画
+		DrawGraph(startX,startY,lengthX,lengthY,uox,uoy,usx,usy,mask_x,mask_y,1,1,degree,0.5f,0.5f,0.5f,image,mask,alpha,mode);
 	}
 
 	public static void DrawString(float startX,float startY,float lengthX,float lengthY,float uox,float uoy,float usx,float usy,float mask_x,float mask_y,float line,float degree,Bitmap image,Bitmap mask,float alpha,GLES20COMPOSITIONMODE mode){

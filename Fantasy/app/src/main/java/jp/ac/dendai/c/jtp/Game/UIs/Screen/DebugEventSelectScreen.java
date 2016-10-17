@@ -40,7 +40,7 @@ public class DebugEventSelectScreen implements Screenable{
 
     public DebugEventSelectScreen(){
 
-        list = new List(GLES20Util.getWidth_gl()/2f,0);
+        list = new List(GLES20Util.getWidth_gl()/2f,0,Constant.battle_list_width,GLES20Util.getHeight_gl());
         AssetManager assetMgr = GameManager.act.getResources().getAssets();
         try {
             String files[] = assetMgr.list("Event");

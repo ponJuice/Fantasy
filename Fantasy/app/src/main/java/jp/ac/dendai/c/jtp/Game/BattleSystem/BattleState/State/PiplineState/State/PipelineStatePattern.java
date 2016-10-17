@@ -11,12 +11,19 @@ import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.State.PiplineState.State
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.State.PiplineState.State.PipelineDeadState;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.State.PiplineState.State.PipelineEndState;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.State.PiplineState.State.PipelineTurnEndState;
+import jp.ac.dendai.c.jtp.Game.Constant;
+import jp.ac.dendai.c.jtp.Game.UIs.UI.Button.Button;
+import jp.ac.dendai.c.jtp.Game.UIs.UI.Button.ButtonListener;
+import jp.ac.dendai.c.jtp.Game.UIs.UI.UI;
+import jp.ac.dendai.c.jtp.Game.UIs.UI.UIAlign;
+import jp.ac.dendai.c.jtp.openglesutil.core.GLES20Util;
 
 /**
  * Created by Goto on 2016/10/14.
  */
 
 public class PipelineStatePattern {
+
     public enum BATTLE_RESULT{
         clear,
         gameover,
@@ -40,6 +47,7 @@ public class PipelineStatePattern {
         pas = new PipelineAnomalousState(this);
         ptes = new PipelineTurnEndState(this);
         br = BATTLE_RESULT.non;
+
     }
     public PipelineState getPipelineState(){
         return ps;

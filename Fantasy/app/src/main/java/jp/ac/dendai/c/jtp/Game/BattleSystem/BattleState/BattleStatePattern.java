@@ -7,6 +7,7 @@ import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.State.BattleResultState;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.State.PiplineState.PipelineState;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.State.PlayerState.PlayerState;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.State.State;
+import jp.ac.dendai.c.jtp.Game.BattleSystem.Enemy.Enemy;
 
 /**
  * Created by Goto on 2016/09/16.
@@ -41,7 +42,7 @@ public class BattleStatePattern {
         this.state = state;
         this.state.init();
     }
-    public Attackable[] getEnemyList(){
+    public Enemy[] getEnemyList(){
         return bm.getEnemyList();
     }
     public Attackable[] getActorList(){

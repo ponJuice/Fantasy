@@ -8,6 +8,12 @@ import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleManager;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Skill.NormalAttack;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Skill.Skill;
 import jp.ac.dendai.c.jtp.Game.Constant;
+import jp.ac.dendai.c.jtp.Game.UIs.UI.Button.Button;
+import jp.ac.dendai.c.jtp.Game.UIs.UI.Button.ButtonListener;
+import jp.ac.dendai.c.jtp.Game.UIs.UI.Slider.Rect;
+import jp.ac.dendai.c.jtp.Game.UIs.UI.TextBox.TalkBox;
+import jp.ac.dendai.c.jtp.TouchUtil.Input;
+import jp.ac.dendai.c.jtp.TouchUtil.Touch;
 import jp.ac.dendai.c.jtp.openglesutil.core.GLES20Util;
 import jp.ac.dendai.c.jtp.openglesutil.graphic.blending_mode.GLES20COMPOSITIONMODE;
 
@@ -19,6 +25,7 @@ import static jp.ac.dendai.c.jtp.Game.Charactor.FaceManager.list;
 public class Enemy extends Attackable{
     protected Bitmap image;
     protected float alpha = 1;
+    protected Button btn;
 
     public Enemy(EnemyTemplate et,float x,float y){
         name = et.name;
@@ -35,6 +42,10 @@ public class Enemy extends Attackable{
         this.sx = 1;
         this.sy = 1;
         skills = et.skills;
+
+        btn = new Button(x,y,Constant.enemy_size_x,Constant.enemy_size_y,null);
+        btn.setBitmap(Constant.getBitmap(Constant.BITMAP.system_selector));
+        btn.useAspect(true);
     }
 
     @Override
@@ -53,7 +64,8 @@ public class Enemy extends Attackable{
 
     @Override
     public void draw(float offsetX, float offsetY) {
-        GLES20Util.DrawGraph(getX(),getY(), Constant.enemy_size_x,Constant.enemy_size_y,image,alpha, GLES20COMPOSITIONMODE.ALPHA);
+        //if(!isDead())
+        GLES20Util.DrawGraph(getX(),getY(), Constant.enemy_size_x,Constant.enemy_size_y,r,g,b,image,alpha, GLES20COMPOSITIONMODE.ALPHA);
     }
 
     @Override
@@ -93,9 +105,29 @@ public class Enemy extends Attackable{
         //デバッグ、プレイヤーを選ぶ
         action.owner = this;
         action.target = bm.getPlayer();
-        action.type = BattleAction.ActionType.Normal;
-        action.skill = skills[skills.length - 1];
+        action.type = BattleAction.ActionType.Skill;
+        action.skill = skills[Constant.getRandom().nextInt(skills.length)];
 
+    }
+
+    public void drawButton(float offsetX,float offsetY){
+        if(!isDead())
+            btn.draw(offsetX,offsetY);
+    }
+
+    public void setButtonListener(ButtonListener bl){
+        btn.setButtonListener(bl);
+    }
+
+    public void touch(Touch touch){
+        if(!isDead())
+            btn.touch(touch);
+    }
+
+    @Override
+    public void proc(){
+        if(!isDead())
+            btn.proc();
     }
 
     @Override

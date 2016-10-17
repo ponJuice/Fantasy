@@ -2,6 +2,8 @@ package jp.ac.dendai.c.jtp.Game;
 
 import android.graphics.Bitmap;
 
+import java.util.Random;
+
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Player.PlayerData;
 import jp.ac.dendai.c.jtp.fantasy.R;
 import jp.ac.dendai.c.jtp.openglesutil.core.GLES20Util;
@@ -17,13 +19,15 @@ public class Constant {
         stream_text,
         system_button,
         system_talk_back,
-        system_message_box
+        system_message_box,
+        system_selector;
     }
     private static float sens = 1.0f;
     public static void setSens(float n){ sens = n;}
     public static float getSens(){return sens;}
     public static final String fontName = "custom_font.ttf";
     protected static Bitmap text_effect_white,text_effect_mask,system_button,black,stream_text,system_talk_back,system_message_box;
+    protected static Bitmap system_selector;
     protected static PlayerData playerData;
     public final static int talk_text_size = 25;
     public final static int talk_text_color = 0xFFFFFFFF;  //a,r,g,b
@@ -58,6 +62,8 @@ public class Constant {
     protected final static String skillFile = "Battle/Skills/Skills.dat";
     protected final static String enemyFile = "Battle/Enemy/Enemys.dat";
     protected final static String itemFile = "Battle/Items.dat";
+    //protected final static String system_image_directory = "Image/System/";
+    //protected final static String selector_image = "selector.png";
 
 
     public final static int player_init_hp = 100;
@@ -81,6 +87,16 @@ public class Constant {
     public final static float damage_gage_time = 1f;
     public final static float action_textbox_y_offset = 0.1f;
     public final static float battle_state_interval = 0.5f;
+    public final static String normal_attack_name = "normalAttack";
+    public final static float battle_list_width = 0.3f;
+    public final static float battle_list_height = 0.5f;
+    public final static float battle_list_content_width = 0.3f;
+    public final static float battle_list_content_height = 0.1f;
+    public final static float battle_list_text_padding = 0.02f;
+    public final static float battle_list_item_padding = 0.0f;
+
+    /* -----------その他-------------*/
+    protected final static Random random = new Random(System.currentTimeMillis());
     //public final static float enemy_dead_effect_time = 1f;
     //public final static float
 
@@ -100,8 +116,15 @@ public class Constant {
             system_talk_back = GLES20Util.loadBitmap(R.mipmap.serihu_waku);
         if(system_message_box == null)
             system_message_box = GLES20Util.loadBitmap(R.mipmap.massagebox);
+        if(system_selector == null)
+            system_selector = GLES20Util.loadBitmap(R.mipmap.selector);
 
     }
+
+    public static Random getRandom(){
+        return random;
+    }
+
     public static Bitmap getBitmap(BITMAP f){
         if(f == BITMAP.white)
             return text_effect_white;
@@ -117,6 +140,8 @@ public class Constant {
             return system_talk_back;
         }else if(f == BITMAP.system_message_box){
             return system_message_box;
+        }else if(f == BITMAP.system_selector){
+            return system_selector;
         }
         return text_effect_white;
     }

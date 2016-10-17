@@ -5,6 +5,8 @@ import android.util.Log;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Enum.ActionType;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Skill.Skill;
 import jp.ac.dendai.c.jtp.Game.Constant;
+import jp.ac.dendai.c.jtp.Game.DataBase;
+import jp.ac.dendai.c.jtp.Game.GameManager;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Text.NumberText;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Text.StaticText;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.UIAlign;
@@ -26,6 +28,7 @@ public class BattleAction {
     public ActionType type;
     public Skill skill;
     public int id;
+    protected static Skill normalSkill;
     protected BattleManager bm;
     protected NumberText damageText;
     protected int damage;
@@ -33,6 +36,9 @@ public class BattleAction {
     protected float timeBuffer = 0;
 
     public BattleAction(BattleManager bm){
+        if(normalSkill == null){
+            normalSkill = GameManager.getDataBase().getSkill(Constant.normal_attack_name);
+        }
         damageText = new NumberText(Constant.fontName);
         damageText.useAspect(true);
         damageText.setHorizontal(UIAlign.Align.CENTOR);
@@ -90,7 +96,8 @@ public class BattleAction {
 
     public void calcDamage(){
         //ダメージ量の計算
-        damage = (int)target.damageValue(owner.getAtk());
+
+        damage = (int)target.damageValue(skill.calcDamage(owner.getAtk()));
         damageText.setNumber(damage);
         damageText.setX(target.getX());
         damageText.setY(target.getY());

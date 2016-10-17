@@ -63,6 +63,10 @@ public class Skill {
         return flag;
     }
 
+    public int calcDamage(float attackValue){
+        return (int)(attackValue * damage);
+    }
+
     public static Skill parseCreate(XmlPullParser xpp, DataBase db){
         Skill sk = new Skill();
         sk.damage = Float.parseFloat(xpp.getAttributeValue(null,attrib_damage));

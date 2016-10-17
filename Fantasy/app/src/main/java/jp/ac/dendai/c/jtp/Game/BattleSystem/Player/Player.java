@@ -3,6 +3,8 @@ package jp.ac.dendai.c.jtp.Game.BattleSystem.Player;
 import android.graphics.Bitmap;
 import android.util.Log;
 
+import java.util.ArrayList;
+
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Attackable;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleAction;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleManager;
@@ -25,6 +27,8 @@ public class Player extends Attackable{
     protected Button btn;
     protected Gage hpGage;
     protected Gage mpGage;
+    protected BattleAction battleAction;
+    protected ArrayList<Skill> skills;
     protected boolean actionEnd = false;
     public Player(PlayerData pd){
         baseHp = pd.hp;
@@ -38,10 +42,12 @@ public class Player extends Attackable{
 
         this.name_bitmap = pd.name_bitmap;
 
+        skills = pd.getSkill();
+
         /* ------- Debug --------*/
-        name = "アラン";
+        /*name = "アラン";
         skills = new Skill[1];
-        skills[0] = GameManager.getDataBase().getSkill("通常攻撃");
+        skills[0] = GameManager.getDataBase().getSkill("通常攻撃");*/
         /* --------------------- */
 
         btn = new Button(GLES20Util.getWidth_gl()/2f,GLES20Util.getHeight_gl()/2f,0.5f,0.5f,"攻撃");
@@ -72,9 +78,20 @@ public class Player extends Attackable{
         Log.d("Player","Player Info"+str);
     }
 
+    public ArrayList<Skill> getSkillList(){
+        return skills;
+    }
+
     public void setHpGage(Gage hp){
         hpGage = hp;
         hpGage.setValue(getHp());
+    }
+
+    public BattleAction getBattleAction(){
+        return battleAction;
+    }
+    public void setBattleAction(BattleAction battleAction){
+        this.battleAction = battleAction;
     }
 
     public void setX(float x){
@@ -98,16 +115,11 @@ public class Player extends Attackable{
     public void action(BattleManager bm) {
         //Log.d("Attacable Action","Player Action");
         BattleAction ba = bm.getBattleAction();
-        btn.touch(Input.getTouchArray()[0]);
-        btn.proc();
+        ba.target = battleAction.target;
         ba.owner = this;
-        for(int n = 0;n < bm.getEnemyList().length;n++){
-            if(!bm.getEnemyList()[n].isDead())
-                ba.target = bm.getEnemyList()[n];
-        }
-        ba.skill = skills[0];
-        ba.type = BattleAction.ActionType.Normal;
-        actionEnd = false;
+        ba.type = battleAction.type;
+        ba.skill = battleAction.skill;
+        actionEnd = true;
     }
 
     @Override
@@ -201,8 +213,13 @@ public class Player extends Attackable{
     }
 
     @Override
+    public void proc() {
+
+    }
+
+    @Override
     public void draw(float offsetX, float offsetY) {
-        btn.draw(offsetX,offsetY);
+        //btn.draw(offsetX,offsetY);
     }
 
     @Override

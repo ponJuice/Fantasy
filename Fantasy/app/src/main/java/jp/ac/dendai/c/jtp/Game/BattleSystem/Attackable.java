@@ -21,6 +21,7 @@ public abstract class Attackable implements Comparable<Attackable>{
     protected int mp;
     protected String name;
     protected float x,y,sx,sy;
+    protected float r = 0.5f,g = 0.5f,b = 0.5f;
     protected Skill[] skills;   //一番最後が通常攻撃
     protected Bitmap name_bitmap;
     public abstract boolean isDead();
@@ -45,12 +46,31 @@ public abstract class Attackable implements Comparable<Attackable>{
     public abstract AttackerType getAttackerType();
     public abstract Bitmap getImage();
     public abstract boolean isDead(int damage);
+    public abstract void proc();
     public abstract void draw(float offsetX,float offsetY);
     public abstract void influenceDamage(float value);
     public abstract boolean deadAnimation(float time);
     public abstract boolean damageAnimation(float time,BattleAction ba);
     public Bitmap getNameImage(){
         return name_bitmap;
+    }
+    public void setR(float value){
+        r = value;
+    }
+    public void setG(float value){
+        g = value;
+    }
+    public void setB(float value){
+        b = value;
+    }
+    public float getR(){
+        return r;
+    }
+    public float getG(){
+        return g;
+    }
+    public float getB(){
+        return b;
     }
 
     @Override

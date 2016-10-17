@@ -5,11 +5,15 @@ precision mediump float;
 uniform sampler2D u_Sampler;	//図形に貼るテクスチャ
 uniform sampler2D u_Sampler_mask;   //マスク用
 uniform float u_alpha;		//アルファ―値
+uniform vec3 u_color;       //合成色
 varying vec2 v_TexCoord;	//頂点シェーダからテクスチャ座標を受け取る
 varying vec2 v_TexCoord_mask;
 void main() {
   vec4 color = texture2D(u_Sampler,v_TexCoord);
   vec4 mask = texture2D(u_Sampler_mask,v_TexCoord_mask);
+   color.x *= (u_color.x* 2.0);
+   color.y *= (u_color.y* 2.0);
+   color.z *= (u_color.z* 2.0);
   gl_FragColor = color * mask;
   gl_FragColor.a *= u_alpha;
   //gl_FragColor = vec4(0.0, 1.0, 0.0, 0.5);

@@ -61,7 +61,7 @@ public class PlayerState extends State {
     @Override
     public void init() {
         Log.d("PlayerState","init");
-
+        psp.init();
     }
 
     @Override

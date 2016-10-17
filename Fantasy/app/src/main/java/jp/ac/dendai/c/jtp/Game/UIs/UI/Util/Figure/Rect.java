@@ -107,6 +107,7 @@ public class Rect{
         bottom = _bottom;
         calcCenter();
     }
+
     public boolean contains(float x,float y){
         return left <= x && x <= right && bottom <= y && y <= top;
     }
