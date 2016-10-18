@@ -38,6 +38,7 @@ public class Button implements UI{
     protected float width,height;
     protected float aspect;
     protected boolean through = false;
+    protected boolean enabled = true;
     protected Bitmap bitmap;
     protected UIAlign.Align horizontal = UIAlign.Align.CENTOR,vertical = UIAlign.Align.CENTOR;
 
@@ -60,6 +61,47 @@ public class Button implements UI{
         }
         updateBackimage();
     }
+    public Button(float cx,float cy,float width,float height,Bitmap text){
+        useAspect(false);
+        rect = new Rect(cx-width/2f,cy+height/2f,cx+width/2f,cy-height/2f);
+        this.x = cx;
+        this.y = cy;
+        this.width = rect.getWidth();
+        this.height = rect.getHeight();
+        aspect = width / height;
+        setX(cx);
+        setY(cy);
+        setBitmap(Constant.getBitmap(Constant.BITMAP.white));
+        if(text != null) {
+            this.text = new StaticText(text);
+            this.text.setVertical(UIAlign.Align.CENTOR);
+            this.text.setHorizontal(UIAlign.Align.CENTOR);
+            updateTextPos();
+        }
+        updateBackimage();
+    }
+    public Button(float cx,float cy,float width,float height){
+        useAspect(false);
+        rect = new Rect(cx-width/2f,cy+height/2f,cx+width/2f,cy-height/2f);
+        this.x = cx;
+        this.y = cy;
+        this.width = rect.getWidth();
+        this.height = rect.getHeight();
+        aspect = width / height;
+        setX(cx);
+        setY(cy);
+        setBitmap(Constant.getBitmap(Constant.BITMAP.white));
+        updateBackimage();
+    }
+
+    public void setEnabled(boolean flag){
+        enabled = flag;
+    }
+
+    public boolean getEnabled(){
+        return enabled;
+    }
+
     public void setButtonListener(ButtonListener listener){
         this.listener = listener;
     }
@@ -204,6 +246,9 @@ public class Button implements UI{
     }
 
     public boolean touch(Touch touch) {
+        if(!enabled)
+            return through;
+
         if(this.touch != null && this.touch != touch)
             return true;
         float x = GLES20Util.convertTouchPosToGLPosX(touch.getPosition(Touch.Pos_Flag.X));
@@ -250,6 +295,9 @@ public class Button implements UI{
 
     @Override
     public void proc() {
+        if(!enabled)
+            return;
+
         if(state == BUTTON_STATE.UP){
             if(listener != null)
                 listener.touchUp(this);
@@ -266,13 +314,22 @@ public class Button implements UI{
 
     @Override
     public void draw(float offset_x,float offset_y) {
-        if (state == BUTTON_STATE.NON) {
+        if(!enabled){
+            GLES20Util.DrawGraph(rect.getCx()+offset_x, rect.getCy()+offset_y, rect.getWidth(), rect.getHeight(),0.1f,0.1f,0.1f, bitmap, 1f, GLES20COMPOSITIONMODE.ALPHA);
+        }
+        else if (state == BUTTON_STATE.NON) {
             GLES20Util.DrawGraph(rect.getCx()+offset_x, rect.getCy()+offset_y, rect.getWidth(), rect.getHeight(), bitmap, non_hover_alpha, GLES20COMPOSITIONMODE.ALPHA);
         } else {
             GLES20Util.DrawGraph(rect.getCx()+offset_y, rect.getCy()+offset_y, rect.getWidth(), rect.getHeight(), bitmap, hover_alpha, GLES20COMPOSITIONMODE.ALPHA);
         }
-        if(text != null)
-            text.draw(offset_x,offset_y);
+        if(text != null) {
+            if (!enabled) {
+                text.setAlpha(0.5f);
+            } else {
+                text.setAlpha(1f);
+            }
+            text.draw(offset_x, offset_y);
+        }
     }
 
     protected static float calcAspect(Bitmap image){

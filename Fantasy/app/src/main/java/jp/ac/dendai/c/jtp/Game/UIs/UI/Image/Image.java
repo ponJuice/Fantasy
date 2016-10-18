@@ -117,7 +117,7 @@ public class Image implements UI {
 
     public void setImage(Bitmap image) {
         this.image = image;
-        aspect = (float)image.getWidth()/(float)image.getHeight();
+        aspect = calcAspect(image);
     }
 
     public float getX() {

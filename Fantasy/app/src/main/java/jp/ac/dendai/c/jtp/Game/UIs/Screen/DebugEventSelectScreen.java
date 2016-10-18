@@ -28,9 +28,6 @@ public class DebugEventSelectScreen implements Screenable{
     protected List list;
     protected Button toBattle;
 
-    //debug
-    protected AttackOwnerTextBox aotb;
-
     protected float black_x = 0f,black_y = 0f;
     protected float black_lx = 0.4f,black_ly = 0.4f;
     protected float red_x = 0.0f,red_y = 0.0f;
@@ -82,13 +79,6 @@ public class DebugEventSelectScreen implements Screenable{
                 GameManager.isTransition = true;
             }
         });
-
-        aotb = new AttackOwnerTextBox(Constant.getBitmap(Constant.BITMAP.system_message_box));
-        aotb.setOwner(GLES20Util.stringToBitmap("クシャルダオラ",Constant.fontName,25,255,255,255));
-        aotb.setX(GLES20Util.getWidth_gl()/2f);
-        aotb.setY(GLES20Util.getHeight_gl()/2f);
-        aotb.setHeight(0.2f);
-        aotb.setPadding(0.15f);
     }
 
     @Override
@@ -109,8 +99,6 @@ public class DebugEventSelectScreen implements Screenable{
         toBattle.draw(offsetX,offsetY);
 
         list.draw(offsetX,offsetY);
-
-        aotb.draw(offsetX,offsetY);
     }
 
     @Override

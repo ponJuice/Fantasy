@@ -43,7 +43,7 @@ public class Enemy extends Attackable{
         this.sy = 1;
         skills = et.skills;
 
-        btn = new Button(x,y,Constant.enemy_size_x,Constant.enemy_size_y,null);
+        btn = new Button(x,y,Constant.enemy_size_x,Constant.enemy_size_y);
         btn.setBitmap(Constant.getBitmap(Constant.BITMAP.system_selector));
         btn.useAspect(true);
     }
@@ -72,6 +72,16 @@ public class Enemy extends Attackable{
     public void influenceDamage(float value) {
         hp -= value;
         hp = Math.max(hp,0);
+    }
+
+    @Override
+    public void influenceMp(float value) {
+
+    }
+
+    @Override
+    public boolean mpDecreaseAnimation(float time, int value) {
+        return true;
     }
 
     @Override

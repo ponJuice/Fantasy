@@ -36,6 +36,7 @@ public class Player extends Attackable{
         atk = pd.atk;
         def = pd.def;
         agl = pd.agl;
+        mp = pd.mp;
 
         this.sx = 2f;
         this.sy = 2f;
@@ -85,6 +86,11 @@ public class Player extends Attackable{
     public void setHpGage(Gage hp){
         hpGage = hp;
         hpGage.setValue(getHp());
+    }
+
+    public void setMpGage(Gage mp){
+        mpGage = mp;
+        mpGage.setValue(getMp());
     }
 
     public BattleAction getBattleAction(){
@@ -177,6 +183,7 @@ public class Player extends Attackable{
         return mp;
     }
 
+
     @Override
     public float getX() {
         return x;
@@ -226,6 +233,17 @@ public class Player extends Attackable{
     public void influenceDamage(float value) {
         hp -= value;
         hp = Math.max(hp,0);
+    }
+
+    @Override
+    public void influenceMp(float value) {
+        mp -= value;
+        mpGage.setValue(mp);
+    }
+
+    @Override
+    public boolean mpDecreaseAnimation(float time, int value) {
+        return mpGage.animation(time,Constant.damage_gage_time,value);
     }
 
     @Override

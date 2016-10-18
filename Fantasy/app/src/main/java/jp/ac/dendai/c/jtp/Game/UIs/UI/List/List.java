@@ -31,6 +31,7 @@ public class List implements UI {
     protected float x,y;
     protected boolean scrollable = true;
     protected boolean touchable = true;
+    protected boolean drawable = true;
     protected boolean isTouch = false;
 
     protected float sensitivity = 0.001f;
@@ -44,6 +45,14 @@ public class List implements UI {
     public void addItem(Button bt){
         itemInit(bt,listItem.size(),0,0);
         listItem.add(bt);
+    }
+
+    public ArrayList<Button> getList(){
+        return listItem;
+    }
+
+    public void setDrawable(boolean flag){
+        drawable  = flag;
     }
 
     public void setTouchable(boolean flag){
@@ -178,6 +187,12 @@ public class List implements UI {
         return false;
     }
 
+    public void init(){
+        isTouch = false;
+        touchable = true;
+        drawable = true;
+    }
+
     @Override
     public void proc() {
         clampItemPos();
@@ -201,6 +216,8 @@ public class List implements UI {
 
     @Override
     public void draw(float offset_x,float offset_y) {
+        if(!drawable)
+            return;
         if(!GLES20.glIsEnabled(GLES20.GL_STENCIL_TEST)){
             GLES20.glEnable(GLES20.GL_STENCIL_TEST);
         }

@@ -19,7 +19,7 @@ import jp.ac.dendai.c.jtp.openglesutil.core.GLES20Util;
 public class PlayerData {
     protected String name = "アラン";
     protected Bitmap name_bitmap;
-    protected int hp,atk,def,agl;
+    protected int hp,mp,atk,def,agl;
     protected int equipment;
     protected LinkedList<Item> items;
     protected ArrayList<Skill> skills;
@@ -29,9 +29,11 @@ public class PlayerData {
         this.atk = atk;
         this.def = def = 10;
         this.agl = agl = 25;
+        this.mp = 100;
         name_bitmap = GLES20Util.stringToBitmap(name, Constant.fontName,25,255,255,255);
         skills = new ArrayList<>();
         skills.add(GameManager.getDataBase().getSkill("二段突き"));
+        skills.add(GameManager.getDataBase().getSkill("超大技"));
     }
     public ArrayList<Skill> getSkill(){
         return skills;

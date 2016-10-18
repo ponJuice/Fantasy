@@ -49,6 +49,8 @@ public abstract class Attackable implements Comparable<Attackable>{
     public abstract void proc();
     public abstract void draw(float offsetX,float offsetY);
     public abstract void influenceDamage(float value);
+    public abstract void influenceMp(float value);
+    public abstract boolean mpDecreaseAnimation(float time,int value);
     public abstract boolean deadAnimation(float time);
     public abstract boolean damageAnimation(float time,BattleAction ba);
     public Bitmap getNameImage(){

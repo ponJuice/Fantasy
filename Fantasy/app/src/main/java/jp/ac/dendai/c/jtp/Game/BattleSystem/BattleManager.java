@@ -64,11 +64,7 @@ public class BattleManager {
 
         p_ui = new PlayerUI(player);
         player.setHpGage(p_ui.getHpGage());
-
-
-
-        //hpの減少アニメーションのためにキャッシュしておく
-        hpGage = p_ui.getHpGage();
+        player.setMpGage(p_ui.getMpGage());
         //Arrays.sort(list);
         state = BATTLE_STATE.turn_end;
         battleAction = new BattleAction(this);

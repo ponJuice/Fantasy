@@ -57,7 +57,9 @@ public class PlayerActionSelectState extends APlayerState{
                 Player p = psp.getPlayerState().getBattleState().getBattleManager().getPlayer();
                 p.getBattleAction().type = BattleAction.ActionType.Normal;
                 p.getBattleAction().skill = GameManager.getDataBase().getSkill(Constant.normal_attack_name);
-                psp.changeState(psp.getPlayerEnemySelectState(),list);
+                psp.getList().setDrawable(false);
+                psp.getList().setTouchable(false);
+                psp.changeState(psp.getPlayerEnemySelectState());
             }
         });
         list.addItem(btn);
@@ -83,7 +85,7 @@ public class PlayerActionSelectState extends APlayerState{
                 //スキル スキル選択へ
                 Player p = psp.getPlayerState().getBattleState().getBattleManager().getPlayer();
                 p.getBattleAction().type = BattleAction.ActionType.Skill;
-                psp.changeState(psp.getPlayerSkillSelectState(),list);
+                psp.changeState(psp.getPlayerSkillSelectState());
             }
         });
         list.addItem(btn);
@@ -130,6 +132,7 @@ public class PlayerActionSelectState extends APlayerState{
             @Override
             public void touchUp(Button button) {
                 //逃走
+
             }
         });
         list.addItem(btn);
@@ -153,7 +156,7 @@ public class PlayerActionSelectState extends APlayerState{
 
     @Override
     public void init(PlayerActionList list) {
-        this.list.setTouchable(true);
+        this.list.init();
     }
 
     @Override

@@ -1,20 +1,25 @@
 <Skills>
 	<Animation id="normal_attack" file="normal_attack.png" width="368" height="147" count_x="5" count_y="2" count_anime="6"/>
 
-    <Skill name="normalAttack" damage="1">
+    <Skill name="normalAttack" damage="1" mp="0">
         <Animation anim_id="normal_attack" start="0" length="0.5" ox="0" oy = "0" sx="1" sy="1" rot="0"/>
     </Skill>
-	<Skill name="突き" damage="1.2">
+	<Skill name="突き" damage="1.2" mp="5">
 		<Animation anim_id="normal_attack" start="0" length="0.5" ox="0" oy = "0" sx="1" sy="1" rot="0"/>
 	</Skill>
-	<Skill name="二段突き" damage="1.5">
+	<Skill name="二段突き" damage="1.5" mp="10">
 		<Animation anim_id="normal_attack" start="0" length="0.5" ox="-0.1" oy ="0" sx="1" sy="1" rot="0"/>
 		<Animation anim_id="normal_attack" start="0.1" length="0.5" ox="0.1" oy="0" sx="1" sy="1" rot="0"/>
 	</Skill>
-	<Skill name="三段突き" damage="1.8">
+	<Skill name="三段突き" damage="1.8" mp="15">
     	<Animation anim_id="normal_attack" start="0" length="0.5" ox="-0.2" oy ="0" sx="1" sy="1" rot="0"/>
     	<Animation anim_id="normal_attack" start="0.2" length="0.5" ox="0.0" oy="0" sx="1" sy="1" rot="0"/>
     	<Animation anim_id="normal_attack" start="0.4" length="0.5" ox="0.2" oy="0" sx="1" sy="1" rot="0"/>
+    </Skill>
+    <Skill name="超大技" damage="10" mp="200">
+       	<Animation anim_id="normal_attack" start="0" length="0.5" ox="-0.2" oy ="0" sx="1" sy="1" rot="0"/>
+       	<Animation anim_id="normal_attack" start="0.2" length="0.5" ox="0.0" oy="0" sx="1" sy="1" rot="0"/>
+      	<Animation anim_id="normal_attack" start="0.4" length="0.5" ox="0.2" oy="0" sx="1" sy="1" rot="0"/>
     </Skill>
 
 </Skills>

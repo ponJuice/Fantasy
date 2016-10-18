@@ -9,7 +9,9 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.ConcurrentNavigableMap;
 
+import jp.ac.dendai.c.jtp.Game.BattleSystem.Attackable;
 import jp.ac.dendai.c.jtp.Game.Constant;
 import jp.ac.dendai.c.jtp.Game.DataBase;
 import jp.ac.dendai.c.jtp.Game.UIs.Effects.Bitmap.Animator;
@@ -26,14 +28,21 @@ public class Skill {
     protected final static String animationTag = "Animation";
     protected final static String attrib_damage = "damage";
     protected final static String attrib_name = "name";
+    protected final static String attrib_mp = "mp";
 
     protected String skillName;
+    protected Bitmap nameImage;
     protected float damage;
+    protected int mp;
     protected ArrayList<SkillAnimation> skillAnimations;
     protected float timeBuffer;
 
     public Skill(){
         skillAnimations = new ArrayList<>();
+    }
+
+    public Bitmap getNameImage(){
+        return nameImage;
     }
 
     public void effectInit(){
@@ -67,10 +76,16 @@ public class Skill {
         return (int)(attackValue * damage);
     }
 
+    public int calcMpValue(Attackable a){
+        return mp;
+    }
+
     public static Skill parseCreate(XmlPullParser xpp, DataBase db){
         Skill sk = new Skill();
         sk.damage = Float.parseFloat(xpp.getAttributeValue(null,attrib_damage));
         sk.skillName = xpp.getAttributeValue(null,attrib_name);
+        sk.nameImage = GLES20Util.stringToBitmap(sk.skillName, Constant.fontName,25,255,255,255);
+        sk.mp = Integer.parseInt(xpp.getAttributeValue(null,attrib_mp));
 
         Log.d("Skill","Start parseCreate name : "+sk.skillName);
 

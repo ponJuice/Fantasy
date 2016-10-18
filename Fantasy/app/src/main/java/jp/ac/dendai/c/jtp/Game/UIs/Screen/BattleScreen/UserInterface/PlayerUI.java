@@ -9,11 +9,8 @@ import jp.ac.dendai.c.jtp.Game.Charactor.Face;
 import jp.ac.dendai.c.jtp.Game.Charactor.FaceReader;
 import jp.ac.dendai.c.jtp.Game.Constant;
 import jp.ac.dendai.c.jtp.Game.GameUI.Gage;
-import jp.ac.dendai.c.jtp.Game.UIs.UI.Text.NumberText;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.UIAlign;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Image.Image;
-import jp.ac.dendai.c.jtp.Game.UIs.UI.Util.Time;
-import jp.ac.dendai.c.jtp.openglesutil.core.GLES20Util;
 
 /**
  * Created by Goto on 2016/10/13.
@@ -26,13 +23,20 @@ public class PlayerUI {
     protected final static float face_y = 0.025f;
     protected final static float gage_width = 0.4f;
     protected final static float gage_height= 0.025f;
-    protected final static float gage_x = 0.33f;
-    protected final static float gage_y = 0.15f;
+    protected final static float hp_gage_x = 0.33f;
+    protected final static float hp_gage_y = 0.15f;
+    protected final static float mp_gage_x = 0.33f;
+    protected final static float mp_gage_y = hp_gage_y-gage_height-0.05f;
+    protected final static int hp_gage_front_color = Color.argb(255,30,71,255);
+    protected final static int hp_gage_back_color = Color.argb(255,255,0,0);
+    protected final static int mp_gage_front_color = Color.argb(255,110,244,66);
+    protected final static int mp_gage_back_color = Color.argb(255,255,0,0);
     protected final static float name_x = 0.33f;
     protected final static float name_y = 0.28f;
     protected final static float name_height = 0.1f;
     protected Image waku,name;
     protected Gage hp_gage;
+    protected Gage mp_gage;
     protected Face face;
     protected Image faceImage;
     protected FaceType faceType;
@@ -54,7 +58,8 @@ public class PlayerUI {
 
         waku = new Image(Constant.getBitmap(Constant.BITMAP.system_message_box));
         name = new Image(face.getNameImage());
-        hp_gage = new Gage(Color.argb(255,255,0,0),Color.argb(255,64,64,255),gage_width,gage_height,player.getBaseHp(),0,50);
+        hp_gage = new Gage(hp_gage_back_color,hp_gage_front_color,gage_width,gage_height,player.getBaseHp(),0,player.getHp());
+        mp_gage = new Gage(mp_gage_back_color,mp_gage_front_color,gage_width,gage_height,player.getBaseMp(),0,player.getMp());
 
         //設定
         waku.useAspect(true);
@@ -81,8 +86,11 @@ public class PlayerUI {
         faceImage.setX(face_x);
         faceImage.setY(face_y);
 
-        hp_gage.setX(gage_x);
-        hp_gage.setY(gage_y);
+        hp_gage.setX(hp_gage_x);
+        hp_gage.setY(hp_gage_y);
+
+        mp_gage.setX(mp_gage_x);
+        mp_gage.setY(mp_gage_y);
     }
 
     public boolean isEndGageEffect(){
@@ -90,30 +98,19 @@ public class PlayerUI {
     }
 
     public void proc(){
-        /*if(isDamage && timeBuffer <= Constant.hp_decrease_time){
-            float c = (Constant.hp_decrease_time - timeBuffer) / Constant.hp_decrease_time;
-            hp_gage.setValue(player.getHp() + damage*c);
-            timeBuffer += Time.getDeltaTime();
-        }else if(timeBuffer > Constant.hp_decrease_time){
-            hp_gage.setValue(player.getHp());
-            isDamage = false;
-            timeBuffer = 0;
-            return;
-        }*/
     }
 
     public Gage getHpGage(){
         return hp_gage;
     }
 
+    public Gage getMpGage(){return mp_gage;}
+
     public void draw(float offsetX,float offsetY){
         waku.draw(offsetX,offsetY);
         faceImage.draw(offsetX,offsetY);
         name.draw(offsetX,offsetY);
         hp_gage.draw(offsetX,offsetY);
-    }
-    public void damage(BattleAction battleAction){
-        damage = battleAction.getDamage();
-        isDamage = true;
+        mp_gage.draw(offsetX,offsetY);
     }
 }

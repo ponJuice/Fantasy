@@ -19,9 +19,11 @@ import jp.ac.dendai.c.jtp.openglesutil.core.GLES20Util;
  */
 
 public class PlayerSkillSelectState extends APlayerState {
+    protected Player player;
     protected static final float padding = 0.1f;
     public PlayerSkillSelectState(PlayerStatePattern psp,Player player) {
         super(psp);
+        this.player = player;
         list = new PlayerActionList(GLES20Util.getWidth_gl()/2f,0,Constant.battle_list_width,Constant.battle_list_height);
         list.setContentWidth(Constant.battle_list_content_width);
         list.setContentHeight(Constant.battle_list_content_height);
@@ -33,7 +35,7 @@ public class PlayerSkillSelectState extends APlayerState {
         Button btn;
         ArrayList<Skill> sks = player.getSkillList();
         for(int n = 0;n < sks.size();n++){
-            btn = new Button(0,0,1,1,sks.get(n).getSkillName());
+            btn = new Button(0,0,1,1,sks.get(n).getNameImage());
             btn.setBitmap(Constant.getBitmap(Constant.BITMAP.system_button));
             btn.setPadding(padding);
             btn.setCriteria(UI.Criteria.Height);
@@ -60,8 +62,16 @@ public class PlayerSkillSelectState extends APlayerState {
 
     @Override
     public void init(PlayerActionList list) {
-        list.setNextList(this.list);
-        this.list.setTouchable(true);
+        list.addListEnd(this.list);
+        this.list.init();
+        ArrayList<Button> temp = this.list.getList();
+        for(int n = 0;n < temp.size();n++){
+            if(player.getMp() < player.getSkillList().get(n).calcMpValue(player)){
+                temp.get(n).setEnabled(false);
+            }else{
+                temp.get(n).setEnabled(true);
+            }
+        }
     }
 
     @Override
@@ -88,7 +98,9 @@ public class PlayerSkillSelectState extends APlayerState {
         public void touchUp(Button button) {
             psp.getPlayerState().getBattleState().getBattleManager().getPlayer().getBattleAction().skill = skill;
             psp.getPlayerState().getBattleState().getBattleManager().getPlayer().getBattleAction().type = BattleAction.ActionType.Skill;
-            psp.changeState(psp.getPlayerEnemySelectState(), list);
+            psp.getList().setDrawable(false);
+            psp.getList().setTouchable(false);
+            psp.changeState(psp.getPlayerEnemySelectState());
         }
     }
 }

@@ -22,6 +22,13 @@ public class StaticText extends Image {
         else
             this.effect_mask = effect_mask;
     }
+    public StaticText(Bitmap text){
+        super(text);
+        if(effect_mask == null)
+            this.effect_mask = Constant.getBitmap(Constant.BITMAP.white);
+        else
+            this.effect_mask = effect_mask;
+    }
     public void setDelta_u(float u){
         delta_u = u;
     }

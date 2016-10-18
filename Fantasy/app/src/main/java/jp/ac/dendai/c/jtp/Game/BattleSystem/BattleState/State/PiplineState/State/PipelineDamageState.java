@@ -46,13 +46,15 @@ public class PipelineDamageState extends APipelineState {
         //ダメージ量の計算
         ba = psp.getPipelineState().getBattleState().getBattleManager().getBattleAction();
         ba.calcDamage();
+        ba.setAttackTextBox(aotb);
 
         ba.effectReset();
 
         state = PipelineState.STATE.effect;
 
         //表示
-        aotb.setOwner(ba.owner.getNameImage());
+        //aotb.setOwner(ba.owner.getNameImage());
+        //aotb.setAction(ba.getAttackTextImage());
 
         Log.d("DamageState",ba.owner.getName()+"の攻撃!!");
         if(ba.type == BattleAction.ActionType.Normal)

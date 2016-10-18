@@ -70,11 +70,9 @@ public class PlayerStatePattern {
                 backState();
             }
         });
-
-        init();
     }
 
-    public void changeState(APlayerState state, PlayerActionList list){
+    public void changeState(APlayerState state){
         if(this.state != null) {
             this.state.clean();
             stateStack.push(this.state);
@@ -93,7 +91,8 @@ public class PlayerStatePattern {
             this.state = getPlayerActionSelectState();
         else
             this.state = stateStack.pop();
-        this.state.init(pal);
+        pal.removeListEnd();
+        //this.state.init(pal);
 
         Log.d("PlayerStatePattern bs",pal.toString());
     }
@@ -131,7 +130,12 @@ public class PlayerStatePattern {
     public void init(){
         stateStack.clear();
         pal = getPlayerActionSelectState().list;
-        changeState(getPlayerActionSelectState(),null);
+        pal.clear();
+        changeState(getPlayerActionSelectState());
+    }
+
+    public PlayerActionList getList(){
+        return pal;
     }
 
     public boolean proc(){
