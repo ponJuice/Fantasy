@@ -1,6 +1,9 @@
 package jp.ac.dendai.c.jtp.Game.ADVSystem.Component;
 
 import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.IOException;
 
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Event.Event;
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Parser.AssetManager;
@@ -97,8 +100,33 @@ public class MessageBox extends ADVComponent implements Parseable {
     @Override
     public void parseCreate(AssetManager am, XmlPullParser xpp) {
         time = 1;
-        String text_id = xpp.getAttributeValue(null,attrib_text);
-        text = new StaticText(am.getText(text_id), Constant.getBitmap(Constant.BITMAP.white));
+        //String text_id = xpp.getAttributeValue(null,attrib_text);
+        String _text = "読み込み失敗";
+        int eventType = XmlPullParser.END_DOCUMENT;
+        try{
+            eventType = xpp.getEventType();
+        }catch (XmlPullParserException e){
+            e.printStackTrace();
+        }
+        while(eventType != XmlPullParser.END_DOCUMENT){
+            if(eventType == XmlPullParser.END_TAG){
+                if(xpp.getName().equals(tagName)){
+                    //終了タグ
+                    break;
+                }
+            }
+            if(eventType == XmlPullParser.TEXT){
+                _text = xpp.getText();
+            }
+            try{
+                eventType = xpp.next();
+            }catch (XmlPullParserException e){
+                e.printStackTrace();
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+        }
+        text = new StaticText(_text, Constant.getBitmap(Constant.BITMAP.white));
         textBox.setBackground(Constant.getBitmap(Constant.BITMAP.system_message_box));
 
         String _time = xpp.getAttributeValue(null,attrib_time);

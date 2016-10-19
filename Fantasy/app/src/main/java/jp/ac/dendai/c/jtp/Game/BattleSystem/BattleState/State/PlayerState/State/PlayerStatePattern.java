@@ -92,6 +92,7 @@ public class PlayerStatePattern {
         else
             this.state = stateStack.pop();
         pal.removeListEnd();
+        this.state.init(pal);
         //this.state.init(pal);
 
         Log.d("PlayerStatePattern bs",pal.toString());

@@ -10,25 +10,6 @@
         <face id = "heroine" name="山田花子" file="heroine.png"/>
     </Face>
 
-    <Text>
-        <text id="s1">やあ</text>
-        <text id="s2">こんにちは</text>
-        <text id="s3">選択肢表示</text>
-        <text id="b0">する</text>
-        <text id="b1">しない</text>
-        <text id="bs00">するを選択した</text>
-        <text id="bs01">分岐終了1</text>
-        <text id="bs10">しないを選択した</text>
-        <text id="bs11">分岐終了2</text>
-        <text id="s4">共通部分1</text>
-        <text id="s5">イベントを終了します</text>
-        <text id="fbs11">するを選択した場合に表示されます</text>
-        <text id="fbs12">しないを選択した場合に表示されます</text>
-        <text id="msg01">するを選択しました。</text>
-        <text id="msg02">しないを選択しました。</text>
-        <text id="jump">ジャンプします</text>
-    </Text>
-
     <Image>
         <image id="town_01" file="town_01.png"/>
         <image id="dungeon_01" file="dungeon_01.png"/>
@@ -41,35 +22,35 @@
 	<Contents>
 	    <Back id="town_01"/>
 	    <Trans mode="fade" type="in"  time="1" color="#FF00FF"/>
-		<Scene face="hero" type="normal" text="s1"/>
-		<Scene face="heroine" type="normal" text="s2"/>
-		<Scene face="hero" type="normal" text="s3" autoscroll="true"/>
+		<Scene face="hero" type="normal">やあ</Scene>
+		<Scene face="heroine" type="normal">こんにちは</Scene>
+		<Scene face="hero" type="normal" autoscroll="true">選択肢表示</Scene>
 		<UserBranch>
-		    <Select text="b0">
-		        <Message text="msg01" time="0.5"/>
-                <Scene face="hero" type="normal" text = "bs00"/>
-                <Scene face="hero" type="normal" text = "bs01"/>
+		    <Select text="する">
+		        <Message time="0.5">するを選択した</Message>
+                <Scene face="hero" type="normal">するを選択した</Scene>
+                <Scene face="hero" type="normal">分岐終了1</Scene>
                 <!-- localフラグのインデックス1番に定数1を代入 -->
                 <Flag type1="local" mode1="const" value1="1" type2="const" mode2="const" value2="1"/>
 		    </Select>
-		    <Select text="b1">
-		        <Message text="msg02" time="0.5"/>
-		        <Scene face="heroine" type="normal" text = "bs10"/>
-		        <Scene face="heroine" type="normal" text = "bs11"/>
-		        <Scene face="heroine" type="normal" text = "jump"/>
+		    <Select text="しない">
+		        <Message time="0.5">しないを選択した</Message>
+		        <Scene face="heroine" type="normal">しないを選択した</Scene>
+		        <Scene face="heroine" type="normal">分岐終了2</Scene>
+		        <Scene face="heroine" type="normal">ジャンプします</Scene>
 		        <Battle/>
 		        <!-- localフラグのインデックス1番に定数1を代入 -->
                 <Flag type1="local" mode1="const" value1="1" type2="const" mode2="const" value2="2"/>
 		    </Select>
 		</UserBranch>
-		<Scene face="hero" type="normal" text = "s4"/>
+		<Scene face="hero" type="normal">共通部分1</Scene>
 		<FlagBranch default="true">
 		    <Select>
 		        <Conditions mode="and">
                 	<Condition  type1="local" value1="1" mnemonic="==" type2="const" value2="1"/>
                 </Conditions>
                 <Scenes>
-                    <Scene face="hero" type="normal" text = "fbs11"/>
+                    <Scene face="hero" type="normal">するを選択した場合に表示されます</Scene>
                 </Scenes>
 		    </Select>
             <Select>
@@ -77,11 +58,11 @@
                     <Condition  type1="local" value1="0" mnemonic="==" type2="const" value2="1"/>
                 </Conditions>
                 <Scenes>
-                    <Scene face="heroine" type="normal" text = "fbs12"/>
+                    <Scene face="heroine" type="normal">しないを選択した場合に表示されます</Scene>
                 </Scenes>
             </Select>
 		</FlagBranch>
-		<Scene face="heroine" type="normal" text="s5"/>
+		<Scene face="heroine" type="normal">イベントを終了します</Scene>
 		<Trans mode="fade" type="out"  time="5" color="#000000"/>
 	</Contents>
 </Event>

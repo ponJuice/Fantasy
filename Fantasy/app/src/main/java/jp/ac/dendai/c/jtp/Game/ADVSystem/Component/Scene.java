@@ -4,6 +4,9 @@ import android.graphics.Bitmap;
 import android.util.Log;
 
 import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.IOException;
 
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Component.Enum.FaceType;
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Event.Event;
@@ -109,13 +112,42 @@ public class Scene extends ADVComponent implements Parseable{
         String value = xpp.getAttributeValue(null,attrib_type);
         FaceType faceType = FaceType.valueOf(value);
         //テキストの取得
-        String text_id = xpp.getAttributeValue(null,attrib_text);
+        //String text_id = xpp.getAttributeValue(null,attrib_text);
         //スクロール
         String scroll = xpp.getAttributeValue(null,attrib_scroll);
+
+        //テキストの取得
+        String text = "読み込み失敗";
         if(scroll != null)
             autoScroll = Boolean.parseBoolean(scroll);
 
-        create(this,am.getFace(face),faceType,am.getText(text_id));
+        int eventType = XmlPullParser.END_DOCUMENT;
+        try{
+            eventType = xpp.getEventType();
+        }catch (XmlPullParserException e){
+            e.printStackTrace();
+        }
+        while(eventType != XmlPullParser.END_DOCUMENT){
+            if(eventType == XmlPullParser.END_TAG){
+                if(xpp.getName().equals(tagName)){
+                    //終了タグ
+                    break;
+                }
+            }
+            if(eventType == XmlPullParser.TEXT){
+                text = xpp.getText();
+            }
+            try{
+                eventType = xpp.next();
+            }catch (XmlPullParserException e){
+                e.printStackTrace();
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+        }
+
+
+        create(this,am.getFace(face),faceType,text);
     }
 
     @Override

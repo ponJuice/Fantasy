@@ -37,6 +37,9 @@ public class PlayerActionList extends List{
         //animationOffset = width*childCount;
     }
     public void removeListEnd(){
+        if(this.next == null){
+            return;
+        }
         if(this.next.next == null){
             this.next = null;
             setTouchable(true);

@@ -58,7 +58,7 @@ public class ADVEventParser {
         //顔グラの読み込み
         loadFace(assetManager,xpp);
         //テキストの読み込み
-        loadText(assetManager,xpp);
+        //loadText(assetManager,xpp);
         //画像の読み込み
         loadImage(assetManager,xpp);
         //サウンドの読み込み

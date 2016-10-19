@@ -94,7 +94,7 @@ public class UserSelect extends Select {
     public void parseCreate(AssetManager am, XmlPullParser xpp) {
         Log.d(tagName+" Parse","");
         String text = xpp.getAttributeValue(null,select_text);
-        button = new Button(0,0,button_width,-button_height,am.getText(text));
+        button = new Button(0,0,button_width,-button_height,text);
         button.useAspect(true);
         button.setBitmap(Constant.getBitmap(Constant.BITMAP.system_button));
         button.setPadding(0.05f);
