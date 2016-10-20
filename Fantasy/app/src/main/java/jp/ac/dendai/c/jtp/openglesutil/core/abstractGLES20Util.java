@@ -105,11 +105,11 @@ public abstract class abstractGLES20Util {
 	/**
 	 * 視体積（立方体型）の近平面
 	 */
-	private static float mNear = 0.0f;				//視体積の立方体型の近平面
+	protected static float mNear = 0.0f;				//視体積の立方体型の近平面
 	/**
 	 * 視体積（立方体型）の遠平面
 	 */
-	private static float mFar = 50f;				//視体積の立方体型の遠平面
+	protected static float mFar = 50f;				//視体積の立方体型の遠平面
 	/**
 	 * 画面のアスペクト比
 	 */
@@ -122,7 +122,7 @@ public abstract class abstractGLES20Util {
 	/**
 	 * ビューポート行列
 	 */
-	private static float[] viewProjMatrix = new float[16];	//ビューポート行列
+	protected static float[] viewProjMatrix = new float[16];	//ビューポート行列
 	//private static float[] modelMatrix = new float[16];		//モデル行列
 
 	/**
@@ -138,10 +138,10 @@ public abstract class abstractGLES20Util {
 	 * 正方形の頂点座標
 	 */
 	private static final float[] boxVertex= {		//正方形頂点座標
-		//0.0f,0.0f,
-		//1.0f,0.0f,
-		//0.0f,1.0f,
-		//1.0f,1.0f
+			//0.0f,0.0f,
+			//1.0f,0.0f,
+			//0.0f,1.0f,
+			//1.0f,1.0f
 			-0.5f,-0.5f,
 			0.5f,-0.5f,
 			-0.5f,0.5f,
@@ -151,10 +151,10 @@ public abstract class abstractGLES20Util {
 	 * テクスチャ座標
 	 */
 	private static final float[] texPosition={		//テクスチャ座標
-		0.0f,1.0f,
-		1.0f,1.0f,
-		0.0f,0.0f,
-		1.0f,0.0f
+			0.0f,1.0f,
+			1.0f,1.0f,
+			0.0f,0.0f,
+			1.0f,0.0f
 
 	};
 
@@ -200,7 +200,7 @@ public abstract class abstractGLES20Util {
 		Log.d("abstractGLES20Util","initGLES20");
 
 		return glSurfaceView;
-	  }
+	}
 
 	/**
 	 * GLES20を使えるようにします。onSurfaceCreatedで一番最初に呼び出してください
@@ -237,23 +237,23 @@ public abstract class abstractGLES20Util {
 		initFragmentShader(fragmentShaderString);
 		Log.d("abstractGLES20Util","initFragmentShader finished");
 
-	    //二つのシェーダオブジェクトを設定
-	    program = GLES20.glCreateProgram();
-	    GLES20.glAttachShader(program, vertexShader);
-	    GLES20.glAttachShader(program, fragmentShader);
-	    Log.d("abstractGLES20Util","setOnProgram finished");
+		//二つのシェーダオブジェクトを設定
+		program = GLES20.glCreateProgram();
+		GLES20.glAttachShader(program, vertexShader);
+		GLES20.glAttachShader(program, fragmentShader);
+		Log.d("abstractGLES20Util","setOnProgram finished");
 
-	    // プログラムオブジェクトをリンクする
-	   	GLES20.glLinkProgram(program);
-	   	Log.d("abstractGLES20Util","link Program finished");
+		// プログラムオブジェクトをリンクする
+		GLES20.glLinkProgram(program);
+		Log.d("abstractGLES20Util","link Program finished");
 
-	    // リンク結果をチェックする
-	    int[] linked = new int[1];
-	    GLES20.glGetProgramiv(program, GLES20.GL_LINK_STATUS, linked, 0);
-	    if (linked[0] != GLES20.GL_TRUE) {
-	    String error = GLES20.glGetProgramInfoLog(program);
-	    	throw new RuntimeException("failed to link program: " + error);
-	    }
+		// リンク結果をチェックする
+		int[] linked = new int[1];
+		GLES20.glGetProgramiv(program, GLES20.GL_LINK_STATUS, linked, 0);
+		if (linked[0] != GLES20.GL_TRUE) {
+			String error = GLES20.glGetProgramInfoLog(program);
+			throw new RuntimeException("failed to link program: " + error);
+		}
 		//プログラムの使用開始
 		GLES20.glUseProgram(program);
 		Log.d("abstractGLES20Util","use stert Program finished");
@@ -271,36 +271,36 @@ public abstract class abstractGLES20Util {
 	private static void initVertexShader(String vertexShaderString){
 		//頂点シェーダオブジェクトを作成
 		vertexShader = GLES20.glCreateShader(GLES20.GL_VERTEX_SHADER);
-	    // シェーダコードを読み込む
-	    GLES20.glShaderSource( vertexShader,vertexShaderString);
-	    // シェーダコードをコンパイルする
-	    GLES20.glCompileShader( vertexShader );
-	    // コンパイル結果を検査する
-	    int[] compiled = new int[1];
-	    GLES20.glGetShaderiv(vertexShader, GLES20.GL_COMPILE_STATUS, compiled, 0);
-	    if (compiled[0] != GLES20.GL_TRUE) {
-	     	String error = GLES20.glGetShaderInfoLog(vertexShader);
-	    	throw new RuntimeException("failed to compile shader: " + error);
-	    }
+		// シェーダコードを読み込む
+		GLES20.glShaderSource( vertexShader,vertexShaderString);
+		// シェーダコードをコンパイルする
+		GLES20.glCompileShader( vertexShader );
+		// コンパイル結果を検査する
+		int[] compiled = new int[1];
+		GLES20.glGetShaderiv(vertexShader, GLES20.GL_COMPILE_STATUS, compiled, 0);
+		if (compiled[0] != GLES20.GL_TRUE) {
+			String error = GLES20.glGetShaderInfoLog(vertexShader);
+			throw new RuntimeException("failed to compile shader: " + error);
+		}
 	}
 
 	/**
 	 * フラグメントシェーダの初期化
 	 */
 	private static void initFragmentShader(String fragmentShaderString){
-	    // ピクセルシェーダオブジェクトを作成する
+		// ピクセルシェーダオブジェクトを作成する
 		fragmentShader = GLES20.glCreateShader( GLES20.GL_FRAGMENT_SHADER );
 		// シェーダコードを読み込む
-	    GLES20.glShaderSource( fragmentShader,fragmentShaderString);
-	    // シェーダコードをコンパイルする
-	    GLES20.glCompileShader( fragmentShader );
-	    // コンパイル結果を検査する
-	    int[] compiled = new int[1];
-	    GLES20.glGetShaderiv(fragmentShader, GLES20.GL_COMPILE_STATUS, compiled, 0);
-	    if (compiled[0] != GLES20.GL_TRUE) {
-	    	String error = GLES20.glGetShaderInfoLog(fragmentShader);
-	        throw new RuntimeException("failed to compile shader: " + error);
-	    }
+		GLES20.glShaderSource( fragmentShader,fragmentShaderString);
+		// シェーダコードをコンパイルする
+		GLES20.glCompileShader( fragmentShader );
+		// コンパイル結果を検査する
+		int[] compiled = new int[1];
+		GLES20.glGetShaderiv(fragmentShader, GLES20.GL_COMPILE_STATUS, compiled, 0);
+		if (compiled[0] != GLES20.GL_TRUE) {
+			String error = GLES20.glGetShaderInfoLog(fragmentShader);
+			throw new RuntimeException("failed to compile shader: " + error);
+		}
 	}
 
 	/**
@@ -316,30 +316,30 @@ public abstract class abstractGLES20Util {
 	 * @return　作成したフロートバッファ
 	 */
 	private static FloatBuffer makeFloatBuffer(float[] array) {
-    	if (array == null) throw new IllegalArgumentException();
+		if (array == null) throw new IllegalArgumentException();
 
-    	ByteBuffer byteBuffer = ByteBuffer.allocateDirect(4 * array.length);
-    	byteBuffer.order(ByteOrder.nativeOrder());
-    	FloatBuffer floatBuffer = byteBuffer.asFloatBuffer();
-    	floatBuffer.put(array);
-    	floatBuffer.position(0);
-    	return floatBuffer;
-  	}
+		ByteBuffer byteBuffer = ByteBuffer.allocateDirect(4 * array.length);
+		byteBuffer.order(ByteOrder.nativeOrder());
+		FloatBuffer floatBuffer = byteBuffer.asFloatBuffer();
+		floatBuffer.put(array);
+		floatBuffer.position(0);
+		return floatBuffer;
+	}
 
 	/**
 	 * シェーダから各データの格納場所を取得
 	 */
 	private static void getShaderLocation(){
 		// u_ProjMatrix変数の格納場所を取得する
-	    mu_ProjMatrix = GLES20.glGetUniformLocation(program, "u_ProjMatrix");
-	    if (mu_ProjMatrix == -1) {
-	    	throw new RuntimeException("u_ProjMatrixの格納場所の取得に失敗");
-	    }
+		mu_ProjMatrix = GLES20.glGetUniformLocation(program, "u_ProjMatrix");
+		if (mu_ProjMatrix == -1) {
+			throw new RuntimeException("u_ProjMatrixの格納場所の取得に失敗");
+		}
 		// a_Positionの格納場所を取得
-    	ma_Position = GLES20.glGetAttribLocation(program, "a_Position");
-    	if (ma_Position == -1) {
-    		throw new RuntimeException("a_Positionの格納場所の取得に失敗");
-    	}
+		ma_Position = GLES20.glGetAttribLocation(program, "a_Position");
+		if (ma_Position == -1) {
+			throw new RuntimeException("a_Positionの格納場所の取得に失敗");
+		}
 		// モデル行列の格納場所を取得
 		mu_modelMatrix = GLES20.glGetUniformLocation(program, "u_ModelMatrix");
 		if (mu_modelMatrix == -1) {
@@ -382,7 +382,7 @@ public abstract class abstractGLES20Util {
 	 * シェーダにビューポート行列を設定
 	 */
 	//シェーダにビューポート行列を設定
-	private static void setShaderProjMatrix(){
+	protected static void setShaderProjMatrix(){
 		GLES20.glUniformMatrix4fv(mu_ProjMatrix, 1,false,viewProjMatrix,0);
 	}
 
@@ -398,7 +398,7 @@ public abstract class abstractGLES20Util {
 	 * 正方形を単色塗りつぶして表示します
 	 */
 	public static void DrawBox(float startX,float startY,float lengthX,float lengthY,
-								int r,int g,int b, int a){
+							   int r,int g,int b, int a){
 
 		float scaleX = lengthX;
 		float scaleY = lengthY;
@@ -422,69 +422,69 @@ public abstract class abstractGLES20Util {
 	 */
 	//頂点座標のバッファオブジェクトを作成し、設定する。
 	private static void createAndSetOnBufferObject(){
-	    // バッファオブジェクトを作成する
-	    int[] vertexTexCoord = new int[1];
-	    GLES20.glGenBuffers(1, vertexTexCoord, 0);
+		// バッファオブジェクトを作成する
+		int[] vertexTexCoord = new int[1];
+		GLES20.glGenBuffers(1, vertexTexCoord, 0);
 
-	    // 頂点の座標とテクスチャ座標をバッファオブジェクトに書き込む
-	    GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, vertexTexCoord[0]);
-	    GLES20.glBufferData(GLES20.GL_ARRAY_BUFFER, FSIZE * vertexBuffer.limit(), vertexBuffer, GLES20.GL_DYNAMIC_DRAW);
+		// 頂点の座標とテクスチャ座標をバッファオブジェクトに書き込む
+		GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, vertexTexCoord[0]);
+		GLES20.glBufferData(GLES20.GL_ARRAY_BUFFER, FSIZE * vertexBuffer.limit(), vertexBuffer, GLES20.GL_DYNAMIC_DRAW);
 
-   		GLES20.glVertexAttribPointer(ma_Position, 2, GLES20.GL_FLOAT, false, 0, 0);
-   		GLES20.glEnableVertexAttribArray(ma_Position);  // バッファオブジェクトの割り当ての有効化
+		GLES20.glVertexAttribPointer(ma_Position, 2, GLES20.GL_FLOAT, false, 0, 0);
+		GLES20.glEnableVertexAttribArray(ma_Position);  // バッファオブジェクトの割り当ての有効化
 	}
 
 	/**
 	 * テクスチャオブジェクトの初期化
 	 */
-	  public static void initTextures() {
-		    // バッファオブジェクトを作成する
-		    int[] vertexTexCoord = new int[1];
-		    GLES20.glGenBuffers(1, vertexTexCoord, 0);
+	public static void initTextures() {
+		// バッファオブジェクトを作成する
+		int[] vertexTexCoord = new int[1];
+		GLES20.glGenBuffers(1, vertexTexCoord, 0);
 
-		    // 頂点の座標とテクスチャ座標をバッファオブジェクトに書き込む
-		    GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, vertexTexCoord[0]);
-		    GLES20.glBufferData(GLES20.GL_ARRAY_BUFFER, FSIZE * texBuffer.limit(), texBuffer, GLES20.GL_DYNAMIC_DRAW);
+		// 頂点の座標とテクスチャ座標をバッファオブジェクトに書き込む
+		GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, vertexTexCoord[0]);
+		GLES20.glBufferData(GLES20.GL_ARRAY_BUFFER, FSIZE * texBuffer.limit(), texBuffer, GLES20.GL_DYNAMIC_DRAW);
 
-	   		GLES20.glVertexAttribPointer(ma_texCoord, 2, GLES20.GL_FLOAT, false, 0, 0);
-	   		GLES20.glEnableVertexAttribArray(ma_texCoord);  // バッファオブジェクトの割り当ての有効化
+		GLES20.glVertexAttribPointer(ma_texCoord, 2, GLES20.GL_FLOAT, false, 0, 0);
+		GLES20.glEnableVertexAttribArray(ma_texCoord);  // バッファオブジェクトの割り当ての有効化
 
-		    // テクスチャオブジェクトを作成する
-		    textures = new int[2];
-		    GLES20.glGenTextures(2, textures, 0);
-	  }
+		// テクスチャオブジェクトを作成する
+		textures = new int[2];
+		GLES20.glGenTextures(2, textures, 0);
+	}
 
-	  /**
-	   * サンプラーの場所取得とテクスチャパラメータなどを設定
-	   */
-	  //サンプラーの場所取得とテクスチャパラメータなどを設定
-	  private static void loadTexture(int texture, String sampler) {
+	/**
+	 * サンプラーの場所取得とテクスチャパラメータなどを設定
+	 */
+	//サンプラーの場所取得とテクスチャパラメータなどを設定
+	private static void loadTexture(int texture, String sampler) {
 
 
-	    GLES20.glActiveTexture(GLES20.GL_TEXTURE0);   // テクスチャユニット0を有効にする
+		GLES20.glActiveTexture(GLES20.GL_TEXTURE0);   // テクスチャユニット0を有効にする
 
-	    GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, texture); // テクスチャオブジェクトをバインドする
+		GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, texture); // テクスチャオブジェクトをバインドする
 
-		  // テクスチャパラメータを設定する
-		  GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_LINEAR);
-	  }
+		// テクスチャパラメータを設定する
+		GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_LINEAR);
+	}
 
-	  /**
-	   * テクスチャ画像を設定する
-	   */
-	  //テクスチャ画像を設定する
-	  protected static void setOnTexture(Bitmap image,float alpha,int mode){
-		  GLES20.glActiveTexture(GLES20.GL_TEXTURE0);   // テクスチャユニット0を有効にする
+	/**
+	 * テクスチャ画像を設定する
+	 */
+	//テクスチャ画像を設定する
+	protected static void setOnTexture(Bitmap image,float alpha,int mode){
+		GLES20.glActiveTexture(GLES20.GL_TEXTURE0);   // テクスチャユニット0を有効にする
 
-		  GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textures[0]); // テクスチャオブジェクトをバインドする
-		  GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, mode);
-		  GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, mode);
-		  // テクスチャ画像を設定する
-		  GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, image, 0);
+		GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textures[0]); // テクスチャオブジェクトをバインドする
+		GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, mode);
+		GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, mode);
+		// テクスチャ画像を設定する
+		GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, image, 0);
 
-		  GLES20.glUniform1f(u_alpha, alpha);		//サンプラにアルファを設定する
-		  GLES20.glUniform1i(u_Sampler, 0);     // サンプラにテクスチャユニットを設定する
-	  }
+		GLES20.glUniform1f(u_alpha, alpha);		//サンプラにアルファを設定する
+		GLES20.glUniform1i(u_Sampler, 0);     // サンプラにテクスチャユニットを設定する
+	}
 
 	protected static void setOnMask(Bitmap mask,float offset_x,float offset_y,float scale_x,float scale_y,int mode){
 		GLES20.glActiveTexture(GLES20.GL_TEXTURE1);
@@ -510,21 +510,21 @@ public abstract class abstractGLES20Util {
 		GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR);
 	}
 
-	  /**
-	   * 画像ファイルを読み込み、全体が対象
-	   * @return bitmap化した画像
-	   */
-	 //画像ファイルの読み込み	全体を読み込む
-	  public static Bitmap loadBitmap(int id){
-		  // 画像ファイルを読み込む
-		  Bitmap image = BitmapFactory.decodeResource(targetActivity.getResources(), id);
-		  if (image == null) {
-		      throw new RuntimeException("画像の読み込みに失敗");
-		  }
-		  return image;
-	  }
+	/**
+	 * 画像ファイルを読み込み、全体が対象
+	 * @return bitmap化した画像
+	 */
+	//画像ファイルの読み込み	全体を読み込む
+	public static Bitmap loadBitmap(int id){
+		// 画像ファイルを読み込む
+		Bitmap image = BitmapFactory.decodeResource(targetActivity.getResources(), id);
+		if (image == null) {
+			throw new RuntimeException("画像の読み込みに失敗");
+		}
+		return image;
+	}
 
-	  /**
+	/**
 	 * 画像ファイルの読み込み、切り抜き
 	 * @return 作成したbitmapデータ
 	 */
@@ -556,9 +556,9 @@ public abstract class abstractGLES20Util {
 	 * @param endX		ソースの右下
 	 * @param endY		ソースの右下
 	 * @param width	縁の太らせ具合（透明）
-     * @param id		リソースID
-     * @return
-     */
+	 * @param id		リソースID
+	 * @return
+	 */
 	//画像ファイルの読み込み　切り抜き
 	public static Bitmap loadBitmap(int startX,int startY,int endX,int endY,int width,int id){
 		Log.d("loadBitmap cutRect","start:("+startX+","+startY+") end:("+endX+","+endY+") id:"+id);
@@ -584,22 +584,22 @@ public abstract class abstractGLES20Util {
 		return null;
 	}
 
-	  /**
-	   * 単色塗りつぶしたビットマップを作成
-	   * @return　作成したビットマップデータ
-	   */
-	  //単色塗りつぶしbitmapの作成
-	  public static Bitmap createBitmap(int r,int g,int b,int a){
-		  Bitmap bitmap = Bitmap.createBitmap(16, 16, Bitmap.Config.ARGB_8888);
-		  bitmap.eraseColor(Color.argb(a,r,g,b));
-		  return bitmap;
-	  }
+	/**
+	 * 単色塗りつぶしたビットマップを作成
+	 * @return　作成したビットマップデータ
+	 */
+	//単色塗りつぶしbitmapの作成
+	public static Bitmap createBitmap(int r,int g,int b,int a){
+		Bitmap bitmap = Bitmap.createBitmap(16, 16, Bitmap.Config.ARGB_8888);
+		bitmap.eraseColor(Color.argb(a,r,g,b));
+		return bitmap;
+	}
 
-	  /**
-	   * 表示領域を設定
-	   */
+	/**
+	 * 表示領域を設定
+	 */
 	//表示領域を設定
- 	public static void initDrawErea(int width,int height,boolean Perspective){
+	public static void initDrawErea(int width,int height,boolean Perspective){
 		Width = width;
 		Height = height;
 
@@ -614,8 +614,8 @@ public abstract class abstractGLES20Util {
 		if(Perspective){
 			float[] viewMatrix = new float[16];
 			setPerspectiveM(u_ProjMatrix,0,40.0,(double)width/height,1.0,100.0);
-		    Matrix.setLookAtM(viewMatrix, 0, 0.0f, 0.0f, 2.0f, 0.0f, 0.0f, -2.0f, 0.0f, 1.0f, 0.0f);
-		    Matrix.multiplyMM(viewProjMatrix, 0, u_ProjMatrix, 0, viewMatrix, 0);
+			Matrix.setLookAtM(viewMatrix, 0, 0.0f, 0.0f, 2.0f, 0.0f, 0.0f, -2.0f, 0.0f, 1.0f, 0.0f);
+			Matrix.multiplyMM(viewProjMatrix, 0, u_ProjMatrix, 0, viewMatrix, 0);
 		}
 		else{
 			//Matrix.orthoM(u_ProjMatrix,0,0,width_gl,0,getHeight_gl(),mNear/100,mFar/100);
@@ -633,12 +633,12 @@ public abstract class abstractGLES20Util {
 
 	//視体積の四角錐型の設定
 	private static void setPerspectiveM(float[] m, int offset, double fovy, double aspect, double zNear, double zFar) {
-		    Matrix.setIdentityM(m, offset);
-		    double ymax = zNear * Math.tan(fovy * Math.PI / 360.0);
-		    double ymin = -ymax;
-		    double xmin = ymin * aspect;
-		    double xmax = ymax * aspect;
-		    Matrix.frustumM(m, offset, (float)xmin, (float)xmax, (float)ymin, (float)ymax, (float)zNear, (float)zFar);
-		  }
+		Matrix.setIdentityM(m, offset);
+		double ymax = zNear * Math.tan(fovy * Math.PI / 360.0);
+		double ymin = -ymax;
+		double xmin = ymin * aspect;
+		double xmax = ymax * aspect;
+		Matrix.frustumM(m, offset, (float)xmin, (float)xmax, (float)ymin, (float)ymax, (float)zNear, (float)zFar);
+	}
 
 }

@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 
 import jp.ac.dendai.c.jtp.Game.Constant;
 import jp.ac.dendai.c.jtp.Game.GameManager;
+import jp.ac.dendai.c.jtp.Game.MapSystem.Town;
 import jp.ac.dendai.c.jtp.Game.UIs.Screen.BattleScreen.BattleScreen;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.UI;
 import jp.ac.dendai.c.jtp.TouchUtil.Input;
@@ -23,6 +24,7 @@ import jp.ac.dendai.c.jtp.openglesutil.graphic.blending_mode.GLES20COMPOSITIONMO
  * Created by テツヤ on 2016/09/13.
  */
 public class TownScreen implements Screenable {
+    protected Town town;
     protected Bitmap background;
     protected Button button,itemShop,toDungeon;
     protected Image image;
@@ -42,7 +44,7 @@ public class TownScreen implements Screenable {
         loading.setY(0);
         loading.init();
 
-        itemShop = new Button(0f,0.3f,0.8f,0.4f,"武器屋");
+        itemShop = new Button(0f,0.3f,0.8f,0.4f,"雑貨屋");
         itemShop.useAspect(true);
         itemShop.setBitmap(Constant.getBitmap(Constant.BITMAP.system_button));
         itemShop.setHorizontal(UIAlign.Align.LEFT);
@@ -118,7 +120,7 @@ public class TownScreen implements Screenable {
 
     @Override
     public void constract(Object[] args) {
-
+        town = (Town)args[0];
     }
 
     @Override

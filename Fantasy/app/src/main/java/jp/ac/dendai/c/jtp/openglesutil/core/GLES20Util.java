@@ -19,6 +19,7 @@ public class GLES20Util extends abstractGLES20Util {
 	private static Paint paint;
 	private static Canvas canvas;
 	private static Rect rect = new Rect(0,0,0,0);
+	protected static float cx = 0,cy = 0;	//カメラ位置
 	public enum GLES20UTIL_MODE{
 		POSX,
 		POSY
@@ -31,10 +32,10 @@ public class GLES20Util extends abstractGLES20Util {
 		if(value == 0)
 			return 0;
 		if(mode == GLES20UTIL_MODE.POSX){
-			return  GLES20Util.getWidth_gl()/GLES20Util.getWidth()*value;
+			return  GLES20Util.getWidth_gl()/GLES20Util.getWidth()*value + cx;
 		}
 		else if(mode == GLES20UTIL_MODE.POSY){
-			return GLES20Util.getHeight_gl()/GLES20Util.getHight()*(GLES20Util.getHight()-value);
+			return GLES20Util.getHeight_gl()/GLES20Util.getHight()*(GLES20Util.getHight()-value) + cy;
 		}
 		return 0;
 	}
@@ -176,8 +177,8 @@ public class GLES20Util extends abstractGLES20Util {
 		//float[] modelMatrix = new float[16];
 		Matrix.setIdentityM(modelMatrix, 0);
 		Matrix.translateM(modelMatrix, 0, startX, startY, 0.0f);
-		Matrix.scaleM(modelMatrix, 0, scaleX, scaleY, 1.0f);
 		Matrix.rotateM(modelMatrix, 0, degree, 0, 0, 1);
+		Matrix.scaleM(modelMatrix, 0, scaleX, scaleY, 1.0f);
 		setShaderModelMatrix(modelMatrix);
 
 		//GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_S, GLES20.GL_REPEAT);
@@ -226,6 +227,20 @@ public class GLES20Util extends abstractGLES20Util {
 
 	public static void DrawString(String text,int textSize,Color color,float x,float y){
 
+	}
+
+	public static void setCameraPos(float x,float y){
+		cx = x;
+		cy = y;
+		Matrix.orthoM(viewProjMatrix,0,cx,aspect+cx,cy,1f+cy,mNear/100,mFar/100);
+		setShaderProjMatrix();
+	}
+
+	public static float getCameraPosX(){
+		return cx;
+	}
+	public static float getCameraPosY(){
+		return cy;
 	}
 
 	/**
@@ -286,10 +301,10 @@ public class GLES20Util extends abstractGLES20Util {
 		}
 	}
 	public static float convertTouchPosToGLPosX(float dispPosX){
-		return dispPosX / GLES20Util.getHight();
+		return dispPosX / GLES20Util.getHight() + cx;
 	}
 	public static float convertTouchPosToGLPosY(float dispPosY){
-		return GLES20Util.getHeight_gl() - dispPosY / GLES20Util.getHight();
+		return GLES20Util.getHeight_gl() - dispPosY / GLES20Util.getHight() + cy;
 	}
 }
 

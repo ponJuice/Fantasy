@@ -4,6 +4,7 @@ import android.util.Log;
 
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.BattleStatePattern;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.State.State;
+import jp.ac.dendai.c.jtp.Game.GameManager;
 
 /**
  * Created by wark on 2016/10/16.
@@ -16,7 +17,8 @@ public class BattleResultState extends State {
 
     @Override
     public void actionProcess() {
-        Log.d("BattleResultState","BattleClear");
+        //Log.d("BattleResultState","BattleClear");
+        GameManager.returnScreen();
     }
 
     @Override

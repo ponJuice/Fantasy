@@ -1,6 +1,7 @@
 package jp.ac.dendai.c.jtp.Game.BattleSystem;
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.util.Log;
 
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Enum.ActionType;
@@ -9,7 +10,10 @@ import jp.ac.dendai.c.jtp.Game.Constant;
 import jp.ac.dendai.c.jtp.Game.DataBase;
 import jp.ac.dendai.c.jtp.Game.GameManager;
 import jp.ac.dendai.c.jtp.Game.GameUI.AttackText;
+import jp.ac.dendai.c.jtp.Game.GameUI.ItemText;
 import jp.ac.dendai.c.jtp.Game.GameUI.SkillText;
+import jp.ac.dendai.c.jtp.Game.Item.Item;
+import jp.ac.dendai.c.jtp.Game.Item.ItemTemplate;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Text.NumberText;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Text.StaticText;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Text.TextBox.AttackOwnerTextBox;
@@ -25,6 +29,7 @@ public class BattleAction {
     public enum ActionType{
         Skill,
         Normal,
+        Item,
         Escape
     }
     public final static float damage_text_height = 0.1f;
@@ -32,6 +37,7 @@ public class BattleAction {
     public Attackable target;
     public ActionType type;
     public Skill skill;
+    public Item item;
     public int id;
     protected static Skill normalSkill;
     protected BattleManager bm;
@@ -57,7 +63,10 @@ public class BattleAction {
     }
 
     public void effectReset(){
-        skill.effectInit();
+        if(skill != null)
+            skill.effectInit();
+        else if(item != null)
+            item.effectInit();
     }
 
     public boolean drawEffect(float ox,float oy,float sx,float sy,float deg){
@@ -91,8 +100,9 @@ public class BattleAction {
                 }
                 damageText.draw(ox, oy);
             }
-        }else{
-            return true;//アイテムの表示
+        }else if(type == ActionType.Item){
+            if(!endEffect)
+                endEffect = item.drawEffect(owner.getX() + ox,owner.getY() + oy,owner.getSX()*sx,owner.getSY()*sy,deg);
         }
         return flag;
     }
@@ -102,12 +112,22 @@ public class BattleAction {
     }
 
     public void calcDamage(){
+        if(type == ActionType.Item) {
+            item.setEffectNumber(100);
+            item.setEffectNumberColor(Color.argb(255,0,255,0));
+            item.setEffectNumberPos(owner.getX(),owner.getY());
+            item.setEffectNumberHeight(owner.getSY()*damage_text_height);
+            return;
+        }
         //ダメージ量の計算
 
         damage = (int)target.damageValue(skill.calcDamage(owner.getAtk()));
         damageText.setNumber(damage);
         damageText.setX(target.getX());
         damageText.setY(target.getY());
+        damageText.setR(255);
+        damageText.setG(0);
+        damageText.setB(0);
         damageText.setHeight(damage_text_height*target.getSY());
 
         mp = skill.calcMpValue(owner);
@@ -123,6 +143,11 @@ public class BattleAction {
             st.setOwner(owner.getNameImage());
             st.setSkill(skill.getNameImage());
             aotb.setPatchingText(st);
+        }else if(type == ActionType.Item){
+            ItemText it = aotb.getItemText();
+            it.setOwner(owner.getNameImage());
+            it.setItem(item.getNameImage());
+            aotb.setPatchingText(it);
         }
     }
 

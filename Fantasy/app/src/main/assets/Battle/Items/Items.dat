@@ -1,0 +1,14 @@
+﻿<Items>
+	<Item name="薬草" price="10">
+	    <Animations>
+	        <Animation anim_id="lifeup" start="0" length="1" ox="0" oy = "0" sx="1" sy="1" rot="0"/>
+	    </Animations>
+		<HP value="10"/>
+		<Detail>体力を10回復する。</Detail>
+	</Item>
+	<Item name="俊敏薬" price="100">
+		<Agility value="10" time="3"/>
+		<Detail>少し早くなる。</Detail>
+	</Item>
+</Items>
+

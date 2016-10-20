@@ -56,11 +56,11 @@ public class PipelineDamageState extends APipelineState {
         //aotb.setOwner(ba.owner.getNameImage());
         //aotb.setAction(ba.getAttackTextImage());
 
-        Log.d("DamageState",ba.owner.getName()+"の攻撃!!");
+        /*Log.d("DamageState",ba.owner.getName()+"の攻撃!!");
         if(ba.type == BattleAction.ActionType.Normal)
             Log.d("DamageState","通常攻撃!!");
         else
-            Log.d("DamageState",ba.skill.getSkillName());
+            Log.d("DamageState",ba.skill.getSkillName());*/
     }
 
     @Override

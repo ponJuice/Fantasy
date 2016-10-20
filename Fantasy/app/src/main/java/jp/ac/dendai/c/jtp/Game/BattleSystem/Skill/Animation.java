@@ -1,19 +1,11 @@
 package jp.ac.dendai.c.jtp.Game.BattleSystem.Skill;
 
-import android.graphics.Bitmap;
-import android.opengl.GLES20;
 import android.util.Log;
 
 import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
-import jp.ac.dendai.c.jtp.Game.Constant;
 import jp.ac.dendai.c.jtp.Game.DataBase;
 import jp.ac.dendai.c.jtp.Game.UIs.Effects.Bitmap.Animator;
-import jp.ac.dendai.c.jtp.Game.UIs.UI.Util.Time;
 import jp.ac.dendai.c.jtp.openglesutil.core.GLES20Util;
 import jp.ac.dendai.c.jtp.openglesutil.graphic.blending_mode.GLES20COMPOSITIONMODE;
 
@@ -21,8 +13,8 @@ import jp.ac.dendai.c.jtp.openglesutil.graphic.blending_mode.GLES20COMPOSITIONMO
  * Created by テツヤ on 2016/10/15.
  */
 
-public class SkillAnimation {
-    protected final static String tagName ="Animation";
+public class Animation {
+    public final static String tagName ="Animation";
     protected final static String attrib_anim_id = "anim_id";
     protected final static String attrib_start = "start";
     protected final static String attrib_length = "length";
@@ -41,13 +33,13 @@ public class SkillAnimation {
     protected float sy;
     protected float rot;
 
-    public SkillAnimation(){
+    public Animation(){
     }
 
     //戻り値：false まだ再生中 true もう終わった
     public boolean draw(float time,float ox,float oy,float sx,float sy,float deg){
         String str = String.format("[time : %.3f] [start : %.3f] [length : %.3f]",time,start,length);
-        //Log.d("SkillAnimation",str);
+        //Log.d("Animation",str);
         if(time < start) {
             return false;
         }
@@ -67,11 +59,11 @@ public class SkillAnimation {
         anim.resetAnimation();
     }
 
-    public static SkillAnimation parseCreate(XmlPullParser xpp, DataBase db){
-        SkillAnimation sk = new SkillAnimation();
+    public static Animation parseCreate(XmlPullParser xpp, DataBase db){
+        Animation sk = new Animation();
         String anim_id = xpp.getAttributeValue(null, attrib_anim_id);
 
-        Log.d("SkillAnimation","Start parseCreate anim_id : "+anim_id);
+        Log.d("Animation","Start parseCreate anim_id : "+anim_id);
 
         sk.anim = new Animator(db.getAnimation(anim_id));
         sk.start = Float.parseFloat(xpp.getAttributeValue(null, attrib_start));

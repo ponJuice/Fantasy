@@ -19,6 +19,7 @@ public class NumberText extends Image {
         vertical
     }
     protected ORIENTATION orientation = ORIENTATION.horizontal;
+    protected float r = 0.5f,g = 0.5f,b = 0.5f;
     protected static HashMap<String,StringBitmap[]> numberFont;
     protected Vector2 texOffset = new Vector2(),texScale = new Vector2(1,1);
     protected Vector2 maskOffset = new Vector2(),maskScale = new Vector2(1,1);
@@ -117,6 +118,17 @@ public class NumberText extends Image {
         updatePosition();
     }
 
+    public void setR(int r){
+        this.r = (float)r/255f;
+
+    }
+    public void setG(int g){
+        this.g = (float)g/255f;
+    }
+    public void setB(int b){
+        this.b =(float)b/255;
+    }
+
     @Override
     public void setHeight(float height){
         float numDigit = (float) getNumOfDigit(num);
@@ -168,7 +180,7 @@ public class NumberText extends Image {
         for(int n = 0;n < l;n++){
             if(flag && n == 0) {
                 image = number[10].bitmap;
-                GLES20Util.DrawGraph(_x,_y,width,height,image,alpha,GLES20COMPOSITIONMODE.ALPHA);
+                GLES20Util.DrawGraph(_x,_y,width,height,r,g,b,image,alpha,GLES20COMPOSITIONMODE.ALPHA);
                 if(orientation == ORIENTATION.horizontal) {
                     _x += width;
                 }else {
@@ -176,7 +188,7 @@ public class NumberText extends Image {
                 }
             }
             image = number[getDigit(num,l-n)].bitmap;
-            GLES20Util.DrawGraph(_x,_y,width,height,image,alpha,GLES20COMPOSITIONMODE.ALPHA);
+            GLES20Util.DrawGraph(_x,_y,width,height,r,g,b,image,alpha,GLES20COMPOSITIONMODE.ALPHA);
             if(orientation == ORIENTATION.horizontal) {
                 _x += width;
             }else {

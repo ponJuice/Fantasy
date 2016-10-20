@@ -8,17 +8,14 @@ import java.util.ArrayList;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Attackable;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleAction;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleManager;
-import jp.ac.dendai.c.jtp.Game.BattleSystem.Skill.NormalAttack;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Skill.Skill;
 import jp.ac.dendai.c.jtp.Game.Constant;
-import jp.ac.dendai.c.jtp.Game.GameManager;
 import jp.ac.dendai.c.jtp.Game.GameUI.Gage;
+import jp.ac.dendai.c.jtp.Game.Item.Item;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Button.Button;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Button.ButtonListener;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.UI;
-import jp.ac.dendai.c.jtp.TouchUtil.Input;
 import jp.ac.dendai.c.jtp.openglesutil.core.GLES20Util;
-import jp.ac.dendai.c.jtp.Game.UIs.Screen.BattleScreen.UserInterface.PlayerUI;
 
 /**
  * Created by Goto on 2016/09/16.
@@ -28,6 +25,7 @@ public class Player extends Attackable{
     protected Gage hpGage;
     protected Gage mpGage;
     protected BattleAction battleAction;
+    protected ArrayList<Item> items;
     protected ArrayList<Skill> skills;
     protected boolean actionEnd = false;
     public Player(PlayerData pd){
@@ -44,6 +42,7 @@ public class Player extends Attackable{
         this.name_bitmap = pd.name_bitmap;
 
         skills = pd.getSkill();
+        items = pd.items;
 
         /* ------- Debug --------*/
         /*name = "アラン";
@@ -82,6 +81,8 @@ public class Player extends Attackable{
     public ArrayList<Skill> getSkillList(){
         return skills;
     }
+
+    public ArrayList<Item> getItemList(){return items;}
 
     public void setHpGage(Gage hp){
         hpGage = hp;
@@ -125,6 +126,7 @@ public class Player extends Attackable{
         ba.owner = this;
         ba.type = battleAction.type;
         ba.skill = battleAction.skill;
+        ba.item = battleAction.item;
         actionEnd = true;
     }
 
@@ -254,5 +256,12 @@ public class Player extends Attackable{
     @Override
     public boolean damageAnimation(float time,BattleAction ba) {
         return hpGage.animation(time,Constant.damage_gage_time,ba.getDamage());
+    }
+
+    public void debugDrawItems(float x,float y,boolean flag){
+        for(int n = 0;n < items.size();n++){
+            items.get(n).setHeight(0.3f);
+            items.get(n).draw(x,y+0.3f*n,flag);
+        }
     }
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/app/src/main/assets/Battle/Items/Items.dat" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/assets/Effect.txt" charset="Shift_JIS" />
     <file url="file://$PROJECT_DIR$/app/src/main/assets/Fantasy/ADV/データ構造.txt" charset="Shift_JIS" />
     <file url="file://$PROJECT_DIR$/app/src/main/assets/Fantasy/ADV/データ構造の説明.txt" charset="Shift_JIS" />

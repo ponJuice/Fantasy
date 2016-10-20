@@ -29,6 +29,7 @@ public class Button implements UI{
     protected ButtonListener listener;
     protected Touch touch;
     protected StaticText text;
+    protected UI ui;
     protected float hover_alpha = 0.5f;
     protected float non_hover_alpha = 1f;
     protected float padding = 0;
@@ -80,6 +81,20 @@ public class Button implements UI{
         }
         updateBackimage();
     }
+    public Button(float cx,float cy,float width,float height,UI ui){
+        useAspect(false);
+        rect = new Rect(cx-width/2f,cy+height/2f,cx+width/2f,cy-height/2f);
+        this.x = cx;
+        this.y = cy;
+        this.width = rect.getWidth();
+        this.height = rect.getHeight();
+        aspect = width / height;
+        setX(cx);
+        setY(cy);
+        setBitmap(Constant.getBitmap(Constant.BITMAP.white));
+        updateBackimage();
+        this.ui = ui;
+    }
     public Button(float cx,float cy,float width,float height){
         useAspect(false);
         rect = new Rect(cx-width/2f,cy+height/2f,cx+width/2f,cy-height/2f);
@@ -92,6 +107,14 @@ public class Button implements UI{
         setY(cy);
         setBitmap(Constant.getBitmap(Constant.BITMAP.white));
         updateBackimage();
+    }
+
+    public float getHeight(){
+        return rect.getHeight();
+    }
+
+    public float getWidth(){
+        return rect.getWidth();
     }
 
     public void setEnabled(boolean flag){
@@ -156,12 +179,14 @@ public class Button implements UI{
 
     public void setCriteria(Criteria c){
         this.criteria = c;
-        if(criteria == Criteria.NON) {
-            text.useAspect(false);
-        }else{
-            text.useAspect(true);
+        if(text!=null) {
+            if (criteria == Criteria.NON) {
+                text.useAspect(false);
+            } else {
+                text.useAspect(true);
+            }
+            updateTextPos();
         }
-        updateTextPos();
     }
 
     public void setPadding(float n){
@@ -329,6 +354,9 @@ public class Button implements UI{
                 text.setAlpha(1f);
             }
             text.draw(offset_x, offset_y);
+        }
+        if(ui != null){
+            ui.draw(offset_x+x+UIAlign.convertAlign(rect.getWidth(), horizontal),offset_y+y+UIAlign.convertAlign(rect.getHeight(), vertical));
         }
     }
 

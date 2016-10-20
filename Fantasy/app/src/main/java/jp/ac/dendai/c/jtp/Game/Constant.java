@@ -20,14 +20,15 @@ public class Constant {
         system_button,
         system_talk_back,
         system_message_box,
-        system_selector;
+        system_selector,
+        system_cursor
     }
     private static float sens = 1.0f;
     public static void setSens(float n){ sens = n;}
     public static float getSens(){return sens;}
     public static final String fontName = "custom_font.ttf";
     protected static Bitmap text_effect_white,text_effect_mask,system_button,black,stream_text,system_talk_back,system_message_box;
-    protected static Bitmap system_selector;
+    protected static Bitmap system_selector,system_cursor;
     protected static PlayerData playerData;
     public final static int talk_text_size = 25;
     public final static int talk_text_color = 0xFFFFFFFF;  //a,r,g,b
@@ -58,13 +59,17 @@ public class Constant {
     public final static String sound_fileName = "file";
     public final static String sound_file_directory = "Sound/";
     public final static String enemy_image_file_directory = "Battle/Enemy/Images/";
-    public final static String skill_image_file_directory = "Battle/Skills/Images/";
+    public final static String animation_image_file_directory = "Battle/Animations/Images/";
+    protected final static String animationFile = "Battle/Animations/Animation.dat";
     protected final static String skillFile = "Battle/Skills/Skills.dat";
     protected final static String enemyFile = "Battle/Enemy/Enemys.dat";
-    protected final static String itemFile = "Battle/Items.dat";
+    protected final static String itemFile = "Battle/Items/Items.dat";
+    protected final static String townFile = "Town/town.dat";
     //protected final static String system_image_directory = "Image/System/";
     //protected final static String selector_image = "selector.png";
 
+    /* -----------MapScreen関連----------------*/
+    public final static String mapImageFile = "Image/map.png";
 
     public final static int player_init_hp = 100;
     public final static int player_init_atk = 100;
@@ -97,6 +102,7 @@ public class Constant {
 
     /* -----------その他-------------*/
     protected final static Random random = new Random(System.currentTimeMillis());
+    public final static float list_content_height = 0.1f;
     //public final static float enemy_dead_effect_time = 1f;
     //public final static float
 
@@ -118,6 +124,8 @@ public class Constant {
             system_message_box = GLES20Util.loadBitmap(R.mipmap.massagebox);
         if(system_selector == null)
             system_selector = GLES20Util.loadBitmap(R.mipmap.selector);
+        if(system_cursor == null)
+            system_cursor = GLES20Util.loadBitmap(R.mipmap.yajirushi);
 
     }
 
@@ -142,6 +150,8 @@ public class Constant {
             return system_message_box;
         }else if(f == BITMAP.system_selector){
             return system_selector;
+        }else if(f == BITMAP.system_cursor){
+            return system_cursor;
         }
         return text_effect_white;
     }

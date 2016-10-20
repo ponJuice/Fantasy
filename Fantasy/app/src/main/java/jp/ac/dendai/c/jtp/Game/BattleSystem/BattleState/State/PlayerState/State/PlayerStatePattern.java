@@ -40,7 +40,7 @@ public class PlayerStatePattern {
         this.playerState = playerState;
         pass = new PlayerActionSelectState(this);
         pess = new PlayerEnemySelectState(this);
-        piss = new PlayerItemSelectState(this);
+        piss = new PlayerItemSelectState(this,playerState.getBattleState().getBattleManager().getPlayer());
         psss = new PlayerSkillSelectState(this,playerState.getBattleState().getBattleManager().getPlayer());
         stateStack = new ArrayDeque<>();
 

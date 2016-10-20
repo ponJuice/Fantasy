@@ -1,0 +1,34 @@
+﻿<Map>
+	<Town name="オネット" x="0.05" y="0.05">
+		<Shop>
+			<Item name="薬草" price="1"/>
+			<Item name="俊敏薬" price="1"/>
+		</Shop>
+		<Hotel price="50"/>
+	</Town>
+	<Town name="ツーソン" x="0.4" y="0.8">
+		<Shop>
+			<Item name="薬草" price="2"/>
+		</Shop>
+		<Hotel price="100"/>
+	</Town>
+    <Town name="スリーク" x="1" y="0.05">
+        <Shop>
+            <Item name="薬草" price="2"/>
+        </Shop>
+        <Hotel price="100"/>
+    </Town>
+    <Town name="フォーサイド" x="1.3" y="0.5">
+        <Shop>
+            <Item name="薬草" price="2"/>
+        </Shop>
+        <Hotel price="100"/>
+    </Town>
+
+	<Nodes>
+		<Node town1="オネット" town2="ツーソン" encount="2" rank="1"/>
+		<Node town1="ツーソン" town2="フォーサイド" encount="2" rank="1"/>
+		<Node town1="オネット" town2="スリーク" encount="3" rank="1"/>
+		<Node town1="スリーク" town2="フォーサイド" encount="4" rank="1"/>
+	</Nodes>
+</Map>

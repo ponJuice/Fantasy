@@ -6,6 +6,7 @@ import android.opengl.GLES20;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Skill.Skill;
 import jp.ac.dendai.c.jtp.Game.Constant;
 import jp.ac.dendai.c.jtp.Game.GameUI.AttackText;
+import jp.ac.dendai.c.jtp.Game.GameUI.ItemText;
 import jp.ac.dendai.c.jtp.Game.GameUI.PatchingText;
 import jp.ac.dendai.c.jtp.Game.GameUI.SkillText;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.UIAlign;
@@ -25,6 +26,7 @@ public class AttackOwnerTextBox{
     protected float padding = 0;
     protected AttackText attackText;
     protected SkillText  skillText;
+    protected ItemText itemText;
     protected PatchingText patchingText;
     protected Bitmap background;
     public AttackOwnerTextBox(Bitmap back){
@@ -44,6 +46,7 @@ public class AttackOwnerTextBox{
         text_width = text_height * text_aspect;*/
         attackText = new AttackText();
         skillText = new SkillText();
+        itemText = new ItemText();
     }
 
     public void setPadding(float p){
@@ -77,6 +80,8 @@ public class AttackOwnerTextBox{
     public SkillText getSkillText(){
         return skillText;
     }
+
+    public ItemText getItemText(){return itemText;}
 
     public void draw(float offsetX,float offsetY){
         /*

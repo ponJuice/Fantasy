@@ -7,6 +7,8 @@ import java.io.IOException;
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Event.Event;
 import jp.ac.dendai.c.jtp.Game.Constant;
 import jp.ac.dendai.c.jtp.Game.GameManager;
+import jp.ac.dendai.c.jtp.Game.GameUI.QuestionBox;
+import jp.ac.dendai.c.jtp.Game.MapSystem.Node;
 import jp.ac.dendai.c.jtp.Game.UIs.Screen.BattleScreen.BattleScreen;
 import jp.ac.dendai.c.jtp.Game.UIs.Transition.LoadingTransition.LoadingTransition;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Button.Button;
@@ -16,7 +18,9 @@ import jp.ac.dendai.c.jtp.Game.UIs.UI.Text.TextBox.AttackOwnerTextBox;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.UI;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.UIAlign;
 import jp.ac.dendai.c.jtp.TouchUtil.Input;
+import jp.ac.dendai.c.jtp.openglesutil.Util.ImageReader;
 import jp.ac.dendai.c.jtp.openglesutil.core.GLES20Util;
+import jp.ac.dendai.c.jtp.Game.MapSystem.Town;
 
 /**
  * Created by テツヤ on 2016/10/10.
@@ -27,6 +31,12 @@ public class DebugEventSelectScreen implements Screenable{
     protected Event event;
     protected List list;
     protected Button toBattle;
+    protected Button toMap;
+
+    protected Node testNode1,testNode2,testNode3;
+    protected Town t1,t2,t3;
+
+    protected QuestionBox qb;
 
     protected float black_x = 0f,black_y = 0f;
     protected float black_lx = 0.4f,black_ly = 0.4f;
@@ -79,6 +89,55 @@ public class DebugEventSelectScreen implements Screenable{
                 GameManager.isTransition = true;
             }
         });
+
+        toMap = new Button(0,0.15f,0.1f,0.1f,"マップへ");
+        toMap.useAspect(true);
+        toMap.setBitmap(Constant.getBitmap(Constant.BITMAP.system_button));
+        toMap.setBackImageCriteria(UI.Criteria.Height);
+        toMap.setHeight(0.1f);
+        toMap.setCriteria(UI.Criteria.Height);
+        toMap.setPadding(0.05f);
+        toMap.setHorizontal(UIAlign.Align.LEFT);
+        toMap.setVertical(UIAlign.Align.BOTTOM);
+        toMap.setButtonListener(new ButtonListener() {
+            @Override
+            public void touchDown(Button button) {
+
+            }
+
+            @Override
+            public void touchHover(Button button) {
+
+            }
+
+            @Override
+            public void touchUp(Button button) {
+                LoadingTransition lt = LoadingTransition.getInstance();
+                lt.initTransition(MapScreen.class);
+                GameManager.args = new Object[1];
+                GameManager.args[0] = ImageReader.readImageToAssets(Constant.mapImageFile);
+                GameManager.transition = lt;
+                GameManager.isTransition = true;
+            }
+        });
+
+
+        testNode1 = new Node();
+        testNode2 = new Node();
+        testNode3 = new Node();
+        t1 = new Town();
+        t1.debugSet(0,0);
+        t2 = new Town();
+        t2.debugSet(1f,1f);
+        t3 = new Town();
+        t3.debugSet(1.3f,0.2f);
+        testNode1.debugSet(t1,t2,3);
+        testNode2.debugSet(t2,t3,2);
+        testNode3.debugSet(t3,t1,4);
+
+        qb = new QuestionBox(Constant.getBitmap(Constant.BITMAP.system_message_box),"買いますか?","はい","いいえ");
+        qb.setX(GLES20Util.getWidth_gl()/2f);
+        qb.setY(GLES20Util.getHeight_gl()/2f);
     }
 
     @Override
@@ -92,13 +151,27 @@ public class DebugEventSelectScreen implements Screenable{
             return;
         list.proc();
         toBattle.proc();
+        toMap.proc();
+        t1.proc();
+        t2.proc();
+        t3.proc();
+        qb.proc();
     }
 
     @Override
     public void Draw(float offsetX, float offsetY) {
         toBattle.draw(offsetX,offsetY);
+        toMap.draw(offsetX,offsetY);
 
         list.draw(offsetX,offsetY);
+        testNode1.drawNode(0,0,1);
+        testNode2.drawNode(0,0,1);
+        testNode3.drawNode(0,0,1);
+        t1.drawIcon(offsetX,offsetY);
+        t2.drawIcon(offsetX,offsetY);
+        t3.drawIcon(offsetX,offsetY);
+
+        qb.draw(offsetX,offsetY);
     }
 
     @Override
@@ -107,6 +180,12 @@ public class DebugEventSelectScreen implements Screenable{
             return;
         list.touch(Input.getTouchArray()[0]);
         toBattle.touch(Input.getTouchArray()[0]);
+        toMap.touch(Input.getTouchArray()[0]);
+        t1.touch(Input.getTouchArray()[0]);
+        t2.touch(Input.getTouchArray()[0]);
+        t3.touch(Input.getTouchArray()[0]);
+
+        qb.touch(Input.getTouchArray()[0]);
     }
 
     @Override

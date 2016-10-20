@@ -10,6 +10,8 @@ import jp.ac.dendai.c.jtp.Game.BattleSystem.Skill.Skill;
 import jp.ac.dendai.c.jtp.Game.Constant;
 import jp.ac.dendai.c.jtp.Game.GameManager;
 import jp.ac.dendai.c.jtp.Game.Item.Item;
+import jp.ac.dendai.c.jtp.Game.MapSystem.Node;
+import jp.ac.dendai.c.jtp.Game.MapSystem.Town;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Image.Image;
 import jp.ac.dendai.c.jtp.openglesutil.core.GLES20Util;
 
@@ -17,11 +19,12 @@ import jp.ac.dendai.c.jtp.openglesutil.core.GLES20Util;
  * Created by Goto on 2016/09/16.
  */
 public class PlayerData {
+    protected Town town;
     protected String name = "アラン";
     protected Bitmap name_bitmap;
     protected int hp,mp,atk,def,agl;
     protected int equipment;
-    protected LinkedList<Item> items;
+    protected ArrayList<Item> items;
     protected ArrayList<Skill> skills;
     protected Image image;
     public PlayerData(int hp,int atk,int def,int agl){
@@ -34,6 +37,17 @@ public class PlayerData {
         skills = new ArrayList<>();
         skills.add(GameManager.getDataBase().getSkill("二段突き"));
         skills.add(GameManager.getDataBase().getSkill("超大技"));
+
+        items = new ArrayList<>();
+        items.add(new Item(5,GameManager.getDataBase().getItem("薬草")));
+
+        town = GameManager.getDataBase().getTown("オネット");
+    }
+    public Town getTown(){
+        return town;
+    }
+    public void setTown(Town town){
+        this.town = town;
     }
     public ArrayList<Skill> getSkill(){
         return skills;

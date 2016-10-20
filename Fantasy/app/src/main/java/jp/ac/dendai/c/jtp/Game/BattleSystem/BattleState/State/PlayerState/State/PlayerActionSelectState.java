@@ -109,6 +109,9 @@ public class PlayerActionSelectState extends APlayerState{
             @Override
             public void touchUp(Button button) {
                 //アイテム選択へ
+                Player p = psp.getPlayerState().getBattleState().getBattleManager().getPlayer();
+                p.getBattleAction().type = BattleAction.ActionType.Item;
+                psp.changeState(psp.getPlayerItemSelectState());
             }
         });
         list.addItem(btn);

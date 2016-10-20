@@ -5,19 +5,12 @@ import android.graphics.Bitmap;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Attackable;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleAction;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleManager;
-import jp.ac.dendai.c.jtp.Game.BattleSystem.Skill.NormalAttack;
-import jp.ac.dendai.c.jtp.Game.BattleSystem.Skill.Skill;
 import jp.ac.dendai.c.jtp.Game.Constant;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Button.Button;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Button.ButtonListener;
-import jp.ac.dendai.c.jtp.Game.UIs.UI.Slider.Rect;
-import jp.ac.dendai.c.jtp.Game.UIs.UI.TextBox.TalkBox;
-import jp.ac.dendai.c.jtp.TouchUtil.Input;
 import jp.ac.dendai.c.jtp.TouchUtil.Touch;
 import jp.ac.dendai.c.jtp.openglesutil.core.GLES20Util;
 import jp.ac.dendai.c.jtp.openglesutil.graphic.blending_mode.GLES20COMPOSITIONMODE;
-
-import static jp.ac.dendai.c.jtp.Game.Charactor.FaceManager.list;
 
 /**
  * Created by Goto on 2016/09/16.

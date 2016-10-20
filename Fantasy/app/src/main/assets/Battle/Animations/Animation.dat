@@ -1,0 +1,5 @@
+<Animations>
+    <Animation id="normal_attack" file="normal_attack.png" width="368" height="147" count_x="5" count_y="2" count_anime="6"/>
+    <Animation id="lifeup" file="lifeup.png" width="512" height="64" count_x="8" count_y="1" count_anime="8"/>
+    <Animation id="status_up" file="status_up.png" width="512" height="51" count_x="10" count_y="1" count_anime="10"/>
+</Animations>

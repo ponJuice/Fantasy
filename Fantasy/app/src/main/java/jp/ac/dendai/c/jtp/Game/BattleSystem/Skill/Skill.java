@@ -2,22 +2,18 @@ package jp.ac.dendai.c.jtp.Game.BattleSystem.Skill;
 
 import android.graphics.Bitmap;
 import android.util.Log;
-import android.util.Xml;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.concurrent.ConcurrentNavigableMap;
 
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Attackable;
 import jp.ac.dendai.c.jtp.Game.Constant;
 import jp.ac.dendai.c.jtp.Game.DataBase;
-import jp.ac.dendai.c.jtp.Game.UIs.Effects.Bitmap.Animator;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Util.Time;
 import jp.ac.dendai.c.jtp.openglesutil.core.GLES20Util;
-import jp.ac.dendai.c.jtp.openglesutil.graphic.blending_mode.GLES20COMPOSITIONMODE;
 
 /**
  * Created by wark on 2016/10/13.
@@ -34,7 +30,7 @@ public class Skill {
     protected Bitmap nameImage;
     protected float damage;
     protected int mp;
-    protected ArrayList<SkillAnimation> skillAnimations;
+    protected ArrayList<Animation> skillAnimations;
     protected float timeBuffer;
 
     public Skill(){
@@ -58,7 +54,7 @@ public class Skill {
         boolean flag = true;
 
         for(int n = 0;n < skillAnimations.size();n++){
-            SkillAnimation sa = skillAnimations.get(n);
+            Animation sa = skillAnimations.get(n);
             flag = sa.draw(timeBuffer,ox,oy,sx,sy,deg) && flag;
         }
         /*if(skillAnimations.size() > 1)
@@ -105,7 +101,7 @@ public class Skill {
 
             if(eventType == XmlPullParser.START_TAG) {
                 if (xpp.getName().equals(animationTag)) {
-                    SkillAnimation sa = SkillAnimation.parseCreate(xpp, db);
+                    Animation sa = Animation.parseCreate(xpp, db);
                     sk.skillAnimations.add(sa);
                 }
             }
