@@ -6,4 +6,6 @@
         <Skill name="突き"/>
         <Skill name="三段突き"/>
     </Enemy>
+    <Enemy id="doll" name="からくり人形" file="doll.png" rank="1" hp="100" atk="20" def="10" agl="30" mp="100">
+    </Enemy>
 </Enemys>

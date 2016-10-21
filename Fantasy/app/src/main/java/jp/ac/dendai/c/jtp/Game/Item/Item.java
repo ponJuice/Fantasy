@@ -37,6 +37,10 @@ public class Item implements UI {
         numberText.setHorizontal(UIAlign.Align.LEFT);
     }
 
+    public int getPrice(){
+        return itemTemplate.price;
+    }
+
     public void effectInit(){
         timeBuffer = 0;
         timeBuffer_2 = 0;
@@ -64,7 +68,9 @@ public class Item implements UI {
     }
 
     public void setHeight(float height){
+        itemTemplate.getNameImage().setHorizontal(UIAlign.Align.RIGHT);
         itemTemplate.getNameImage().setHeight(height);
+        numberText.setHorizontal(UIAlign.Align.LEFT);
         numberText.setHeight(height);
     }
 
@@ -79,10 +85,11 @@ public class Item implements UI {
             itemTemplate.getNameImage().setHorizontal(UIAlign.Align.RIGHT);
             length += numberText.getWidth() + space_aspect*itemTemplate.getNameImage().getHeight();
             _x = itemTemplate.getNameImage().getWidth() - length / 2;
+            itemTemplate.getNameImage().setX(_x);
         }else{
             itemTemplate.getNameImage().setHorizontal(UIAlign.Align.CENTOR);
         }
-        itemTemplate.getNameImage().draw(offsetX+_x,offsetY);
+        itemTemplate.getNameImage().draw(offsetX,offsetY);
         if(drawNumber)
             numberText.draw(offsetX+_x+space_aspect*itemTemplate.getNameImage().getHeight(),offsetY);
     }

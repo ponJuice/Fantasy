@@ -6,6 +6,7 @@ import jp.ac.dendai.c.jtp.Game.BattleSystem.Attackable;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleAction;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleManager;
 import jp.ac.dendai.c.jtp.Game.Constant;
+import jp.ac.dendai.c.jtp.Game.GameManager;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Button.Button;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Button.ButtonListener;
 import jp.ac.dendai.c.jtp.TouchUtil.Touch;
@@ -108,8 +109,13 @@ public class Enemy extends Attackable{
         //デバッグ、プレイヤーを選ぶ
         action.owner = this;
         action.target = bm.getPlayer();
-        action.type = BattleAction.ActionType.Skill;
-        action.skill = skills[Constant.getRandom().nextInt(skills.length)];
+        if(skills.length == 0){
+            action.type = BattleAction.ActionType.Normal;
+            action.skill = GameManager.getDataBase().getSkill("normalAttack");
+        }else {
+            action.type = BattleAction.ActionType.Skill;
+            action.skill = skills[Constant.getRandom().nextInt(skills.length)];
+        }
 
     }
 

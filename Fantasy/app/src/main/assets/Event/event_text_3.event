@@ -1,0 +1,182 @@
+<Event name="test_event">
+	<EventCondition>
+		<Conditions mode="or">
+			<Condition type1="const" value1="1" mnemonic="==" type2="const" value2="1"/>
+		</Conditions>
+	</EventCondition>
+
+	<Face>
+		<face id = "hero" name="アラン" file="hero.png"/>
+		<face id = "noface_hero" name="  " file="noface.png"/>
+		<face id = "heroine" name="クレア" file="heroine.png"/>
+		<face id = "teacher" name="師匠" file="teacher.png"/>
+		<face id = "mobu1" name="門番のおっさん" file="mobu1.png"/>
+		<face id = "mobu2" name="酒場の主" file="mobu1.png"/>
+		<face id = "mobu3" name="太った男" file="mobu2.png"/>
+		<face id = "mobu4" name="華奢な男①" file="mobu3.png"/>
+		<face id = "mobu5" name="華奢な男②" file="mobu3.png"/>
+		<face id = "mobu6" name="貫禄ある男" file="mobu4.png"/>
+	</Face>
+
+	<Image>
+		<image id="town_01" file="town_01.png"/>
+		<image id="dungeon_01" file="dungeon_01.png"/>
+	</Image>
+
+	<Sound>
+		<soune name="angly" file="angly.wav"/>
+	</Sound>
+
+	<Contents>
+		<Back id="town_01"/>
+		<Trans mode="fade" type="in"  time="1" color="#FF00FF"/>
+
+
+		<Scene face="noface_hero" type="normal">華やかの会議室内</Scene>
+		<Scene face="noface_hero" type="normal">そこに何人か円卓の前に座っていて会議をされている。</Scene>
+		<Scene face="noface_hero" type="normal">その中で、一人が一つの話題を切り出した。</Scene>
+		<Scene face="mobu3" type="normal">ところで、諸君。聞いているかね。各町の周辺にある遺跡はもうすでに二人の人間によって、二つも攻略されているのだ。</Scene>
+		<Scene face="mobu3" type="normal">そして、例の素材があるっていう情報を手に入れている。みんなの意見が聞きたい。</Scene>
+		<Scene face="noface_hero" type="normal">それを聞き、一人が感心した。</Scene>
+		<Scene face="mobu4" type="normal">素材って、あのレア素材か。まさか、千年経つと再生されるという伝説は本当だったとは。</Scene>
+		<Scene face="noface_hero" type="normal">そして、もう一人が言い出した。</Scene>
+		<Scene face="mobu5" type="normal">別に大したことではないだろう。</Scene>
+		<Scene face="hero" type="normal">最後に、その中の一番貫禄のある人が命令口調で言った。</Scene>
+		<Scene face="mobu6" type="normal">放っておけ。命知らずの二人が、遺跡の事をなめておる。そのうち痛い目にあって諦めるだろう。</Scene>
+		<Scene face="mobu6" type="normal">次の件に検討しよう。</Scene>
+		<Scene face="noface_hero" type="normal">どうやら、アランとクレアのことは全然重視されている様子で、会議室内での人達はすぐさま次の話題を議論し始めた。</Scene>
+		<Scene face="noface_hero" type="normal">しかし、その件を言い出した本人だけ、その様子をみて、俯いて歪な笑みを浮かんできている。</Scene>
+
+
+
+		<Scene face="noface_hero" type="normal">場所が移り替わり、とある商いの盛んでいる町の中。</Scene>
+		<Scene face="noface_hero" type="normal">現在、アランとクレアは再び広場で集合した。</Scene>
+		<Scene face="noface_hero" type="normal">流石のクレアでも、今回の遺跡探索で疲れたみたく、一日の休憩を挟んだ後である。</Scene>
+		<Scene face="noface_hero" type="normal">二人は顔を合わせてた途端、例のごとく、クレアから言い出した。</Scene>
+		<Scene face="heroine" type="normal">んん、おはよう。アラン、すっかり休んだ。前の遺跡で、次の目標が分かったわ。</Scene>
+		<Scene face="noface_hero" type="normal">といい終えて、歩き出そうとしたクレアだが、急に踏みとどまって、アランに聞いた。</Scene>
+		<Scene face="heroine" type="normal">そうそう、次の町はここより品揃えが良くないから、ここで次の準備をした方がいいよ。まあ、今回は任せるわ。</Scene>
+		<Scene face="noface_hero" type="normal">クレアが自分勝手で進むことに慣れたアランは、自分にまかせると言ったクレアに本気で驚いたけど、</Scene>
+		<Scene face="noface_hero" type="normal">すぐ我に返って、どうしようって考え始めた。</Scene>
+
+
+		<Scene face="hero" type="normal">おっと、やっと着いたか。ここって、随分綺麗な町だなあ。</Scene>
+		<Scene face="noface_hero" type="normal">町についた途端、目の前の風景に感心したアランだった。</Scene>
+		<Scene face="heroine" type="normal">そうね。この町の近くに湖があって、その湖によって、周辺は自然豊かで、ここにいると、心が和むわ。</Scene>
+		<Scene face="noface_hero" type="normal">相変わらず、物知りなクレア式の感心の仕方である。</Scene>
+		<Scene face="heroine" type="normal">ずっとここで和んでいたいけど、目的を忘れないでね。</Scene>
+		<Scene face="heroine" type="normal">さあ、今日は解散、自由活動よ。明日から、目標に向かうわよ。</Scene>
+		<Scene face="noface_hero" type="normal">感心したクレアはすぐさま今回の目的を思い出し、アランに言った。</Scene>
+		<Scene face="noface_hero" type="normal">次の日、アランは珍しくクレアより先に集合場所についた。</Scene>
+		<Scene face="noface_hero" type="normal">綺麗な湖を見ながら、クレアが来るのを待っているうちに、後ろから声がした。</Scene>
+		<Scene face="heroine" type="normal">おはよう、アラン。珍しいね、私より先に来るとはね。どういう心境の変化よ、それ。</Scene>
+		<Scene face="noface_hero" type="normal">やはり、珍しがられたのか。予想通りなので、別にアランは何も思わなかった。</Scene>
+		<Scene face="hero" type="normal">別に、早めに目覚めただけよ。</Scene>
+		<Scene face="noface_hero" type="normal">そして、クレアもそこまでこだわっていないので、すぐ話を切り替えた。</Scene>
+		<Scene face="heroine" type="normal">あっそう。じゃ、行こうか。</Scene>
+		<Scene face="noface_hero" type="normal">それを聞き、アランは頷いてクレアについていった。</Scene>
+
+
+		<Scene face="hero" type="normal">ちょっと、そんなに前に出てじゃ、危ないよ。もっと、俺の後ろにいないと、なんかあるとやばいって。</Scene>
+		<Scene face="noface_hero" type="normal">どんどん前に進むクレアに、アランは注意を促した。</Scene>
+		<Scene face="heroine" type="normal">大丈夫よ。２回も同じような遺跡を探索したわ。わたしの経験によると、これくらいは全然平気よ。</Scene>
+		<Scene face="noface_hero" type="normal">アランの注意を受け流し、そう返事したクレアはそこまで気にした様子だった。</Scene>
+		<Scene face="noface_hero" type="normal">そこで、クレアは周りを観察しながら、遺跡を進んでいくうちに、足元にガチャって音が出た。</Scene>
+		<Scene face="noface_hero" type="normal">いきなり、クレアの足元に床が開き、滑る道が出来上がった。</Scene>
+		<Scene face="heroine" type="normal">えっ、うそでしょ－－－－－－</Scene>
+
+		<Scene face="noface_hero" type="normal">クレアは素っ頓狂な声をあげて、そこに落ちて滑って行った。</Scene>
+
+		<Scene face="hero" type="normal">クレアーーー</Scene>
+
+		<Scene face="heroine" type="normal">それを見たアランはすぐさま、声をあげてクレアの後を追おうとしたが、床がすでに元に戻っている。</Scene>
+		<Scene face="noface_hero" type="normal">慌てたアランはすぐさま、先クレアが引っ掛かったものを探したが、何も見つからずじまいだった。</Scene>
+		<Scene face="hero" type="normal">ふうふう、落ち着け、おれ。</Scene>
+		<Scene face="noface_hero" type="normal">罠は一回しか発動しないと知り、さらに焦ったアランはこのままだとやばいということに気付いて、</Scene>
+		<Scene face="noface_hero" type="normal">自分に言い聞かせて、落ち着こうとした。そして、考え始めた。</Scene>
+		<Scene face="hero" type="normal">クレアは下に向かって滑って行ったんだ。つまり、この遺跡の奥に向かっているのか。</Scene>
+
+		<Scene face="hero" type="normal">急がないと、クレアが危ない。無理して奥に進もう。</Scene>
+		<Scene face="hero" type="normal">敵にあったら、速戦即決で倒し、あるいは回り込んで振りぬければいい。</Scene>
+		<Scene face="hero" type="normal">よし、いくぞ。</Scene>
+		<Scene face="noface_hero" type="normal">案を決め、自分に気合を入れたアランは先に進むことにした。</Scene>
+
+
+
+		<Scene face="heroine" type="normal">キャー、助けてーー、アラン</Scene>
+		<Scene face="noface_hero" type="normal">急いて奥にたどり着こうとするアランはクレアの声が聞こえて、同じく大きな声を出した。</Scene>
+		<Scene face="hero" type="normal">持ちこたえろ、クレア、すぐ行く。</Scene>
+		<Scene face="noface_hero" type="normal">それを言い、さらに加速したアランがそこにいた。</Scene>
+		<Scene face="noface_hero" type="normal">そして、やっとクレアを見つけたアランはクレアが遺跡の主に襲われるところを見た。</Scene>
+		<Scene face="noface_hero" type="normal">キン</Scene>
+		<Scene face="noface_hero" type="normal">間一髪に、アランがクレアと主の間に入り、攻撃を受けた。</Scene>
+
+
+
+
+		<Scene face="noface_hero" type="normal">やっとクレアを無事に見つけて、ボスを倒したアランは安堵した。</Scene>
+
+		<Scene face="noface_hero" type="normal">そして、アランが振り返ったら、何かに抱き着かれた。</Scene>
+		<Scene face="noface_hero" type="normal">それがクレアに気付き、驚いて両手をどうすればいいかに戸惑った。</Scene>
+		<Scene face="noface_hero" type="normal">また、クレアの体からいい香りがしてきたので、少々気分が高揚したアラン出会った。</Scene>
+		<Scene face="noface_hero" type="normal">しばらく、そのままにして、クレアからアランを放した。それに対し、少々惜しいなとアランは思った。</Scene>
+		<Scene face="noface_hero" type="normal">そして、クレアは振り返り、古代文字を研究し始めた。まるで、何もなかったのように遺跡の石板に没頭した。</Scene>
+		<Scene face="noface_hero" type="normal">それを見て、アランはなぜかショックを受けた。しかし、すぐに切り替えてクレアに内容を聞いた。</Scene>
+		<Scene face="noface_hero" type="normal">そして、クレアから、水の玉が持つ人の体の回復力を上げる効果があることを教わった。</Scene>
+		<Scene face="noface_hero" type="normal">ちょっと待っているうちに、クレアが振り返り、アランに言った。</Scene>
+		<Scene face="heroine" type="normal">帰るよ。</Scene>
+		<Scene face="noface_hero" type="normal">そして、帰路では二人の間に一言も交わさなかった。</Scene>
+		<Scene face="noface_hero" type="normal">静かに先を急いだ二人は町にようやく帰ってきた。そして、静寂を破ったのはクレアだった。</Scene>
+		<Scene face="heroine" type="normal">次の目的地が分かったわ。</Scene>
+		<Scene face="heroine" type="normal">明日もその準備に充てることもあるし、私もちょっと気持ちの整理が必要だから、明日は休憩にする。</Scene>
+		<Scene face="heroine" type="normal">今日はもう解散よ。いいね。</Scene>
+		<Scene face="noface_hero" type="normal">それを言い残し慌ててどこかへ行ってしまったクレアを観察し、</Scene>
+		<Scene face="noface_hero" type="normal">だんだんと調子を戻している彼女に気付き、アランは安堵した。</Scene>
+
+
+
+
+
+		<Scene face="hero" type="normal" text="s3" autoscroll="true"/>
+
+		<UserBranch>
+			<Select text="b0">
+				<Message text="msg01" time="0.5"/>
+				<Scene face="hero" type="normal" text = "bs00"/>
+				<Scene face="hero" type="normal" text = "bs01"/>
+				<!-- localフラグのインデックス1番に定数1を代入 -->
+				<Flag type1="local" mode1="const" value1="1" type2="const" mode2="const" value2="1"/>
+			</Select>
+			<Select text="b1">
+				<Message text="msg02" time="0.5"/>
+				<Scene face="heroine" type="normal" text = "bs10"/>
+				<Scene face="heroine" type="normal" text = "bs11"/>
+				<Scene face="heroine" type="normal" text = "jump"/>
+				<Battle/>
+				<!-- localフラグのインデックス1番に定数1を代入 -->
+				<Flag type1="local" mode1="const" value1="1" type2="const" mode2="const" value2="2"/>
+			</Select>
+		</UserBranch>
+		<Scene face="hero" type="normal" text = "s4"/>
+		<FlagBranch default="true">
+			<Select>
+				<Conditions mode="and">
+					<Condition  type1="local" value1="1" mnemonic="==" type2="const" value2="1"/>
+				</Conditions>
+				<Scenes>
+					<Scene face="hero" type="normal" text = "fbs11"/>
+				</Scenes>
+			</Select>
+			<Select>
+				<Conditions mode="and">
+					<Condition  type1="local" value1="0" mnemonic="==" type2="const" value2="1"/>
+				</Conditions>
+				<Scenes>
+					<Scene face="heroine" type="normal" text = "fbs12"/>
+				</Scenes>
+			</Select>
+		</FlagBranch>
+		<Scene face="heroine" type="normal" text="s5"/>
+		<Trans mode="fade" type="out"  time="5" color="#000000"/>
+	</Contents>
+</Event>

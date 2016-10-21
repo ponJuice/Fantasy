@@ -35,7 +35,7 @@ public class PlayerSkillSelectState extends APlayerState {
         Button btn;
         ArrayList<Skill> sks = player.getSkillList();
         for(int n = 0;n < sks.size();n++){
-            btn = new Button(0,0,1,1,sks.get(n).getNameImage());
+            btn = new Button(0,0,1,1,sks.get(n).getSkillName());
             btn.setBitmap(Constant.getBitmap(Constant.BITMAP.system_button));
             btn.setPadding(padding);
             btn.setCriteria(UI.Criteria.Height);

@@ -24,6 +24,7 @@ import jp.ac.dendai.c.jtp.openglesutil.core.GLES20Util;
  * Created by Goto on 2016/09/16.
  */
 public class BattleScreen implements Screenable {
+    protected int enemyMax = 3;
     protected BattleManager battleManager;
     protected boolean freeze = true;
     protected Image background;
@@ -31,16 +32,6 @@ public class BattleScreen implements Screenable {
     protected DrawMachine defaultMachine;
 
     public BattleScreen(){
-        EnemyTemplate[] et = new EnemyTemplate[2];
-        DataBase db = GameManager.getDataBase();
-        et[0] = GameManager.getDataBase().getEnemy("blue_slime");
-        et[1] = GameManager.getDataBase().getEnemy("orange_slime");
-
-        background = new Image(GLES20Util.loadBitmap(R.mipmap.dungeon_01));
-        background.setX(GLES20Util.getWidth_gl()/2f);
-        background.setY(GLES20Util.getHeight_gl()/2f);
-        background.setHeight(GLES20Util.getHeight_gl());
-        battleManager = new BattleManager(et);
 
         defaultMachine = new DefaultDrawMachine();
 
@@ -78,7 +69,34 @@ public class BattleScreen implements Screenable {
 
     @Override
     public void constract(Object[] args) {
+        //args
+        // 0:背景画像
+        // 1:個別指定する敵の数（0の場合はランクで抽選）
+        // 2:敵のID　(args[1]が0の場合のみ、ランクの値)
+        background = new Image(ImageReader.readImageToAssets(Constant.image_file_directory + (String)args[0]));
+        background.useAspect(true);
+        background.setX(GLES20Util.getWidth_gl()/2f);
+        background.setY(GLES20Util.getHeight_gl()/2f);
+        background.setHeight(GLES20Util.getHeight_gl());
 
+        EnemyTemplate[] et;
+        DataBase db = GameManager.getDataBase();
+        int args1 = (int)args[1];
+        if(args1 > 0){
+            //0より大きいの場合個別指定した敵を設定　args[1]の値は敵の数
+            et = new EnemyTemplate[args1];
+            for(int n = 0;n < args1;n++){
+                et[n] = db.getEnemy((String)args[n+2]);
+            }
+
+        }else {
+            //そうでない場合はランクによってランダム抽選
+            et = new EnemyTemplate[Constant.getRandom().nextInt(enemyMax) + 1];
+            for (int n = 0; n < et.length; n++) {
+                et[n] = db.getEnemy((int)args[2]);
+            }
+        }
+        battleManager = new BattleManager(et);
     }
 
     @Override

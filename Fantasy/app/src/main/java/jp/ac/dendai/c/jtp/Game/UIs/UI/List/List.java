@@ -47,6 +47,25 @@ public class List implements UI {
         listItem.add(bt);
     }
 
+    public float getTextPadding(){
+        return text_padding;
+    }
+
+    public float getContentHeight(){
+        return content_height;
+    }
+
+    public float getContentLeft(){
+        return x;
+    }
+
+    public float getContentRight(){
+        return x+content_width;
+    }
+
+    public float getContentWidth(){
+        return content_width;
+    }
     public ArrayList<Button> getList(){
         return listItem;
     }

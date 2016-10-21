@@ -80,14 +80,16 @@ public class MapScreen implements Screenable{
 
         cursorAnimator = new CursorAnimator(cursor);
 
-        battleQuestion = new QuestionBox(Constant.getBitmap(Constant.BITMAP.system_message_box),"進みますか？","はい","いいえ");
+        battleQuestion = new QuestionBox(Constant.getBitmap(Constant.BITMAP.system_message_box),"進みますか？","進む","戻る");
         battleQuestion.setX(GLES20Util.getWidth_gl()/2f + GLES20Util.getCameraPosX());
         battleQuestion.setY(GLES20Util.getHeight_gl()/2f + GLES20Util.getCameraPosY());
         battleQuestion.setYesButtonListener(new BattleYesButtonListener());
+        battleQuestion.setNoButtonListener(new BattleNoButtonListener());
         inTownQuestion = new QuestionBox(Constant.getBitmap(Constant.BITMAP.system_message_box),"街に入りますか？","はい","いいえ");
         inTownQuestion.setX(GLES20Util.getWidth_gl()/2f + GLES20Util.getCameraPosX());
         inTownQuestion.setY(GLES20Util.getHeight_gl()/2f + GLES20Util.getCameraPosY());
         inTownQuestion.setNoButtonListener(new InTownNoListener());
+        inTownQuestion.setYesButtonListener(new InTownYesListener());
     }
 
     @Override
@@ -108,7 +110,13 @@ public class MapScreen implements Screenable{
         if(mode == Mode.moveTownEffect){
             if(cursorAnimator.proc()){
                 encount++;
-                if(encount >= toTown.getEncount()+1){
+                if(encount <= 0){
+                    mode = Mode.arriveTown;
+                    inTownQuestion.setX(GLES20Util.getWidth_gl()/2f + GLES20Util.getCameraPosX());
+                    inTownQuestion.setY(GLES20Util.getHeight_gl()/2f + GLES20Util.getCameraPosY());
+                    inTownQuestion.startFadeInAnimation();
+                    encount = 0;
+                }else if(encount >= (toTown.getEncount()+1)){
                     //街に着いた
                     playerData.setTown(toTown.getOtherTown(playerData.getTown()));
                     mode = Mode.arriveTown;
@@ -245,6 +253,32 @@ public class MapScreen implements Screenable{
         return townIcon;
     }
 
+    protected class InTownYesListener implements ButtonListener{
+
+        @Override
+        public void touchDown(Button button) {
+
+        }
+
+        @Override
+        public void touchHover(Button button) {
+
+        }
+
+        @Override
+        public void touchUp(Button button) {
+            mode = Mode.non;
+            GameManager.stack.push(GameManager.nowScreen);
+            GameManager.args = new Object[1];
+            GameManager.args[0] = GameManager.getPlayerData().getTown();
+            LoadingTransition lt = LoadingTransition.getInstance();
+            lt.initTransition(TownScreen.class);
+            GameManager.transition = lt;
+            GameManager.isTransition = true;
+
+        }
+    }
+
     protected class InTownNoListener implements ButtonListener{
 
         @Override
@@ -261,6 +295,33 @@ public class MapScreen implements Screenable{
         public void touchUp(Button button) {
             mode = Mode.non;
             inTownQuestion.startFadeOutAnimation();
+        }
+    }
+
+    protected class BattleNoButtonListener implements ButtonListener{
+
+        @Override
+        public void touchDown(Button button) {
+
+        }
+
+        @Override
+        public void touchHover(Button button) {
+
+        }
+
+        @Override
+        public void touchUp(Button button) {
+            mode = Mode.moveTownEffect;
+            cursorAnimator.reset();
+            cursorAnimator.start();
+            cursorAnimator.setAnimation(
+                    toTown.getEncountPosX(GameManager.getPlayerData().getTown(),encount),
+                    toTown.getEncountPosY(GameManager.getPlayerData().getTown(),encount),
+                    GameManager.getPlayerData().getTown().getX(),
+                    GameManager.getPlayerData().getTown().getY(),
+                    cursorAnimTime);
+            encount = -1;
         }
     }
 
@@ -323,6 +384,13 @@ public class MapScreen implements Screenable{
 
         @Override
         public void touchUp(Button button) {
+            if(playerData.getTown() == town){
+                //同じ場所をクリックしたら町に入る
+                encount = -1;
+                mode = Mode.arriveTown;
+                inTownQuestion.startFadeInAnimation();
+                return;
+            }
             Node node = GameManager.getPlayerData().getTown().searchNode(town);
             if(node == null){
                 toTown = null;

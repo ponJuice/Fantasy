@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
+import jp.ac.dendai.c.jtp.Game.BattleSystem.Enemy.Enemy;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Enemy.EnemyTemplate;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Skill.Animation;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Skill.Skill;
@@ -45,6 +46,7 @@ public class DataBase {
     protected final static String enemyTag = "Enemy";
     protected final static String itemsTag = "Items";
 
+    protected static HashMap<Integer,ArrayList<EnemyTemplate>> rankEnemy;
     protected static HashMap<String,EnemyTemplate> enemyList;
     protected static HashMap<String,AnimationBitmap> animationList;
     protected static HashMap<String,Skill> skillList;
@@ -98,6 +100,14 @@ public class DataBase {
     public EnemyTemplate getEnemy(String key){
         if(enemyList.containsKey(key)){
             return enemyList.get(key);
+        }
+        return null;
+    }
+
+    public EnemyTemplate getEnemy(int rank){
+        if(rankEnemy.containsKey(rank)){
+            ArrayList<EnemyTemplate> ea = rankEnemy.get(rank);
+            return ea.get(Constant.getRandom().nextInt(ea.size()));
         }
         return null;
     }
@@ -203,6 +213,7 @@ public class DataBase {
         Log.d("DataBase","Start initEnemyList");
 
         enemyList = new HashMap<>();
+        rankEnemy = new HashMap<>();
 
         XmlPullParser xpp = null;
         try {
@@ -232,6 +243,13 @@ public class DataBase {
             if(eventType == XmlPullParser.START_TAG){
                 if(xpp.getName().equals(enemyTag)){
                     EnemyTemplate et = EnemyTemplate.parseCreate(xpp,this);
+                    if(rankEnemy.containsKey(et.rank)){
+                        rankEnemy.get(et.rank).add(et);
+                    }else{
+                        ArrayList<EnemyTemplate> ea = new ArrayList<>();
+                        ea.add(et);
+                        rankEnemy.put(et.rank,ea);
+                    }
                     enemyList.put(et.id,et);
                 }
             }

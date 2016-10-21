@@ -1,0 +1,140 @@
+<Event name="test_event">
+	<EventCondition>
+		<Conditions mode="or">
+			<Condition type1="const" value1="1" mnemonic="==" type2="const" value2="1"/>
+		</Conditions>
+	</EventCondition>
+
+	<Face>
+		<face id = "hero" name="アラン" file="hero.png"/>
+		<face id = "noface_hero" name="  " file="noface.png"/>
+		<face id = "heroine" name="クレア" file="heroine.png"/>
+		<face id = "teacher" name="師匠" file="teacher.png"/>
+		<face id = "mobu1" name="門番のおっさん" file="mobu1.png"/>
+		<face id = "mobu2" name="酒場の主" file="mobu1.png"/>
+		<face id = "mobu3" name="太った男" file="mobu2.png"/>
+		<face id = "mobu4" name="華奢な男①" file="mobu3.png"/>
+		<face id = "mobu5" name="華奢な男②" file="mobu3.png"/>
+		<face id = "mobu6" name="貫禄ある男" file="mobu4.png"/>
+	</Face>
+
+	<Image>
+		<image id="town_01" file="town_01.png"/>
+		<image id="wall" file="wall.png"/>
+		<image id="dungeon_01" file="dungeon_01.png"/>
+	</Image>
+
+	<Sound>
+		<soune name="angly" file="angly.wav"/>
+	</Sound>
+
+	<Contents>
+		<Back id="town_01"/>
+		<Trans mode="fade" type="in"  time="1" color="#FF00FF"/>
+		<Scene face="noface_hero" type="normal">ゴッゴッゴ・・・・・・・。</Scene>
+		<Scene face="noface_hero" type="normal">鶏の鳴き声が聞こえて、俺は目を覚ました。</Scene>
+		<Scene face="hero" type="normal">目に入ったのは、見慣れた天井である。</Scene>
+		<Scene face="noface_hero" type="normal" >今日で10年目か。。。</Scene>
+		<Scene face="noface_hero" type="normal" >少年は呟いた。</Scene>
+		<Scene face="noface_hero" type="normal" >そう、少年は師匠に拾われて既に10年程の年月が過ぎている。</Scene>
+		<Scene face="noface_hero" type="normal" >拾われたその日から、ずっと師匠と山にこもって修業しながら生活している。</Scene>
+		<Scene face="hero" type="normal">よし、起きて朝飯の準備でもするか。</Scene>
+		<Scene face="noface_hero" type="normal">と思いながら、少年は気合を入れて水を汲みに行った。</Scene>
+		<Scene face="noface_hero" type="normal">川は家から2キロ離れたところにある。</Scene>
+		<Scene face="noface_hero" type="normal">そこから１日分の水を汲むことが毎朝にやるべきことである。</Scene>
+		<Scene face="noface_hero" type="normal">最初はその距離で、尚且つ水の重さで、昼過ぎでも目標を達成できない。</Scene>
+		<Scene face="noface_hero" type="normal">基礎体力のためとはいえ、当時の師匠は鬼ではないかと感じた。</Scene>
+		<Scene face="noface_hero" type="normal">今では、本当の意味で朝飯前なのである。</Scene>
+		<Scene face="noface_hero" type="normal">毎日やっていることなので、スムーズにことが運ぶ。</Scene>
+		<Scene face="noface_hero" type="normal">昔のことを思い出しているうちに朝飯の準備はできた</Scene>
+		<Scene face="noface_hero" type="normal">バキ。</Scene>
+		<Scene face="noface_hero" type="normal">師匠は箸を机に置いた。</Scene>
+		<Scene face="teacher" type="normal">のう、アランよ。オメェはもうわしの元にきて何年たっとる？</Scene>
+		<Scene face="noface_hero" type="normal">なぜか、師匠はいきなりこう問いだした</Scene>
+		<Scene face="hero" type="normal">もう、10年だけど？</Scene>
+		<Scene face="noface_hero" type="normal">そう、少年の名はアランで、いきなりだなと思いながら、アランが返事した。</Scene>
+		<Scene face="teacher" type="normal">そうか、もう10年か。そろそろ、山を出て、自分の夢をかけてもいい頃合いだなぁ。</Scene>
+		<Scene face="noface_hero" type="normal">と自分勝手に頷きながら、そういった。</Scene>
+		<Scene face="hero" type="normal">いやぁ、追いかける夢とかないし。</Scene>
+		<Scene face="noface_hero" type="normal">と即時にアランは言い返した。そしたら、</Scene>
+		<Scene face="teacher" type="normal">このばかものーーーー、なけりゃ探せばいいだろうが、とにかくだ。</Scene>
+		<Scene face="teacher" type="normal">今日明日で、即山を下りろ。</Scene>
+		<Scene face="noface_hero" type="normal">なんか、ものすごいことを言われたが、</Scene>
+		<Scene face="noface_hero" type="normal">そのあとに聞こえた師匠の呟きですべて台無しにしている。</Scene>
+		<Scene face="teacher" type="normal">オメェが下りなきゃ、俺も旅に出れないじゃん？</Scene>
+		<Scene face="noface_hero" type="normal">ほんのちょっとの声しかしなかったが、俺の耳にはしかっりと入ってきた。</Scene>
+		<Scene face="teacher" type="normal">まぁ、山を下りろことはもう決まったことだし、</Scene>
+		<Scene face="teacher" type="normal">ちゃんと山を出てやっていける実力が、オメェに身についているかどうか知りたい。</Scene>
+		<Scene face="teacher" type="normal">この十年間に身についているかどうか知りたい。</Scene>
+		<Scene face="noface_hero" type="normal">なぜか、山を下りることがすでに決定事項で話が進んでいく。</Scene>
+		<Scene face="teacher" type="normal">そこで、テストじゃ。裏山にある木の下にわしの秘蔵ものが隠してある。</Scene>
+		<Scene face="teacher" type="normal">それを取ってくるのじゃ。それが餞別の品としてオメェにやろう。</Scene>
+		<Scene face="noface_hero" type="normal">それを聞き、頭の中で裏山にある木の姿を浮かんでくる。</Scene>
+		<Scene face="teacher" type="normal">楽勝と思うなよ。油断すると痛い目にあうぞ。くっくっく・・・・・・・</Scene>
+		<Scene face="noface_hero" type="normal">なんか思わせぶりのある嫌な笑い声がする師匠に言葉に、思わず顔をしかめる。</Scene>
+		<Scene face="noface_hero" type="normal">仕方なく了承することにした。</Scene>
+
+
+		<Back id="wall"/>
+		<Trans mode="fade" type="in"  time="1" color="#FF00FF"/>
+
+		<Scene face="hero" type="normal">なんだ、いつものからくり人形じゃん。とっとと片付けて帰るぞ。</Scene>
+		<Scene face="noface_hero" type="normal">裏山に木の元にいつもの鍛練用のからくり人形を見て、そう呟いた。</Scene>
+
+
+        <Battle back_file="wall.png">
+            <Enemy id="doll"/>
+        </Battle>
+
+		<Scene face="hero" type="normal">はぁはぁ、畜生、何とか倒した。にしてもいつもより強いなぁ。</Scene>
+		<Scene face="noface_hero" type="normal">本当の意味で、師匠の言葉通りで痛い目にあったので、若干悔しい思いをした。</Scene>
+		<Scene face="noface_hero" type="normal">しかし、済んだことは仕方ないと思い、お目当ての品を探し始めた。</Scene>
+		<Scene face="hero" type="normal">おっと、これだな。</Scene>
+		<Scene face="noface_hero" type="normal">自分の餞別品を手に取って、それは一体なんなのかを確かめた。</Scene>
+		<Scene face="noface_hero" type="normal">そしたら、思わず声をあげて叫んだ。</Scene>
+		<Scene face="hero" type="normal">なんじゃこりゃ・・・・・・</Scene>
+
+
+
+		<UserBranch>
+			<Select text="やる">
+				<Message text="msg01" time="0.5"/>
+				<Scene face="hero" type="normal">なんじゃこりゃ・・・・・・</Scene>
+				<Scene face="hero" type="normal">なんじゃこりゃ・・・・・・</Scene>
+				<!-- localフラグのインデックス1番に定数1を代入 -->
+				<Flag type1="local" mode1="const" value1="1" type2="const" mode2="const" value2="1"/>
+			</Select>
+			<Select text="b1">
+				<Message text="msg02" time="0.5"/>
+				<Scene face="teacher" type="normal">楽勝と思うなよ。油断すると痛い目にあうぞ。くっくっく・・・・・・・</Scene>
+
+				<Scene face="teacher" type="normal">楽勝と思うなよ。油断すると痛い目にあうぞ。くっくっく・・・・・・・</Scene>
+				<Scene face="teacher" type="normal">ジャンプ</Scene>
+				<Battle/>
+				<!-- localフラグのインデックス1番に定数1を代入 -->
+				<Flag type1="local" mode1="const" value1="1" type2="const" mode2="const" value2="2"/>
+			</Select>
+		</UserBranch>
+		<Scene face="hero" type="normal" text = "s4"/>
+		<FlagBranch default="true">
+			<Select>
+				<Conditions mode="and">
+					<Condition  type1="local" value1="1" mnemonic="==" type2="const" value2="1"/>
+				</Conditions>
+				<Scenes>
+					<Scene face="hero" type="normal" text = "fbs11"/>
+				</Scenes>
+			</Select>
+			<Select>
+				<Conditions mode="and">
+					<Condition  type1="local" value1="0" mnemonic="==" type2="const" value2="1"/>
+				</Conditions>
+				<Scenes>
+					<Scene face="heroine" type="normal" text = "fbs12"/>
+				</Scenes>
+			</Select>
+		</FlagBranch>
+		<Scene face="heroine" type="normal" text="s5"/>
+		<Trans mode="fade" type="out"  time="5" color="#000000"/>
+	</Contents>
+</Event>

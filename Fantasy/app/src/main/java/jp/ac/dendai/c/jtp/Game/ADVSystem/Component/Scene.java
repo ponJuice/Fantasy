@@ -46,7 +46,7 @@ public class Scene extends ADVComponent implements Parseable{
     protected Touch touch;
     protected boolean isTouch = false;
     protected boolean isInit = false;
-    protected boolean autoScroll = false;
+    protected boolean autoScroll = true;
 
     @Override
     public void draw(float offset_x,float offset_y) {

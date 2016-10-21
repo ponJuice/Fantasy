@@ -42,6 +42,9 @@ public class ItemTemplate {
         animations = new ArrayList<>();
     }
 
+    public int getPrice(){
+        return price;
+    }
     public String getName(){
         return name;
     }

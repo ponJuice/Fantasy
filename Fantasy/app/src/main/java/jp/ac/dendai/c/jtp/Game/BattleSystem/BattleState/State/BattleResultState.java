@@ -5,6 +5,7 @@ import android.util.Log;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.BattleStatePattern;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.State.State;
 import jp.ac.dendai.c.jtp.Game.GameManager;
+import jp.ac.dendai.c.jtp.Game.UIs.Transition.StackLoadingTransition;
 
 /**
  * Created by wark on 2016/10/16.
@@ -18,7 +19,10 @@ public class BattleResultState extends State {
     @Override
     public void actionProcess() {
         //Log.d("BattleResultState","BattleClear");
-        GameManager.returnScreen();
+        StackLoadingTransition slt = StackLoadingTransition.getInstance();
+        slt.initStackLoadingTransition();
+        GameManager.transition = slt;
+        GameManager.isTransition = true;
     }
 
     @Override

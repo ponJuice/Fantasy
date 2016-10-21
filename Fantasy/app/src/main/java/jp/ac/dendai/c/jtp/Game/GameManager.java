@@ -48,11 +48,8 @@ public class GameManager {
 		return playerData;
 	}
 
-	public static void returnScreen(){
-		if(stack.size() != 0) {
-			nowScreen = stack.pop();
-			nowScreen.unFreeze();
-		}
+	public static Screenable popStackScreen(){
+		return stack.pop();
 	}
 	public static void proc(){
 		if(isTransition && nextScreen != null)

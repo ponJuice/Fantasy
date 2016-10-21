@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Attackable;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleAction;
@@ -42,7 +43,7 @@ public class Player extends Attackable{
         this.name_bitmap = pd.name_bitmap;
 
         skills = pd.getSkill();
-        items = pd.items;
+        items = new ArrayList<>(Arrays.asList(pd.items.values().toArray(new Item[0])));
 
         /* ------- Debug --------*/
         /*name = "アラン";

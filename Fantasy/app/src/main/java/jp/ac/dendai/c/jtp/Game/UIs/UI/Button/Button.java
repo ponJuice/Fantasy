@@ -2,6 +2,8 @@ package jp.ac.dendai.c.jtp.Game.UIs.UI.Button;
 
 import android.graphics.Bitmap;
 
+import java.util.HashMap;
+
 import jp.ac.dendai.c.jtp.Game.Constant;
 import jp.ac.dendai.c.jtp.TouchUtil.Touch;
 
@@ -23,6 +25,7 @@ public class Button implements UI{
         HOVER,
         UP,
     }
+    protected HashMap<String,StaticText> textBuff;
     protected UI.Criteria criteria = UI.Criteria.NON;
     protected UI.Criteria backimage_criteria = Criteria.NON;
     protected BUTTON_STATE state = BUTTON_STATE.NON;
@@ -44,6 +47,7 @@ public class Button implements UI{
     protected UIAlign.Align horizontal = UIAlign.Align.CENTOR,vertical = UIAlign.Align.CENTOR;
 
     public Button(float cx,float cy,float width,float height,String string){
+        textBuff = new HashMap<>();
         useAspect(false);
         rect = new Rect(cx-width/2f,cy+height/2f,cx+width/2f,cy-height/2f);
         this.x = cx;
@@ -58,11 +62,13 @@ public class Button implements UI{
             this.text = new StaticText(string,Constant.getBitmap(Constant.BITMAP.white));
             this.text.setVertical(UIAlign.Align.CENTOR);
             this.text.setHorizontal(UIAlign.Align.CENTOR);
+            textBuff.put(string,this.text);
             updateTextPos();
         }
         updateBackimage();
     }
-    public Button(float cx,float cy,float width,float height,Bitmap text){
+    public Button(float cx,float cy,float width,float height,StaticText text){
+        textBuff = new HashMap<>();
         useAspect(false);
         rect = new Rect(cx-width/2f,cy+height/2f,cx+width/2f,cy-height/2f);
         this.x = cx;
@@ -74,9 +80,31 @@ public class Button implements UI{
         setY(cy);
         setBitmap(Constant.getBitmap(Constant.BITMAP.white));
         if(text != null) {
-            this.text = new StaticText(text);
+            this.text = text;
             this.text.setVertical(UIAlign.Align.CENTOR);
             this.text.setHorizontal(UIAlign.Align.CENTOR);
+            textBuff.put(text.getString(),text);
+            updateTextPos();
+        }
+        updateBackimage();
+    }
+    public Button(float cx,float cy,float width,float height,Bitmap textImage,String text){
+        textBuff = new HashMap<>();
+        useAspect(false);
+        rect = new Rect(cx-width/2f,cy+height/2f,cx+width/2f,cy-height/2f);
+        this.x = cx;
+        this.y = cy;
+        this.width = rect.getWidth();
+        this.height = rect.getHeight();
+        aspect = width / height;
+        setX(cx);
+        setY(cy);
+        setBitmap(Constant.getBitmap(Constant.BITMAP.white));
+        if(text != null) {
+            this.text = new StaticText(textImage,text);
+            this.text.setVertical(UIAlign.Align.CENTOR);
+            this.text.setHorizontal(UIAlign.Align.CENTOR);
+            textBuff.put(this.text.getString(),this.text);
             updateTextPos();
         }
         updateBackimage();
@@ -107,6 +135,16 @@ public class Button implements UI{
         setY(cy);
         setBitmap(Constant.getBitmap(Constant.BITMAP.white));
         updateBackimage();
+    }
+
+    public void setText(String string){
+        if(textBuff.containsKey(string)){
+            text = textBuff.get(string);
+        }else{
+            text = new StaticText(string,null);
+            textBuff.put(string,text);
+        }
+        updateTextPos();
     }
 
     public float getHeight(){

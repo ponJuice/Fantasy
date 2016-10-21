@@ -11,6 +11,7 @@ import jp.ac.dendai.c.jtp.Game.ADVSystem.Parser.ADVEventParser;
 import jp.ac.dendai.c.jtp.Game.Charactor.Face;
 import jp.ac.dendai.c.jtp.Game.Charactor.FaceReader;
 import jp.ac.dendai.c.jtp.Game.GameManager;
+import jp.ac.dendai.c.jtp.Game.UIs.Transition.StackLoadingTransition;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Text.StreamText.OneSentenceStreamText;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.TextBox.TalkBox;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.UI;
@@ -77,7 +78,10 @@ public class TalkScreen implements Screenable {
             return;
         if(!event.proc(null)){
             //シーン終了
-            GameManager.returnScreen();
+            StackLoadingTransition slt = StackLoadingTransition.getInstance();
+            slt.initStackLoadingTransition();
+            GameManager.transition = slt;
+            GameManager.isTransition = true;
         }
         backButton.proc();
     }

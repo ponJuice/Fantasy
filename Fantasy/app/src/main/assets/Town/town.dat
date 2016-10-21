@@ -1,24 +1,24 @@
 ﻿<Map>
-	<Town name="オネット" x="0.05" y="0.05">
+	<Town name="オネット" image ="town_01.png" x="0.05" y="0.05">
 		<Shop>
 			<Item name="薬草" price="1"/>
 			<Item name="俊敏薬" price="1"/>
 		</Shop>
 		<Hotel price="50"/>
 	</Town>
-	<Town name="ツーソン" x="0.4" y="0.8">
+	<Town name="ツーソン" image ="town_01.png" x="0.4" y="0.8">
 		<Shop>
 			<Item name="薬草" price="2"/>
 		</Shop>
 		<Hotel price="100"/>
 	</Town>
-    <Town name="スリーク" x="1" y="0.05">
+    <Town name="スリーク" image ="town_01.png" x="1" y="0.05">
         <Shop>
             <Item name="薬草" price="2"/>
         </Shop>
         <Hotel price="100"/>
     </Town>
-    <Town name="フォーサイド" x="1.3" y="0.5">
+    <Town name="フォーサイド" image ="town_01.png" x="1.3" y="0.5">
         <Shop>
             <Item name="薬草" price="2"/>
         </Shop>

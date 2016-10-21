@@ -13,6 +13,7 @@ import jp.ac.dendai.c.jtp.openglesutil.core.GLES20Util;
  */
 public class StaticText extends Image {
     protected Bitmap effect_mask;
+    protected String string;
     protected float delta_u = 0.066666f,delta_v = 0;
     protected float counter = 0;
     public StaticText(String text,Bitmap effect_mask){
@@ -21,13 +22,17 @@ public class StaticText extends Image {
             this.effect_mask = Constant.getBitmap(Constant.BITMAP.white);
         else
             this.effect_mask = effect_mask;
+        this.string = text;
     }
-    public StaticText(Bitmap text){
-        super(text);
-        if(effect_mask == null)
-            this.effect_mask = Constant.getBitmap(Constant.BITMAP.white);
-        else
-            this.effect_mask = effect_mask;
+    public StaticText(Bitmap textImage,String text){
+        super(textImage);
+        this.effect_mask = Constant.getBitmap(Constant.BITMAP.white);
+        string = text;
+    }
+    public StaticText(StaticText staticText){
+        super(staticText.image);
+        this.effect_mask = Constant.getBitmap(Constant.BITMAP.white);
+        string = staticText.string;
     }
     public void setDelta_u(float u){
         delta_u = u;
@@ -38,6 +43,10 @@ public class StaticText extends Image {
 
     public void init(){
         counter = 0;
+    }
+
+    public String getString(){
+        return string;
     }
 
     @Override

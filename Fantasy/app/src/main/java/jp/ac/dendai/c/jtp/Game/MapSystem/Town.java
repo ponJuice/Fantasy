@@ -17,8 +17,10 @@ import jp.ac.dendai.c.jtp.Game.UIs.UI.Button.Button;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Button.ButtonListener;
 import jp.ac.dendai.c.jtp.ParserUtil;
 import jp.ac.dendai.c.jtp.TouchUtil.Touch;
+import jp.ac.dendai.c.jtp.openglesutil.Util.ImageReader;
 import jp.ac.dendai.c.jtp.openglesutil.core.GLES20Util;
 import jp.ac.dendai.c.jtp.openglesutil.graphic.blending_mode.GLES20COMPOSITIONMODE;
+import jp.ac.dendai.c.jtp.Game.UIs.UI.Image.Image;
 
 /**
  * Created by wark on 2016/10/19.
@@ -29,6 +31,7 @@ public class Town {
     protected final static String child_tag_shop = "Shop";
     protected final static String child_tag_hotel = "Hotel";
     protected final static String child_shop_item = "Item";
+    protected final static String attrib_image = "image";
     protected final static String attrib_hotel = "price";
     protected final static String attrib_name = "name";
     protected final static String attrib_x = "x";
@@ -38,6 +41,7 @@ public class Town {
     protected float icon_alpha = 1f;
     protected String name;
     protected Bitmap nameImage;
+    protected Image background;
     protected Button btnIcon;
     protected int hotelPrice;
     protected ArrayList<ShopItem> shopItem;
@@ -64,6 +68,14 @@ public class Town {
             }
         }
         return null;
+    }
+
+    public ArrayList<ShopItem> getShopItem(){
+        return shopItem;
+    }
+
+    public Image getBackground(){
+        return background;
     }
 
     public void addNode(Node node){
@@ -110,6 +122,7 @@ public class Town {
         town.nameImage = GLES20Util.stringToBitmap(town.name, Constant.fontName,25,255,255,255);
         town.btnIcon.setX(Float.parseFloat(xpp.getAttributeValue(null,attrib_x)));
         town.btnIcon.setY(Float.parseFloat(xpp.getAttributeValue(null,attrib_y)));
+        town.background = new Image(ImageReader.readImageToAssets(Constant.image_file_directory + xpp.getAttributeValue(null,attrib_image)));
 
         int eventType = XmlPullParser.END_DOCUMENT;
         try{
@@ -148,7 +161,7 @@ public class Town {
             e.printStackTrace();
         }
 
-        while(eventType != XmlPullParser.END_TAG && !xpp.getName().equals(child_tag_shop)){
+        while(!(eventType == XmlPullParser.END_TAG && xpp.getName().equals(child_tag_shop))){
 
             if(eventType == XmlPullParser.START_TAG){
                 if(xpp.getName().equals(child_shop_item)){

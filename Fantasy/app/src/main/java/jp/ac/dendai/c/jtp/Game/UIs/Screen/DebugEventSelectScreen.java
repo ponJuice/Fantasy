@@ -61,7 +61,7 @@ public class DebugEventSelectScreen implements Screenable{
             }
         } catch (IOException e) {
         }
-        toBattle = new Button(0,0,0.1f,0.1f,"戦闘テスト");
+        toBattle = new Button(0,0,0.1f,0.1f,"スタート画面へ");
         toBattle.useAspect(true);
         toBattle.setBitmap(Constant.getBitmap(Constant.BITMAP.system_button));
         toBattle.setBackImageCriteria(UI.Criteria.Height);
@@ -84,7 +84,7 @@ public class DebugEventSelectScreen implements Screenable{
             @Override
             public void touchUp(Button button) {
                 LoadingTransition lt = LoadingTransition.getInstance();
-                lt.initTransition(BattleScreen.class);
+                lt.initTransition(StartScreen.class);
                 GameManager.transition = lt;
                 GameManager.isTransition = true;
             }
