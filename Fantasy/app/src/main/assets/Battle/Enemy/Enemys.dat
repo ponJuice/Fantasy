@@ -1,11 +1,84 @@
 <Enemys>
     <Enemy id="blue_slime" name="スライム【青】" file="slime_blue.png" rank="1" hp="100" atk="20" def="10" agl="10" mp="100">
         <Skill name="突き"/>
+        <Items max="2">
+            <Item name="スライムの欠片" probability="90"/>
+            <Item name="スライムのコア" probability="10"/>
+        </Items>
     </Enemy>
-    <Enemy id="orange_slime" name="スライム【橙】" file="slime_orange.png" rank="1" hp="100" atk="20" def="10" agl="30" mp="100">
+    <Enemy id="orange_slime" name="スライム【橙】" file="slime_orange.png" rank="2" hp="100" atk="20" def="10" agl="30" mp="100">
         <Skill name="突き"/>
         <Skill name="三段突き"/>
+        <Items max="2">
+            <Item name="スライムの欠片" probability="90"/>
+            <Item name="スライムのコア" probability="10"/>
+        </Items>
     </Enemy>
-    <Enemy id="doll" name="からくり人形" file="doll.png" rank="1" hp="100" atk="20" def="10" agl="30" mp="100">
+    <Enemy id="doll" name="からくり人形" file="karakuri.png" rank="1" hp="10" atk="20" def="8" agl="30" mp="100">
+        <Items max="2">
+            <Item name="人形の腕" probability="100"/>
+        </Items>
     </Enemy>
+    <Enemy id="boss_1" name="最初のボス" file="boss_1.png" rank="1" hp="100" atk="30" def="10" agl="20" mp="100" encount="false">
+        <Skill name="突き"/>
+        <Skill name="二段突き"/>
+    </Enemy>
+    <Enemy id="boss_2" name="二番目のボス" file="boss_1.png" rank="2" hp="200" atk="60" def="20" agl="40" mp="200" encount="false">
+        <Skill name="二段突き"/>
+        <Skill name="三段突き"/>
+    </Enemy>
+<Enemy id="monster-1" name="インキュバス" file="monster-1.png" rank="2" hp="100" atk="20" def="10" agl="20" mp="100">
+        <Items max="2">
+            <Item name="インキュバスの翼" probability="100"/>
+        </Items>
+    </Enemy>
+
+
+    <Enemy id="monster-2" name="サキュバス" file="monster-2.png" rank="3" hp="100" atk="30" def="15" agl="30" mp="100">
+        <Items max="2">
+            <Item name="インキュバスの翼" probability="100"/>
+        </Items>
+    </Enemy>
+
+
+     <Enemy id="monster-3" name="スノーガール" file="monster-3.png" rank="3" hp="200" atk="20" def="10" agl="20" mp="100">
+         <Items max="2">
+             <Item name="スノーガールの服のかけら" probability="100"/>
+         </Items>
+     </Enemy>
+
+
+     <Enemy id="monster-4" name="スノーボーイ" file="monster-4.png" rank="4" hp="300" atk="30" def="15" agl="30" mp="100">
+         <Items max="2">
+             <Item name="スノーボーイの服のかけら" probability="100"/>
+         </Items>
+     </Enemy>
+
+     <Enemy id="monster-5" name="ブラックキューピット" file="monster-5.png" rank="4" hp="400" atk="20" def="10" agl="20" mp="100">
+         <Items max="2">
+             <Item name="ブラックキューピットの弓矢" probability="100"/>
+         </Items>
+     </Enemy>
+
+
+     <Enemy id="monster-6" name="ホワイトキュービット" file="monster-6.png" rank="5" hp="500" atk="30" def="15" agl="30" mp="100">
+         <Items max="2">
+             <Item name="ホワイトキューピットの弓矢" probability="100"/>
+         </Items>
+     </Enemy>
+
+
+
+     <Enemy id="monster-7" name="ゴーレム" file="monster-7.png" rank="4" hp="400" atk="20" def="10" agl="20" mp="100">
+         <Items max="2">
+             <Item name="ゴーレムのコア" probability="100"/>
+         </Items>
+     </Enemy>
+
+
+     <Enemy id="monster-8" name="ブルーゴーレム" file="monster-8.png" rank="5" hp="500" atk="30" def="15" agl="30" mp="100">
+         <Items max="2">
+             <Item name="ブルーゴーレムのコア" probability="100"/>
+         </Items>
+     </Enemy>
 </Enemys>

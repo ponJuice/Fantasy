@@ -37,10 +37,12 @@ public class List implements UI {
     protected float sensitivity = 0.001f;
     public List(float x,float y,float width,float height){
         listItem = new ArrayList<>();
+        content_width = width;
         setX(x);
         setY(y);
         setWidth(width);
         setHeight(height);
+        //content_height = height;
     }
     public void addItem(Button bt){
         itemInit(bt,listItem.size(),0,0);
@@ -83,7 +85,7 @@ public class List implements UI {
         initItem();
     }
     public void setY(float y){
-        this.y = y + UIAlign.convertAlign(height,vertical) + height / 2f;
+        this.y = y + UIAlign.convertAlign(height,vertical) - height / 2f;
         initItem();
     }
     public void setWidth(float width){

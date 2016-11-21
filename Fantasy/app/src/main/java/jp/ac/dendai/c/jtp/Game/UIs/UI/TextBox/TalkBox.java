@@ -9,6 +9,7 @@ import jp.ac.dendai.c.jtp.Game.UIs.UI.Image.Image;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Text.StreamText.OneSentenceStreamText;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.UI;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.UIAlign;
+import jp.ac.dendai.c.jtp.Game.UIs.UI.Util.Time;
 import jp.ac.dendai.c.jtp.TouchUtil.Touch;
 
 /**
@@ -31,6 +32,7 @@ public class TalkBox implements UI{
     protected float nameOffsetX = 0.44f  , nameOffsetY = 0.28f;
     protected float nameHeight = 0.1f;
     protected float textOffsetX = 0.44f  , textOffsetY = 0.07f;
+    protected float timeBuffer;
 
     public TalkBox(float x,float y,float width,float height){
         this.width = width;
@@ -124,6 +126,11 @@ public class TalkBox implements UI{
         streamText.setVertical(UIAlign.Align.BOTTOM);
     }
 
+    public void textReset(){
+        streamText.setChar_x(0);
+        streamText.setChar_y(0);
+    }
+
     @Override
     public boolean touch(Touch touch) {
         return false;
@@ -131,7 +138,19 @@ public class TalkBox implements UI{
 
     @Override
     public void proc() {
-        streamText.nextCharX();
+        if(timeBuffer >= Constant.textStreamSpeed) {
+            int count = (int)(timeBuffer / Constant.textStreamSpeed);
+            for(int n = 0;n < count ;n++) {
+                streamText.nextCharX();
+            }
+            timeBuffer = 0;
+        }else{
+            timeBuffer += Time.getDeltaTime();
+        }
+    }
+
+    public void allDraw(){
+        streamText.allDraw();
     }
 
     @Override

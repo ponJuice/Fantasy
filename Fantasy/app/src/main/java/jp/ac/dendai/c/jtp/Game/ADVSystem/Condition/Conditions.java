@@ -31,6 +31,15 @@ public class Conditions implements ICondition,Parseable{
     }
 
     @Override
+    public boolean evaluation(){
+        boolean temp = conditions.get(0).evaluation();
+        for(int n = 1;n < conditions.size();n++){
+            temp = mode.evaluation(temp,conditions.get(n).evaluation());
+        }
+        return temp;
+    }
+
+    @Override
     public void parseCreate(AssetManager am, XmlPullParser xpp) {
         conditions = new ArrayList<>();
         String c_mode = xpp.getAttributeValue(null,attrib_mode);

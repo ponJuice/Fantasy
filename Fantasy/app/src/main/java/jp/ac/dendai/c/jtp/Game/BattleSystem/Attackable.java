@@ -18,6 +18,7 @@ public abstract class Attackable implements Comparable<Attackable>{
     protected int atk;
     protected int def;
     protected int agl;
+    protected int baseMp;
     protected int mp;
     protected String name;
     protected float x,y,sx,sy;

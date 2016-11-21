@@ -1,0 +1,75 @@
+<Event name="test_event_4_2">
+	<EventCondition>
+		<Conditions mode="and">
+			<Condition type1="global" value1="0" mnemonic="==" type2="const" value2="11"/>
+			<Condition type1="system" value1="0" mnemonic="==" type2="const" value2="3"/>
+		</Conditions>
+	</EventCondition>
+
+	<Face>
+		<face id = "hero" name="アラン" file="hero.png"/>
+		<face id = "noface_hero" name="  " file="noface.png"/>
+		<face id = "heroine" name="クレア" file="heroine.png"/>
+		<face id = "teacher" name="師匠" file="teacher.png"/>
+		<face id = "mobu1" name="門番のおっさん" file="mobu1.png"/>
+		<face id = "mobu2" name="酒場の主" file="mobu1.png"/>
+		<face id = "mobu3" name="太った男" file="mobu2.png"/>
+		<face id = "mobu4" name="華奢な男①" file="mobu3.png"/>
+		<face id = "mobu5" name="華奢な男②" file="mobu3.png"/>
+		<face id = "mobu6" name="貫禄ある男" file="mobu4.png"/>
+		<face id = "mobu7" name="黒ずくめの男" file="mobu5.png"/>
+	</Face>
+
+	<Image>
+		<image id="town_01" file="town_01.png"/>
+		<image id="town_02" file="town_02.png"/>
+		<image id="town_03" file="town_03.png"/>
+		<image id="town_04" file="town_04.png"/>
+		<image id="town_05" file="town_05.png"/>
+		<image id="kaigi" file="kaigi.png"/>
+		<image id="dungeon_01" file="dungeon_01.png"/>
+		<image id="dungeon_02" file="dungeon_02.png"/>
+		<image id="dungeon_03" file="dungeon_03.png"/>
+		<image id="dungeon_04" file="dungeon_04.png"/>
+		<image id="dungeon_05" file="dungeon_05.png"/>
+
+		<image id="grass" file="grass.png"/>
+		<image id="koya000" file="koya000.png"/>
+		<image id="li_room05a_a" file="li_room05a_a.png"/>
+		<image id="ad_pass01_a" file="ad_pass01_a.png"/>
+		<image id="wall" file="wall.png"/>
+		<image id="sakaba" file="sakaba.png"/>
+		<image id="syobo" file="syobo.png"/>
+	</Image>
+
+	<Contents>
+
+
+		<Back id="town_04"/>
+		<Trans mode="fade" type="in"  time="1" color="#FF00FF"/>
+
+
+
+		<Scene face="hero" type="normal">ふう。やっと着いたぜ。</Scene>
+		<Scene face="heroine" type="normal">うん。お疲れ、今日はもういいわ。良く休んでいくといいよ。</Scene>
+		<Scene face="heroine" type="normal">ちなみに近くに火山があるから、温泉が有名な町だよ。それを使って、しっかり疲れをとってきてね。じゃ、また明日。</Scene>
+		<Scene face="noface_hero" type="normal">それを言い、相変わらずアランの返事も待たず、どこかへ行ってしまったクレアだった。</Scene>
+		<Scene face="hero" type="normal">まあ、いいや。</Scene>
+		<Scene face="noface_hero" type="normal">そんなクレアをみて、諦めたアランがそこにいた。そして、一人で荷物を宿まで運んだ。</Scene>
+		<Scene face="noface_hero" type="normal">次の日、集合したアランたちが広場にいた。</Scene>
+		<Scene face="heroine" type="normal">さあ、出発よ。</Scene>
+		<Scene face="noface_hero" type="normal">二人があった途端、挨拶も抜きにいきなり行こうとするクレアがそこにいた。</Scene>
+		<Scene face="hero" type="normal">ちょっと待ってよ。前の轍を踏まないように、今度はちゃんと気を付けてね。</Scene>
+		<Scene face="noface_hero" type="normal">やはり、前のことがトラウマになったのか、アランがクレアに注意を促した。</Scene>
+		<Scene face="heroine" type="normal">わっかってるわ。</Scene>
+		<Scene face="noface_hero" type="normal">思い出したくないのか、うんざりしたかのような返事をして先を急ぐクレアだった。</Scene>
+
+
+
+
+
+		<Trans mode="fade" type="out"  time="5" color="#000000"/>
+
+		<Flag type1="global" mode1="const" value1="0" type2="const" mode2="const" value2="12"/>
+	</Contents>
+</Event>

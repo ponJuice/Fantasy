@@ -23,12 +23,14 @@ public class Node {
     protected final static String attrib_enemyRank = "rank";
     protected final static String attrib_town1 = "town1";
     protected final static String attrib_town2 = "town2";
+    protected final static String attrib_back_file = "back";
     protected Town town1;
     protected Town town2;
     protected int encount;
     protected int enemyRank;
     protected float degree;
     protected float length;
+    protected String fileName;
 
     protected float deg;
 
@@ -78,6 +80,14 @@ public class Node {
         return start.getY() + offset;
     }
 
+    public int getRank(){
+        return enemyRank;
+    }
+
+    public String getBackFile(){
+        return fileName;
+    }
+
     public void debugSet(Town t1,Town t2,int encount){
         town1 = t1;
         town2 = t2;
@@ -94,6 +104,8 @@ public class Node {
         node.enemyRank = ParserUtil.convertInt(xpp,attrib_enemyRank);
         node.town1 = db.getTown(xpp.getAttributeValue(null,attrib_town1));
         node.town2 = db.getTown(xpp.getAttributeValue(null,attrib_town2));
+
+        node.fileName = xpp.getAttributeValue(null,attrib_back_file);
 
         node.town1.addNode(node);
         node.town2.addNode(node);

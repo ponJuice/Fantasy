@@ -1,5 +1,6 @@
 package jp.ac.dendai.c.jtp.Game;
 
+import android.graphics.Bitmap;
 import android.util.Log;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -11,17 +12,22 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.zip.CheckedOutputStream;
 
+import jp.ac.dendai.c.jtp.Game.ADVSystem.Event.EventManager;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Enemy.Enemy;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Enemy.EnemyTemplate;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Skill.Animation;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Skill.Skill;
+import jp.ac.dendai.c.jtp.Game.BattleSystem.Skill.SkillEvolutions;
 import jp.ac.dendai.c.jtp.Game.Item.Item;
 import jp.ac.dendai.c.jtp.Game.Item.ItemTemplate;
+import jp.ac.dendai.c.jtp.Game.MapSystem.Dungeon.Dungeon;
 import jp.ac.dendai.c.jtp.Game.MapSystem.Node;
 import jp.ac.dendai.c.jtp.Game.UIs.Effects.Bitmap.AnimationBitmap;
 import jp.ac.dendai.c.jtp.openglesutil.Util.FileManager;
 import jp.ac.dendai.c.jtp.Game.MapSystem.Town;
+import jp.ac.dendai.c.jtp.openglesutil.Util.ImageReader;
 
 /**
  * Created by テツヤ on 2016/10/15.
@@ -32,6 +38,7 @@ public class DataBase {
     protected final static String skillTag = "Skill";
     protected final static String mapTag = "Map";
     protected final static String nodesTag = "Nodes";
+    protected final static String dungeonTag = "Dungeon";
 
     /* ---------- Animation.dat ------------*/
     protected final static String attrib_anim_id = "id";
@@ -52,14 +59,19 @@ public class DataBase {
     protected static HashMap<String,Skill> skillList;
     protected static HashMap<String,ItemTemplate> itemList;
     protected static HashMap<String,Town> townList;
+    protected static HashMap<String,SkillEvolutions> evolutionList;
+    protected static HashMap<String,Dungeon> dungeonList;
     protected static ArrayList<Node> nodeList;
+    protected static EventManager eventManager;
 
     public DataBase(){
         initAnimationList();
+        initItemList();
         initSkillList();
         initEnemyList();
-        initItemList();
         initTownList();
+        initDungeonList();
+        eventManager = new EventManager();
     }
 
     public AnimationBitmap getAnimation(String key){
@@ -69,9 +81,28 @@ public class DataBase {
         return null;
     }
 
+    public EventManager getEventManager(){
+        return eventManager;
+    }
+
     public Town getTown(String key){
         if(townList.containsKey(key))
             return townList.get(key);
+        return null;
+    }
+
+    public Town getTown(int id){
+        for(Town t : townList.values()){
+            if(t.getId() == id)
+                return t;
+        }
+        return null;
+    }
+
+    public Dungeon getDungeon(String key){
+        if(dungeonList.containsKey(key)){
+            return dungeonList.get(key);
+        }
         return null;
     }
 
@@ -108,6 +139,13 @@ public class DataBase {
         if(rankEnemy.containsKey(rank)){
             ArrayList<EnemyTemplate> ea = rankEnemy.get(rank);
             return ea.get(Constant.getRandom().nextInt(ea.size()));
+        }
+        return null;
+    }
+
+    public SkillEvolutions getSkillEvolutions(String owner){
+        if(evolutionList.containsKey(owner)){
+            return evolutionList.get(owner);
         }
         return null;
     }
@@ -173,6 +211,7 @@ public class DataBase {
         Log.d("DataBase","Start initSkillList");
 
         skillList = new HashMap<>();
+        evolutionList = new HashMap<>();
 
         XmlPullParser xpp = null;
         try {
@@ -196,6 +235,49 @@ public class DataBase {
                 if (xpp.getName().equals(skillTag)) {
                     Skill skill = Skill.parseCreate(xpp, this);
                     skillList.put(skill.getSkillName(), skill);
+                }else if(xpp.getName().equals(SkillEvolutions.tagName)){
+                    SkillEvolutions se = SkillEvolutions.parseCreate(xpp,this);
+                    evolutionList.put(se.owner.getSkillName(),se);
+                }
+            }
+
+            try {
+                eventType = xpp.next();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (XmlPullParserException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    protected void initDungeonList(){
+        Log.d("DataBase","Start initDungeonList");
+
+        dungeonList = new HashMap<>();
+
+        XmlPullParser xpp = null;
+        try {
+            XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+            xpp = factory.newPullParser();
+            xpp.setInput(new StringReader(FileManager.readTextFile(Constant.dungeonFile)));
+        }catch (Exception e){
+            e.printStackTrace();
+            //debugOutputString("error end");
+        }
+
+        int eventType = XmlPullParser.END_DOCUMENT;
+        try{
+            eventType = xpp.getEventType();
+        }catch (XmlPullParserException e){
+            e.printStackTrace();
+        }
+
+        while(eventType != XmlPullParser.END_DOCUMENT) {
+            if(eventType == XmlPullParser.START_TAG) {
+                if (xpp.getName().equals(dungeonTag)) {
+                    Dungeon dg = Dungeon.parseCreate(xpp,this);
+                    dungeonList.put(dg.getName(),dg);
                 }
             }
 

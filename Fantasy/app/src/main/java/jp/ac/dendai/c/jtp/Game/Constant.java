@@ -21,14 +21,22 @@ public class Constant {
         system_talk_back,
         system_message_box,
         system_selector,
-        system_cursor
+        system_cursor,
+        system_ue,
+        system_sita,
+        system_yes,
+        system_no,
+        town_icon,
+        dungeon_icon,
+        boss_icon
+
     }
     private static float sens = 1.0f;
     public static void setSens(float n){ sens = n;}
     public static float getSens(){return sens;}
     public static final String fontName = "custom_font.ttf";
     protected static Bitmap text_effect_white,text_effect_mask,system_button,black,stream_text,system_talk_back,system_message_box;
-    protected static Bitmap system_selector,system_cursor;
+    protected static Bitmap system_selector,system_cursor,system_sita,system_ue,system_yes,system_no,town_icon,dungeon_icon,boss_icon;
     protected static PlayerData playerData;
     public final static int talk_text_size = 25;
     public final static int talk_text_color = 0xFFFFFFFF;  //a,r,g,b
@@ -64,6 +72,7 @@ public class Constant {
     protected final static String skillFile = "Battle/Skills/Skills.dat";
     protected final static String enemyFile = "Battle/Enemy/Enemys.dat";
     protected final static String itemFile = "Battle/Items/Items.dat";
+    protected final static String dungeonFile = "Dungeon/dungeon.dat";
     protected final static String townFile = "Town/town.dat";
     //protected final static String system_image_directory = "Image/System/";
     //protected final static String selector_image = "selector.png";
@@ -93,12 +102,15 @@ public class Constant {
     public final static float action_textbox_y_offset = 0.1f;
     public final static float battle_state_interval = 0.5f;
     public final static String normal_attack_name = "normalAttack";
-    public final static float battle_list_width = 0.3f;
+    public final static float battle_list_width = 0.5f;
     public final static float battle_list_height = 0.5f;
-    public final static float battle_list_content_width = 0.3f;
+    public final static float battle_list_content_width = 0.5f;
     public final static float battle_list_content_height = 0.1f;
     public final static float battle_list_text_padding = 0.02f;
     public final static float battle_list_item_padding = 0.0f;
+    public final static String saveDataFile = "save.dat";
+
+    public static float textStreamSpeed = 0.05f;
 
     /* -----------その他-------------*/
     protected final static Random random = new Random(System.currentTimeMillis());
@@ -126,6 +138,20 @@ public class Constant {
             system_selector = GLES20Util.loadBitmap(R.mipmap.selector);
         if(system_cursor == null)
             system_cursor = GLES20Util.loadBitmap(R.mipmap.yajirushi);
+        if(system_ue == null)
+            system_ue = GLES20Util.loadBitmap(R.mipmap.ue);
+        if(system_sita == null)
+            system_sita = GLES20Util.loadBitmap(R.mipmap.sita);
+        if(system_yes == null)
+            system_yes = GLES20Util.stringToBitmap("はい",Constant.fontName,25,255,255,255);
+        if(system_no == null)
+            system_no = GLES20Util.stringToBitmap("いいえ",Constant.fontName,25,255,255,255);
+        if(town_icon == null)
+            town_icon = GLES20Util.loadBitmap(R.mipmap.town_icon);
+        if(dungeon_icon == null)
+            dungeon_icon = GLES20Util.loadBitmap(R.mipmap.dungeon_icon);
+        if(boss_icon == null)
+            boss_icon = GLES20Util.loadBitmap(R.mipmap.boss);
 
     }
 
@@ -152,6 +178,20 @@ public class Constant {
             return system_selector;
         }else if(f == BITMAP.system_cursor){
             return system_cursor;
+        }else if(f == BITMAP.system_sita) {
+            return system_sita;
+        }else if(f == BITMAP.system_ue){
+            return system_ue;
+        }else if(f == BITMAP.system_yes){
+            return system_yes;
+        }else if(f == BITMAP.system_no){
+            return system_no;
+        }else if(f == BITMAP.town_icon){
+            return town_icon;
+        }else if(f == BITMAP.dungeon_icon){
+            return dungeon_icon;
+        }else if(f == BITMAP.boss_icon){
+            return boss_icon;
         }
         return text_effect_white;
     }

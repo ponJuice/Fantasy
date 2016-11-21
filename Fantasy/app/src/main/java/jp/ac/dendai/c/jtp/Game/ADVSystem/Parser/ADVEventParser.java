@@ -12,11 +12,14 @@ import java.io.*;
 import java.util.logging.XMLFormatter;
 
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Component.ADVComponent;
+import jp.ac.dendai.c.jtp.Game.ADVSystem.Component.BGM;
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Component.Background;
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Component.Branch.FlagBranch;
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Component.Branch.UserBranch;
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Component.Flag;
+import jp.ac.dendai.c.jtp.Game.ADVSystem.Component.ItemProc;
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Component.JumpBattle;
+import jp.ac.dendai.c.jtp.Game.ADVSystem.Component.JumpTown;
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Component.MessageBox;
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Component.Scene;
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Component.Transition;
@@ -62,7 +65,7 @@ public class ADVEventParser {
         //画像の読み込み
         loadImage(assetManager,xpp);
         //サウンドの読み込み
-        loadSound(assetManager,xpp);
+        //loadSound(assetManager,xpp);
         //コンテンツの読み込み
         debugOutputString("");
         debugOutputString("Content Load");
@@ -132,6 +135,18 @@ public class ADVEventParser {
                     JumpBattle jb = new JumpBattle();
                     jb.parseCreate(am,xpp);
                     pack.setComponent(jb);
+                }else if(str.equals(ItemProc.tagName)){
+                    ItemProc ip = new ItemProc();
+                    ip.parseCreate(am,xpp);
+                    pack.setComponent(ip);
+                }else if(str.equals(JumpTown.tagName)){
+                    JumpTown jt = new JumpTown();
+                    jt.parseCreate(am,xpp);
+                    pack.setComponent(jt);
+                }else if(str.equals(BGM.tagName)){
+                    BGM bgm = new BGM();
+                    bgm.parseCreate(am,xpp);
+                    pack.setComponent(bgm);
                 }
             }
 

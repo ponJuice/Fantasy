@@ -1,7 +1,8 @@
-<Event name="test_event">
+<Event name="test_event_5">
 	<EventCondition>
-		<Conditions mode="or">
-			<Condition type1="const" value1="1" mnemonic="==" type2="const" value2="1"/>
+		<Conditions mode="and">
+			<Condition type1="global" value1="0" mnemonic="==" type2="const" value2="14"/>
+			<Condition type1="system" value1="0" mnemonic="==" type2="const" value2="8"/>
 		</Conditions>
 	</EventCondition>
 
@@ -19,26 +20,34 @@
 	</Face>
 
 	<Image>
+
 		<image id="town_01" file="town_01.png"/>
+		<image id="town_02" file="town_02.png"/>
+		<image id="town_03" file="town_03.png"/>
+		<image id="town_04" file="town_04.png"/>
+		<image id="town_05" file="town_05.png"/>
+		<image id="kaigi" file="kaigi.png"/>
 		<image id="dungeon_01" file="dungeon_01.png"/>
+		<image id="dungeon_02" file="dungeon_02.png"/>
+		<image id="dungeon_03" file="dungeon_03.png"/>
+		<image id="dungeon_04" file="dungeon_04.png"/>
+		<image id="dungeon_05" file="dungeon_05.png"/>
+
+		<image id="grass" file="grass.png"/>
+		<image id="koya000" file="koya000.png"/>
+		<image id="li_room05a_a" file="li_room05a_a.png"/>
+		<image id="ad_pass01_a" file="ad_pass01_a.png"/>
+		<image id="wall" file="wall.png"/>
+		<image id="sakaba" file="sakaba.png"/>
+		<image id="syobo" file="syobo.png"/>
 	</Image>
 
-	<Sound>
-		<soune name="angly" file="angly.wav"/>
-	</Sound>
-
 	<Contents>
-		<Back id="town_01"/>
+		<Back id="town_05"/>
 		<Trans mode="fade" type="in"  time="1" color="#FF00FF"/>
 
 
-		<Scene face="hero" type="normal">ねぇ、なぜ俺を襲ってくるのかな。</Scene>
-		<Scene face="noface_hero" type="normal">未だに襲撃の件に頭を悩ますアランがそこにいた。</Scene>
-		<Scene face="heroine" type="normal">だーかーらー、分かんないことはいつまでも引きずるもんじゃないの。</Scene>
-		<Scene face="noface_hero" type="normal">クレアはその話がうんざりしたような口調で言い返した。</Scene>
-		<Scene face="heroine" type="normal">また、今度襲ってきたら、捕まえて問いただせばいいの。だから、さっさと次の目的地へ行くわ。</Scene>
-		<Scene face="noface_hero" type="normal">なんか物騒な話をサラッと言ったクレアだった。それを気にする暇もなく、引っ張られていくアランだった。。</Scene>
-		<Scene face="heroine" type="normal">そうだね。先に言っとくけど、今度はこの町の北西にある町に向かうわ。</Scene>
+
 
 
 		<Scene face="noface_hero" type="normal">ううんんーー。ねぇ、クレア。あの時、あの男はこの剣を奪おうとした気がする。この剣ってそんなに大切なの。</Scene>
@@ -54,100 +63,8 @@
 		<Scene face="noface_hero" type="normal">クレアはアランが例の話を切り出させないよう、強引に出発することにし、先に進んだ。</Scene>
 		<Scene face="noface_hero" type="normal">アランは何かを言いだそうとしたが、先に進んでるクレアを見て、しょうがなく口を閉ざし、黙ってついていった。</Scene>
 
-		<Scene face="hero" type="normal">さあ、こい。</Scene>
-		<Scene face="noface_hero" type="normal">いつ襲ってもいいように、アランは気合を入れて構えた。</Scene>
-		<Scene face="noface_hero" type="normal">その姿勢でしばらくしたら、後ろからクレアの声が知ってきた。</Scene>
-		<Scene face="heroine" type="normal">何をしている。こっちは終わったわ。帰るよ。</Scene>
-		<Scene face="hero" type="normal">えっ。</Scene>
-		<Scene face="noface_hero" type="normal">構えたまま、アランはクレアの後ろ姿をみて、立ち尽くした。</Scene>
-		<Scene face="heroine" type="normal">町へ、今回の遺跡はあっさりと終わったね。ちょっと拍子抜けね。</Scene>
-		<Scene face="noface_hero" type="normal">クレアは町についた途端、アランに言った。</Scene>
-		<Scene face="noface_hero" type="normal">構えて、いつまでも例の男が現れないから、ある意味本当に拍子抜けしたアランだった。</Scene>
-		<Scene face="heroine" type="normal">そういえば、調べたいことは全部調べたわ。あっという間だね。</Scene>
-
-
-
-
-		<Scene face="noface_hero" type="normal">クレアは何か感心深そうにそういった。</Scene>
-		<Scene face="hero" type="normal">そうだね。</Scene>
-		<Scene face="noface_hero" type="normal">アランもそう思ったのか、頷き返した。</Scene>
-		<Scene face="heroine" type="normal">これからの予定なんだけど、私は調べたことをまとめて学会に発表するから、しばらく中継の町にいるわ。</Scene>
-		<Scene face="heroine" type="normal">客としていらっしゃい、歓迎するわ。</Scene>
-		<Scene face="noface_hero" type="normal">クレアは別れを意識したか、アランを客として招こうとした。</Scene>
-		<Scene face="hero" type="normal">うん。そうする。俺は一回師匠のところに報告してから行くよ。</Scene>
-		<Scene face="noface_hero" type="normal">アランも別れを惜しみ、ちゃんとクレアに会いに行こうと決めた。</Scene>
-		<Scene face="heroine" type="normal">じゃあ、ちゃんと来てね。</Scene>
-		<Scene face="noface_hero" type="normal">クレアはそれを言い、アランを残し中継の町に向かった。</Scene>
-		<Scene face="noface_hero" type="normal">アランも山に帰る。</Scene>
-
-
-		<Scene face="noface_hero" type="normal">おお、戻ってきたか。どうじゃ、人生経験は満たしたか。</Scene>
-		<Scene face="noface_hero" type="normal">山に戻り、師匠がいきなり言い出した。</Scene>
-
-
-		<Scene face="noface_hero" type="normal">一つ旅で、人生経験を満たしたらやばいだろ。</Scene>
-		<Scene face="noface_hero" type="normal">師弟あった途端、ツッコミを入れるアランだった。</Scene>
-		<Scene face="hero" type="normal">でも、ちゃんと師匠の言い付け通りに夢を追いかけてきたぜ。……</Scene>
-		<Scene face="noface_hero" type="normal">そしたら、自分の夢及びクレアとの旅の話を師匠に教えた。</Scene>
-		<Scene face="hero" type="normal">ほら、これが伝説の剣だぜ。これで、俺は世界平和を守れるぜ。</Scene>
-		<Scene face="noface_hero" type="normal">自慢げに師匠に剣を見せる。</Scene>
-
-
-
-		<Scene face="teacher" type="normal">ううんんーー。のう、アラン。我が弟子よ。立派な夢を抱えてるようじゃが、この世界の平和にオメェは必要ないんだ。</Scene>
-		<Scene face="noface_hero" type="normal">師匠はとんでもないことを言い出す。</Scene>
-		<Scene face="hero" type="normal">えっ。</Scene>
-		<Scene face="noface_hero" type="normal">アランはその言葉に反応し損ねた。</Scene>
-		<Scene face="teacher" type="normal">だから、今の世の中もう平和だよ。</Scene>
-		<Scene face="noface_hero" type="normal">そんなアランを見て、哀れな表情で言った。</Scene>
-		<Scene face="teacher" type="normal">オメェが世界平和を守らなくても、世界は平和だぜ。わはっはははは。</Scene>
-		<Scene face="noface_hero" type="normal">とうとう我慢が利かなくなったか、おお声で笑い出した師匠がそこにいた。</Scene>
-		<Scene face="hero" type="normal">嘘だろう。</Scene>
-		<Scene face="noface_hero" type="normal">アランは信じられない声を上げた。</Scene>
-
-
-
-
-		<Scene face="hero" type="normal" text="s3" autoscroll="true"/>
-
-		<UserBranch>
-			<Select text="b0">
-				<Message text="msg01" time="0.5"/>
-				<Scene face="hero" type="normal" text = "bs00"/>
-				<Scene face="hero" type="normal" text = "bs01"/>
-				<!-- localフラグのインデックス1番に定数1を代入 -->
-				<Flag type1="local" mode1="const" value1="1" type2="const" mode2="const" value2="1"/>
-			</Select>
-			<Select text="b1">
-				<Message text="msg02" time="0.5"/>
-				<Scene face="heroine" type="normal" text = "bs10"/>
-				<Scene face="heroine" type="normal" text = "bs11"/>
-				<Scene face="heroine" type="normal" text = "jump"/>
-				<Battle/>
-				<!-- localフラグのインデックス1番に定数1を代入 -->
-				<Flag type1="local" mode1="const" value1="1" type2="const" mode2="const" value2="2"/>
-			</Select>
-		</UserBranch>
-		<Scene face="hero" type="normal" text = "s4"/>
-		<FlagBranch default="true">
-			<Select>
-				<Conditions mode="and">
-					<Condition  type1="local" value1="1" mnemonic="==" type2="const" value2="1"/>
-				</Conditions>
-				<Scenes>
-					<Scene face="hero" type="normal" text = "fbs11"/>
-				</Scenes>
-			</Select>
-			<Select>
-				<Conditions mode="and">
-					<Condition  type1="local" value1="0" mnemonic="==" type2="const" value2="1"/>
-				</Conditions>
-				<Scenes>
-					<Scene face="heroine" type="normal" text = "fbs12"/>
-				</Scenes>
-			</Select>
-		</FlagBranch>
-		<Scene face="heroine" type="normal" text="s5"/>
 		<Trans mode="fade" type="out"  time="5" color="#000000"/>
+
+		<Flag type1="global" mode1="const" value1="0" type2="const" mode2="const" value2="15"/>
 	</Contents>
 </Event>

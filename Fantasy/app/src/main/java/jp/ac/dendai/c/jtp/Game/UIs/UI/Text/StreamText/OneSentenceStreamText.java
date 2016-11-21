@@ -88,7 +88,10 @@ public class OneSentenceStreamText implements UI {
             char_x = string[char_y].length();
         }
     }
-
+    public void allDraw(){
+        char_x = max_x_length;
+        char_y = string.length-1;
+    }
     @Override
     public boolean touch(Touch touch) {
         return false;

@@ -1,11 +1,22 @@
 package jp.ac.dendai.c.jtp.openglesutil.Util;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 
 import android.app.Activity;
 import android.content.res.AssetManager;
+
+import jp.ac.dendai.c.jtp.Game.Constant;
+import jp.ac.dendai.c.jtp.Game.GameManager;
+
+import static android.content.Context.MODE_PRIVATE;
+import static android.os.ParcelFileDescriptor.MODE_APPEND;
+
 /**
  * ファイル読み込み用クラス
  *　作り掛け
@@ -45,4 +56,37 @@ public class FileManager {
             return "読み込み失敗";
         }
 	}
+    public static void writeTextFileLocal(String fileName,String data){
+        OutputStream out;
+        try {
+            out = GameManager.act.openFileOutput(fileName,MODE_PRIVATE);
+            PrintWriter writer = new PrintWriter(new OutputStreamWriter(out,"UTF-8"));
+
+            //追記する
+            writer.append(data);
+            writer.close();
+        } catch (IOException e) {
+            // TODO 自動生成された catch ブロック
+            e.printStackTrace();
+        }
+    }
+    public static String readTextFileLocal(String fileName){
+        InputStream in;
+        String lineBuffer;
+        StringBuilder sb = new StringBuilder();
+        try {
+            in = GameManager.act.openFileInput(fileName); //LOCAL_FILE = "log.txt";
+
+            BufferedReader reader= new BufferedReader(new InputStreamReader(in,"UTF-8"));
+            while( (lineBuffer = reader.readLine()) != null ){
+                sb.append(lineBuffer);
+            }
+        } catch (IOException e) {
+            // TODO 自動生成された catch ブロック
+            e.printStackTrace();
+        }
+
+        return sb.toString();
+    }
+
 }

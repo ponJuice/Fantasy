@@ -8,6 +8,8 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 
+import javax.microedition.khronos.opengles.GL;
+
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Component.Enum.FaceType;
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Event.Event;
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Parser.AssetManager;
@@ -16,6 +18,8 @@ import jp.ac.dendai.c.jtp.Game.ADVSystem.Texts.TextManager;
 import jp.ac.dendai.c.jtp.Game.Charactor.Face;
 import jp.ac.dendai.c.jtp.Game.Charactor.FaceManager;
 import jp.ac.dendai.c.jtp.Game.Constant;
+import jp.ac.dendai.c.jtp.Game.UIs.UI.Button.Button;
+import jp.ac.dendai.c.jtp.Game.UIs.UI.Button.ButtonListener;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Text.StreamText.OneSentenceStreamText;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.TextBox.TalkBox;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Util.Time;
@@ -26,7 +30,7 @@ import jp.ac.dendai.c.jtp.openglesutil.core.GLES20Util;
 /**
  * Created by テツヤ on 2016/10/06.
  */
-public class Scene extends ADVComponent implements Parseable{
+public class Scene extends ADVComponent implements Parseable,ButtonListener{
     /*------- Parseable関連 -----------*/
     public final  static String tagName = "Scene";
     public final  static String attrib_face = "face";
@@ -47,6 +51,8 @@ public class Scene extends ADVComponent implements Parseable{
     protected boolean isTouch = false;
     protected boolean isInit = false;
     protected boolean autoScroll = true;
+    protected Button btn;
+    protected boolean end = false;
 
     @Override
     public void draw(float offset_x,float offset_y) {
@@ -57,14 +63,24 @@ public class Scene extends ADVComponent implements Parseable{
     public ADVComponent proc(Event event) {
         init(event);
         talkBox.proc();
-        if(talkBox.isTextEnd()){
-            if((isTouch || autoScroll) &&  (event.getTouch() == null || event.getTouch().getTouchID() == -1))
+        if(event.getTouch() != null) {
+            btn.touch(event.getTouch());
+            btn.proc();
+        }
+        if(end || (talkBox.isTextEnd() && autoScroll)){
+            return next;
+        }
+        /*if(talkBox.isTextEnd()){
+            if(autoScroll ||  (event.getTouch() != null && event.getTouch().getTouchID() != -1))
                 //テキストが全て表示されていて、入力がある場合次へ
                 return next;
+        }else if((event.getTouch() != null && event.getTouch().getTouchID() != -1)){
+            //テキストがすべて表示されていない場合はすべて表示する
+            talkBox.allDraw();
         }
-        if(event.getTouch() != null && event.getTouch().getTouchID() != -1){
+        /*if(event.getTouch() != null && event.getTouch().getTouchID() != -1){
             isTouch = true;
-        }
+        }*/
         timeBuffer += Time.getDeltaTime();
         return this;
     }
@@ -88,6 +104,8 @@ public class Scene extends ADVComponent implements Parseable{
     }
 
     private static void create(Scene s,Face face,FaceType faceType,String text){
+        s.btn = new Button(GLES20Util.getWidth_gl()/2f,GLES20Util.getHeight_gl()/2f,GLES20Util.getWidth_gl(), GLES20Util.getHeight_gl());
+        s.btn.setButtonListener(s);
         s.face = face;
         s.faceType = faceType;
         s.streamText = OneSentenceStreamText.createStreamText(text
@@ -153,5 +171,24 @@ public class Scene extends ADVComponent implements Parseable{
     @Override
     public String getTagName() {
         return null;
+    }
+
+    @Override
+    public void touchDown(Button button) {
+
+    }
+
+    @Override
+    public void touchHover(Button button) {
+
+    }
+
+    @Override
+    public void touchUp(Button button) {
+        if(talkBox.isTextEnd()){
+            end = true;
+        }else{
+            talkBox.allDraw();
+        }
     }
 }

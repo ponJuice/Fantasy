@@ -1,7 +1,7 @@
-<Event name="test_event">
+<Event name="test_event_1">
 	<EventCondition>
 		<Conditions mode="or">
-			<Condition type1="const" value1="1" mnemonic="==" type2="const" value2="1"/>
+			<Condition type1="global" value1="0" mnemonic="==" type2="const" value2="1"/>
 		</Conditions>
 	</EventCondition>
 
@@ -21,14 +21,19 @@
 	<Image>
 		<image id="town_01" file="town_01.png"/>
 		<image id="dungeon_01" file="dungeon_01.png"/>
+		<image id="grass" file="grass.png"/>
+		<image id="koya000" file="koya000.png"/>
+		<image id="li_room05a_a" file="li_room05a_a.png"/>
+		<image id="ad_pass01_a" file="ad_pass01_a.png"/>
+		<image id="wall" file="wall.png"/>
+		<image id="sakaba" file="sakaba.png"/>
 	</Image>
 
-	<Sound>
-		<soune name="angly" file="angly.wav"/>
-	</Sound>
-
 	<Contents>
-		<Back id="town_01"/>
+
+
+		<Back id="grass"/>
+		<BGM res_id="amayo"/>
 		<Trans mode="fade" type="in"  time="1" color="#FF00FF"/>
 		<Scene face="noface_hero" type="normal">一目で見渡せない草原の上、一人の少年が佇んでいる。</Scene>
 		<Scene face="noface_hero" type="normal">夜なのに、真上の満月がこれでもかというくらいの草原を照らして、</Scene>
@@ -39,7 +44,12 @@
 		<Scene face="hero" type="normal">はぁー、まいったなぁ、こりゃー。</Scene>
 		<Scene face="noface_hero" type="normal">ため息を混じりながら、こう呟いた。</Scene>
 		<Scene face="noface_hero" type="normal">そして、なぜこうなったのかを少年が自分の頭に思い返したのである。</Scene>
+
+		<Back id="li_room05a_a"/>
+		<Trans mode="fade" type="in"  time="1" color="#FF00FF"/>
+
 		<Scene face="noface_hero" type="normal">時間を少々遡る。</Scene>
+
 		<Scene face="hero" type="normal">これは一体どういうことか。</Scene>
 		<Scene face="noface_hero" type="normal">アランは憤りを我慢できないまま、大声で師匠のもとに駆け付けている。</Scene>
 		<Scene face="noface_hero" type="normal">なぜこうなったのか、その手にあるエロ本を見れば、多少察しが付くだろう。</Scene>
@@ -57,7 +67,12 @@
 		<Scene face="noface_hero" type="normal">そう、ここで問題が発生した。</Scene>
 		<Scene face="noface_hero" type="normal">急いだ分、あとになって後悔することになった。</Scene>
 		<Scene face="noface_hero" type="normal">荷物をまとめた後、すでに日が半分沈んだ後だった。</Scene>
-		<Scene face="noface_hero" type="normal">にもかかわらず、山を下りたアランは草原にたどり着いたあとは、</Scene>
+
+		<Back id="grass"/>
+		<Trans mode="fade" type="in"  time="1" color="#FF00FF"/>
+
+
+		<Scene face="noface_hero" type="normal">そういうわけで、山を下りたアランは草原にたどり着いたあとは、</Scene>
 		<Scene face="noface_hero" type="normal">もうすっかり夜中になっている。</Scene>
 		<Scene face="noface_hero" type="normal">露宿をしようとしたら、いきなりモンスターに襲われ、寝るに寝れない状態で、</Scene>
 		<Scene face="noface_hero" type="normal">疲れた顔で空を見上げて後悔するしかなかった。</Scene>
@@ -66,10 +81,17 @@
 		<Scene face="noface_hero" type="normal">そして、どうせ寝れないから、先を急ぐことにアランはまた安易に決めた。</Scene>
 		<Scene face="noface_hero" type="normal">なぜ、また、という言葉が出たのか、言わずもわかることだろう。</Scene>
 		<Scene face="noface_hero" type="normal">一晩、頑張って歩いた少年は後悔した。</Scene>
+
+		<Back id="wall"/>
+		<Trans mode="fade" type="in"  time="1" color="#FF00FF"/>
+
 		<Scene face="noface_hero" type="normal">なぜわかるかというと、その精神も肉体も疲れた表情で一発である。</Scene>
 		<Scene face="noface_hero" type="normal">しかし、頑張った甲斐もあって、やっと町についた。</Scene>
 		<Scene face="noface_hero" type="normal">疲れすぎたか、城門のところにたどり着いた途端倒れて寝てしまった。</Scene>
 		<Scene face="noface_hero" type="normal">駆け付けた門番はそのやっと寝れるという満足の顔に呆れて何も言えなかった。</Scene>
+
+		<Back id="li_room05a_a"/>
+		<Trans mode="fade" type="in"  time="1" color="#FF00FF"/>
 
 		<Scene face="hero" type="normal">んん。</Scene>
 		<Scene face="noface_hero" type="normal">目覚めたら、見知らぬ天井が目に入った。</Scene>
@@ -90,8 +112,8 @@
 		<Scene face="noface_hero" type="normal">当然、餞別品の話は抜いてあるのは言うまでもない。</Scene>
 		<Scene face="mobu1" type="normal">そうか、そうしたら、お前さん、身分もないか。</Scene>
 		<Scene face="mobu1" type="normal">まぁ、近くの山だから、この町の所属だ。</Scene>
-		<Scene face="mobu1" type="normal">銅貨５枚で登録できるから、別に大したことない。</Scene>
-		<Scene face="hero" type="normal">え、銅貨５枚という言葉を聞いて固まってしまったアランがそこにいた。</Scene>
+		<Scene face="mobu1" type="normal">５００ゴールドで登録できるから、別に大したことない。</Scene>
+		<Scene face="hero" type="normal">え、５００ゴールドという言葉を聞いて固まってしまったアランがそこにいた。</Scene>
 		<Scene face="noface_hero" type="normal">山で使わない分、荷物をまとめる際、金の事はすっかり忘れてある。</Scene>
 		<Scene face="mobu1" type="normal">ん？どうした。固まってしまって、</Scene>
 		<Scene face="noface_hero" type="normal">と聞かれたら、恥ずかしいけど素直に答えた。</Scene>
@@ -103,7 +125,7 @@
 		<Scene face="noface_hero" type="normal">それをみて、なぜかおっさんは顔色を変えた。</Scene>
 		<Scene face="noface_hero" type="normal">そして、生暖かい眼差しでアランを見て、分かったような顔で言い返した。</Scene>
 		<Scene face="mobu1" type="normal">確かに貴重だ。だから、しまっとけ。</Scene>
-		<Scene face="mobu1" type="normal">銅貨５枚くらい、俺が貸してやる。</Scene>
+		<Scene face="mobu1" type="normal">５００ゴールドくらい、俺が貸してやる。</Scene>
 		<Scene face="mobu1" type="normal">稼いだら、返してくれればいい。</Scene>
 		<Scene face="mobu1" type="normal">それまで、これをとりあえず俺が預かる。</Scene>
 		<Scene face="noface_hero" type="normal">真顔なおっさんの言葉に感動し、アランは物を預けて、</Scene>
@@ -111,7 +133,8 @@
 		<Scene face="noface_hero" type="normal">そして、アランが去った後に、</Scene>
 		<Scene face="noface_hero" type="normal">おっさんはすぐさま本を開いて、鼻の下を伸ばした状態で真剣に眺めていく。</Scene>
 
-
+		<Back id="sakaba"/>
+		<Trans mode="fade" type="in"  time="1" color="#FF00FF"/>
 
 
 		<Scene face="noface_hero" type="normal">酒場内では、おっさんに進められてやってきた少年が看板の前で悩んでいる。</Scene>
@@ -128,6 +151,8 @@
 		<Scene face="noface_hero" type="normal">あっても、このように誰も手に取らない。</Scene>
 		<Scene face="noface_hero" type="normal">急いで金が欲しいアランは悩みに悩んだ後、その依頼を手に取って、依頼主の元へ向かった。</Scene>
 
+		<Back id="town_01"/>
+		<Trans mode="fade" type="in"  time="1" color="#FF00FF"/>
 
 		<Scene face="noface_hero" type="normal">向かった先で出会った依頼主はちょっと年上の女の人で、かなりの美人にアランは驚いた。</Scene>
 		<Scene face="noface_hero" type="normal">本当に依頼主なのかと疑問に感じたアランは先に聞こうとしたが、女の人に先を越された。</Scene>
@@ -145,90 +170,8 @@
 		<Scene face="heroine" type="normal">あ、そう。じゃあ、遺跡に向かうわ。いこう。</Scene>
 		<Scene face="noface_hero" type="normal">なぜか、いきなり依頼を遂行することになるアランは、大丈夫かなと疑いながらもついていった。</Scene>
 		<Scene face="noface_hero" type="normal">そして、クレアは自己中な人だという第一印象が残った。</Scene>
-
-
-
-
-		<Scene face="hero" type="normal">ぜーぜー、はーはー</Scene>
-		<Scene face="noface_hero" type="normal">息が中々整えないアランがそこにいた。</Scene>
-		<Scene face="noface_hero" type="normal">ボスを倒し、やっと回りからモンスターがわいてこなくなったこと、</Scene>
-		<Scene face="noface_hero" type="normal">一息休めるようになったアランは、ようやく遺跡の危険さがわかってきた。</Scene>
-		<Scene face="noface_hero" type="normal">強いボスがいるにも関わらず、モンスターの数も半端じゃない。</Scene>
-		<Scene face="noface_hero" type="normal">連戦が続いて、休む暇もない。まあ、何とかなったと感心した。</Scene>
-		<Scene face="noface_hero" type="normal">それと、クレアは遺跡を観察している。</Scene>
-		<Scene face="noface_hero" type="normal">近くによると、彼女は石板に乗っている古代文字を読んでいることが分かった。</Scene>
-		<Scene face="noface_hero" type="normal">何が乗っているのかを聞いてみた。</Scene>
-		<Scene face="heroine" type="normal">んん、その玉の話が載っている。</Scene>
-		<Scene face="heroine" type="normal">英雄エアトンの剣、いわゆる、今王国にある伝説の剣の由来ね。面白いわ。</Scene>
-		<Scene face="heroine" type="normal">ねぇ、その玉をその剣に近づけてみて。</Scene>
-		<Scene face="noface_hero" type="normal">そうすると、その玉が光になって剣に入ったのを見た。</Scene>
-
-
-		<Scene face="noface_hero" type="normal">そしたら、連戦の末にボロボロになった剣が元通りになった。若干鋭くも感じる。</Scene>
-		<Scene face="hero" type="normal">これって、剣を修理する効果があるの？</Scene>
-		<Scene face="noface_hero" type="normal">と尋ねたら、</Scene>
-		<Scene face="heroine" type="normal">違う。金の玉は剣を不壊の属性にする。あと、玉の一つごとに剣のランクも上がるわ。</Scene>
-		<Scene face="heroine" type="normal">そして、すべての玉を揃えると、伝説の剣と同等の物になる。</Scene>
-		<Scene face="heroine" type="normal">この石板に書かれているわ。まぁ、調査は済んだわ。帰ろう、残りが帰ってからにしよう。</Scene>
-
-
-
-		<Scene face="noface_hero" type="normal">帰りはそこまで戦闘は起きてなく、無事に町まで帰って来れた。</Scene>
-		<Scene face="noface_hero" type="normal">そして、クレアから護衛の継続を頼まれた。というか、一方的に押し付けられた感もある。</Scene>
-		<Scene face="heroine" type="normal">ねぇ、私は最初も言ったけど、英雄エアトンの足跡を追っているの。</Scene>
-		<Scene face="heroine" type="normal">だから、後いくつかの遺跡を回るから、護衛を頼んだわ。</Scene>
-		<Scene face="heroine" type="normal">じゃ、次の町への行く準備をして、明日出発するから、また明日ね。</Scene>
-		<Scene face="noface_hero" type="normal">と、こんな風になった。</Scene>
-		<Scene face="noface_hero" type="normal">この話を持ち掛けられて、アランは考えた。</Scene>
-		<Scene face="hero" type="normal">師匠に夢を追いかけろって言われたけど、まぁ、とりあえず、伝説の剣を作ろう。</Scene>
-		<Scene face="hero" type="normal">俺も英雄エアトンのように世界の平和を守るぞ。</Scene>
-		<Scene face="noface_hero" type="normal">そして、心の隅にこういう声もある。</Scene>
-		<Scene face="hero" type="normal">クレアについていけば、とりあえず、旅に必要な金の心配はなさそうだ。</Scene>
-		<Scene face="noface_hero" type="normal">当然、アランはこの声を無視して、寝ることにした。</Scene>
-		<Scene face="noface_hero" type="normal">こうして、安易な考えから安易な夢ができたアランはそこで安らかに眠っている。</Scene>
-
-
-
-		<Scene face="hero" type="normal" text="s3" autoscroll="true"/>
-
-		<UserBranch>
-			<Select text="b0">
-				<Message text="msg01" time="0.5"/>
-				<Scene face="hero" type="normal" text = "bs00"/>
-				<Scene face="hero" type="normal" text = "bs01"/>
-				<!-- localフラグのインデックス1番に定数1を代入 -->
-				<Flag type1="local" mode1="const" value1="1" type2="const" mode2="const" value2="1"/>
-			</Select>
-			<Select text="b1">
-				<Message text="msg02" time="0.5"/>
-				<Scene face="heroine" type="normal" text = "bs10"/>
-				<Scene face="heroine" type="normal" text = "bs11"/>
-				<Scene face="heroine" type="normal" text = "jump"/>
-				<Battle/>
-				<!-- localフラグのインデックス1番に定数1を代入 -->
-				<Flag type1="local" mode1="const" value1="1" type2="const" mode2="const" value2="2"/>
-			</Select>
-		</UserBranch>
-		<Scene face="hero" type="normal" text = "s4"/>
-		<FlagBranch default="true">
-			<Select>
-				<Conditions mode="and">
-					<Condition  type1="local" value1="1" mnemonic="==" type2="const" value2="1"/>
-				</Conditions>
-				<Scenes>
-					<Scene face="hero" type="normal" text = "fbs11"/>
-				</Scenes>
-			</Select>
-			<Select>
-				<Conditions mode="and">
-					<Condition  type1="local" value1="0" mnemonic="==" type2="const" value2="1"/>
-				</Conditions>
-				<Scenes>
-					<Scene face="heroine" type="normal" text = "fbs12"/>
-				</Scenes>
-			</Select>
-		</FlagBranch>
-		<Scene face="heroine" type="normal" text="s5"/>
+		<Flag type1="global" mode1="const" value1="0" type2="const" mode2="const" value2="2"/>
 		<Trans mode="fade" type="out"  time="5" color="#000000"/>
+		<BGM stop="true"/>
 	</Contents>
 </Event>

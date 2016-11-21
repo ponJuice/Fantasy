@@ -19,7 +19,7 @@ import jp.ac.dendai.c.jtp.openglesutil.graphic.blending_mode.GLES20COMPOSITIONMO
  */
 
 public class TextBox implements UI {
-    protected UI.Criteria criteria = UI.Criteria.NON;
+    protected UI.Criteria criteria = Criteria.Width;
     protected UI.Criteria backimage_criteria = Criteria.NON;
     protected ButtonListener listener;
     protected Touch touch;

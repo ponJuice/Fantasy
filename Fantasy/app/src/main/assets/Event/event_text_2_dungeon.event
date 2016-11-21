@@ -1,0 +1,116 @@
+<Event name="test_event_2_dungeon">
+	<EventCondition>
+		<Conditions mode="and">
+			<Condition type1="global" value1="0" mnemonic="==" type2="const" value2="4"/>
+			<Condition type1="system" value1="0" mnemonic="==" type2="const" value2="5"/>
+		</Conditions>
+	</EventCondition>
+
+	<Face>
+		<face id = "hero" name="アラン" file="hero.png"/>
+		<face id = "noface_hero" name="  " file="noface.png"/>
+		<face id = "heroine" name="クレア" file="heroine.png"/>
+		<face id = "teacher" name="師匠" file="teacher.png"/>
+		<face id = "mobu1" name="門番のおっさん" file="mobu1.png"/>
+		<face id = "mobu2" name="酒場の主" file="mobu1.png"/>
+		<face id = "mobu3" name="太った男" file="mobu2.png"/>
+		<face id = "mobu4" name="華奢な男①" file="mobu3.png"/>
+		<face id = "mobu5" name="華奢な男②" file="mobu3.png"/>
+		<face id = "mobu6" name="貫禄ある男" file="mobu4.png"/>
+	</Face>
+
+	<Image>
+		<image id="town_01" file="town_01.png"/>
+		<image id="town_02" file="town_02.png"/>
+		<image id="dungeon_01" file="dungeon_01.png"/>
+		<image id="dungeon_02" file="dungeon_02.png"/>
+		<image id="grass" file="grass.png"/>
+		<image id="koya000" file="koya000.png"/>
+		<image id="li_room05a_a" file="li_room05a_a.png"/>
+		<image id="ad_pass01_a" file="ad_pass01_a.png"/>
+		<image id="wall" file="wall.png"/>
+		<image id="sakaba" file="sakaba.png"/>
+	</Image>
+
+	<Contents>
+		<Back id="dungeon_02"/>
+		<Trans mode="fade" type="in"  time="1" color="#FF00FF"/>
+
+
+
+
+
+
+		<Scene face="hero" type="normal">なんじゃ、こりゃ。</Scene>
+		<Scene face="noface_hero" type="normal">アランは素っ頓狂な声をあげた。</Scene>
+		<Scene face="noface_hero" type="normal">無理もない、遺跡前にたどり着いて、見えたのは大きい石門だった。</Scene>
+		<Scene face="noface_hero" type="normal">そして、すぐ遺跡の中から、</Scene>
+
+		<Scene face="noface_hero" type="normal">ここを通りたければ、我を笑わせろ。</Scene>
+
+		<Scene face="noface_hero" type="normal">という声がした。こんな怪異なことに、アランは思わず声を出すしかなかった。</Scene>
+		<Scene face="noface_hero" type="normal">しかし、やっぱりねという顔をしたクレアはあまり驚いてないことをみて、アランは聞いた。</Scene>
+		<Scene face="hero" type="normal">え、クレアは驚かないの。</Scene>
+		<Scene face="noface_hero" type="normal">当然よとばかりに、クレアは言った。</Scene>
+		<Scene face="heroine" type="normal">当り前よ。町で得た情報の中にあったのよ。こんな事に驚いてどうする。常に冷静にいなさい。</Scene>
+		<Scene face="noface_hero" type="normal">となぜか、偉そうに言われたアランは何とも言えない顔をして、聞いた。</Scene>
+		<Scene face="hero" type="normal">じゃ、この先はどうするわけ。</Scene>
+		<Scene face="noface_hero" type="normal">それを聞き、クレアはよくぞ聞いてくれたと顔を出して、返事した。</Scene>
+		<Scene face="heroine" type="normal">ふんふん。備えあれば患いなしよ。これの対策にいくつかの笑い話を用意したわ。</Scene>
+		<Scene face="heroine" type="normal">さあ、そこをどきな、笑わせてやるんだから。</Scene>
+		<Scene face="noface_hero" type="normal">と生き込んで、アランを退かせたクレアはなぜか真面目な顔を出す。</Scene>
+		<Scene face="heroine" type="normal">昔々、あるところに、一人の人間がいた。その人は１００匹のペンギンを飼った。</Scene>
+		<Scene face="heroine" type="normal">ある日、その人はそのペンギンたちの日常を聞いた。そしたら、１匹目は</Scene>
+		<Scene face="heroine" type="normal">ご飯を食べて、サンドバックを殴って、そして寝る。</Scene>
+		<Scene face="heroine" type="normal">ほうほう、鍛えてるな。</Scene>
+		<Scene face="heroine" type="normal">と感心するその人は続けて聞いた。そしたら、２匹目から99匹目まで、全部同じ答えだった。</Scene>
+		<Scene face="heroine" type="normal">しかし、１００匹目を聞くと、違う答えは返ってきた。</Scene>
+		<Scene face="heroine" type="normal">ご飯を食べて、寝る。</Scene>
+		<Scene face="heroine" type="normal">それを聞いて、その人は怒り出した。</Scene>
+		<Scene face="heroine" type="normal">お前はなぜ、みんなと一緒にサンドバックを殴って、鍛えない。この怠け者がーー。</Scene>
+		<Scene face="heroine" type="normal">そしたら、１００匹目のペンギン、首を垂れて、泣きそうな声で答えた。</Scene>
+		<Scene face="heroine" type="normal">それを聞き、その人は何とも言えない顔をする。</Scene>
+		<Scene face="heroine" type="normal">そうか、辛かったな。</Scene>
+		<Scene face="heroine" type="normal">と言い残し、どこかへ行ってしまった。</Scene>
+
+
+
+		<Scene face="noface_hero" type="normal">一気にこの笑い話を言ったクレアは、隣で爆笑したアランをみて満足な顔をした。</Scene>
+		<Scene face="noface_hero" type="normal">しかし、石門は何も反応しなかったことをみて、顔をしかめた。</Scene>
+		<Scene face="heroine" type="normal">これじゃあだめか。大丈夫、またあるから。</Scene>
+		<Scene face="noface_hero" type="normal">とクレアは自分を元気づけて、次々と笑い話をいった。しかし、相変わらず、何の反応もない。</Scene>
+		<Scene face="noface_hero" type="normal">そしたら、クレアは怒って、隣で笑っているアランを殴って、言った。</Scene>
+		<Scene face="heroine" type="normal">笑ってないで、何とかしてよ。</Scene>
+		<Scene face="noface_hero" type="normal">そう言われて、アランは困った。</Scene>
+		<Scene face="hero" type="normal">何とかしてって言われてもな。</Scene>
+		<Scene face="noface_hero" type="normal">困り果てたアランは駄洒落を行ってしまった。</Scene>
+		<Scene face="hero" type="normal">じゃあ、猫が寝ころんだ。</Scene>
+		<Scene face="noface_hero" type="normal">それを聞き、クレアが真っ先に反応した。</Scene>
+		<Scene face="heroine" type="normal">寒い。寒いわ。そんなで行けるわけないでしょ。もっと、真面目に。。。</Scene>
+		<Scene face="noface_hero" type="normal">まだ、言い終わってないにも関わらず、石門がはっはっはって笑い声をしながら開いていく。</Scene>
+		<Scene face="heroine" type="normal">うそでしょ。ふざけないでよ。こんな駄洒落で開くんじゃないわよ。私の努力は何なのよ。</Scene>
+		<Scene face="noface_hero" type="normal">と拗ねるクレアは石門が開いたのを見て、言った。</Scene>
+		<Scene face="hero" type="normal">まぁ、これが備えなくても、何とかなるってやつじゃないの。先に進もう。</Scene>
+		<Scene face="noface_hero" type="normal">そう言い残し、アランはダンジョンの中へ入っていった。</Scene>
+		<Scene face="noface_hero" type="normal">クレアは納得のいかない顔で仕方なくついていった。</Scene>
+
+<!--
+		<Back id="dungeon_02"/>
+		<Trans mode="fade" type="in"  time="1" color="#FF00FF"/>
+
+
+		<Battle back_file="dungeon_02.png">
+			<Enemy id="monster-1"/>
+
+		</Battle>
+
+		<Battle back_file="dungeon_02.png">
+			<Enemy id="monster-2"/>
+
+		</Battle>
+-->
+		<Trans mode="fade" type="out"  time="5" color="#000000"/>
+
+		<Flag type1="global" mode1="const" value1="0" type2="const" mode2="const" value2="5"/>
+	</Contents>
+</Event>

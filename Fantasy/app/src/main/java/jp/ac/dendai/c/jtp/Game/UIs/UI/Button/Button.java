@@ -136,7 +136,6 @@ public class Button implements UI{
         setBitmap(Constant.getBitmap(Constant.BITMAP.white));
         updateBackimage();
     }
-
     public void setText(String string){
         if(textBuff.containsKey(string)){
             text = textBuff.get(string);

@@ -32,10 +32,13 @@ public class PlayerSkillSelectState extends APlayerState {
         list.setHorizontal(UIAlign.Align.CENTOR);
         list.setVertical(UIAlign.Align.CENTOR);
         list.setScrollable(true);
+        list.setY(GLES20Util.getHeight_gl()/2f);
         Button btn;
         ArrayList<Skill> sks = player.getSkillList();
         for(int n = 0;n < sks.size();n++){
-            btn = new Button(0,0,1,1,sks.get(n).getSkillName());
+            sks.get(n).setWidth(list.getContentWidth(),list.getTextPadding());
+            sks.get(n).setHeight(list.getContentHeight(),list.getTextPadding());
+            btn = new Button(0,0,1,1,sks.get(n));//sks.get(n).getSkillName());
             btn.setBitmap(Constant.getBitmap(Constant.BITMAP.system_button));
             btn.setPadding(padding);
             btn.setCriteria(UI.Criteria.Height);
@@ -100,6 +103,9 @@ public class PlayerSkillSelectState extends APlayerState {
             psp.getPlayerState().getBattleState().getBattleManager().getPlayer().getBattleAction().type = BattleAction.ActionType.Skill;
             psp.getList().setDrawable(false);
             psp.getList().setTouchable(false);
+            if(skill.addCount()){
+                psp.getPlayerState().getBattleState().getBattleManager().addCountMaxSkill(skill);
+            }
             psp.changeState(psp.getPlayerEnemySelectState());
         }
     }

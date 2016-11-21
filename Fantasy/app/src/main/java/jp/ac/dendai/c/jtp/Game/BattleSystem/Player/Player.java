@@ -9,6 +9,7 @@ import java.util.Arrays;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Attackable;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleAction;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleManager;
+import jp.ac.dendai.c.jtp.Game.BattleSystem.Enchant;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Skill.Skill;
 import jp.ac.dendai.c.jtp.Game.Constant;
 import jp.ac.dendai.c.jtp.Game.GameUI.Gage;
@@ -28,13 +29,18 @@ public class Player extends Attackable{
     protected BattleAction battleAction;
     protected ArrayList<Item> items;
     protected ArrayList<Skill> skills;
+    protected Enchant atk_enchant;
+    protected Enchant def_enchant;
+    protected Enchant agl_enchant;
+    protected int money;
     protected boolean actionEnd = false;
     public Player(PlayerData pd){
-        baseHp = pd.hp;
+        baseHp = pd.baseHp;
         hp = pd.hp;
         atk = pd.atk;
         def = pd.def;
         agl = pd.agl;
+        baseMp = pd.baseMp;
         mp = pd.mp;
 
         this.sx = 2f;
@@ -44,6 +50,12 @@ public class Player extends Attackable{
 
         skills = pd.getSkill();
         items = new ArrayList<>(Arrays.asList(pd.items.values().toArray(new Item[0])));
+
+        money = pd.getMoney();
+
+        atk_enchant = new Enchant();
+        def_enchant = new Enchant();
+        agl_enchant = new Enchant();
 
         /* ------- Debug --------*/
         /*name = "アラン";
@@ -77,6 +89,12 @@ public class Player extends Attackable{
 
         String str = String.format("[name : %s] [hp : %d] [atk : %d] [def : %d] [agl : %d] [mp : %d]",name,hp,atk,def,agl,mp);
         Log.d("Player","Player Info"+str);
+    }
+
+
+
+    public int getMoney(){
+        return money;
     }
 
     public ArrayList<Skill> getSkillList(){
@@ -153,7 +171,7 @@ public class Player extends Attackable{
 
     @Override
     public float getAtk() {
-        return atk;
+        return atk_enchant.getValue(atk);
     }
 
     @Override
@@ -163,7 +181,7 @@ public class Player extends Attackable{
 
     @Override
     public float getDef() {
-        return def;
+        return def_enchant.getValue(def);
     }
 
     @Override
@@ -173,7 +191,7 @@ public class Player extends Attackable{
 
     @Override
     public float getAgl() {
-        return agl;
+        return agl_enchant.getValue(agl);
     }
 
     @Override
@@ -183,9 +201,35 @@ public class Player extends Attackable{
 
     @Override
     public int getBaseMp() {
-        return mp;
+        return baseMp;
     }
 
+    public void setAtkEnchant(int turn,float par){
+        atk_enchant.setPar(par);
+        atk_enchant.setTurn(turn);
+    }
+
+    public void setDefEnchant(int turn,float par){
+        def_enchant.setPar(par);
+        def_enchant.setTurn(turn);
+    }
+
+    public void setAglEnchant(int turn,float par){
+        agl_enchant.setPar(par);
+        agl_enchant.setTurn(turn);
+    }
+
+    public void procAtkEnchant(){
+        atk_enchant.declimentTurn();
+    }
+
+    public void procDefEnchant(){
+        def_enchant.declimentTurn();
+    }
+
+    public void procAglEnchant(){
+        agl_enchant.declimentTurn();
+    }
 
     @Override
     public float getX() {
@@ -230,6 +274,14 @@ public class Player extends Attackable{
     @Override
     public void draw(float offsetX, float offsetY) {
         //btn.draw(offsetX,offsetY);
+    }
+
+    public void setHp(int hp){
+        this.hp = hp;
+    }
+
+    public void setMp(int mp){
+        this.mp = mp;
     }
 
     @Override

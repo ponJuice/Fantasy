@@ -1,9 +1,15 @@
 package jp.ac.dendai.c.jtp.Game.UIs.Screen;
 
+import android.media.MediaPlayer;
+
 import javax.microedition.khronos.opengles.GL;
 
+import jp.ac.dendai.c.jtp.Game.ADVSystem.Flag.FlagManager;
+import jp.ac.dendai.c.jtp.Game.BattleSystem.Player.PlayerData;
 import jp.ac.dendai.c.jtp.Game.Constant;
+import jp.ac.dendai.c.jtp.Game.DataManager;
 import jp.ac.dendai.c.jtp.Game.GameManager;
+import jp.ac.dendai.c.jtp.Game.UIs.Transition.LoadingTransition.LoadingTransition;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Button.Button;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Button.ButtonListener;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Image.Image;
@@ -11,6 +17,7 @@ import jp.ac.dendai.c.jtp.Game.UIs.UI.UI;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.UIAlign;
 import jp.ac.dendai.c.jtp.TouchUtil.Input;
 import jp.ac.dendai.c.jtp.TouchUtil.Touch;
+import jp.ac.dendai.c.jtp.fantasy.R;
 import jp.ac.dendai.c.jtp.openglesutil.Util.ImageReader;
 import jp.ac.dendai.c.jtp.openglesutil.core.GLES20Util;
 
@@ -19,6 +26,7 @@ import jp.ac.dendai.c.jtp.openglesutil.core.GLES20Util;
  */
 
 public class StartScreen implements Screenable {
+    protected static FlagManager.ScreenType screenType = FlagManager.ScreenType.start;
     protected boolean freeze = true;
     protected String background_file_name = "startScreen.png";
     protected float button_height = 0.15f;
@@ -44,6 +52,29 @@ public class StartScreen implements Screenable {
         continueButton.setCriteria(UI.Criteria.Height);
         continueButton.setPadding(button_text_padding);
         continueButton.setHeight(button_height);
+        continueButton.setButtonListener(new ButtonListener() {
+            @Override
+            public void touchDown(Button button) {
+
+            }
+
+            @Override
+            public void touchHover(Button button) {
+
+            }
+
+            @Override
+            public void touchUp(Button button) {
+                DataManager.loadData();
+                LoadingTransition lt = LoadingTransition.getInstance();
+                lt.initTransition(TownScreen.class);
+                GameManager.transition = lt;
+                GameManager.isTransition = true;
+                GameManager.args = new Object[1];
+                GameManager.args[0] = GameManager.getPlayerData().getTown();
+
+            }
+        });
 
         beginningButton = new Button(0,0,1,1,"始めから");
         beginningButton.useAspect(true);
@@ -52,16 +83,43 @@ public class StartScreen implements Screenable {
         beginningButton.setCriteria(UI.Criteria.Height);
         beginningButton.setPadding(button_text_padding);
         beginningButton.setHeight(button_height);
+        beginningButton.setButtonListener(new ButtonListener() {
+            @Override
+            public void touchDown(Button button) {
+
+            }
+
+            @Override
+            public void touchHover(Button button) {
+
+            }
+
+            @Override
+            public void touchUp(Button button) {
+                GameManager.getPlayerData().allReset();
+                GameManager.args = new Object[1];
+                GameManager.args[0] = ImageReader.readImageToAssets(Constant.mapImageFile);
+                LoadingTransition lt = LoadingTransition.getInstance();
+                lt.initTransition(MapScreen.class);
+                GameManager.transition = lt;
+                GameManager.isTransition = true;
+            }
+        });
+
+
 
         continueButton.setY(button_y);
         continueButton.setX(GLES20Util.getWidth_gl()/2f + button_space);
 
         beginningButton.setY(button_y);
         beginningButton.setX(GLES20Util.getWidth_gl()/2f - button_space);
+        GameManager.startBGM(R.raw.start,true);
+
     }
 
     @Override
     public void constract(Object[] args) {
+
     }
 
     @Override
@@ -77,6 +135,12 @@ public class StartScreen implements Screenable {
         background.draw(offsetX,offsetY);
         continueButton.draw(offsetX,offsetY);
         beginningButton.draw(offsetX,offsetY);
+    }
+
+    @Override
+    public void init() {
+        FlagManager.setFlagValue(FlagManager.FlagType.global,1,screenType.getInt());
+        GameManager.startBGM(R.raw.start,true);
     }
 
     @Override

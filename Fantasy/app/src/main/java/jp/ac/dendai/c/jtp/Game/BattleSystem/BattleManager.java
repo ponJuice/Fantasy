@@ -1,5 +1,8 @@
 package jp.ac.dendai.c.jtp.Game.BattleSystem;
 
+import android.media.MediaPlayer;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.BattleStatePattern;
@@ -8,11 +11,13 @@ import jp.ac.dendai.c.jtp.Game.BattleSystem.Enemy.Enemy;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Enemy.EnemyTemplate;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Enum.BattleStateEnum;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Player.Player;
+import jp.ac.dendai.c.jtp.Game.BattleSystem.Skill.Skill;
 import jp.ac.dendai.c.jtp.Game.Constant;
 import jp.ac.dendai.c.jtp.Game.GameManager;
 import jp.ac.dendai.c.jtp.Game.GameUI.DamageEffect;
 import jp.ac.dendai.c.jtp.Game.GameUI.Gage;
 import jp.ac.dendai.c.jtp.Game.UIs.Screen.BattleScreen.UserInterface.PlayerUI;
+import jp.ac.dendai.c.jtp.fantasy.R;
 import jp.ac.dendai.c.jtp.openglesutil.core.GLES20Util;
 
 /**
@@ -29,6 +34,8 @@ public class BattleManager {
         status_ailments_end,
         turn_end,		//行動、エフェクト描画終了
     }
+    protected MediaPlayer mp;
+    protected MediaPlayer clearMp;
 
     protected Attackable[] list;
     protected Enemy[] enemyList;
@@ -39,12 +46,14 @@ public class BattleManager {
     protected PlayerUI p_ui;
     protected DamageEffect de;
     protected Gage hpGage;
+    protected ArrayList<Skill> countMaxSkill;
 
     protected BattleStatePattern bsp;
 
     BATTLE_STATE state; //ゲーム側の状態
 
     public BattleManager(EnemyTemplate[] enemys){
+        countMaxSkill = new ArrayList<>();
 
         //敵及びプレイヤーを含むリストと、敵のみのリストを初期化
         enemyList = new Enemy[enemys.length];
@@ -63,6 +72,7 @@ public class BattleManager {
         list[list.length-1] = player;
 
         p_ui = new PlayerUI(player);
+
         player.setHpGage(p_ui.getHpGage());
         player.setMpGage(p_ui.getMpGage());
         //Arrays.sort(list);
@@ -73,6 +83,26 @@ public class BattleManager {
         de = new DamageEffect();
 
         bsp = new BattleStatePattern(this);
+
+
+        GameManager.startBGM(R.raw.kaisen,true);
+
+    }
+
+    public MediaPlayer getMediaPlayer(){
+        return mp;
+    }
+
+    public void startClearMp(){
+        GameManager.startBGM(R.raw.victory,false);
+    }
+
+    public void addCountMaxSkill(Skill skill){
+        countMaxSkill.add(skill);
+    }
+
+    public ArrayList<Skill> getCountMaxSkillList(){
+        return countMaxSkill;
     }
 
     public BattleAction getBattleAction(){

@@ -3,8 +3,12 @@ package jp.ac.dendai.c.jtp.Game.Item;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 
+import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleAction;
+import jp.ac.dendai.c.jtp.Game.BattleSystem.Player.PlayerData;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Skill.Animation;
 import jp.ac.dendai.c.jtp.Game.Constant;
+import jp.ac.dendai.c.jtp.Game.Item.Effects.ItemEffect;
+import jp.ac.dendai.c.jtp.Game.UIs.Effects.Effect;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Text.NumberText;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.UI;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.UIAlign;
@@ -17,18 +21,14 @@ import jp.ac.dendai.c.jtp.TouchUtil.Touch;
 public class Item implements UI {
     protected final static float effectNumberDrawTime = 1f;
     protected static float space_aspect = 0.8f;
-    protected static NumberText effectNumber;
     protected float timeBuffer_2 = 0;
     protected int number;
     protected NumberText numberText;
     protected ItemTemplate itemTemplate;
-    protected boolean drawNumber = false;
+    protected boolean drawNumber = true;
     protected float timeBuffer;
+    protected float padding;
     public Item(int number,ItemTemplate itemTemplate){
-        if(effectNumber == null) {
-            effectNumber = new NumberText(Constant.fontName);
-            effectNumber.useAspect(true);
-        }
         this.number = number;
         this.itemTemplate = itemTemplate;
         numberText = new NumberText(Constant.fontName);
@@ -37,8 +37,28 @@ public class Item implements UI {
         numberText.setHorizontal(UIAlign.Align.LEFT);
     }
 
+    public boolean isSellable(){
+        return itemTemplate.sellable;
+    }
+
+    public boolean isUseable(){
+        return itemTemplate.useable;
+    }
+
     public int getPrice(){
         return itemTemplate.price;
+    }
+
+    public void addItem(int num){
+        number += num;
+        refreshNumberText();
+    }
+
+
+    public void subItem(int num){
+        number -= num;
+        number = Math.max(number,0);
+        refreshNumberText();
     }
 
     public void effectInit(){
@@ -46,32 +66,35 @@ public class Item implements UI {
         timeBuffer_2 = 0;
     }
 
-    public void setEffectNumber(int num){
-        effectNumber.setNumber(num);
-    }
-
-    public void setEffectNumberPos(float x,float y){
-        effectNumber.setX(x);
-        effectNumber.setY(y);
-    }
-    public void setEffectNumberHeight(float height){
-        effectNumber.setHeight(height);
-    }
-    public void setEffectNumberColor(int color){
-        effectNumber.setR(Color.red(color));
-        effectNumber.setG(Color.green(color));
-        effectNumber.setB(Color.blue(color));
+    protected void refreshNumberText(){
+        numberText.setNumber(number);
     }
 
     public int getNumber(){
         return number;
     }
 
-    public void setHeight(float height){
-        itemTemplate.getNameImage().setHorizontal(UIAlign.Align.RIGHT);
+    public void setHeight(float height) {
+        itemTemplate.getNameImage().setHorizontal(UIAlign.Align.LEFT);
         itemTemplate.getNameImage().setHeight(height);
-        numberText.setHorizontal(UIAlign.Align.LEFT);
+        numberText.setHorizontal(UIAlign.Align.RIGHT);
         numberText.setHeight(height);
+    }
+
+    public void influence(PlayerData pd){
+        if(number > 0) {
+            itemTemplate.influence(pd);
+            number--;
+        }
+    }
+
+    public void setWidth(float x,float width){
+        itemTemplate.getNameImage().setX(x - width/2f + padding);
+        numberText.setX(x + width - width/2f - padding);
+    }
+
+    public void setPadding(float padding){
+        this.padding = padding;
     }
 
     public void setDrawNumber(boolean flag){
@@ -82,20 +105,29 @@ public class Item implements UI {
         float length = itemTemplate.getNameImage().getWidth();
         float _x = 0;
         if(drawNumber) {
-            itemTemplate.getNameImage().setHorizontal(UIAlign.Align.RIGHT);
+            /*numberText.setNumber(number);
+            itemTemplate.getNameImage().setHorizontal(UIAlign.Align.LEFT);
             length += numberText.getWidth() + space_aspect*itemTemplate.getNameImage().getHeight();
             _x = itemTemplate.getNameImage().getWidth() - length / 2;
-            itemTemplate.getNameImage().setX(_x);
+            itemTemplate.getNameImage().setX(_x);*/
         }else{
             itemTemplate.getNameImage().setHorizontal(UIAlign.Align.CENTOR);
         }
         itemTemplate.getNameImage().draw(offsetX,offsetY);
-        if(drawNumber)
-            numberText.draw(offsetX+_x+space_aspect*itemTemplate.getNameImage().getHeight(),offsetY);
+        if(drawNumber) {
+            numberText.setNumber(number);
+            numberText.draw(offsetX, offsetY);//offsetX+_x+space_aspect*itemTemplate.getNameImage().getHeight(),offsetY);
+        }
     }
 
     public Bitmap getNameImage(){
         return itemTemplate.getNameImage().getImage();
+    }
+
+    public String getName(){return itemTemplate.getName();}
+
+    public ItemTemplate getItemTemplate(){
+        return itemTemplate;
     }
 
     @Override
@@ -113,6 +145,18 @@ public class Item implements UI {
         draw(offset_x,offset_y,drawNumber);
     }
 
+    public void resetEffect(BattleAction ba){
+        for(int n = 0; n < itemTemplate.effects.size();n++) {
+            itemTemplate.effects.get(n).effectInit(this, ba);
+        }
+    }
+
+    public void calcDamage(BattleAction ba){
+        for(int n = 0; n < itemTemplate.effects.size();n++) {
+            itemTemplate.effects.get(n).calcDamage(ba);
+        }
+    }
+
     public boolean drawEffect(float ox,float oy,float sx,float sy,float deg){
         boolean flag = true;
         boolean numFlag = false;
@@ -121,15 +165,18 @@ public class Item implements UI {
             Animation sa = itemTemplate.animations.get(n);
             flag = sa.draw(timeBuffer, ox, oy, sx, sy, deg) && flag;
         }
-        effectNumber.draw(0,0);
+
+        for(int n = 0; n < itemTemplate.effects.size();n++) {
+            itemTemplate.effects.get(n).drawEffect(ox, oy);
+        }
         /*if(skillAnimations.size() > 1)
             flag = flag && skillAnimations.get(1).draw(timeBuffer,ox,oy,sx,sy,deg);
         else
             flag = flag && skillAnimations.get(0).draw(timeBuffer,ox,oy,sx,sy,deg);*/
         timeBuffer += Time.getDeltaTime();
 
-        if(numFlag)
+        if(flag)
             timeBuffer = 0;
-        return numFlag;
+        return flag;
     }
 }

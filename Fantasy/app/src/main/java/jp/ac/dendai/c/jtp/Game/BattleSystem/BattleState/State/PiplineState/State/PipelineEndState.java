@@ -6,6 +6,7 @@ import jp.ac.dendai.c.jtp.Game.BattleSystem.Attackable;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleAction;
 import jp.ac.dendai.c.jtp.Game.GameManager;
 import jp.ac.dendai.c.jtp.Game.UIs.Screen.DebugEventSelectScreen;
+import jp.ac.dendai.c.jtp.Game.UIs.Screen.StartScreen;
 import jp.ac.dendai.c.jtp.Game.UIs.Transition.LoadingTransition.LoadingTransition;
 
 /**
@@ -28,11 +29,10 @@ public class PipelineEndState extends APipelineState {
         }
         if(ba.target.getAttackerType() == Attackable.AttackerType.Friend){
             //プレイヤー ゲームオーバー画面の表示→タイトルへ
-            //デバッグ　タイトルの代わりのDebugEventSelectScreenへ
             Log.d("PipelineEndState","GameOver!!");
             psp.changeBattleResult(PipelineStatePattern.BATTLE_RESULT.gameover);
             LoadingTransition lt = LoadingTransition.getInstance();
-            lt.initTransition(DebugEventSelectScreen.class);
+            lt.initTransition(StartScreen.class);
             GameManager.transition = lt;
             GameManager.isTransition = true;
             return;
@@ -48,6 +48,7 @@ public class PipelineEndState extends APipelineState {
             }
             //全員死んでいたらクリアとなる
             psp.getPipelineState().getBattleState().changeState(psp.getPipelineState().getBattleState().getBattleResultState());
+            psp.getPipelineState().getBattleState().getBattleManager().startClearMp();
             //psp.changeBattleResult(PipelineStatePattern.BATTLE_RESULT.clear);
         }
     }

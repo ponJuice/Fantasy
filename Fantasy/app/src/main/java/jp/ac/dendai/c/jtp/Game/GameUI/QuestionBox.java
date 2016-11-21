@@ -25,7 +25,7 @@ public class QuestionBox{
         non
     }
     protected Mode mode = Mode.non;
-    protected float animationTime = 0.5f;
+    protected float animationTime = 0.2f;
     protected float timeBuffer;
     protected float x = 0,y = 0;
     protected float text_pos_y_top = 0.01f;

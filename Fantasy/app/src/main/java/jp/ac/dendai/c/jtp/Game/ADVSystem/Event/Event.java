@@ -1,8 +1,8 @@
 package jp.ac.dendai.c.jtp.Game.ADVSystem.Event;
 
+import android.media.MediaPlayer;
 import android.util.Log;
 
-import jp.ac.dendai.c.jtp.Game.ADVSystem.ADVManager;
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Component.ADVComponent;
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Component.Background;
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Condition.Conditions;
@@ -27,6 +27,7 @@ public class Event {
     protected int[] local_flags = new int[local_flag_max];
     protected Touch touch;
     protected Background back;
+    protected MediaPlayer mp = new MediaPlayer();
     public TalkBox getTalkBox(){
         return talkBox;
     }
@@ -39,14 +40,22 @@ public class Event {
             back.draw(offset_x,offset_y);
         drawTarget.draw(offset_x,offset_y);
     }
-    public boolean proc(ADVManager manager){
+    public boolean proc(){
         if(component == null){
             Log.d("Event","event end");
+            mp.stop();
+            mp.release();
             return false;
         }else {
             component = component.proc(this);
             return true;
         }
+    }
+    public MediaPlayer getMediaPlayer(){
+        return mp;
+    }
+    public void setMediaPlayer(MediaPlayer mp){
+        this.mp = mp;
     }
     public void touch(){
         /*if(touch != null && touch.getTouchID() == -1)
@@ -67,16 +76,16 @@ public class Event {
     public boolean evaluation(){
         return conditions.evaluation(this);
     }
-    public int getFlagValue(String type,int value){
-        if(type.equals("local")){
+    public int getFlagValue(FlagManager.FlagType type, int value){
+        if(type == FlagManager.FlagType.local){
             return local_flags[value];
         }
         else{
             return FlagManager.getFlagValue(type,value);
         }
     }
-    public void setFlagValue(String type,int index,int value){
-        if(type.equals("local"))
+    public void setFlagValue(FlagManager.FlagType type, int index, int value){
+        if(type == FlagManager.FlagType.local)
             local_flags[index] = value;
         else{
             FlagManager.setFlagValue(type,index,value);

@@ -1,23 +1,41 @@
 <Skills>
-    <Skill name="normalAttack" damage="1" mp="0">
+    <Skill name="normalAttack" damage="1" mp="0" rank="0">
         <Animation anim_id="normal_attack" start="0" length="0.5" ox="0" oy = "0" sx="1" sy="1" rot="0"/>
     </Skill>
-	<Skill name="突き" damage="1.2" mp="5">
+	<Skill name="突き" damage="1.2" mp="5" rank="1">
 		<Animation anim_id="normal_attack" start="0" length="0.5" ox="0" oy = "0" sx="1" sy="1" rot="0"/>
 	</Skill>
-	<Skill name="二段突き" damage="1.5" mp="10">
+	<Skill name="二段突き" damage="1.5" mp="10" rank="1">
 		<Animation anim_id="normal_attack" start="0" length="0.5" ox="-0.1" oy ="0" sx="1" sy="1" rot="0"/>
 		<Animation anim_id="normal_attack" start="0.1" length="0.5" ox="0.1" oy="0" sx="1" sy="1" rot="0"/>
 	</Skill>
-	<Skill name="三段突き" damage="1.8" mp="15">
+	<Skill name="三段突き" damage="1.8" mp="15" rank="2">
     	<Animation anim_id="normal_attack" start="0" length="0.5" ox="-0.2" oy ="0" sx="1" sy="1" rot="0"/>
     	<Animation anim_id="normal_attack" start="0.2" length="0.5" ox="0.0" oy="0" sx="1" sy="1" rot="0"/>
     	<Animation anim_id="normal_attack" start="0.4" length="0.5" ox="0.2" oy="0" sx="1" sy="1" rot="0"/>
     </Skill>
-    <Skill name="超大技" damage="10" mp="200">
+    <Skill name="高速突き" damage="10" mp="100" rank="3">
+       	<Animation anim_id="normal_attack" start="0" length="0.5" ox="-0.2" oy ="0" sx="1" sy="1" rot="0"/>
+       	<Animation anim_id="normal_attack" start="0.2" length="0.5" ox="0.0" oy="0" sx="1" sy="1" rot="0"/>
+       	<Animation anim_id="normal_attack" start="0.4" length="0.5" ox="0.2" oy="0" sx="1" sy="1" rot="0"/>
+    </Skill>
+    <Skill name="超大技" damage="10" mp="200" rank="4">
        	<Animation anim_id="normal_attack" start="0" length="0.5" ox="-0.2" oy ="0" sx="1" sy="1" rot="0"/>
        	<Animation anim_id="normal_attack" start="0.2" length="0.5" ox="0.0" oy="0" sx="1" sy="1" rot="0"/>
       	<Animation anim_id="normal_attack" start="0.4" length="0.5" ox="0.2" oy="0" sx="1" sy="1" rot="0"/>
     </Skill>
+
+    <Evolutions>
+        <Evolution name="突き" count="5">
+            <Next name="二段突き"/>
+        </Evolution>
+        <Evolution name="二段突き" count="1">
+            <Next name="三段突き"/>
+        </Evolution>
+        <Evolution name="三段突き" count="5">
+            <Next name="高速突き"/>
+            <Next name="超大技"/>
+        </Evolution>
+    </Evolutions>
 
 </Skills>

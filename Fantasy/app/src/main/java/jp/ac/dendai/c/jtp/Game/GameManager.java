@@ -1,6 +1,7 @@
 package jp.ac.dendai.c.jtp.Game;
 
 import android.app.Activity;
+import android.media.MediaPlayer;
 import android.media.SoundPool;
 
 import java.util.ArrayDeque;
@@ -24,6 +25,8 @@ public class GameManager {
 	public static ArrayDeque<Screenable> stack = new ArrayDeque<>();
 	protected static PlayerData playerData;
 	protected static DataBase db;
+	protected static MediaPlayer mp;
+	protected static boolean play = false;
 	public static void init(Activity _act){
 		act = _act;
 		Constant.init();
@@ -42,6 +45,41 @@ public class GameManager {
 		else {
 			nowScreen.Draw(0, 0);
 		}
+	}
+
+	public static void pause(){
+		if(mp != null && mp.isPlaying()){
+			mp.pause();
+			play = true;
+		}
+	}
+
+	public static void resume(){
+		if(mp != null && play){
+			mp.start();
+			play = false;
+		}
+	}
+
+	public static void startBGM(int res_id,boolean roop){
+		if(mp != null) {
+			mp.stop();
+			mp.release();
+		}
+		mp = MediaPlayer.create(act,res_id);
+		mp.setLooping(roop);
+		mp.start();
+		/*mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+			@Override
+			public void onCompletion(MediaPlayer mp) {
+				mp.start();
+			}
+		});*/
+	}
+
+	public static void stopBGM(){
+		if(mp != null)
+			mp.stop();
 	}
 
 	public static PlayerData getPlayerData(){

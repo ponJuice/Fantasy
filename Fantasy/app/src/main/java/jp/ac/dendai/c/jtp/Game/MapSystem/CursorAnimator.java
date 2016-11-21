@@ -31,6 +31,16 @@ public class CursorAnimator {
         stop = false;
     }
 
+    public void reset(float x,float y){
+        reset();
+        buffX = x;
+        buffY = y;
+        toX = x;
+        toY = y;
+        cursor.setX(x);
+        cursor.setY(y);
+    }
+
     public void setAnimation(float startX,float startY,float toX,float toY,float animTime){
         this.toX = toX;
         this.toY = toY;

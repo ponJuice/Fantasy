@@ -1,0 +1,76 @@
+<Event name="test_event_4_dungeon">
+	<EventCondition>
+		<Conditions mode="and">
+			<Condition type1="global" value1="0" mnemonic="==" type2="const" value2="12"/>
+			<Condition type1="system" value1="0" mnemonic="==" type2="const" value2="7"/>
+		</Conditions>
+	</EventCondition>
+
+	<Face>
+		<face id = "hero" name="アラン" file="hero.png"/>
+		<face id = "noface_hero" name="  " file="noface.png"/>
+		<face id = "heroine" name="クレア" file="heroine.png"/>
+		<face id = "teacher" name="師匠" file="teacher.png"/>
+		<face id = "mobu1" name="門番のおっさん" file="mobu1.png"/>
+		<face id = "mobu2" name="酒場の主" file="mobu1.png"/>
+		<face id = "mobu3" name="太った男" file="mobu2.png"/>
+		<face id = "mobu4" name="華奢な男①" file="mobu3.png"/>
+		<face id = "mobu5" name="華奢な男②" file="mobu3.png"/>
+		<face id = "mobu6" name="貫禄ある男" file="mobu4.png"/>
+		<face id = "mobu7" name="黒ずくめの男" file="mobu5.png"/>
+	</Face>
+
+	<Image>
+		<image id="town_01" file="town_01.png"/>
+		<image id="town_02" file="town_02.png"/>
+		<image id="town_03" file="town_03.png"/>
+		<image id="town_04" file="town_04.png"/>
+		<image id="town_05" file="town_05.png"/>
+		<image id="kaigi" file="kaigi.png"/>
+		<image id="dungeon_01" file="dungeon_01.png"/>
+		<image id="dungeon_02" file="dungeon_02.png"/>
+		<image id="dungeon_03" file="dungeon_03.png"/>
+		<image id="dungeon_04" file="dungeon_04.png"/>
+		<image id="dungeon_05" file="dungeon_05.png"/>
+
+		<image id="grass" file="grass.png"/>
+		<image id="koya000" file="koya000.png"/>
+		<image id="li_room05a_a" file="li_room05a_a.png"/>
+		<image id="ad_pass01_a" file="ad_pass01_a.png"/>
+		<image id="wall" file="wall.png"/>
+		<image id="sakaba" file="sakaba.png"/>
+		<image id="syobo" file="syobo.png"/>
+	</Image>
+
+	<Contents>
+
+		<Back id="dungeon_04"/>
+		<Trans mode="fade" type="in"  time="1" color="#FF00FF"/>
+
+
+
+		<Scene face="heroine" type="normal">暑い、暑い、ねぇ、なんでこうも暑いわけ。</Scene>
+		<Scene face="noface_hero" type="normal">あまりの暑さで、クレアは悲鳴を挙げている。</Scene>
+		<Scene face="hero" type="normal">うるさいな。火山の近くだから、しょうがないだろ。こっちは戦っているわけだから、もっと暑いだよ。</Scene>
+		<Scene face="noface_hero" type="normal">やはり、暑さにやられているのか、アランもいつもの穏便な口調じゃなくなっている。</Scene>
+
+
+		<Scene face="hero" type="normal">ああ、暑い。暑すぎる。</Scene>
+		<Scene face="noface_hero" type="normal">あまりの暑さで、疲れよりも暑さをわめくアランだった。</Scene>
+		<Scene face="noface_hero" type="normal">クレアは例のモードに入ってるから、アランのことを無視している。</Scene>
+
+<!--
+		<Battle back_file="dungeon_04.png">
+			<Enemy id="monster-5"/>
+
+		</Battle>
+
+		<Battle back_file="dungeon_04.png">
+			<Enemy id="monster-6"/>
+
+		</Battle>
+-->
+        <Trans mode="fade" type="out"  time="5" color="#000000"/>
+        <Flag type1="global" mode1="const" value1="0" type2="const" mode2="const" value2="13"/>
+	</Contents>
+</Event>

@@ -1,0 +1,57 @@
+<Event name="test_event_2_dungeon_victory">
+	<EventCondition>
+		<Conditions mode="and">
+			<Condition type1="global" value1="0" mnemonic="==" type2="const" value2="5"/>
+			<Condition type1="global" value1="127" mnemonic="==" type2="const" value2="2"/>
+		</Conditions>
+	</EventCondition>
+
+	<Face>
+    		<face id = "hero" name="アラン" file="hero.png"/>
+    		<face id = "noface_hero" name="  " file="noface.png"/>
+    		<face id = "heroine" name="クレア" file="heroine.png"/>
+    		<face id = "teacher" name="師匠" file="teacher.png"/>
+    		<face id = "mobu1" name="門番のおっさん" file="mobu1.png"/>
+    		<face id = "mobu2" name="酒場の主" file="mobu1.png"/>
+    		<face id = "mobu3" name="太った男" file="mobu2.png"/>
+    		<face id = "mobu4" name="華奢な男①" file="mobu3.png"/>
+    		<face id = "mobu5" name="華奢な男②" file="mobu3.png"/>
+    		<face id = "mobu6" name="貫禄ある男" file="mobu4.png"/>
+    	</Face>
+
+    	<Image>
+    		<image id="town_01" file="town_01.png"/>
+    		<image id="town_02" file="town_02.png"/>
+    		<image id="dungeon_01" file="dungeon_01.png"/>
+    		<image id="dungeon_02" file="dungeon_02.png"/>
+    		<image id="grass" file="grass.png"/>
+    		<image id="koya000" file="koya000.png"/>
+    		<image id="li_room05a_a" file="li_room05a_a.png"/>
+    		<image id="ad_pass01_a" file="ad_pass01_a.png"/>
+    		<image id="wall" file="wall.png"/>
+    		<image id="sakaba" file="sakaba.png"/>
+    	</Image>
+
+
+	<Contents>
+        <Back id="dungeon_02"/>
+        <Trans mode="fade" type="in"  time="1" color="#FF00FF"/>
+
+		<Message time="0.1">木の玉をゲット。剣が C rank になった。</Message>
+		<ItemProc name="木の玉" num="1"/>
+
+		<Scene face="hero" type="normal">ぜーぜー、はーはー。相変わらず、前よりきついな。準備しといてよかったぜ。</Scene>
+		<Scene face="noface_hero" type="normal">息を整うアランは言った。しかし、クレアは古代文字の載っている石板に注意が向けていて、何も聞いてない様子。</Scene>
+		<Scene face="noface_hero" type="normal">それを見て、アランは聞いた。</Scene>
+		<Scene face="hero" type="normal">何を読んでる？</Scene>
+		<Scene face="noface_hero" type="normal">やっとアランに気付いたのか、顔を石板に向けたまま、答えた。</Scene>
+		<Scene face="heroine" type="normal">んん。木の玉の効果が、持つ人が身軽くなって、より素早く動くことね。あと、次の遺跡の場所も書いてある。</Scene>
+		<Scene face="noface_hero" type="normal">やっと、読み終わったのか、石板から目をそらして、クレアはアランに言った。</Scene>
+		<Scene face="heroine" type="normal">よし、次の目的も決まった。帰ろ。</Scene>
+		<Scene face="noface_hero" type="normal">アランも言われたまま帰路に向かった。一刻も早く休もうとして、若干来るより早く進んでる。</Scene>
+
+        <Trans mode="fade" type="out"  time="5" color="#000000"/>
+
+        <Flag type1="global" mode1="const" value1="0" type2="const" mode2="const" value2="6"/>
+    </Contents>
+</Event>

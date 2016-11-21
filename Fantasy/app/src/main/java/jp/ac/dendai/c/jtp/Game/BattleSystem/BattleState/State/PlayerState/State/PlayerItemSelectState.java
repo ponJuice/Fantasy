@@ -34,9 +34,12 @@ public class PlayerItemSelectState extends APlayerState {
         list.setHorizontal(UIAlign.Align.CENTOR);
         list.setVertical(UIAlign.Align.CENTOR);
         list.setScrollable(true);
+        list.setY(GLES20Util.getHeight_gl()/2f);
         Button btn;
         ArrayList<Item> sks = player.getItemList();
         for(int n = 0;n < sks.size();n++){
+            if(!sks.get(n).isUseable())
+                continue;
             sks.get(n).setHeight(Constant.list_content_height-0.03f);
             sks.get(n).setDrawNumber(true);
             btn = new Button(0,0,1,1,sks.get(n));
@@ -69,7 +72,7 @@ public class PlayerItemSelectState extends APlayerState {
         this.list.init();
         ArrayList<Button> temp = this.list.getList();
         for(int n = 0;n < temp.size();n++){
-            if(player.getMp() < player.getSkillList().get(n).calcMpValue(player)){
+            if(player.getItemList().get(n).getNumber() <= 0){
                 temp.get(n).setEnabled(false);
             }else{
                 temp.get(n).setEnabled(true);
@@ -100,6 +103,8 @@ public class PlayerItemSelectState extends APlayerState {
         public void touchUp(Button button) {
             psp.getPlayerState().getBattleState().getBattleManager().getPlayer().getBattleAction().item = this.item;
             psp.getPlayerState().getBattleState().getBattleManager().getPlayer().getBattleAction().type = BattleAction.ActionType.Item;
+            psp.getPlayerState().getBattleState().getBattleManager().getPlayer().getBattleAction().owner = player;
+            psp.getPlayerState().getBattleState().getBattleManager().getPlayer().getBattleAction().target = player;
             psp.getList().setDrawable(false);
             psp.getList().setTouchable(false);
             psp.endState();

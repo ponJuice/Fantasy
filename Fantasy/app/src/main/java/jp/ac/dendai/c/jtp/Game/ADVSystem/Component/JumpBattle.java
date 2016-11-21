@@ -53,7 +53,7 @@ public class JumpBattle extends ADVComponent implements Parseable {
 
     @Override
     public void init(Event event) {
-
+        event.getTalkBox().textReset();
     }
 
     @Override

@@ -2,11 +2,14 @@ package jp.ac.dendai.c.jtp.Game.BattleSystem.Enemy;
 
 import android.graphics.Bitmap;
 
+import java.util.ArrayList;
+
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Attackable;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleAction;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleManager;
 import jp.ac.dendai.c.jtp.Game.Constant;
 import jp.ac.dendai.c.jtp.Game.GameManager;
+import jp.ac.dendai.c.jtp.Game.Item.ItemTemplate;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Button.Button;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Button.ButtonListener;
 import jp.ac.dendai.c.jtp.TouchUtil.Touch;
@@ -20,8 +23,10 @@ public class Enemy extends Attackable{
     protected Bitmap image;
     protected float alpha = 1;
     protected Button btn;
+    protected EnemyTemplate _et;
 
     public Enemy(EnemyTemplate et,float x,float y){
+        _et = et;
         name = et.name;
         baseHp = et.hp;
         hp = et.hp;
@@ -131,6 +136,18 @@ public class Enemy extends Attackable{
     public void touch(Touch touch){
         if(!isDead())
             btn.touch(touch);
+    }
+
+    public void getItem(ArrayList<ItemTemplate> temp){
+        int max = Constant.getRandom().nextInt(_et.itemMax+1);
+        for(int n = 0;n < max;n++){
+            int rand = Constant.getRandom().nextInt(100);
+            for(int m = _et.enemyItems.size()-1;0 <= m;m--) {
+                if(_et.enemyItems.get(m).probability >= rand){
+                    temp.add(_et.enemyItems.get(m).item);
+                }
+            }
+        }
     }
 
     @Override

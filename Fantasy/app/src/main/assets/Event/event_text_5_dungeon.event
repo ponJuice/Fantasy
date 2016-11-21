@@ -1,0 +1,123 @@
+<Event name="test_event_5_dungeon">
+	<EventCondition>
+		<Conditions mode="and">
+			<Condition type1="global" value1="0" mnemonic="==" type2="const" value2="15"/>
+			<Condition type1="global" value1="127" mnemonic="==" type2="const" value2="5"/>
+			<Condition type1="system" value1="0" mnemonic="==" type2="const" value2="9"/>
+		</Conditions>
+	</EventCondition>
+
+	<Face>
+		<face id = "hero" name="アラン" file="hero.png"/>
+		<face id = "noface_hero" name="  " file="noface.png"/>
+		<face id = "heroine" name="クレア" file="heroine.png"/>
+		<face id = "teacher" name="師匠" file="teacher.png"/>
+		<face id = "mobu1" name="門番のおっさん" file="mobu1.png"/>
+		<face id = "mobu2" name="酒場の主" file="mobu1.png"/>
+		<face id = "mobu3" name="太った男" file="mobu2.png"/>
+		<face id = "mobu4" name="華奢な男①" file="mobu3.png"/>
+		<face id = "mobu5" name="華奢な男②" file="mobu3.png"/>
+		<face id = "mobu6" name="貫禄ある男" file="mobu4.png"/>
+	</Face>
+
+	<Image>
+
+		<image id="town_01" file="town_01.png"/>
+		<image id="town_02" file="town_02.png"/>
+		<image id="town_03" file="town_03.png"/>
+		<image id="town_04" file="town_04.png"/>
+		<image id="town_05" file="town_05.png"/>
+		<image id="kaigi" file="kaigi.png"/>
+		<image id="dungeon_01" file="dungeon_01.png"/>
+		<image id="dungeon_02" file="dungeon_02.png"/>
+		<image id="dungeon_03" file="dungeon_03.png"/>
+		<image id="dungeon_04" file="dungeon_04.png"/>
+		<image id="dungeon_05" file="dungeon_05.png"/>
+
+		<image id="grass" file="grass.png"/>
+		<image id="koya000" file="koya000.png"/>
+		<image id="li_room05a_a" file="li_room05a_a.png"/>
+		<image id="ad_pass01_a" file="ad_pass01_a.png"/>
+		<image id="wall" file="wall.png"/>
+		<image id="sakaba" file="sakaba.png"/>
+		<image id="syobo" file="syobo.png"/>
+	</Image>
+
+	<Contents>
+		<Back id="dungeon_05"/>
+		<Trans mode="fade" type="in"  time="1" color="#FF00FF"/>
+
+
+		<Scene face="noface_hero" type="normal">途端、モンスターの群れがおそってきた。</Scene>
+
+		<Battle back_file="dungeon_05.png">
+			<Enemy id="monster-7"/>
+			<Enemy id="monster-8"/>
+
+		</Battle>
+
+		<Message time="0.1">土の玉をゲット。剣が S rank になった。</Message>
+		<ItemProc name="土の玉" num="1"/>
+
+
+
+
+		<Scene face="hero" type="normal">さあ、こい。</Scene>
+		<Scene face="noface_hero" type="normal">いつ襲ってもいいように、アランは気合を入れて構えた。</Scene>
+		<Scene face="noface_hero" type="normal">その姿勢でしばらくしたら、後ろからクレアの声が知ってきた。</Scene>
+		<Scene face="heroine" type="normal">何をしている。こっちは終わったわ。帰るよ。</Scene>
+		<Scene face="hero" type="normal">えっ。</Scene>
+		<Scene face="noface_hero" type="normal">構えたまま、アランはクレアの後ろ姿をみて、立ち尽くした。</Scene>
+		<Scene face="heroine" type="normal">町へ、今回の遺跡はあっさりと終わったね。ちょっと拍子抜けね。</Scene>
+		<Scene face="noface_hero" type="normal">クレアは町についた途端、アランに言った。</Scene>
+		<Scene face="noface_hero" type="normal">構えて、いつまでも例の男が現れないから、ある意味本当に拍子抜けしたアランだった。</Scene>
+		<Scene face="heroine" type="normal">そういえば、調べたいことは全部調べたわ。あっという間だね。</Scene>
+
+
+
+
+		<Scene face="noface_hero" type="normal">クレアは何か感心深そうにそういった。</Scene>
+		<Scene face="hero" type="normal">そうだね。</Scene>
+		<Scene face="noface_hero" type="normal">アランもそう思ったのか、頷き返した。</Scene>
+		<Scene face="heroine" type="normal">これからの予定なんだけど、私は調べたことをまとめて学会に発表するから、しばらく中継の町にいるわ。</Scene>
+		<Scene face="heroine" type="normal">客としていらっしゃい、歓迎するわ。</Scene>
+		<Scene face="noface_hero" type="normal">クレアは別れを意識したか、アランを客として招こうとした。</Scene>
+		<Scene face="hero" type="normal">うん。そうする。俺は一回師匠のところに報告してから行くよ。</Scene>
+		<Scene face="noface_hero" type="normal">アランも別れを惜しみ、ちゃんとクレアに会いに行こうと決めた。</Scene>
+		<Scene face="heroine" type="normal">じゃあ、ちゃんと来てね。</Scene>
+		<Scene face="noface_hero" type="normal">クレアはそれを言い、アランを残し中継の町に向かった。</Scene>
+		<Scene face="noface_hero" type="normal">アランも山に帰る。</Scene>
+
+        <Trans mode="fade" type="out"  time="1" color="#000000"/>
+		<Back id="koya000"/>
+		<Trans mode="fade" type="in"  time="1" color="#000000"/>
+
+		<Scene face="noface_hero" type="normal">おお、戻ってきたか。どうじゃ、人生経験は満たしたか。</Scene>
+		<Scene face="noface_hero" type="normal">山に戻り、師匠がいきなり言い出した。</Scene>
+
+
+		<Scene face="noface_hero" type="normal">一つ旅で、人生経験を満たしたらやばいだろ。</Scene>
+		<Scene face="noface_hero" type="normal">師弟あった途端、ツッコミを入れるアランだった。</Scene>
+		<Scene face="hero" type="normal">でも、ちゃんと師匠の言い付け通りに夢を追いかけてきたぜ。……</Scene>
+		<Scene face="noface_hero" type="normal">そしたら、自分の夢及びクレアとの旅の話を師匠に教えた。</Scene>
+		<Scene face="hero" type="normal">ほら、これが伝説の剣だぜ。これで、俺は世界平和を守れるぜ。</Scene>
+		<Scene face="noface_hero" type="normal">自慢げに師匠に剣を見せる。</Scene>
+
+
+
+		<Scene face="teacher" type="normal">ううんんーー。のう、アラン。我が弟子よ。立派な夢を抱えてるようじゃが、この世界の平和にオメェは必要ないんだ。</Scene>
+		<Scene face="noface_hero" type="normal">師匠はとんでもないことを言い出す。</Scene>
+		<Scene face="hero" type="normal">えっ。</Scene>
+		<Scene face="noface_hero" type="normal">アランはその言葉に反応し損ねた。</Scene>
+		<Scene face="teacher" type="normal">だから、今の世の中もう平和だよ。</Scene>
+		<Scene face="noface_hero" type="normal">そんなアランを見て、哀れな表情で言った。</Scene>
+		<Scene face="teacher" type="normal">オメェが世界平和を守らなくても、世界は平和だぜ。わはっはははは。</Scene>
+		<Scene face="noface_hero" type="normal">とうとう我慢が利かなくなったか、おお声で笑い出した師匠がそこにいた。</Scene>
+		<Scene face="hero" type="normal">嘘だろう。</Scene>
+		<Scene face="noface_hero" type="normal">アランは信じられない声を上げた。</Scene>
+
+		<Trans mode="fade" type="out"  time="5" color="#000000"/>
+		<Flag type1="global" mode1="const" value1="0" type2="const" mode2="const" value2="16"/>
+		<JumpTown name="ゴーデオン"/>
+	</Contents>
+</Event>

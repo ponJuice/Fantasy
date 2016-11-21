@@ -5,7 +5,10 @@ import android.content.res.AssetManager;
 import java.io.IOException;
 
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Event.Event;
+import jp.ac.dendai.c.jtp.Game.ADVSystem.Flag.FlagManager;
+import jp.ac.dendai.c.jtp.Game.BattleSystem.Player.PlayerData;
 import jp.ac.dendai.c.jtp.Game.Constant;
+import jp.ac.dendai.c.jtp.Game.DataManager;
 import jp.ac.dendai.c.jtp.Game.GameManager;
 import jp.ac.dendai.c.jtp.Game.GameUI.QuestionBox;
 import jp.ac.dendai.c.jtp.Game.MapSystem.Node;
@@ -32,6 +35,10 @@ public class DebugEventSelectScreen implements Screenable{
     protected List list;
     protected Button toBattle;
     protected Button toMap;
+    protected Button toDungeon;
+    protected Button toEvent;
+    protected Button saveButton;
+    protected Button loadButton;
 
     protected Node testNode1,testNode2,testNode3;
     protected Town t1,t2,t3;
@@ -112,6 +119,7 @@ public class DebugEventSelectScreen implements Screenable{
 
             @Override
             public void touchUp(Button button) {
+                FlagManager.setFlagValue(FlagManager.FlagType.global,0,100);
                 LoadingTransition lt = LoadingTransition.getInstance();
                 lt.initTransition(MapScreen.class);
                 GameManager.args = new Object[1];
@@ -121,6 +129,128 @@ public class DebugEventSelectScreen implements Screenable{
             }
         });
 
+        toEvent = new Button(toMap.getWidth(),toMap.getY(),0.1f,0.1f,"イベント");
+        toEvent.useAspect(true);
+        toEvent.setBitmap(Constant.getBitmap(Constant.BITMAP.system_button));
+        toEvent.setBackImageCriteria(UI.Criteria.Height);
+        toEvent.setHeight(0.1f);
+        toEvent.setCriteria(UI.Criteria.Height);
+        toEvent.setPadding(0.05f);
+        toEvent.setHorizontal(UIAlign.Align.LEFT);
+        toEvent.setVertical(UIAlign.Align.BOTTOM);
+        toEvent.setButtonListener(new ButtonListener() {
+            @Override
+            public void touchDown(Button button) {
+
+            }
+
+            @Override
+            public void touchHover(Button button) {
+
+            }
+
+            @Override
+            public void touchUp(Button button) {
+                FlagManager.setFlagValue(FlagManager.FlagType.global,0,14);
+                GameManager.getPlayerData().setTown(GameManager.getDataBase().getTown("フォーサイド"));
+                LoadingTransition lt = LoadingTransition.getInstance();
+                lt.initTransition(TownScreen.class);
+                GameManager.stack.clear();
+                GameManager.args = new Object[1];
+                GameManager.args[0] = GameManager.getDataBase().getTown("フォーサイド");
+                GameManager.transition = lt;
+                GameManager.isTransition = true;
+            }
+        });
+
+        toDungeon = new Button(toMap.getWidth(),0,1,1,"ダンジョンへ");
+        toDungeon.useAspect(true);
+        toDungeon.setBitmap(Constant.getBitmap(Constant.BITMAP.system_button));
+        toDungeon.setBackImageCriteria(UI.Criteria.Height);
+        toDungeon.setHeight(0.1f);
+        toDungeon.setCriteria(UI.Criteria.Height);
+        toDungeon.setPadding(0.05f);
+        toDungeon.setHorizontal(UIAlign.Align.LEFT);
+        toDungeon.setVertical(UIAlign.Align.BOTTOM);
+        toDungeon.setButtonListener(new ButtonListener() {
+            @Override
+            public void touchDown(Button button) {
+
+            }
+
+            @Override
+            public void touchHover(Button button) {
+
+            }
+
+            @Override
+            public void touchUp(Button button) {
+                LoadingTransition lt = LoadingTransition.getInstance();
+                lt.initTransition(DungeonScreen.class);
+                GameManager.getPlayerData().setAgl(1000);
+                GameManager.getPlayerData().setAtk(1000);
+                GameManager.args = new Object[2];
+                GameManager.args[0] = ImageReader.readImageToAssets(Constant.mapImageFile);
+                GameManager.args[1] = "最初の遺跡";
+                GameManager.transition = lt;
+                GameManager.isTransition = true;
+            }
+        });
+
+        saveButton = new Button(toDungeon.getWidth()+toDungeon.getX(),toDungeon.getY(),0.1f,0.1f,"セーブ");
+        saveButton.useAspect(true);
+        saveButton.setBitmap(Constant.getBitmap(Constant.BITMAP.system_button));
+        saveButton.setBackImageCriteria(UI.Criteria.Height);
+        saveButton.setHeight(0.1f);
+        saveButton.setCriteria(UI.Criteria.Height);
+        saveButton.setPadding(0.05f);
+        saveButton.setHorizontal(UIAlign.Align.LEFT);
+        saveButton.setVertical(UIAlign.Align.BOTTOM);
+        saveButton.setButtonListener(new ButtonListener() {
+            @Override
+            public void touchDown(Button button) {
+
+            }
+
+            @Override
+            public void touchHover(Button button) {
+
+            }
+
+            @Override
+            public void touchUp(Button button) {
+                FlagManager.setFlagValue(FlagManager.FlagType.global,0,14);
+                GameManager.getPlayerData().setTown(GameManager.getDataBase().getTown("フォーサイド"));
+                DataManager.saveData();
+            }
+        });
+
+        loadButton = new Button(toDungeon.getWidth()+toDungeon.getX(),toEvent.getY(),0.1f,0.1f,"ロード");
+        loadButton.useAspect(true);
+        loadButton.setBitmap(Constant.getBitmap(Constant.BITMAP.system_button));
+        loadButton.setBackImageCriteria(UI.Criteria.Height);
+        loadButton.setHeight(0.1f);
+        loadButton.setCriteria(UI.Criteria.Height);
+        loadButton.setPadding(0.05f);
+        loadButton.setHorizontal(UIAlign.Align.LEFT);
+        loadButton.setVertical(UIAlign.Align.BOTTOM);
+        loadButton.setButtonListener(new ButtonListener() {
+            @Override
+            public void touchDown(Button button) {
+
+            }
+
+            @Override
+            public void touchHover(Button button) {
+
+            }
+
+            @Override
+            public void touchUp(Button button) {
+                DataManager.loadData();
+                PlayerData pd = GameManager.getPlayerData();
+            }
+        });
 
         testNode1 = new Node();
         testNode2 = new Node();
@@ -152,6 +282,10 @@ public class DebugEventSelectScreen implements Screenable{
         list.proc();
         toBattle.proc();
         toMap.proc();
+        toDungeon.proc();
+        toEvent.proc();
+        loadButton.proc();
+        saveButton.proc();
         t1.proc();
         t2.proc();
         t3.proc();
@@ -162,16 +296,19 @@ public class DebugEventSelectScreen implements Screenable{
     public void Draw(float offsetX, float offsetY) {
         toBattle.draw(offsetX,offsetY);
         toMap.draw(offsetX,offsetY);
+        toDungeon.draw(offsetX,offsetY);
+        toEvent.draw(offsetX,offsetY);
+        loadButton.draw(offsetX,offsetY);
+        saveButton.draw(offsetX,offsetY);
 
         list.draw(offsetX,offsetY);
-        testNode1.drawNode(0,0,1);
-        testNode2.drawNode(0,0,1);
-        testNode3.drawNode(0,0,1);
-        t1.drawIcon(offsetX,offsetY);
-        t2.drawIcon(offsetX,offsetY);
-        t3.drawIcon(offsetX,offsetY);
 
         qb.draw(offsetX,offsetY);
+    }
+
+    @Override
+    public void init() {
+
     }
 
     @Override
@@ -181,9 +318,10 @@ public class DebugEventSelectScreen implements Screenable{
         list.touch(Input.getTouchArray()[0]);
         toBattle.touch(Input.getTouchArray()[0]);
         toMap.touch(Input.getTouchArray()[0]);
-        t1.touch(Input.getTouchArray()[0]);
-        t2.touch(Input.getTouchArray()[0]);
-        t3.touch(Input.getTouchArray()[0]);
+        toDungeon.touch(Input.getTouchArray()[0]);
+        toEvent.touch(Input.getTouchArray()[0]);
+        loadButton.touch(Input.getTouchArray()[0]);
+        saveButton.touch(Input.getTouchArray()[0]);
 
         qb.touch(Input.getTouchArray()[0]);
     }

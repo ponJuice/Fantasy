@@ -1,14 +1,113 @@
 ﻿<Items>
-	<Item name="薬草" price="10">
+	<Item name="薬草" price="10" sell="5" usable="true">
 	    <Animations>
 	        <Animation anim_id="lifeup" start="0" length="1" ox="0" oy = "0" sx="1" sy="1" rot="0"/>
 	    </Animations>
 		<HP value="10"/>
 		<Detail>体力を10回復する。</Detail>
 	</Item>
-	<Item name="俊敏薬" price="100">
+	<Item name="回復薬" price="50" sell="25" usable="true">
+        <Animations>
+            <Animation anim_id="lifeup" start="0" length="1" ox="0" oy = "0" sx="1" sy="1" rot="0"/>
+        </Animations>
+        <HP value="100"/>
+        <Detail>体力を100回復する。</Detail>
+    </Item>
+    <Item name="漢方" price="75" sell="30" usable="true">
+        <Animations>
+            <Animation anim_id="lifeup" start="0" length="1" ox="0" oy = "0" sx="1" sy="1" rot="0"/>
+        </Animations>
+        <HP value="80"/>
+        <Detail>体力を80回復する。</Detail>
+    </Item>
+    <Item name="生命の薬" price="200" sell="100" usable="true">
+        <Animations>
+            <Animation anim_id="lifeup" start="0" length="1" ox="0" oy = "0" sx="1" sy="1" rot="0"/>
+        </Animations>
+        <HP value="1000"/>
+        <Detail>体力を1000回復する。</Detail>
+    </Item>
+	<Item name="俊敏薬" price="100" sell="10" usable="true">
+	    <Animations>
+	        <Animation anim_id="lifeup" start="0" length="1" ox="0" oy = "0" sx="1" sy="1" rot="0"/>
+	    </Animations>
 		<Agility value="10" time="3"/>
 		<Detail>少し早くなる。</Detail>
 	</Item>
+
+<!-- non usable -->
+    <Item name="スライムの欠片" price="8" sell="5">
+        <Detail>スライムの体の一部。</Detail>
+    </Item>
+
+    <Item name="スライムのコア" price="200" sell="100">
+        <Detail>スライムの中心。</Detail>
+    </Item>
+
+    <Item name="人形の腕" price="2" sell="1">
+        <Detail>人形の残骸の一部。</Detail>
+    </Item>
+
+     <Item name="インキュバスの翼" price="200" sell="100">
+         <Detail>インキュバスの一部。</Detail>
+     </Item>
+
+
+     <Item name="サキュバスの翼" price="400" sell="200">
+         <Detail>サキュバスの一部。</Detail>
+     </Item>
+
+
+     <Item name="スノーガールの服のかけら" price="400" sell="200">
+         <Detail>スノーガールの一部。</Detail>
+     </Item>
+
+
+     <Item name="スノーボーイの服のかけら" price="800" sell="400">
+         <Detail>スノーボーイの一部。</Detail>
+     </Item>
+
+     <Item name="ブラックキューピットの弓矢" price="800" sell="400">
+         <Detail>ブラックキューピットの一部。</Detail>
+     </Item>
+
+
+     <Item name="ホワイトキューピットの弓矢" price="1200" sell="600">
+         <Detail>ホワイトキューピットの一部。</Detail>
+     </Item>
+
+     <Item name="ゴーレムのコア" price="1600" sell="800">
+         <Detail>ゴーレムの一部。</Detail>
+     </Item>
+
+
+     <Item name="ブルーゴーレムのコア" price="2000" sell="1000">
+         <Detail>ブルーゴーレムの一部。</Detail>
+     </Item>
+
+    <Item name="師匠秘蔵のエロ本" price="0" sell="1000" sellable="false">
+        <Detail>師匠が大切にしているエロ本。</Detail>
+    </Item>
+
+    <Item name="金の玉" price="0" sell="1000" sellable="false">
+        <Detail>伝説の剣の素材</Detail>
+    </Item>
+
+    <Item name="木の玉" price="0" sell="1000" sellable="false">
+        <Detail>伝説の剣の素材</Detail>
+    </Item>
+
+    <Item name="水の玉" price="0" sell="1000" sellable="false">
+        <Detail>伝説の剣の素材</Detail>
+    </Item>
+
+    <Item name="火の玉" price="0" sell="1000" sellable="false">
+        <Detail>伝説の剣の素材</Detail>
+    </Item>
+
+    <Item name="土の玉" price="0" sell="1000" sellable="false">
+        <Detail>伝説の剣の素材</Detail>
+    </Item>
+
 </Items>
 

@@ -1,5 +1,6 @@
 package jp.ac.dendai.c.jtp.Game.UIs.Screen.BattleScreen;
 
+import jp.ac.dendai.c.jtp.Game.ADVSystem.Flag.FlagManager;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleManager;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.DrawMachine.DefaultDrawMachine;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.DrawMachine.DrawMachine;
@@ -24,47 +25,16 @@ import jp.ac.dendai.c.jtp.openglesutil.core.GLES20Util;
  * Created by Goto on 2016/09/16.
  */
 public class BattleScreen implements Screenable {
+    protected static FlagManager.ScreenType screenType = FlagManager.ScreenType.battle;
     protected int enemyMax = 3;
     protected BattleManager battleManager;
     protected boolean freeze = true;
     protected Image background;
-    protected Button toDungeon;
     protected DrawMachine defaultMachine;
 
     public BattleScreen(){
 
         defaultMachine = new DefaultDrawMachine();
-
-        toDungeon = new Button(0,0.9f,0.8f,0.7f,"町へ");
-        toDungeon.setBitmap(Constant.getBitmap(Constant.BITMAP.system_button));
-        toDungeon.useAspect(true);
-        toDungeon.setBackImageCriteria(UI.Criteria.Height);
-        toDungeon.setHeight(0.2f);
-        toDungeon.setPadding(0.08f);
-        toDungeon.setCriteria(UI.Criteria.Height);
-        toDungeon.setHorizontal(UIAlign.Align.LEFT);
-        toDungeon.setX(0);
-        toDungeon.setY(GLES20Util.getHeight_gl());
-        toDungeon.setVertical(UIAlign.Align.TOP);
-        toDungeon.setButtonListener(new ButtonListener() {
-            @Override
-            public void touchDown(Button button) {
-
-            }
-
-            @Override
-            public void touchHover(Button button) {
-
-            }
-
-            @Override
-            public void touchUp(Button button) {
-                LoadingTransition lt = LoadingTransition.getInstance();
-                lt.initTransition(DebugEventSelectScreen.class);
-                GameManager.transition = lt;
-                GameManager.isTransition = true;
-            }
-        });
     }
 
     @Override
@@ -93,7 +63,11 @@ public class BattleScreen implements Screenable {
             //そうでない場合はランクによってランダム抽選
             et = new EnemyTemplate[Constant.getRandom().nextInt(enemyMax) + 1];
             for (int n = 0; n < et.length; n++) {
-                et[n] = db.getEnemy((int)args[2]);
+                EnemyTemplate e = db.getEnemy((int)args[2]);
+                while(!e.isEncount()){
+                    e = db.getEnemy((int)args[2]);
+                }
+                et[n] = e;
             }
         }
         battleManager = new BattleManager(et);
@@ -103,7 +77,6 @@ public class BattleScreen implements Screenable {
     public void Proc() {
         if(freeze)
             return;
-        toDungeon.proc();
 
         battleManager.proc();
     }
@@ -111,18 +84,19 @@ public class BattleScreen implements Screenable {
     @Override
     public void Draw(float offsetX, float offsetY) {
         background.draw(offsetX,offsetY);
-        toDungeon.draw(offsetX,offsetY);
         defaultMachine.draw(battleManager,offsetX,offsetY);
         battleManager.draw(offsetX,offsetY);
+    }
+
+    @Override
+    public void init() {
+        FlagManager.setFlagValue(FlagManager.FlagType.global,1,screenType.getInt());
     }
 
     @Override
     public void Touch() {
         if(freeze)
             return;
-        for(int n = 0; n < Input.getMaxTouch(); n++){
-            toDungeon.touch(Input.getTouchArray()[n]);
-        }
     }
 
     @Override

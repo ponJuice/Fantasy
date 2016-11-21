@@ -20,11 +20,11 @@ public class Flag extends ADVComponent implements Parseable {
     public final static String s_mode2 = "mode2";
     public final static String s_value2 = "value2";
 
-    protected String type1;
-    protected String mode1;
+    protected FlagManager.FlagType type1;
+    protected FlagManager.FlagType mode1;
     protected int value1;
-    protected String type2;
-    protected String mode2;
+    protected FlagManager.FlagType type2;
+    protected FlagManager.FlagType mode2;
     protected int value2;
 
     @Override
@@ -42,6 +42,11 @@ public class Flag extends ADVComponent implements Parseable {
         return next.proc(event);
     }
 
+    public void proc(){
+        FlagManager.setFlagValue(type1,FlagManager.getFlagValue(mode1,value1),FlagManager.getFlagValue(type2,FlagManager.getFlagValue(mode2,value2)));
+        FlagManager.outputDebugInfo();
+    }
+
     @Override
     public void init(Event event) {
 
@@ -50,10 +55,10 @@ public class Flag extends ADVComponent implements Parseable {
     @Override
     public void parseCreate(AssetManager am, XmlPullParser xpp) {
         //<Flag type1="local" mode1="const" value1="1" type2="global" mode2="local" value2="1"/>
-        type1 = xpp.getAttributeValue(null,s_type1);
-        mode1 = xpp.getAttributeValue(null,s_mode1);
-        type2 = xpp.getAttributeValue(null,s_type2);
-        mode2 = xpp.getAttributeValue(null,s_mode2);
+        type1 = FlagManager.FlagType.parse(xpp.getAttributeValue(null,s_type1));
+        mode1 = FlagManager.FlagType.parse(xpp.getAttributeValue(null,s_mode1));
+        type2 = FlagManager.FlagType.parse(xpp.getAttributeValue(null,s_type2));
+        mode2 = FlagManager.FlagType.parse(xpp.getAttributeValue(null,s_mode2));
 
         String _value = xpp.getAttributeValue(null,s_value1);
         value1 = Integer.parseInt(_value);

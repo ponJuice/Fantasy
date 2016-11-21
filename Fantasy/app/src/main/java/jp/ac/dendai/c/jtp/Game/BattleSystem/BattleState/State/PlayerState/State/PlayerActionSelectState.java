@@ -34,6 +34,7 @@ public class PlayerActionSelectState extends APlayerState{
         list.setHorizontal(UIAlign.Align.CENTOR);
         list.setVertical(UIAlign.Align.CENTOR);
         list.setScrollable(true);
+        list.setY(GLES20Util.getHeight_gl()/2f);
 
         Button btn = new Button(0,0,0.5f,0.25f,attackBtnString);
         btn.useAspect(true);
@@ -116,7 +117,7 @@ public class PlayerActionSelectState extends APlayerState{
         });
         list.addItem(btn);
 
-        btn = new Button(0,0,0.5f,0.25f,escapeBtnString);
+        /*btn = new Button(0,0,0.5f,0.25f,escapeBtnString);
         btn.useAspect(true);
         btn.setBitmap(Constant.getBitmap(Constant.BITMAP.system_button));
         btn.setCriteria(UI.Criteria.Height);
@@ -138,7 +139,7 @@ public class PlayerActionSelectState extends APlayerState{
 
             }
         });
-        list.addItem(btn);
+        list.addItem(btn);*/
     }
 
     @Override

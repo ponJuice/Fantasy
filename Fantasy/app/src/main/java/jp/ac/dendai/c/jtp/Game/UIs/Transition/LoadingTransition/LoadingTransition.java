@@ -24,10 +24,11 @@ public class LoadingTransition implements Transitionable {
 	private Class<?> nextScreenClass;
 	private Bitmap bitmap;
 	private StaticText loading;
-	private int r = 0,g = 0, b = 255;
+	private int r = 0,g = 0, b = 0;
 	private LoadingThread thread;
 	private Object lock;
 	private int count = 0;
+	private boolean useFadeIn = true;
 	public static LoadingTransition getInstance(){
 		if(instance == null)
 			instance = new LoadingTransition();
@@ -49,6 +50,10 @@ public class LoadingTransition implements Transitionable {
 		count = 0;
 		loading.init();
 		state = LOAD_STATE.START;
+		useFadeIn = true;
+	}
+	public void useFadeIn(boolean flag){
+		useFadeIn = flag;
 	}
 	@Override
 	public boolean Transition() {
@@ -58,7 +63,9 @@ public class LoadingTransition implements Transitionable {
 			GameManager.nowScreen.Draw(0,0);
 			//ロードの開始
 			//ロード画面のトランジョン
-			float a = Clamp.clamp(0f, 1f, 60f, (float) count);
+			float a = 1;
+			if(useFadeIn)
+				a = Clamp.clamp(0f, 1f, 60f, (float) count);
 			GLES20Util.DrawGraph(GLES20Util.getWidth_gl()/2f,GLES20Util.getHeight_gl()/2f,
 					GLES20Util.getWidth_gl(),GLES20Util.getHeight_gl(),
 					bitmap, a ,GLES20COMPOSITIONMODE.ALPHA);
@@ -84,11 +91,12 @@ public class LoadingTransition implements Transitionable {
 			if(count > 120) {
 				//ロード中
 				if (thread.isEnd()) {
-					GameManager.nowScreen = thread.getScreen();
-					GameManager.nowScreen.freeze();
-					thread = null;
 					state = LOAD_STATE.END;
 					count = 0;
+					GameManager.nowScreen = thread.getScreen();
+					thread = null;
+					GameManager.nowScreen.init();
+					GameManager.nowScreen.freeze();
 				}
 			}
 		}else if(state == LOAD_STATE.END){

@@ -1,31 +1,42 @@
 package jp.ac.dendai.c.jtp.Game.UIs.Screen;
 
 import android.graphics.Bitmap;
+import android.media.MediaPlayer;
 import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Component.MessageBox;
+import jp.ac.dendai.c.jtp.Game.ADVSystem.Event.EventManager;
+import jp.ac.dendai.c.jtp.Game.ADVSystem.Flag.FlagManager;
+import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleState.State.PlayerState.PlayerState;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Player.Player;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Player.PlayerData;
 import jp.ac.dendai.c.jtp.Game.Constant;
 import jp.ac.dendai.c.jtp.Game.GameManager;
+import jp.ac.dendai.c.jtp.Game.GameUI.PlayerStatas;
 import jp.ac.dendai.c.jtp.Game.GameUI.QuestionBox;
+import jp.ac.dendai.c.jtp.Game.Item.Item;
 import jp.ac.dendai.c.jtp.Game.MapSystem.CursorAnimator;
 import jp.ac.dendai.c.jtp.Game.MapSystem.Node;
+import jp.ac.dendai.c.jtp.Game.MapSystem.ShopItem;
 import jp.ac.dendai.c.jtp.Game.MapSystem.Town;
 import jp.ac.dendai.c.jtp.Game.UIs.Screen.BattleScreen.BattleScreen;
 import jp.ac.dendai.c.jtp.Game.UIs.Transition.LoadingTransition.LoadingTransition;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Button.Button;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Button.ButtonListener;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Image.Image;
+import jp.ac.dendai.c.jtp.Game.UIs.UI.List.List;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.UI;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.UIAlign;
 import jp.ac.dendai.c.jtp.TouchUtil.Input;
 import jp.ac.dendai.c.jtp.TouchUtil.Touch;
+import jp.ac.dendai.c.jtp.fantasy.R;
 import jp.ac.dendai.c.jtp.openglesutil.Util.ImageReader;
 import jp.ac.dendai.c.jtp.openglesutil.core.GLES20Util;
+
+import static jp.ac.dendai.c.jtp.Game.UIs.Screen.TownScreen.padding;
 
 /**
  * Created by wark on 2016/10/20.
@@ -37,8 +48,13 @@ public class MapScreen implements Screenable{
         arriveTown,
         arriveEncount,
         returnScreen,
-        non
+        non,
+        menu,
+        item_select
     }
+    protected static float background_offsetX = -108f/126f;
+    protected static float background_offsetY = 102f/126f;
+    protected FlagManager.ScreenType screenType = FlagManager.ScreenType.map;
     protected PlayerData playerData;
     protected QuestionBox battleQuestion;
     protected QuestionBox inTownQuestion;
@@ -47,7 +63,7 @@ public class MapScreen implements Screenable{
     protected int encount = 0;
     protected float cursorHeight = 0.1f;
     protected Image cursor;
-    protected float height = 5f;
+    protected float height = 512f/126f;
     protected Image background;
     protected TownIcon[] townIcons;
     protected ArrayList<Node> nodes;
@@ -56,12 +72,14 @@ public class MapScreen implements Screenable{
     protected Node toTown;
     protected CursorAnimator cursorAnimator;
     protected boolean freeze = true;
+    protected Item selectItem;
+    protected MenuDialog md;
 
     public MapScreen(){
         playerData = GameManager.getPlayerData();
 
         background = new Image();
-        menuButton = new Button(0,0,1f,1f,"メニュー");
+        menuButton = new Button(0,0,1f,1f,"アイテム");
         menuButton.setBitmap(Constant.getBitmap(Constant.BITMAP.system_button));
         menuButton.useAspect(true);
         menuButton.setCriteria(UI.Criteria.Height);
@@ -69,6 +87,22 @@ public class MapScreen implements Screenable{
         menuButton.setHeight(0.1f);
         menuButton.setHorizontal(UIAlign.Align.LEFT);
         menuButton.setVertical(UIAlign.Align.TOP);
+        menuButton.setButtonListener(new ButtonListener() {
+            @Override
+            public void touchDown(Button button) {
+
+            }
+
+            @Override
+            public void touchHover(Button button) {
+
+            }
+
+            @Override
+            public void touchUp(Button button) {
+                mode = Mode.menu;
+            }
+        });
 
         cursor = new Image();
         cursor.setImage(Constant.getBitmap(Constant.BITMAP.system_cursor));
@@ -85,11 +119,13 @@ public class MapScreen implements Screenable{
         battleQuestion.setY(GLES20Util.getHeight_gl()/2f + GLES20Util.getCameraPosY());
         battleQuestion.setYesButtonListener(new BattleYesButtonListener());
         battleQuestion.setNoButtonListener(new BattleNoButtonListener());
-        inTownQuestion = new QuestionBox(Constant.getBitmap(Constant.BITMAP.system_message_box),"街に入りますか？","はい","いいえ");
+        inTownQuestion = new QuestionBox(Constant.getBitmap(Constant.BITMAP.system_message_box),"入りますか？","はい","いいえ");
         inTownQuestion.setX(GLES20Util.getWidth_gl()/2f + GLES20Util.getCameraPosX());
         inTownQuestion.setY(GLES20Util.getHeight_gl()/2f + GLES20Util.getCameraPosY());
         inTownQuestion.setNoButtonListener(new InTownNoListener());
         inTownQuestion.setYesButtonListener(new InTownYesListener());
+
+        md = new MenuDialog();
     }
 
     @Override
@@ -98,9 +134,12 @@ public class MapScreen implements Screenable{
         background.useAspect(true);
         background.setHeight(height);
         background.setHorizontal(UIAlign.Align.LEFT);
-        background.setVertical(UIAlign.Align.BOTTOM);
+        background.setVertical(UIAlign.Align.TOP);
+        background.setX(background_offsetX);
+        background.setY(background_offsetY + GLES20Util.getHeight_gl());
         townIcons = createTownIconArray(GameManager.getDataBase().getTownList().toArray(new Town[0]));
         nodes = GameManager.getDataBase().getNodeList();
+        cursorAnimator.reset(GameManager.getPlayerData().getTown().getX(),GameManager.getPlayerData().getTown().getY());
     }
 
     @Override
@@ -131,6 +170,10 @@ public class MapScreen implements Screenable{
                     battleQuestion.setY(GLES20Util.getHeight_gl()/2f + GLES20Util.getCameraPosY());
                     battleQuestion.startFadeInAnimation();
                     GameManager.stack.push(this);
+                    GameManager.args = new Object[3];
+                    GameManager.args[0] = toTown.getBackFile();
+                    GameManager.args[1] = 0;
+                    GameManager.args[2] = toTown.getRank();
                     LoadingTransition lt = LoadingTransition.getInstance();
                     lt.initTransition(BattleScreen.class);
                     GameManager.transition = lt;
@@ -149,34 +192,55 @@ public class MapScreen implements Screenable{
                 //トランジョン表示
             }else if(mode ==Mode.returnScreen){
                 battleQuestion.proc();
+            }else if(mode == Mode.menu){
+                md.proc();
+            }else if(mode == Mode.non) {
+                menuButton.setX(GLES20Util.getCameraPosX());
+                menuButton.setY(GLES20Util.getCameraPosY() + GLES20Util.getHeight_gl());
+                menuButton.proc();
+            }else if(mode == Mode.item_select){
+                selectItem.influence(playerData);
+                mode = Mode.menu;
             }
-            menuButton.setX(GLES20Util.getCameraPosX());
-            menuButton.setY(GLES20Util.getCameraPosY() + GLES20Util.getHeight_gl());
             if (isMenu)
                 return;
-            for (int n = 0; n < townIcons.length; n++) {
-                townIcons[n].touch(Input.getTouchArray()[0]);
-                townIcons[n].proc();
-            }
         }
     }
 
     @Override
     public void Draw(float offsetX, float offsetY) {
         background.draw(offsetX,offsetY);
-        for(int n = 0;n < townIcons.length;n++){
-            townIcons[n].draw(offsetX,offsetY);
-        }
         for(int n = 0;n < nodes.size();n++){
             nodes.get(n).drawNode(offsetX,offsetY,1);
         }
+        for(int n = 0;n < townIcons.length;n++){
+            townIcons[n].draw(offsetX,offsetY);
+        }
         //cursor.draw(offsetX,offsetY);
         cursorAnimator.draw(offsetX,offsetY);
-        menuButton.draw(offsetX,offsetY);
+        if(mode == Mode.non) {
+            menuButton.draw(offsetX, offsetY);
+        }
         if(mode == Mode.arriveTown){
             inTownQuestion.draw(offsetX,offsetY);
         }else if(mode == Mode.returnScreen){
             battleQuestion.draw(offsetX,offsetY);
+        }else if(mode == Mode.menu){
+            md.draw(offsetX,offsetY);
+        }
+    }
+
+    @Override
+    public void init() {
+        md.init();
+        FlagManager.setFlagValue(FlagManager.FlagType.global,1,screenType.getInt());
+        EventManager eventManager = GameManager.getDataBase().getEventManager();
+        String str = eventManager.checkEvent();
+        if(str != null){
+            eventManager.startEvent(this,str);
+            LoadingTransition.getInstance().useFadeIn(false);
+        }else{
+            GameManager.startBGM(R.raw.map,true);
         }
     }
 
@@ -187,13 +251,18 @@ public class MapScreen implements Screenable{
 
         if(mode == Mode.moveTownEffect)
             return;
-        boolean through = true;
-        through = through && menuButton.touch(Input.getTouchArray()[0]);
-        if(!through)
-            return;
+        if(mode == Mode.non) {
+            menuButton.touch(Input.getTouchArray()[0]);
+            for (int n = 0; n < townIcons.length; n++) {
+                townIcons[n].touch(Input.getTouchArray()[0]);
+                townIcons[n].proc();
+            }
+        }
 
-        if(isMenu)
+        if(mode == Mode.menu) {
+            md.touch();
             return;
+        }
 
         if(mode == Mode.arriveTown){
             inTownQuestion.touch(Input.getTouchArray()[0]);
@@ -202,7 +271,7 @@ public class MapScreen implements Screenable{
         }else if(mode == Mode.returnScreen){
             battleQuestion.touch(Input.getTouchArray()[0]);
         }else {
-
+/*
             float camX = GLES20Util.getCameraPosX() + Input.getTouchArray()[0].getDelta(Touch.Pos_Flag.X) / 1000f;
             float camY = GLES20Util.getCameraPosY() - Input.getTouchArray()[0].getDelta(Touch.Pos_Flag.Y) / 1000f;
             if (camX < 0)
@@ -214,7 +283,7 @@ public class MapScreen implements Screenable{
             else if (camY + 1f > background.getHeight())
                 camY = background.getHeight() - 1f;
 
-            GLES20Util.setCameraPos(camX, camY);
+            GLES20Util.setCameraPos(camX, camY);*/
         }
 
         Input.getTouchArray()[0].resetDelta();
@@ -266,15 +335,25 @@ public class MapScreen implements Screenable{
         }
 
         @Override
-        public void touchUp(Button button) {
-            mode = Mode.non;
-            GameManager.stack.push(GameManager.nowScreen);
-            GameManager.args = new Object[1];
-            GameManager.args[0] = GameManager.getPlayerData().getTown();
-            LoadingTransition lt = LoadingTransition.getInstance();
-            lt.initTransition(TownScreen.class);
-            GameManager.transition = lt;
-            GameManager.isTransition = true;
+        public void touchUp(Button button) {mode = Mode.non;
+            if(GameManager.getPlayerData().getTown().isDungeon()){
+                GameManager.stack.push(GameManager.nowScreen);
+                LoadingTransition lt = LoadingTransition.getInstance();
+                lt.initTransition(DungeonScreen.class);
+                GameManager.args = new Object[2];
+                GameManager.args[0] = GameManager.getPlayerData().getTown().getBackground();
+                GameManager.args[1] = GameManager.getPlayerData().getTown().getName();
+                GameManager.transition = lt;
+                GameManager.isTransition = true;
+            }else {
+                GameManager.stack.push(GameManager.nowScreen);
+                GameManager.args = new Object[1];
+                GameManager.args[0] = GameManager.getPlayerData().getTown();
+                LoadingTransition lt = LoadingTransition.getInstance();
+                lt.initTransition(TownScreen.class);
+                GameManager.transition = lt;
+                GameManager.isTransition = true;
+            }
 
         }
     }
@@ -409,6 +488,109 @@ public class MapScreen implements Screenable{
                         toTown.getEncountPosY(GameManager.getPlayerData().getTown(),encount+1),
                         cursorAnimTime);
                 Log.d("TownIcon","発見しました");
+            }
+        }
+    }
+
+    protected class MenuDialog{
+        protected float button_height = 0.2f;
+        protected float shop_list_width = 0.5f;
+        protected float shop_list_height = GLES20Util.getHeight_gl();
+        protected float itemList_y = 0;
+        protected float itemList_x = 0;
+        protected Button backButton;
+        protected List itemList;
+        protected PlayerStatas playerStatas;
+        public MenuDialog(){
+            backButton = new Button(0,0,1,1,"戻る");
+            init();
+        }
+        public void init(){
+            playerStatas = new PlayerStatas();
+            this.itemList = new List(0,button_height,shop_list_width,shop_list_height);
+            this.itemList.setContentHeight(0.1f);
+            this.itemList.setTextPaddint(0.03f);
+            this.itemList.setHorizontal(UIAlign.Align.LEFT);
+            this.itemList.setVertical(UIAlign.Align.BOTTOM);
+            this.itemList.setX(itemList_x);
+            this.itemList.setY(itemList_y);
+            PlayerData pd = GameManager.getPlayerData();
+            for(Item item : pd.getItemList()){
+                if(!item.isUseable())
+                    continue;
+                item.setPadding(0.05f);
+                item.setHeight(itemList.getContentHeight() - 0.01f);
+                item.setWidth(itemList_x,itemList.getContentWidth());
+                Button btn = new Button(0,0,1,1,item);
+                btn.setBitmap(Constant.getBitmap(Constant.BITMAP.system_button));
+                btn.setPadding(0.01f);
+                btn.setCriteria(UI.Criteria.Height);
+                btn.setButtonListener(new ItemListListener(item,btn));
+                itemList.addItem(btn);
+            }
+            backButton.setBitmap(Constant.getBitmap(Constant.BITMAP.system_button));
+            backButton.useAspect(true);
+            backButton.setPadding(0.05f);
+            backButton.setCriteria(UI.Criteria.Height);
+            backButton.setHorizontal(UIAlign.Align.RIGHT);
+            backButton.setVertical(UIAlign.Align.BOTTOM);
+            backButton.setHeight(button_height);
+            backButton.setX(GLES20Util.getWidth_gl());
+            backButton.setButtonListener(new ButtonListener() {
+                @Override
+                public void touchDown(Button button) {
+
+                }
+
+                @Override
+                public void touchHover(Button button) {
+
+                }
+
+                @Override
+                public void touchUp(Button button) {
+                    mode = Mode.non;
+                }
+            });
+        }
+        public void touch(){
+            Touch touch = Input.getTouchArray()[0];
+            itemList.touch(touch);
+            backButton.touch(touch);
+        }
+        public void proc(){
+            itemList.proc();
+            backButton.proc();
+            playerStatas.proc();
+        }
+        public void draw(float offsetX,float offsetY){
+            itemList.draw(offsetX,offsetY);
+            playerStatas.draw(offsetX,offsetY);
+            backButton.draw(offsetX,offsetY);
+        }
+        public class ItemListListener implements ButtonListener{
+            protected Item item;
+            protected Button btn;
+            public ItemListListener(Item _item,Button btn){
+                item = _item;
+                this.btn = btn;
+            }
+            @Override
+            public void touchDown(Button button) {
+
+            }
+
+            @Override
+            public void touchHover(Button button) {
+
+            }
+
+            @Override
+            public void touchUp(Button button) {
+                selectItem = item;
+                if(selectItem.getNumber() - 1 <= 0)
+                    itemList.removeItem(btn);
+                    mode = Mode.item_select;
             }
         }
     }

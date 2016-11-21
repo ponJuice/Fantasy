@@ -1,7 +1,7 @@
 <Event name="test_event">
 	<EventCondition>
 		<Conditions mode="or">
-			<Condition type1="const" value1="1" mnemonic="==" type2="const" value2="1"/>
+			<Condition type1="const" value1="1" mnemonic="!=" type2="const" value2="1"/>
 		</Conditions>
 	</EventCondition>
 

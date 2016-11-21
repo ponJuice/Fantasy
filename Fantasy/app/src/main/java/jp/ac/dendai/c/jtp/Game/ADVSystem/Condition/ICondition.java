@@ -7,4 +7,5 @@ import jp.ac.dendai.c.jtp.Game.ADVSystem.Event.Event;
  */
 public interface ICondition {
     public boolean evaluation(Event event);
+    public boolean evaluation();
 }

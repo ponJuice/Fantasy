@@ -1,0 +1,73 @@
+<Event name="test_event_3_dungeon">
+	<EventCondition>
+		<Conditions mode="and">
+			<Condition type1="global" value1="0" mnemonic="==" type2="const" value2="8"/>
+			<Condition type1="system" value1="0" mnemonic="==" type2="coust" value2="6"/>
+		</Conditions>
+	</EventCondition>
+
+	<Face>
+		<face id = "hero" name="アラン" file="hero.png"/>
+		<face id = "noface_hero" name="  " file="noface.png"/>
+		<face id = "heroine" name="クレア" file="heroine.png"/>
+		<face id = "teacher" name="師匠" file="teacher.png"/>
+		<face id = "mobu1" name="門番のおっさん" file="mobu1.png"/>
+		<face id = "mobu2" name="酒場の主" file="mobu1.png"/>
+		<face id = "mobu3" name="太った男" file="mobu2.png"/>
+		<face id = "mobu4" name="華奢な男①" file="mobu3.png"/>
+		<face id = "mobu5" name="華奢な男②" file="mobu3.png"/>
+		<face id = "mobu6" name="貫禄ある男" file="mobu4.png"/>
+	</Face>
+
+	<Image>
+		<image id="town_01" file="town_01.png"/>
+		<image id="town_02" file="town_02.png"/>
+		<image id="town_03" file="town_03.png"/>
+		<image id="kaigi" file="kaigi.png"/>
+		<image id="dungeon_01" file="dungeon_01.png"/>
+		<image id="dungeon_02" file="dungeon_02.png"/>
+		<image id="dungeon_03" file="dungeon_03.png"/>
+
+		<image id="grass" file="grass.png"/>
+		<image id="koya000" file="koya000.png"/>
+		<image id="li_room05a_a" file="li_room05a_a.png"/>
+		<image id="ad_pass01_a" file="ad_pass01_a.png"/>
+		<image id="wall" file="wall.png"/>
+		<image id="sakaba" file="sakaba.png"/>
+	</Image>
+
+	<Contents>
+		<Back id="dungeon_03"/>
+		<Trans mode="fade" type="in"  time="1" color="#FF00FF"/>
+
+
+
+		<Scene face="hero" type="normal">ちょっと、そんなに前に出てじゃ、危ないよ。もっと、俺の後ろにいないと、なんかあるとやばいって。</Scene>
+		<Scene face="noface_hero" type="normal">どんどん前に進むクレアに、アランは注意を促した。</Scene>
+		<Scene face="heroine" type="normal">大丈夫よ。２回も同じような遺跡を探索したわ。わたしの経験によると、これくらいは全然平気よ。</Scene>
+		<Scene face="noface_hero" type="normal">アランの注意を受け流し、そう返事したクレアはそこまで気にした様子だった。</Scene>
+		<Scene face="noface_hero" type="normal">そこで、クレアは周りを観察しながら、遺跡を進んでいくうちに、足元にガチャって音が出た。</Scene>
+		<Scene face="noface_hero" type="normal">いきなり、クレアの足元に床が開き、滑る道が出来上がった。</Scene>
+		<Scene face="heroine" type="normal">えっ、うそでしょ－－－－－－</Scene>
+
+		<Scene face="noface_hero" type="normal">クレアは素っ頓狂な声をあげて、そこに落ちて滑って行った。</Scene>
+
+		<Scene face="hero" type="normal">クレアーーー</Scene>
+
+		<Scene face="heroine" type="normal">それを見たアランはすぐさま、声をあげてクレアの後を追おうとしたが、床がすでに元に戻っている。</Scene>
+		<Scene face="noface_hero" type="normal">慌てたアランはすぐさま、先クレアが引っ掛かったものを探したが、何も見つからずじまいだった。</Scene>
+		<Scene face="hero" type="normal">ふうふう、落ち着け、おれ。</Scene>
+		<Scene face="noface_hero" type="normal">罠は一回しか発動しないと知り、さらに焦ったアランはこのままだとやばいということに気付いて、</Scene>
+		<Scene face="noface_hero" type="normal">自分に言い聞かせて、落ち着こうとした。そして、考え始めた。</Scene>
+		<Scene face="hero" type="normal">クレアは下に向かって滑って行ったんだ。つまり、この遺跡の奥に向かっているのか。</Scene>
+
+		<Scene face="hero" type="normal">急がないと、クレアが危ない。無理して奥に進もう。</Scene>
+		<Scene face="hero" type="normal">敵にあったら、速戦即決で倒し、あるいは回り込んで振りぬければいい。</Scene>
+		<Scene face="hero" type="normal">よし、いくぞ。</Scene>
+		<Scene face="noface_hero" type="normal">案を決め、自分に気合を入れたアランは先に進むことにした。</Scene>
+
+		<Trans mode="fade" type="out"  time="5" color="#000000"/>
+
+		<Flag type1="global" mode1="const" value1="0" type2="const" mode2="const" value2="9"/>
+	</Contents>
+</Event>

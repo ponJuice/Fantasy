@@ -1,0 +1,68 @@
+<Event name="test_event_3_2">
+	<EventCondition>
+		<Conditions mode="and">
+			<Condition type1="global" value1="0" mnemonic="==" type2="const" value2="7"/>
+			<Condition type1="system" value1="0" mnemonic="==" type2="const" value2="2"/>
+		</Conditions>
+	</EventCondition>
+
+	<Face>
+		<face id = "hero" name="アラン" file="hero.png"/>
+		<face id = "noface_hero" name="  " file="noface.png"/>
+		<face id = "heroine" name="クレア" file="heroine.png"/>
+		<face id = "teacher" name="師匠" file="teacher.png"/>
+		<face id = "mobu1" name="門番のおっさん" file="mobu1.png"/>
+		<face id = "mobu2" name="酒場の主" file="mobu1.png"/>
+		<face id = "mobu3" name="太った男" file="mobu2.png"/>
+		<face id = "mobu4" name="華奢な男①" file="mobu3.png"/>
+		<face id = "mobu5" name="華奢な男②" file="mobu3.png"/>
+		<face id = "mobu6" name="貫禄ある男" file="mobu4.png"/>
+	</Face>
+
+	<Image>
+		<image id="town_01" file="town_01.png"/>
+		<image id="town_02" file="town_02.png"/>
+		<image id="town_03" file="town_03.png"/>
+		<image id="kaigi" file="kaigi.png"/>
+		<image id="dungeon_01" file="dungeon_01.png"/>
+		<image id="grass" file="grass.png"/>
+		<image id="koya000" file="koya000.png"/>
+		<image id="li_room05a_a" file="li_room05a_a.png"/>
+		<image id="ad_pass01_a" file="ad_pass01_a.png"/>
+		<image id="wall" file="wall.png"/>
+		<image id="sakaba" file="sakaba.png"/>
+	</Image>
+
+	<Contents>
+
+		<Back id="town_03"/>
+		<Trans mode="fade" type="in"  time="1" color="#FF00FF"/>
+
+
+		<Scene face="hero" type="normal">おっと、やっと着いたか。ここって、随分綺麗な町だなあ。</Scene>
+		<Scene face="noface_hero" type="normal">町についた途端、目の前の風景に感心したアランだった。</Scene>
+		<Scene face="heroine" type="normal">そうね。この町の近くに湖があって、その湖によって、周辺は自然豊かで、ここにいると、心が和むわ。</Scene>
+		<Scene face="noface_hero" type="normal">相変わらず、物知りなクレア式の感心の仕方である。</Scene>
+		<Scene face="heroine" type="normal">ずっとここで和んでいたいけど、目的を忘れないでね。</Scene>
+		<Scene face="heroine" type="normal">さあ、今日は解散、自由活動よ。明日から、目標に向かうわよ。</Scene>
+		<Scene face="noface_hero" type="normal">感心したクレアはすぐさま今回の目的を思い出し、アランに言った。</Scene>
+
+        <Trans mode="fade" type="out"  time="1" color="#FF00FF"/>
+        <Trans mode="fade" type="in"  time="1" color="#FF00FF"/>
+
+		<Scene face="noface_hero" type="normal">次の日、アランは珍しくクレアより先に集合場所についた。</Scene>
+		<Scene face="noface_hero" type="normal">綺麗な湖を見ながら、クレアが来るのを待っているうちに、後ろから声がした。</Scene>
+		<Scene face="heroine" type="normal">おはよう、アラン。珍しいね、私より先に来るとはね。どういう心境の変化よ、それ。</Scene>
+		<Scene face="noface_hero" type="normal">やはり、珍しがられたのか。予想通りなので、別にアランは何も思わなかった。</Scene>
+		<Scene face="hero" type="normal">別に、早めに目覚めただけよ。</Scene>
+		<Scene face="noface_hero" type="normal">そして、クレアもそこまでこだわっていないので、すぐ話を切り替えた。</Scene>
+		<Scene face="heroine" type="normal">あっそう。じゃ、行こうか。</Scene>
+		<Scene face="noface_hero" type="normal">それを聞き、アランは頷いてクレアについていった。</Scene>
+
+
+
+
+		<Trans mode="fade" type="out"  time="5" color="#000000"/>
+		<Flag type1="global" mode1="const" value1="0" type2="const" mode2="const" value2="8"/>
+	</Contents>
+</Event>

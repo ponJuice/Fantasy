@@ -1,0 +1,80 @@
+<Event name="test_event_4_1">
+	<EventCondition>
+		<Conditions mode="or">
+			<Condition type1="global" value1="0" mnemonic="==" type2="const" value2="10"/>
+		</Conditions>
+	</EventCondition>
+
+	<Face>
+		<face id = "hero" name="アラン" file="hero.png"/>
+		<face id = "noface_hero" name="  " file="noface.png"/>
+		<face id = "heroine" name="クレア" file="heroine.png"/>
+		<face id = "teacher" name="師匠" file="teacher.png"/>
+		<face id = "mobu1" name="門番のおっさん" file="mobu1.png"/>
+		<face id = "mobu2" name="酒場の主" file="mobu1.png"/>
+		<face id = "mobu3" name="太った男" file="mobu2.png"/>
+		<face id = "mobu4" name="華奢な男①" file="mobu3.png"/>
+		<face id = "mobu5" name="華奢な男②" file="mobu3.png"/>
+		<face id = "mobu6" name="貫禄ある男" file="mobu4.png"/>
+		<face id = "mobu7" name="黒ずくめの男" file="mobu5.png"/>
+	</Face>
+
+	<Image>
+		<image id="town_01" file="town_01.png"/>
+		<image id="town_02" file="town_02.png"/>
+		<image id="town_03" file="town_03.png"/>
+		<image id="kaigi" file="kaigi.png"/>
+		<image id="dungeon_01" file="dungeon_01.png"/>
+		<image id="dungeon_02" file="dungeon_02.png"/>
+		<image id="dungeon_03" file="dungeon_03.png"/>
+
+		<image id="grass" file="grass.png"/>
+		<image id="koya000" file="koya000.png"/>
+		<image id="li_room05a_a" file="li_room05a_a.png"/>
+		<image id="ad_pass01_a" file="ad_pass01_a.png"/>
+		<image id="wall" file="wall.png"/>
+		<image id="sakaba" file="sakaba.png"/>
+		<image id="syobo" file="syobo.png"/>
+	</Image>
+
+	<Contents>
+		<Back id="syobo"/>
+		<Trans mode="fade" type="in"  time="1" color="#FF00FF"/>
+
+
+		<Scene face="noface_hero" type="normal">とある書房で、華やかな服を着た男は机の前に座っている。</Scene>
+		<Scene face="noface_hero" type="normal">その男の格好をアラン達が見たら、きっと顎がしばらく閉じれないほど驚くのだろう。</Scene>
+		<Scene face="noface_hero" type="normal">なぜなら、その男はこれでもかというくらいに太っている。そんな男の前に跪いている人がいる。</Scene>
+		<Scene face="noface_hero" type="normal" >太った男の部下であろう男は主が桁違いの太さが当り前なことみたいに平然と報告を続けている。</Scene>
+		<Scene face="mobu7" type="normal" >例の者たちはまた一つの遺跡を攻略いたしました。</Scene>
+		<Scene face="noface_hero" type="normal" >太った男は若干感心したのように部下に言った。</Scene>
+		<Scene face="mobu3" type="normal" >ほうほう、ガキにしてはよくやりおるのう。そろそろいいか、動いていいぞ。</Scene>
+		<Scene face="mobu7" type="normal">部下はその言葉に頷いて下がっていた。そして、一人だけになったその男はやや口が吊り上がり呟いた。</Scene>
+		<Scene face="mobu3" type="normal">へへ、伝説の剣か。さぞかし、金になるのだろう。</Scene>
+
+		<Back id="town_03"/>
+		<Trans mode="fade" type="in"  time="1" color="#FF00FF"/>
+
+		<Scene face="noface_hero" type="normal">町の広場で、遺跡攻略から2日が経ち、アラン達は広場で出立の準備をしている。</Scene>
+		<Scene face="noface_hero" type="normal">広場で集合した二人は心なしか若干距離を置いている。</Scene>
+		<Scene face="heroine" type="normal">ねぇ、アラン。なぜ、そんなに離れているわけ。</Scene>
+		<Scene face="noface_hero" type="normal">とうとうその雰囲気に耐え切れなかったのか。クレア先に切り出した。</Scene>
+		<Scene face="hero" type="normal">いや、何となく。</Scene>
+		<Scene face="noface_hero" type="normal">アランは何とも答えにならない返事を返した。</Scene>
+		<Scene face="heroine" type="normal">バカ、何となく距離を置くな。こっちまで気まずくなるわ。こっちに来て、荷物を持ちなさい。</Scene>
+		<Scene face="noface_hero" type="normal">その返事が頭にきたのか。クレアが怒鳴りだし、自分の荷物をアランに押し付けた。</Scene>
+		<Scene face="noface_hero" type="normal">それを聞き、アランはクレアがいつもの調子だと知り、素直に近寄って荷物を運び始めた。</Scene>
+		<Scene face="hero" type="normal">って、今度はどこへ行くわけ？</Scene>
+		<Scene face="noface_hero" type="normal">とアランは荷物を運びながら、クレアに尋ねた。</Scene>
+		<Scene face="heroine" type="normal">へへ、ここから北東にある町よ。ここから直行でもいいし、中継の町を通って行ってもいいよ。</Scene>
+		<Scene face="heroine" type="normal">距離なら直行の方が早いけど、なんか揃いたい場合中継の町に行ったほうがいいね。</Scene>
+
+
+
+
+		<Trans mode="fade" type="out"  time="5" color="#000000"/>
+
+		<Flag type1="global" mode1="const" value1="0" type2="const" mode2="const" value2="11"/>
+		<JumpTown name="スリーク" />
+	</Contents>
+</Event>

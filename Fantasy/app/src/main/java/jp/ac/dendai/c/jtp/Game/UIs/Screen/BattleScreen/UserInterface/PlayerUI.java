@@ -1,6 +1,7 @@
 package jp.ac.dendai.c.jtp.Game.UIs.Screen.BattleScreen.UserInterface;
 
 import android.graphics.Color;
+import android.media.audiofx.LoudnessEnhancer;
 
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Component.Enum.FaceType;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleAction;
@@ -9,6 +10,8 @@ import jp.ac.dendai.c.jtp.Game.Charactor.Face;
 import jp.ac.dendai.c.jtp.Game.Charactor.FaceReader;
 import jp.ac.dendai.c.jtp.Game.Constant;
 import jp.ac.dendai.c.jtp.Game.GameUI.Gage;
+import jp.ac.dendai.c.jtp.Game.UIs.UI.Text.NumberText;
+import jp.ac.dendai.c.jtp.Game.UIs.UI.Text.StaticText;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.UIAlign;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Image.Image;
 
@@ -29,11 +32,15 @@ public class PlayerUI {
     protected final static float mp_gage_y = hp_gage_y-gage_height-0.05f;
     protected final static int hp_gage_front_color = Color.argb(255,30,71,255);
     protected final static int hp_gage_back_color = Color.argb(255,255,0,0);
-    protected final static int mp_gage_front_color = Color.argb(255,110,244,66);
+    protected final static int mp_gage_front_color = Color.argb(255,46,135,18);
     protected final static int mp_gage_back_color = Color.argb(255,255,0,0);
     protected final static float name_x = 0.33f;
     protected final static float name_y = 0.28f;
     protected final static float name_height = 0.1f;
+    protected StaticText hp_base_number;
+    protected NumberText hp_number;
+    protected StaticText mp_base_number;
+    protected NumberText mp_number;
     protected Image waku,name;
     protected Gage hp_gage;
     protected Gage mp_gage;
@@ -44,6 +51,7 @@ public class PlayerUI {
     protected boolean isDamage = false;
     protected float timeBuffer = 0;
     protected Player player;
+    protected float x = 0,y = 0;
 
     public PlayerUI(Player player){
         this.player = player;
@@ -91,6 +99,50 @@ public class PlayerUI {
 
         mp_gage.setX(mp_gage_x);
         mp_gage.setY(mp_gage_y);
+
+        hp_base_number = new StaticText("/"+(int)player.getBaseHp(),null);
+        mp_base_number = new StaticText("/"+(int)player.getBaseMp(),null);
+        hp_number = new NumberText(Constant.fontName);
+        mp_number = new NumberText(Constant.fontName);
+
+        hp_base_number.useAspect(true);
+        hp_base_number.setHeight(gage_height*3f);
+        hp_base_number.setHorizontal(UIAlign.Align.LEFT);
+        mp_base_number.useAspect(true);
+        mp_base_number.setHeight(gage_height*3f);
+        mp_base_number.setHorizontal(UIAlign.Align.LEFT);
+        hp_number.useAspect(true);
+        hp_number.setHeight(gage_height*3f);
+        hp_number.setHorizontal(UIAlign.Align.RIGHT);
+        mp_number.useAspect(true);
+        mp_number.setHeight(gage_height*3f);
+        mp_number.setHorizontal(UIAlign.Align.RIGHT);
+        hp_number.setNumber((int)player.getHp());
+        mp_number.setNumber((int)player.getMp());
+
+        hp_number.setX(hp_gage_x + gage_width);
+        hp_number.setY(hp_gage_y);
+        hp_base_number.setX(hp_gage_x + gage_width);
+        hp_base_number.setY(hp_gage_y);
+
+        mp_number.setX(mp_gage_x + gage_width);
+        mp_number.setY(mp_gage_y);
+        mp_base_number.setX(mp_gage_x + gage_width);
+        mp_base_number.setY(mp_gage_y);
+
+    }
+
+    public float getWidth(){
+        return waku.getWidth();
+    }
+    public float getHeight(){
+        return waku.getHeight();
+    }
+    public float getX(){
+        return x;
+    }
+    public float getY(){
+        return y;
     }
 
     public boolean isEndGageEffect(){
@@ -100,6 +152,11 @@ public class PlayerUI {
     public void proc(){
     }
 
+    public void refreshData(){
+        hp_number.setNumber((int)hp_gage.getValue());
+        mp_number.setNumber((int)mp_gage.getValue());
+    }
+
     public Gage getHpGage(){
         return hp_gage;
     }
@@ -107,10 +164,23 @@ public class PlayerUI {
     public Gage getMpGage(){return mp_gage;}
 
     public void draw(float offsetX,float offsetY){
-        waku.draw(offsetX,offsetY);
-        faceImage.draw(offsetX,offsetY);
-        name.draw(offsetX,offsetY);
-        hp_gage.draw(offsetX,offsetY);
-        mp_gage.draw(offsetX,offsetY);
+        hp_number.setNumber((int)hp_gage.getValue());
+        mp_number.setNumber((int)mp_gage.getValue());
+        waku.draw(offsetX+x,offsetY+y);
+        faceImage.draw(offsetX+x,offsetY+y);
+        name.draw(offsetX+x,offsetY+y);
+        hp_gage.draw(offsetX+x,offsetY+y);
+        mp_gage.draw(offsetX+x,offsetY+y);
+        hp_base_number.draw(offsetX+x,offsetY+y);
+        mp_base_number.draw(offsetX+x,offsetY+y);
+        hp_number.draw(offsetX+x,offsetY+y);
+        mp_number.draw(offsetX+x,offsetY+y);
+    }
+
+    public void setX(float x){
+        this.x = x;
+    }
+    public void setY(float y){
+        this.y = y;
     }
 }

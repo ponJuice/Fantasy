@@ -1,0 +1,110 @@
+<Event name="test_event_1_dungeon">
+	<EventCondition>
+		<Conditions mode="and">
+			<Condition type1="global" value1="0" mnemonic="==" type2="const" value2="2"/><!--イベント進行-->
+			<Condition type1="system" value1="0" mnemonic="==" type2="const" value2="4"/><!--ダンジョンに居るか-->
+			<Condition type1="global" value1="127" mnemonic="==" type2="const" value2="1"/><!--敵を倒したか-->
+		</Conditions>
+	</EventCondition>
+
+	<Face>
+		<face id = "hero" name="アラン" file="hero.png"/>
+		<face id = "noface_hero" name="  " file="noface.png"/>
+		<face id = "heroine" name="クレア" file="heroine.png"/>
+		<face id = "teacher" name="師匠" file="teacher.png"/>
+		<face id = "mobu1" name="門番のおっさん" file="mobu1.png"/>
+		<face id = "mobu2" name="酒場の主" file="mobu1.png"/>
+		<face id = "mobu3" name="太った男" file="mobu2.png"/>
+		<face id = "mobu4" name="華奢な男①" file="mobu3.png"/>
+		<face id = "mobu5" name="華奢な男②" file="mobu3.png"/>
+		<face id = "mobu6" name="貫禄ある男" file="mobu4.png"/>
+	</Face>
+
+	<Image>
+		<image id="town_01" file="town_01.png"/>
+		<image id="dungeon_01" file="dungeon_01.png"/>
+		<image id="grass" file="grass.png"/>
+		<image id="koya000" file="koya000.png"/>
+		<image id="li_room05a_a" file="li_room05a_a.png"/>
+		<image id="ad_pass01_a" file="ad_pass01_a.png"/>
+		<image id="wall" file="wall.png"/>
+		<image id="sakaba" file="sakaba.png"/>
+	</Image>
+
+	<Sound>
+		<soune name="angly" file="angly.wav"/>
+	</Sound>
+
+	<Contents>
+
+        <Back id="dungeon_01"/>
+        <Trans mode="fade" type="in"  time="1" color="#FF00FF"/>
+
+
+        <!--
+        <Scene face="noface_hero" type="normal">ダンジョンへ入った途端、モンスターが次から次へとわいてきた。</Scene>
+
+        <Battle back_file="dungeon_01.png">
+            <Enemy id="blue_slime"/>
+
+        </Battle>
+
+		<Battle back_file="dungeon_01.png">
+			<Enemy id="orange_slime"/>
+
+		</Battle>
+        -->
+
+		<Scene face="hero" type="normal">ぜーぜー、はーはー</Scene>
+		<Scene face="noface_hero" type="normal">息が中々整えないアランがそこにいた。</Scene>
+		<Scene face="noface_hero" type="normal">ボスを倒し、やっと回りからモンスターがわいてこなくなったこと、</Scene>
+		<Scene face="noface_hero" type="normal">一息休めるようになったアランは、ようやく遺跡の危険さがわかってきた。</Scene>
+		<Scene face="noface_hero" type="normal">強いボスがいるにも関わらず、モンスターの数も半端じゃない。</Scene>
+		<Scene face="noface_hero" type="normal">連戦が続いて、休む暇もない。まあ、何とかなったと感心した。</Scene>
+		<Scene face="noface_hero" type="normal">それと、クレアは遺跡を観察している。</Scene>
+		<Scene face="noface_hero" type="normal">近くによると、彼女は石板に乗っている古代文字を読んでいることが分かった。</Scene>
+		<Scene face="noface_hero" type="normal">何が乗っているのかを聞いてみた。</Scene>
+		<Scene face="heroine" type="normal">んん、その玉の話が載っている。</Scene>
+		<Scene face="heroine" type="normal">英雄エアトンの剣、いわゆる、今王国にある伝説の剣の由来ね。面白いわ。</Scene>
+		<Scene face="heroine" type="normal">ねぇ、その玉をその剣に近づけてみて。</Scene>
+		<Scene face="noface_hero" type="normal">そうすると、その玉が光になって剣に入ったのを見た。</Scene>
+
+        <Message time="0.1">金の玉をゲット。剣が D rank になった。</Message>
+        <ItemProc name="金の玉" num="1"/>
+
+
+		<Scene face="noface_hero" type="normal">そしたら、連戦の末にボロボロになった剣が元通りになった。若干鋭くも感じる。</Scene>
+		<Scene face="hero" type="normal">これって、剣を修理する効果があるの？</Scene>
+		<Scene face="noface_hero" type="normal">と尋ねたら、</Scene>
+		<Scene face="heroine" type="normal">違う。金の玉は剣を不壊の属性にする。あと、玉の一つごとに剣のランクも上がるわ。</Scene>
+		<Scene face="heroine" type="normal">そして、すべての玉を揃えると、伝説の剣と同等の物になる。</Scene>
+		<Scene face="heroine" type="normal">この石板に書かれているわ。まぁ、調査は済んだわ。帰ろう、残りが帰ってからにしよう。</Scene>
+
+        <Back id="town_01"/>
+        <Trans mode="fade" type="in"  time="1" color="#FF00FF"/>
+
+		<Scene face="noface_hero" type="normal">帰りはそこまで戦闘は起きてなく、無事に町まで帰って来れた。</Scene>
+		<Scene face="noface_hero" type="normal">そして、クレアから護衛の継続を頼まれた。というか、一方的に押し付けられた感もある。</Scene>
+		<Scene face="heroine" type="normal">ねぇ、私は最初も言ったけど、英雄エアトンの足跡を追っているの。</Scene>
+		<Scene face="heroine" type="normal">だから、後いくつかの遺跡を回るから、護衛を頼んだわ。</Scene>
+		<Scene face="heroine" type="normal">じゃ、次の町への行く準備をして、明日出発するから、また明日ね。</Scene>
+		<Scene face="noface_hero" type="normal">と、こんな風になった。</Scene>
+		<Scene face="noface_hero" type="normal">この話を持ち掛けられて、アランは考えた。</Scene>
+		<Scene face="hero" type="normal">師匠に夢を追いかけろって言われたけど、まぁ、とりあえず、伝説の剣を作ろう。</Scene>
+		<Scene face="hero" type="normal">俺も英雄エアトンのように世界の平和を守るぞ。</Scene>
+		<Scene face="noface_hero" type="normal">そして、心の隅にこういう声もある。</Scene>
+		<Scene face="hero" type="normal">クレアについていけば、とりあえず、旅に必要な金の心配はなさそうだ。</Scene>
+		<Scene face="noface_hero" type="normal">当然、アランはこの声を無視して、寝ることにした。</Scene>
+		<Scene face="noface_hero" type="normal">こうして、安易な考えから安易な夢ができたアランはそこで安らかに眠っている。</Scene>
+
+		<Scene face="noface_hero" type="normal">翌日</Scene>
+		<Scene face="heroine" type="normal">おはよう。じゃ行こうか。今度の目的地はここだから、とりあえず近くの町に向かおう。</Scene>
+		<Scene face="noface_hero" type="normal">アランがクレアとあった途端、マップを見せられて、次の目的地を指して、いきなり話を進められて行動に移ろうとした。</Scene>
+		<Scene face="noface_hero" type="normal">アランは地図の内容もろくに見えてないにも関わらず、すぐマップがしまわれてしまった。</Scene>
+
+		<Flag type1="global" mode1="const" value1="0" type2="const" mode2="const" value2="3"/>
+        <Trans mode="fade" type="out"  time="1" color="#000000"/>
+        <JumpTown name="オネット"/>
+
+	</Contents>
+</Event>

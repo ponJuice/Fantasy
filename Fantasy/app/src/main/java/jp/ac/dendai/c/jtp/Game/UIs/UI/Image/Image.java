@@ -19,6 +19,7 @@ public class Image implements UI {
     protected float width,height;
     protected float alpha = 1;
     protected boolean useAspect = true;
+    protected float r = 0.5f,g = 0.5f,b = 0.5f;
     protected float x = 0,y = 0;
     protected GLES20COMPOSITIONMODE mode = GLES20COMPOSITIONMODE.ALPHA;
     public Image(){}
@@ -63,6 +64,17 @@ public class Image implements UI {
             }
         }
     }
+
+    public void setR(int r){
+        this.r = (float)r/255f;
+
+    }
+    public void setG(int g){
+        this.g = (float)g/255f;
+    }
+    public void setB(int b){
+        this.b =(float)b/255;
+    }
     @Override
     public boolean touch(Touch touch) {
         return false;
@@ -76,7 +88,7 @@ public class Image implements UI {
     @Override
     public void draw(float offset_x,float offset_y) {
         if(image != null)
-            GLES20Util.DrawGraph(x + UIAlign.convertAlign(width, horizontal)+offset_x,y + UIAlign.convertAlign(height,vertical)+offset_y,width,height,image,alpha, mode);
+            GLES20Util.DrawGraph(x + UIAlign.convertAlign(width, horizontal)+offset_x,y + UIAlign.convertAlign(height,vertical)+offset_y,width,height,r,g,b,image,alpha, mode);
     }
 
     public float getAlpha() {

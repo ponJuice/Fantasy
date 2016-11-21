@@ -39,10 +39,10 @@ public class BattleAction {
     public Skill skill;
     public Item item;
     public int id;
+    public int damage;
     protected static Skill normalSkill;
     protected BattleManager bm;
     protected NumberText damageText;
-    protected int damage;
     protected int mp;
     protected boolean endEffect = false;
     protected float timeBuffer = 0;
@@ -63,9 +63,9 @@ public class BattleAction {
     }
 
     public void effectReset(){
-        if(skill != null)
+        if(type == ActionType.Skill)
             skill.effectInit();
-        else if(item != null)
+        else if(type == ActionType.Item)
             item.effectInit();
     }
 
@@ -103,6 +103,14 @@ public class BattleAction {
         }else if(type == ActionType.Item){
             if(!endEffect)
                 endEffect = item.drawEffect(owner.getX() + ox,owner.getY() + oy,owner.getSX()*sx,owner.getSY()*sy,deg);
+            else {
+                flag = target.damageAnimation(timeBuffer,this);
+                if(!flag)
+                    timeBuffer += Time.getDeltaTime();
+                else{
+                    timeBuffer = 0;
+                }
+            }
         }
         return flag;
     }
@@ -113,10 +121,8 @@ public class BattleAction {
 
     public void calcDamage(){
         if(type == ActionType.Item) {
-            item.setEffectNumber(100);
-            item.setEffectNumberColor(Color.argb(255,0,255,0));
-            item.setEffectNumberPos(owner.getX(),owner.getY());
-            item.setEffectNumberHeight(owner.getSY()*damage_text_height);
+            item.resetEffect(this);
+            item.calcDamage(this);
             return;
         }
         //ダメージ量の計算
@@ -153,7 +159,11 @@ public class BattleAction {
 
     public void influenceDamage(){
         target.influenceDamage(damage);
-        owner.influenceMp(mp);
+        if(type == ActionType.Item){
+            item.subItem(1);
+        }else {
+            owner.influenceMp(mp);
+        }
     }
 
 

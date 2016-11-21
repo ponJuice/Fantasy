@@ -1,0 +1,101 @@
+<Event name="test_event_4_dungeon_victory">
+	<EventCondition>
+		<Conditions mode="and">
+			<Condition type1="global" value1="0" mnemonic="==" type2="const" value2="13"/>
+			<Condition type1="system" value1="0" mnemonic="==" type2="const" value2="7"/>
+			<Condition type1="global" value1="127" mnemonic="==" type2="const" value2="4"/>
+		</Conditions>
+	</EventCondition>
+
+	<Face>
+		<face id = "hero" name="アラン" file="hero.png"/>
+		<face id = "noface_hero" name="  " file="noface.png"/>
+		<face id = "heroine" name="クレア" file="heroine.png"/>
+		<face id = "teacher" name="師匠" file="teacher.png"/>
+		<face id = "mobu1" name="門番のおっさん" file="mobu1.png"/>
+		<face id = "mobu2" name="酒場の主" file="mobu1.png"/>
+		<face id = "mobu3" name="太った男" file="mobu2.png"/>
+		<face id = "mobu4" name="華奢な男①" file="mobu3.png"/>
+		<face id = "mobu5" name="華奢な男②" file="mobu3.png"/>
+		<face id = "mobu6" name="貫禄ある男" file="mobu4.png"/>
+		<face id = "mobu7" name="黒ずくめの男" file="mobu5.png"/>
+	</Face>
+
+	<Image>
+		<image id="town_01" file="town_01.png"/>
+		<image id="town_02" file="town_02.png"/>
+		<image id="town_03" file="town_03.png"/>
+		<image id="town_04" file="town_04.png"/>
+		<image id="town_05" file="town_05.png"/>
+		<image id="kaigi" file="kaigi.png"/>
+		<image id="dungeon_01" file="dungeon_01.png"/>
+		<image id="dungeon_02" file="dungeon_02.png"/>
+		<image id="dungeon_03" file="dungeon_03.png"/>
+		<image id="dungeon_04" file="dungeon_04.png"/>
+		<image id="dungeon_05" file="dungeon_05.png"/>
+
+		<image id="grass" file="grass.png"/>
+		<image id="koya000" file="koya000.png"/>
+		<image id="li_room05a_a" file="li_room05a_a.png"/>
+		<image id="ad_pass01_a" file="ad_pass01_a.png"/>
+		<image id="wall" file="wall.png"/>
+		<image id="sakaba" file="sakaba.png"/>
+		<image id="syobo" file="syobo.png"/>
+	</Image>
+
+	<Contents>
+
+		<Back id="dungeon_04"/>
+		<Trans mode="fade" type="in"  time="1" color="#FF00FF"/>
+
+        <Message time="0.1">火の玉をゲット。剣が A rank になった。</Message>
+		<ItemProc name="火の玉" num="1"/>
+
+
+		<Scene face="noface_hero" type="normal">アランもクレアが構ってくれることを期待してないのか、赤色の玉を手に取ろうとした。</Scene>
+		<Scene face="noface_hero" type="normal">そこで、背後から、黒ずくめの男が現れて、アランに切りかかった。</Scene>
+		<Scene face="noface_hero" type="normal">それに気付き、辛うじて防いだアランだったが、万全な体制じゃなく、奇襲を受けたため、壁までぶっ飛んだ。</Scene>
+		<Scene face="noface_hero" type="normal">幸いにして、赤色の玉はちゃんとてのひらのなかにある。</Scene>
+		<Scene face="mobu7" type="normal">その剣をわたせ。</Scene>
+		<Scene face="noface_hero" type="normal">と黒ずくめの男が言った。</Scene>
+		<Scene face="hero" type="normal">ふざけるな！</Scene>
+		<Scene face="noface_hero" type="normal">いきなり、攻撃を受けたため、流石のアランも切れたらしい。すぐ赤色の玉を剣に付与して、男に向き直る。</Scene>
+
+
+		<Scene face="mobu7" type="normal">っく、これまでか。</Scene>
+		<Scene face="noface_hero" type="normal">と一言を残し、黒ずくめの男は撤退した。</Scene>
+		<Scene face="hero" type="normal">畜生、なんなんだよ。</Scene>
+		<Scene face="noface_hero" type="normal">わけがわからないらしく、アランがぼやいた。</Scene>
+		<Scene face="noface_hero" type="normal">ここで、クレアはやっと石板を研究し終えたのか。立ち上がり、アランに向き直った。</Scene>
+		<Scene face="heroine" type="normal">えっ、どうしたの。先よりボロボロじゃん。</Scene>
+		<Scene face="noface_hero" type="normal">ひどい在り様のアランをみて、クレアは驚きの声を上げた。</Scene>
+		<Scene face="hero" type="normal">どうしたっじゃないわ。知らない人に攻撃されたんだ。</Scene>
+		<Scene face="noface_hero" type="normal">またまたハイテンションのアランが襲撃を受けたことをクレアに告げた。</Scene>
+		<Scene face="heroine" type="normal">知らない人って、うんーー。</Scene>
+		<Scene face="noface_hero" type="normal">ちょっと考え込んだクレアだった。</Scene>
+		<Scene face="heroine" type="normal">まあいいか。帰ろ。</Scene>
+		<Scene face="noface_hero" type="normal">なぜか、帰ることにした。</Scene>
+		<Scene face="hero" type="normal">いやいや、おかしいだろ。もっと、深刻に考えろよ。</Scene>
+		<Scene face="noface_hero" type="normal">ますます、アランは納得いかない様子に突っ込む。</Scene>
+		<Scene face="heroine" type="normal">考えても、分かんないから、開き直ろよ。</Scene>
+		<Scene face="noface_hero" type="normal">そう言い残し、クレアは帰路に向かった。</Scene>
+		<Scene face="noface_hero" type="normal">なぜか、開き直されたアランは呆然と立ち尽くすしかなかった。</Scene>
+
+		<Back id="town_04"/>
+		<Trans mode="fade" type="in"  time="1" color="#FF00FF"/>
+
+
+		<Scene face="hero" type="normal">ねぇ、なぜ俺を襲ってくるのかな。</Scene>
+		<Scene face="noface_hero" type="normal">未だに襲撃の件に頭を悩ますアランがそこにいた。</Scene>
+		<Scene face="heroine" type="normal">だーかーらー、分かんないことはいつまでも引きずるもんじゃないの。</Scene>
+		<Scene face="noface_hero" type="normal">クレアはその話がうんざりしたような口調で言い返した。</Scene>
+		<Scene face="heroine" type="normal">また、今度襲ってきたら、捕まえて問いただせばいいの。だから、さっさと次の目的地へ行くわ。</Scene>
+		<Scene face="noface_hero" type="normal">なんか物騒な話をサラッと言ったクレアだった。それを気にする暇もなく、引っ張られていくアランだった。。</Scene>
+		<Scene face="heroine" type="normal">そうだね。先に言っとくけど、今度はこの町の北西にある町に向かうわ。</Scene>
+
+		<Trans mode="fade" type="out"  time="5" color="#000000"/>
+
+		<Flag type1="global" mode1="const" value1="0" type2="const" mode2="const" value2="14"/>
+		<JumpTown name="フォーサイド"/>
+	</Contents>
+</Event>

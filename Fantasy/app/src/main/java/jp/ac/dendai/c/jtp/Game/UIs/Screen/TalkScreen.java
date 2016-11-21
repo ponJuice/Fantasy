@@ -1,42 +1,29 @@
 package jp.ac.dendai.c.jtp.Game.UIs.Screen;
 
-import android.graphics.Bitmap;
-import android.util.DebugUtils;
-import android.util.Log;
-
-import jp.ac.dendai.c.jtp.Game.ADVSystem.Component.Enum.FaceType;
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Event.Event;
-import jp.ac.dendai.c.jtp.Game.ADVSystem.Event.EventDebuger;
+import jp.ac.dendai.c.jtp.Game.ADVSystem.Flag.FlagManager;
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Parser.ADVEventParser;
-import jp.ac.dendai.c.jtp.Game.Charactor.Face;
-import jp.ac.dendai.c.jtp.Game.Charactor.FaceReader;
 import jp.ac.dendai.c.jtp.Game.GameManager;
-import jp.ac.dendai.c.jtp.Game.UIs.Transition.StackLoadingTransition;
-import jp.ac.dendai.c.jtp.Game.UIs.UI.Text.StreamText.OneSentenceStreamText;
-import jp.ac.dendai.c.jtp.Game.UIs.UI.TextBox.TalkBox;
+import jp.ac.dendai.c.jtp.Game.UIs.Transition.StackLoadingTransition.StackLoadingTransition;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.UI;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.UIAlign;
 import jp.ac.dendai.c.jtp.TouchUtil.Input;
 import jp.ac.dendai.c.jtp.Game.UIs.Transition.LoadingTransition.LoadingTransition;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Button.Button;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Button.ButtonListener;
-import jp.ac.dendai.c.jtp.Game.UIs.UI.Text.NumberText;
-import jp.ac.dendai.c.jtp.fantasy.R;
-import jp.ac.dendai.c.jtp.openglesutil.Util.FpsController;
-import jp.ac.dendai.c.jtp.openglesutil.core.GLES20Util;
-import jp.ac.dendai.c.jtp.openglesutil.graphic.blending_mode.GLES20COMPOSITIONMODE;
 
 /**
  * Created by Goto on 2016/09/14.
  */
 public class TalkScreen implements Screenable {
+    protected static FlagManager.ScreenType screenType = FlagManager.ScreenType.talk;
     protected boolean freeze;
-    protected Button backButton;
+    //protected Button backButton;
     protected Event event;
 
     public TalkScreen(){
 
-        backButton = new Button(0,0.5f,0.2f,0.1f,"BACK");
+        /*backButton = new Button(0,0.5f,0.2f,0.1f,"BACK");
         backButton.setHorizontal(UIAlign.Align.LEFT);
         backButton.setVertical(UIAlign.Align.BOTTOM);
         backButton.setCriteria(UI.Criteria.Height);
@@ -59,7 +46,7 @@ public class TalkScreen implements Screenable {
                 GameManager.transition  = lt;
                 GameManager.isTransition = true;
             }
-        });
+        });*/
     }
 
     @Override
@@ -76,29 +63,31 @@ public class TalkScreen implements Screenable {
     public void Proc() {
         if(freeze)
             return;
-        if(!event.proc(null)){
+        if(!event.proc()){
             //シーン終了
             StackLoadingTransition slt = StackLoadingTransition.getInstance();
             slt.initStackLoadingTransition();
             GameManager.transition = slt;
             GameManager.isTransition = true;
         }
-        backButton.proc();
+        //backButton.proc();
     }
 
     @Override
     public void Draw(float offsetX, float offsetY) {
         event.draw(offsetX,offsetY);
-        backButton.draw(offsetX,offsetY);
+        //backButton.draw(offsetX,offsetY);
+    }
+
+    @Override
+    public void init() {
+        FlagManager.setFlagValue(FlagManager.FlagType.global,1,screenType.getInt());
     }
 
     @Override
     public void Touch() {
         if(freeze)
             return;
-        for(int n = 0;n < Input.getMaxTouch();n++){
-            backButton.touch(Input.getTouchArray()[n]);
-        }
         event.touch();
     }
 

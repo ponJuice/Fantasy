@@ -13,6 +13,7 @@ import javax.microedition.khronos.opengles.GL10;
 
 import jp.ac.dendai.c.jtp.Game.GameManager;
 import jp.ac.dendai.c.jtp.Game.UIs.Screen.DebugEventSelectScreen;
+import jp.ac.dendai.c.jtp.Game.UIs.Screen.StartScreen;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Util.Time;
 import jp.ac.dendai.c.jtp.TouchUtil.Input;
 import jp.ac.dendai.c.jtp.TouchUtil.Touch;
@@ -108,6 +109,7 @@ public class MainActivity extends Activity implements GLSurfaceView.Renderer{
     @Override
     protected void onResume() {
         super.onResume();
+        GameManager.resume();
         if(GameManager.nowScreen != null)
             GameManager.nowScreen.resume();
     }
@@ -115,8 +117,10 @@ public class MainActivity extends Activity implements GLSurfaceView.Renderer{
     @Override
     public void onPause(){
         super.onPause();
-        if(GameManager.nowScreen != null)
+        GameManager.pause();
+        if(GameManager.nowScreen != null) {
             GameManager.nowScreen.pause();
+        }
     }
 
     @Override
@@ -144,7 +148,8 @@ public class MainActivity extends Activity implements GLSurfaceView.Renderer{
 
     private void process(){
         if(firstStart){
-            GameManager.nowScreen = new DebugEventSelectScreen();//TownScreen();
+            GameManager.nowScreen = new StartScreen();//TownScreen();
+            GameManager.nowScreen.unFreeze();
             firstStart = false;
         }
         Time.tick();

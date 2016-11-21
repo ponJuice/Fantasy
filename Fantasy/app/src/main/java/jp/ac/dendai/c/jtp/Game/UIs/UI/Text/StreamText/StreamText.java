@@ -35,6 +35,7 @@ public class StreamText implements UI{
         this.offset = offset;
     }
 
+
     public void setHeight(float n){
         length_y = n;
         length_x = n * aspect;

@@ -1,0 +1,85 @@
+<Event name="test_event_3_dungeon_victory">
+	<EventCondition>
+		<Conditions mode="and">
+			<Condition type1="global" value1="0" mnemonic="==" type2="const" value2="9"/>
+			<Condition type1="global" value1="127" mnemonic="==" type2="const" value2="3"/>
+		</Conditions>
+	</EventCondition>
+
+	<Face>
+		<face id = "hero" name="アラン" file="hero.png"/>
+		<face id = "noface_hero" name="  " file="noface.png"/>
+		<face id = "heroine" name="クレア" file="heroine.png"/>
+		<face id = "teacher" name="師匠" file="teacher.png"/>
+		<face id = "mobu1" name="門番のおっさん" file="mobu1.png"/>
+		<face id = "mobu2" name="酒場の主" file="mobu1.png"/>
+		<face id = "mobu3" name="太った男" file="mobu2.png"/>
+		<face id = "mobu4" name="華奢な男①" file="mobu3.png"/>
+		<face id = "mobu5" name="華奢な男②" file="mobu3.png"/>
+		<face id = "mobu6" name="貫禄ある男" file="mobu4.png"/>
+	</Face>
+
+	<Image>
+		<image id="town_01" file="town_01.png"/>
+		<image id="town_02" file="town_02.png"/>
+		<image id="town_03" file="town_03.png"/>
+		<image id="kaigi" file="kaigi.png"/>
+		<image id="dungeon_01" file="dungeon_01.png"/>
+		<image id="dungeon_02" file="dungeon_02.png"/>
+		<image id="dungeon_03" file="dungeon_03.png"/>
+
+		<image id="grass" file="grass.png"/>
+		<image id="koya000" file="koya000.png"/>
+		<image id="li_room05a_a" file="li_room05a_a.png"/>
+		<image id="ad_pass01_a" file="ad_pass01_a.png"/>
+		<image id="wall" file="wall.png"/>
+		<image id="sakaba" file="sakaba.png"/>
+	</Image>
+
+	<Contents>
+		<Back id="dungeon_03"/>
+		<Trans mode="fade" type="in"  time="1" color="#FF00FF"/>
+
+		<Scene face="heroine" type="normal">キャー、助けてーー、アラン</Scene>
+		<Scene face="noface_hero" type="normal">急いて奥にたどり着こうとするアランはクレアの声が聞こえて、同じく大きな声を出した。</Scene>
+		<Scene face="hero" type="normal">持ちこたえろ、クレア、すぐ行く。</Scene>
+		<Scene face="noface_hero" type="normal">それを言い、さらに加速したアランがそこにいた。</Scene>
+		<Scene face="noface_hero" type="normal">そして、やっとクレアを見つけたアランはクレアが遺跡の主に襲われるところを見た。</Scene>
+		<Scene face="noface_hero" type="normal">キン</Scene>
+		<Scene face="noface_hero" type="normal">間一髪に、アランがクレアと主の間に入り、攻撃を受けた。</Scene>
+
+
+		<Battle back_file="dungeon_03.png">
+			<Enemy id="monster-3"/>
+			<Enemy id="monster-4"/>
+
+		</Battle>
+
+		<Message time="0.1">水の玉をゲット。剣が B rank になった。</Message>
+		<ItemProc name="水の玉" num="1"/>
+
+
+		<Scene face="noface_hero" type="normal">やっとクレアを無事に見つけて、ボスを倒したアランは安堵した。</Scene>
+
+		<Scene face="noface_hero" type="normal">そして、アランが振り返ったら、何かに抱き着かれた。</Scene>
+		<Scene face="noface_hero" type="normal">それがクレアに気付き、驚いて両手をどうすればいいかに戸惑った。</Scene>
+		<Scene face="noface_hero" type="normal">また、クレアの体からいい香りがしてきたので、少々気分が高揚したアラン出会った。</Scene>
+		<Scene face="noface_hero" type="normal">しばらく、そのままにして、クレアからアランを放した。それに対し、少々惜しいなとアランは思った。</Scene>
+		<Scene face="noface_hero" type="normal">そして、クレアは振り返り、古代文字を研究し始めた。まるで、何もなかったのように遺跡の石板に没頭した。</Scene>
+		<Scene face="noface_hero" type="normal">それを見て、アランはなぜかショックを受けた。しかし、すぐに切り替えてクレアに内容を聞いた。</Scene>
+		<Scene face="noface_hero" type="normal">そして、クレアから、水の玉が持つ人の体の回復力を上げる効果があることを教わった。</Scene>
+		<Scene face="noface_hero" type="normal">ちょっと待っているうちに、クレアが振り返り、アランに言った。</Scene>
+		<Scene face="heroine" type="normal">帰るよ。</Scene>
+		<Scene face="noface_hero" type="normal">そして、帰路では二人の間に一言も交わさなかった。</Scene>
+		<Scene face="noface_hero" type="normal">静かに先を急いだ二人は町にようやく帰ってきた。そして、静寂を破ったのはクレアだった。</Scene>
+		<Scene face="heroine" type="normal">次の目的地が分かったわ。</Scene>
+		<Scene face="heroine" type="normal">明日もその準備に充てることもあるし、私もちょっと気持ちの整理が必要だから、明日は休憩にする。</Scene>
+		<Scene face="heroine" type="normal">今日はもう解散よ。いいね。</Scene>
+		<Scene face="noface_hero" type="normal">それを言い残し慌ててどこかへ行ってしまったクレアを観察し、</Scene>
+		<Scene face="noface_hero" type="normal">だんだんと調子を戻している彼女に気付き、アランは安堵した。</Scene>
+
+		<Trans mode="fade" type="out"  time="5" color="#000000"/>
+
+		<Flag type1="global" mode1="const" value1="0" type2="const" mode2="const" value2="10"/>
+	</Contents>
+</Event>

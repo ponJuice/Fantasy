@@ -1,0 +1,74 @@
+<Event name="test_event_3_1">
+	<EventCondition>
+		<Conditions mode="and">
+			<Condition type1="global" value1="0" mnemonic="==" type2="const" value2="6"/>
+		</Conditions>
+	</EventCondition>
+
+	<Face>
+		<face id = "hero" name="アラン" file="hero.png"/>
+		<face id = "noface_hero" name="  " file="noface.png"/>
+		<face id = "heroine" name="クレア" file="heroine.png"/>
+		<face id = "teacher" name="師匠" file="teacher.png"/>
+		<face id = "mobu1" name="門番のおっさん" file="mobu1.png"/>
+		<face id = "mobu2" name="酒場の主" file="mobu1.png"/>
+		<face id = "mobu3" name="太った男" file="mobu2.png"/>
+		<face id = "mobu4" name="華奢な男①" file="mobu3.png"/>
+		<face id = "mobu5" name="華奢な男②" file="mobu3.png"/>
+		<face id = "mobu6" name="貫禄ある男" file="mobu4.png"/>
+	</Face>
+
+	<Image>
+		<image id="town_01" file="town_01.png"/>
+		<image id="town_02" file="town_02.png"/>
+		<image id="kaigi" file="kaigi.png"/>
+		<image id="dungeon_01" file="dungeon_01.png"/>
+		<image id="grass" file="grass.png"/>
+		<image id="koya000" file="koya000.png"/>
+		<image id="li_room05a_a" file="li_room05a_a.png"/>
+		<image id="ad_pass01_a" file="ad_pass01_a.png"/>
+		<image id="wall" file="wall.png"/>
+		<image id="sakaba" file="sakaba.png"/>
+	</Image>
+
+	<Contents>
+		<Back id="kaigi"/>
+		<Trans mode="fade" type="in"  time="1" color="#FF00FF"/>
+
+
+		<Scene face="noface_hero" type="normal">華やかの会議室内</Scene>
+		<Scene face="noface_hero" type="normal">そこに何人か円卓の前に座っていて会議をされている。</Scene>
+		<Scene face="noface_hero" type="normal">その中で、一人が一つの話題を切り出した。</Scene>
+		<Scene face="mobu3" type="normal">ところで、諸君。聞いているかね。各町の周辺にある遺跡はもうすでに二人の人間によって、二つも攻略されているのだ。</Scene>
+		<Scene face="mobu3" type="normal">そして、例の素材があるっていう情報を手に入れている。みんなの意見が聞きたい。</Scene>
+		<Scene face="noface_hero" type="normal">それを聞き、一人が感心した。</Scene>
+		<Scene face="mobu4" type="normal">素材って、あのレア素材か。まさか、千年経つと再生されるという伝説は本当だったとは。</Scene>
+		<Scene face="noface_hero" type="normal">そして、もう一人が言い出した。</Scene>
+		<Scene face="mobu5" type="normal">別に大したことではないだろう。</Scene>
+		<Scene face="hero" type="normal">最後に、その中の一番貫禄のある人が命令口調で言った。</Scene>
+		<Scene face="mobu6" type="normal">放っておけ。命知らずの二人が、遺跡の事をなめておる。そのうち痛い目にあって諦めるだろう。</Scene>
+		<Scene face="mobu6" type="normal">次の件に検討しよう。</Scene>
+		<Scene face="noface_hero" type="normal">どうやら、アランとクレアのことは全然重視されている様子で、会議室内での人達はすぐさま次の話題を議論し始めた。</Scene>
+		<Scene face="noface_hero" type="normal">しかし、その件を言い出した本人だけ、その様子をみて、俯いて歪な笑みを浮かんできている。</Scene>
+
+		<Back id="town_02"/>
+		<Trans mode="fade" type="in"  time="1" color="#FF00FF"/>
+
+		<Scene face="noface_hero" type="normal">場所が移り替わり、とある商いの盛んでいる町の中。</Scene>
+		<Scene face="noface_hero" type="normal">現在、アランとクレアは再び広場で集合した。</Scene>
+		<Scene face="noface_hero" type="normal">流石のクレアでも、今回の遺跡探索で疲れたみたく、一日の休憩を挟んだ後である。</Scene>
+		<Scene face="noface_hero" type="normal">二人は顔を合わせてた途端、例のごとく、クレアから言い出した。</Scene>
+		<Scene face="heroine" type="normal">んん、おはよう。アラン、すっかり休んだ。前の遺跡で、次の目標が分かったわ。</Scene>
+		<Scene face="noface_hero" type="normal">といい終えて、歩き出そうとしたクレアだが、急に踏みとどまって、アランに聞いた。</Scene>
+		<Scene face="heroine" type="normal">そうそう、次の町はここより品揃えが良くないから、ここで次の準備をした方がいいよ。まあ、今回は任せるわ。</Scene>
+		<Scene face="noface_hero" type="normal">クレアが自分勝手で進むことに慣れたアランは、自分にまかせると言ったクレアに本気で驚いたけど、</Scene>
+		<Scene face="noface_hero" type="normal">すぐ我に返って、どうしようって考え始めた。</Scene>
+
+
+
+
+		<Trans mode="fade" type="out"  time="5" color="#000000"/>
+		<Flag type1="global" mode1="const" value1="0" type2="const" mode2="const" value2="7"/>
+		<JumpTown name="ツーソン"/>
+	</Contents>
+</Event>

@@ -34,10 +34,12 @@ public class Town {
     protected final static String attrib_image = "image";
     protected final static String attrib_hotel = "price";
     protected final static String attrib_name = "name";
+    protected final static String attrib_dungeon = "dungeon";
+    protected final static String attrib_id = "id";
     protected final static String attrib_x = "x";
     protected final static String attrib_y = "y";
     protected final static float icon_width = 0.05f;
-    protected final static float icon_height = 0.05f;
+    protected final static float icon_height = 0.08f;
     protected float icon_alpha = 1f;
     protected String name;
     protected Bitmap nameImage;
@@ -46,12 +48,11 @@ public class Town {
     protected int hotelPrice;
     protected ArrayList<ShopItem> shopItem;
     protected ArrayList<Node> nodes;
+    protected boolean isDungeon;
+    protected int id;
 
     public Town(){
         btnIcon = new Button(0,0,1,1);
-        btnIcon.setBitmap(Constant.getBitmap(Constant.BITMAP.white));
-        btnIcon.useAspect(true);
-        btnIcon.setHeight(icon_height);
         shopItem = new ArrayList<>();
         nodes = new ArrayList<>();
     }
@@ -68,6 +69,14 @@ public class Town {
             }
         }
         return null;
+    }
+
+    public boolean isDungeon(){
+        return isDungeon;
+    }
+
+    public int getHotelPrice(){
+        return hotelPrice;
     }
 
     public ArrayList<ShopItem> getShopItem(){
@@ -111,6 +120,10 @@ public class Town {
         //GLES20Util.DrawGraph(x,y,icon_width,icon_height,b,icon_alpha, GLES20COMPOSITIONMODE.ALPHA);
     }
 
+    public int getId(){
+        return id;
+    }
+
     public void debugSet(float x,float y){
         btnIcon.setX(x);
         btnIcon.setY(y);
@@ -122,7 +135,22 @@ public class Town {
         town.nameImage = GLES20Util.stringToBitmap(town.name, Constant.fontName,25,255,255,255);
         town.btnIcon.setX(Float.parseFloat(xpp.getAttributeValue(null,attrib_x)));
         town.btnIcon.setY(Float.parseFloat(xpp.getAttributeValue(null,attrib_y)));
-        town.background = new Image(ImageReader.readImageToAssets(Constant.image_file_directory + xpp.getAttributeValue(null,attrib_image)));
+        String backFile = xpp.getAttributeValue(null,attrib_image);
+        if(backFile == null)
+            town.background = new Image(Constant.getBitmap(Constant.BITMAP.white));
+        else
+            town.background = new Image(ImageReader.readImageToAssets(Constant.image_file_directory + backFile));
+        town.id = ParserUtil.convertInt(xpp,attrib_id);
+        town.isDungeon = false;
+        String bool = xpp.getAttributeValue(null,attrib_dungeon);
+        if(bool != null){
+            town.isDungeon = Boolean.parseBoolean(bool);
+            town.btnIcon.setBitmap(Constant.getBitmap(Constant.BITMAP.dungeon_icon));
+        }else{
+            town.btnIcon.setBitmap(Constant.getBitmap(Constant.BITMAP.town_icon));
+        }
+        town.btnIcon.useAspect(true);
+        town.btnIcon.setHeight(icon_height);
 
         int eventType = XmlPullParser.END_DOCUMENT;
         try{

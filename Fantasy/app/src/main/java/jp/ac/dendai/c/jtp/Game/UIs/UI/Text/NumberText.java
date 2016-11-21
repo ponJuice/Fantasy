@@ -136,7 +136,7 @@ public class NumberText extends Image {
             numDigit = dig;
         if(num < 0)
             numDigit++;
-        if(orientation == ORIENTATION.horizontal) {
+        if(orientation != ORIENTATION.horizontal) {
             this.height = height * numDigit;
         }else{
             this.height = height;

@@ -1,0 +1,61 @@
+<Dungeons>
+    <Dungeon name="最初の遺跡" id="0" image = "dungeon_01.png">
+        <Point x="0.05" y="0.05"  id="0" start="true"/>
+        <Point x="0.5" y="0.8" id="1"/>
+        <Point x="1" y="0.05" id="2" enemy="true" back="dungeon_01.png">
+            <Enemy name="boss_1"/>
+            <Flag type1="global" mode1="const" value1="127" type2="const" mode2="const" value2="1"/>
+        </Point>
+        <Nodes>
+            <Node point1="0" point2="1" rank="1" encount="1" back="dungeon_01.png"/>
+            <Node point1="1" point2="2" rank="1" encount="1" back="dungeon_01.png"/>
+        </Nodes>
+    </Dungeon>
+    <Dungeon name="二番目の遺跡" id="1" image = "dungeon_02.png">
+        <Point x="0.05" y="0.05"  id="0" start="true"/>
+        <Point x="0.4" y="0.5" id="1"/>
+        <Point x="1.1" y="0.8" id="2" enemy="true" back="dungeon_02.png">
+            <Enemy name="boss_1"/>
+            <Flag type1="global" mode1="const" value1="127" type2="const" mode2="const" value2="2"/>
+        </Point>
+        <Nodes>
+            <Node point1="0" point2="1" rank="2" encount="2" back="dungeon_02.png"/>
+            <Node point1="1" point2="2" rank="2" encount="2" back="dungeon_02.png"/>
+        </Nodes>
+    </Dungeon>
+    <Dungeon name="三番目の遺跡" id="2" image = "dungeon_03.png">
+        <Point x="0.05" y="0.05"  id="0" start="true"/>
+        <Point x="0.5" y="0.8" id="1"/>
+        <Point x="1" y="0.05" id="2" enemy="true" back="dungeon_01.png">
+            <Flag type1="global" mode1="const" value1="127" type2="const" mode2="const" value2="3"/>
+        </Point>
+        <Nodes>
+            <Node point1="0" point2="1" rank="3" encount="3" back="dungeon_03.png"/>
+            <Node point1="1" point2="2" rank="3" encount="3" back="dungeon_03.png"/>
+        </Nodes>
+    </Dungeon>
+    <Dungeon name="四番目の遺跡" id="3" image = "dungeon_04.png">
+        <Point x="0.05" y="0.05"  id="0" start="true"/>
+        <Point x="0.4" y="0.5" id="1"/>
+        <Point x="1.1" y="0.8" id="2" enemy="true" back="dungeon_04.png">
+            <Enemy name="monster-5"/>
+            <Enemy name="monster-6"/>
+            <Flag type1="global" mode1="const" value1="127" type2="const" mode2="const" value2="4"/>
+        </Point>
+        <Nodes>
+            <Node point1="0" point2="1" rank="4" encount="4" back="dungeon_04.png"/>
+            <Node point1="1" point2="2" rank="4" encount="4" back="dungeon_04.png"/>
+        </Nodes>
+    </Dungeon>
+    <Dungeon name="五番目の遺跡" id="4" image = "dungeon_05.png">
+        <Point x="0.05" y="0.05"  id="0" start="true"/>
+        <Point x="0.5" y="0.8" id="1"/>
+        <Point x="1" y="0.05" id="2" enemy="true" back="dungeon_05.png">
+            <Flag type1="global" mode1="const" value1="127" type2="const" mode2="const" value2="5"/>
+        </Point>
+        <Nodes>
+            <Node point1="0" point2="1" rank="5" encount="5" back="dungeon_05.png"/>
+            <Node point1="1" point2="2" rank="5" encount="5" back="dungeon_05.png"/>
+        </Nodes>
+    </Dungeon>
+</Dungeons>

@@ -12,6 +12,7 @@ import jp.ac.dendai.c.jtp.Game.Constant;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Text.StaticText;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.TextBox.TextBox;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Util.Time;
+import jp.ac.dendai.c.jtp.ParserUtil;
 import jp.ac.dendai.c.jtp.openglesutil.core.GLES20Util;
 
 /**
@@ -100,6 +101,9 @@ public class MessageBox extends ADVComponent implements Parseable {
     @Override
     public void parseCreate(AssetManager am, XmlPullParser xpp) {
         time = 1;
+        String _time = xpp.getAttributeValue(null,attrib_time);
+        if(_time != null)
+            time = Float.parseFloat(_time);
         //String text_id = xpp.getAttributeValue(null,attrib_text);
         String _text = "読み込み失敗";
         int eventType = XmlPullParser.END_DOCUMENT;
@@ -128,10 +132,6 @@ public class MessageBox extends ADVComponent implements Parseable {
         }
         text = new StaticText(_text, Constant.getBitmap(Constant.BITMAP.white));
         textBox.setBackground(Constant.getBitmap(Constant.BITMAP.system_message_box));
-
-        String _time = xpp.getAttributeValue(null,attrib_time);
-        if(_time != null)
-            time = Float.parseFloat(_time);
     }
 
     @Override
