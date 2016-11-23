@@ -14,7 +14,6 @@ import jp.ac.dendai.c.jtp.Game.ADVSystem.Component.Enum.FaceType;
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Event.Event;
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Parser.AssetManager;
 import jp.ac.dendai.c.jtp.Game.ADVSystem.Parser.Parseable;
-import jp.ac.dendai.c.jtp.Game.ADVSystem.Texts.TextManager;
 import jp.ac.dendai.c.jtp.Game.Charactor.Face;
 import jp.ac.dendai.c.jtp.Game.Charactor.FaceManager;
 import jp.ac.dendai.c.jtp.Game.Constant;

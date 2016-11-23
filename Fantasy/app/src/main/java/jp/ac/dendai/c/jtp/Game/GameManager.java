@@ -9,6 +9,7 @@ import java.util.ArrayDeque;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Player.Player;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Player.PlayerData;
 import jp.ac.dendai.c.jtp.Game.UIs.Screen.Screenable;
+import jp.ac.dendai.c.jtp.Game.UIs.Screen.TalkScreen;
 import jp.ac.dendai.c.jtp.Game.UIs.Transition.Transitionable;
 
 public class GameManager {

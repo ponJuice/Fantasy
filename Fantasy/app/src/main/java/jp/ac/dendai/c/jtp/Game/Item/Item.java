@@ -1,14 +1,11 @@
 package jp.ac.dendai.c.jtp.Game.Item;
 
 import android.graphics.Bitmap;
-import android.graphics.Color;
 
 import jp.ac.dendai.c.jtp.Game.BattleSystem.BattleAction;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Player.PlayerData;
 import jp.ac.dendai.c.jtp.Game.BattleSystem.Skill.Animation;
 import jp.ac.dendai.c.jtp.Game.Constant;
-import jp.ac.dendai.c.jtp.Game.Item.Effects.ItemEffect;
-import jp.ac.dendai.c.jtp.Game.UIs.Effects.Effect;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.Text.NumberText;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.UI;
 import jp.ac.dendai.c.jtp.Game.UIs.UI.UIAlign;
